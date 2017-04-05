@@ -1,6 +1,7 @@
-package org.billow.dao.base;
+package org.billow.api.base;
 
-public interface BaseMapper<T> {
+
+public interface BaseService<T> {
 	int deleteByPrimaryKey(Integer userId);
 
 	int insert(T record);
@@ -12,5 +13,4 @@ public interface BaseMapper<T> {
 	int updateByPrimaryKeySelective(T record);
 
 	int updateByPrimaryKey(T record);
-
 }

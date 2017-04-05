@@ -1,7 +1,7 @@
 package org.billow.api;
 
-import com.billow.base.service.BaseService;
-import com.billow.business.model.SystemLog;
+import org.billow.api.base.BaseService;
+import org.billow.model.domain.SystemLog;
 
 public interface SystemLogService extends BaseService<SystemLog> {
 

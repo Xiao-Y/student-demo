@@ -1,7 +1,8 @@
 package org.billow.dao;
 
-import com.billow.base.mapper.BaseMapper;
-import com.billow.business.model.SystemLog;
+import org.billow.dao.base.BaseMapper;
+import org.billow.model.domain.SystemLog;
+
 
 public interface SystemLogMapper extends BaseMapper<SystemLog> {
 

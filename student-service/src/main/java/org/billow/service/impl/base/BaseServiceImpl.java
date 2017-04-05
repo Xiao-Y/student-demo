@@ -1,7 +1,7 @@
 package org.billow.service.impl.base;
 
-import com.billow.base.mapper.BaseMapper;
-import com.billow.base.service.BaseService;
+import org.billow.api.base.BaseService;
+import org.billow.dao.base.BaseMapper;
 
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 

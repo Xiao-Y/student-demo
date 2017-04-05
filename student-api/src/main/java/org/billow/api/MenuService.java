@@ -2,8 +2,8 @@ package org.billow.api;
 
 import java.util.List;
 
-import com.billow.base.service.BaseService;
-import com.billow.business.model.Menu;
+import org.billow.api.base.BaseService;
+import org.billow.model.domain.Menu;
 
 public interface MenuService extends BaseService<Menu> {
 	public List<Menu> getMenuChildList(int id);

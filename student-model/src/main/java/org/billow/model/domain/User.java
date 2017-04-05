@@ -1,6 +1,6 @@
 package org.billow.model.domain;
 
-import com.billow.base.model.BaseModel;
+import org.billow.model.base.BaseModel;
 
 public class User extends BaseModel {
 	private Integer userId;

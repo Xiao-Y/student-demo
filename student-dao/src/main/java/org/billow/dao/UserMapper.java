@@ -2,8 +2,9 @@ package org.billow.dao;
 
 import java.util.List;
 
-import com.billow.base.mapper.BaseMapper;
-import com.billow.business.model.User;
+import org.billow.dao.base.BaseMapper;
+import org.billow.model.domain.User;
+
 
 public interface UserMapper extends BaseMapper<User> {
 

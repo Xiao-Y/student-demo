@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>student-model</artifactId>
-	<name>student-domain</name>
+	<name>student-model</name>
 	<packaging>jar</packaging>
 
 	<dependencies>
