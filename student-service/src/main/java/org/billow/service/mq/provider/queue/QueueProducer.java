@@ -1,4 +1,4 @@
-package org.bilow.common.mq.producer.queue;
+package org.billow.service.mq.provider.queue;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
@@ -18,17 +18,16 @@ public class QueueProducer {
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(QueueProducer.class);
-	private final org.slf4j.Logger logger2 = LoggerFactory.getLogger(QueueProducer.class); 
-	
+	private final org.slf4j.Logger logger2 = LoggerFactory.getLogger(QueueProducer.class);
 
-	@Resource(name="jmsQueueTemplate")
+	@Resource(name = "jmsQueueTemplate")
 	private JmsTemplate jmsQueueTemplate;
-	
-	public void sendMessage(Destination destination,final String msg){
+
+	public void sendMessage(Destination destination, final String msg) {
 		logger.error("向队列" + destination.toString() + "发送了消息------------" + msg);
 		logger2.error("向队列" + destination.toString() + "发送了消息------------" + msg);
 		jmsQueueTemplate.send(destination, new MessageCreator() {
-			
+
 			@Override
 			public Message createMessage(Session session) throws JMSException {
 				return session.createTextMessage(msg);

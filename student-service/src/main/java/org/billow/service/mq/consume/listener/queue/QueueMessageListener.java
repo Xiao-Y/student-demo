@@ -1,4 +1,4 @@
-package org.bilow.common.mq.consumer.listener.queue;
+package org.billow.service.mq.consume.listener.queue;
 
 import javax.jms.JMSException;
 import javax.jms.Message;

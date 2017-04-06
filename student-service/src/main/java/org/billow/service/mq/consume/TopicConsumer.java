@@ -1,4 +1,4 @@
-package org.bilow.common.mq.consumer;
+package org.billow.service.mq.consume;
 
 import org.springframework.stereotype.Component;
 

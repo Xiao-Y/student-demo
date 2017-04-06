@@ -1,4 +1,4 @@
-package org.bilow.common.mq.producer.topic;
+package org.billow.service.mq.provider.topic;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
