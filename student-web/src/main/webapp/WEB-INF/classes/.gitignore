@@ -1,16 +1,1 @@
-/applicationContext.properties
-/applicationContext.xml
-/druid.properties
-/dubbo-common.xml
-/dubbo-consumer.xml
-/dubbo-provider.xml
-/log4j.properties
-/mybatis
-/mybatis-config.xml
 /org
-/spring-activemq.xml
-/spring-druid.xml
-/spring-mvc.xml
-/spring-mybatis.xml
-/spring-tx.xml
-/webdefault.xml

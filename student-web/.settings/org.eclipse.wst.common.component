@@ -8,8 +8,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/student-dao"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/student-common"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/student-api"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/student-model"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <dependent-module archiveName="student-model-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/student-model/student-model">
             <dependency-type>uses</dependency-type>
         </dependent-module>

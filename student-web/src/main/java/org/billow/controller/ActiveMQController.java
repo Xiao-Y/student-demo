@@ -3,9 +3,9 @@ package org.billow.controller;
 import javax.annotation.Resource;
 import javax.jms.Destination;
 
-import org.bilow.common.mq.consume.QueueConsumer;
-import org.bilow.common.mq.provider.queue.QueueProducer;
-import org.bilow.common.mq.provider.topic.TopicProducer;
+import org.billow.common.mq.consume.QueueConsumer;
+import org.billow.common.mq.provider.queue.QueueProducer;
+import org.billow.common.mq.provider.topic.TopicProducer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
