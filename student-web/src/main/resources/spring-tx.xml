@@ -44,10 +44,10 @@
 	<aop:config>
 		<!--把事务控制在Service层 -->
 		<aop:pointcut id="fooServiceMethods"
-			expression="execution(* com.billow.business.service.impl.*.*(..))" />
+			expression="execution(* org.billow.service.*.*(..))" />
 		<!-- 日志 -->
 		<aop:pointcut id="controllerLogPointcut"
-			expression="execution(* com.billow.business.controller.*Controller.*(..))" />
+			expression="execution(* org.billow.controller.*Controller.*(..))" />
 
 		<aop:advisor pointcut-ref="fooServiceMethods" advice-ref="txAdvice" />
 

@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bilow</groupId>
@@ -15,16 +15,17 @@
 		<module>student-model</module>
 		<module>student-common</module>
 		<module>student-web</module>
-	</modules>
+    <module>student-jobs</module>
+  </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.11</junit.version>
-		<!-- spring版本号 -->
+		<!-- spring版本�?-->
 		<spring.version>4.1.6.RELEASE</spring.version>
-		<!-- mybatis版本号 -->
+		<!-- mybatis版本�?-->
 		<mybatis.version>3.2.6</mybatis.version>
-		<!-- log4j日志文件管理包版本 -->
+		<!-- log4j日志文件管理包版�?-->
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<aspectj.version>1.8.9</aspectj.version>
@@ -44,10 +45,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<!-- 表示开发的时候引入，发布的时候不会加载此包 -->
+			<!-- 表示�?��的时候引入，发布的时候不会加载此�?-->
 			<scope>test</scope>
 		</dependency>
-		<!-- 阿里巴巴数据库监控 -->
+		<!-- 阿里巴巴数据库监�?-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -65,7 +66,7 @@
 			<artifactId>pagehelper</artifactId>
 			<version>${pagehelper.version}</version>
 		</dependency>
-		<!-- spring核心包 -->
+		<!-- spring核心�?-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -135,25 +136,25 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<!-- mybatis核心包 -->
+		<!-- mybatis核心�?-->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
-		<!-- mybatis/spring包 -->
+		<!-- mybatis/spring�?-->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
 		</dependency>
-		<!-- 导入java ee jar 包 -->
+		<!-- 导入java ee jar �?-->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${javaee-api.version}</version>
 		</dependency>
-		<!-- 导入Mysql数据库链接jar包 -->
+		<!-- 导入Mysql数据库链接jar�?-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -162,13 +163,13 @@
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
 		<!-- <dependency> <groupId>commons-dbcp</groupId> <artifactId>commons-dbcp</artifactId> 
 			<version>1.2.2</version> </dependency> -->
-		<!-- JSTL标签类 -->
+		<!-- JSTL标签�?-->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
-		<!-- 日志文件管理包 start -->
+		<!-- 日志文件管理�?start -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -184,7 +185,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		<!-- 日志文件管理包 end -->
+		<!-- 日志文件管理�?end -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -193,7 +194,7 @@
 		<!-- 映入JSON -->
 		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
 			<version>1.9.13</version> </dependency> -->
-		<!-- 上传组件包 -->
+		<!-- 上传组件�?-->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -209,7 +210,7 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-		<!-- activemq 消息服务器 -->
+		<!-- activemq 消息服务�?-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>

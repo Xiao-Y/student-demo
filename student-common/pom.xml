@@ -19,5 +19,10 @@
 			<artifactId>student-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.bilow</groupId>
+			<artifactId>student-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

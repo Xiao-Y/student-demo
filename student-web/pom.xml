@@ -27,7 +27,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.bilow</groupId>
-			<artifactId>student-service</artifactId>
+			<artifactId>student-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bilow</groupId>
+			<artifactId>student-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
