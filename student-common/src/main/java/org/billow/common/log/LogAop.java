@@ -9,6 +9,4 @@ public interface LogAop {
 	 * @param point
 	 */
 	public void logArgSave(JoinPoint point);
-
-	public void test();
 }

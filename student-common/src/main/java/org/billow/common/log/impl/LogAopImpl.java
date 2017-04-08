@@ -86,7 +86,8 @@ public class LogAopImpl implements LogAop {
 			// 获取对象类型
 			className = info.getClass().getName();
 			className = className.substring(className.lastIndexOf(".") + 1);
-			if ("Request".equals(className) || "Response".equals(className) || "BindingAwareModelMap".equals(className)) {
+			if ("Request".equals(className) || "Response".equals(className) || "RequestFacade".equals(className)
+					|| "BindingAwareModelMap".equals(className)) {
 				continue;
 			}
 			rs.append("[参数" + i + ",类型:" + className + ",值:");
@@ -136,10 +137,5 @@ public class LogAopImpl implements LogAop {
 			}
 		}
 		return map;
-	}
-
-	@Override
-	public void test() {
-		System.out.println("=============================AOP:test()===============================");
 	}
 }
