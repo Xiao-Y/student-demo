@@ -7,6 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry including="**/*.java" kind="src" path="src/test/resources"/>
 	<classpathentry kind="src" path="student-api"/>
 	<classpathentry kind="src" path="student-service"/>
 	<classpathentry kind="src" path="student-dao"/>

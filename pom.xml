@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bilow</groupId>
@@ -15,17 +16,17 @@
 		<module>student-model</module>
 		<module>student-common</module>
 		<module>student-web</module>
-    <module>student-jobs</module>
-  </modules>
+		<module>student-jobs</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.11</junit.version>
-		<!-- spring版本�?-->
+		<!-- spring版本 -->
 		<spring.version>4.1.6.RELEASE</spring.version>
-		<!-- mybatis版本�?-->
+		<!-- mybatis版本 -->
 		<mybatis.version>3.2.6</mybatis.version>
-		<!-- log4j日志文件管理包版�?-->
+		<!-- log4j日志文件管理包版 -->
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<aspectj.version>1.8.9</aspectj.version>
@@ -34,10 +35,28 @@
 		<pagehelper.version>4.1.6</pagehelper.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<javaee-api.version>7.0</javaee-api.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
+		<commons-fileupload.version>1.3.1</commons-fileupload.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-codec.version>1.9</commons-codec.version>
 		<mysql-connector-java.version>5.1.30</mysql-connector-java.version>
 		<jstl.version>1.2</jstl.version>
 		<activemq-all.version>5.10.0</activemq-all.version>
 		<mybatis-generator.version>1.3.2</mybatis-generator.version>
+		<dubbo.version>2.5.3</dubbo.version>
+		<zkclient.version>0.1</zkclient.version>
+		<zookeeper.version>3.5.0-alpha</zookeeper.version>
+		<jedis.version>2.9.0</jedis.version>
+		<xbean-spring.version>3.18</xbean-spring.version>
+		<jackson-databind.version>2.6.3</jackson-databind.version>
+		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		<spring-data-redis.version>1.8.1.RELEASE</spring-data-redis.version>
+		<jdk.version>1.7</jdk.version>
+		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+		<jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
+		<!-- jdk1.7要用maven-war-plugin2.4和tomcat7-maven-plugin2.1 -->
+		<maven-war-plugin.version>2.4</maven-war-plugin.version>
+		<tomcat7-maven-plugin.version>2.1</tomcat7-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -45,10 +64,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<!-- 表示�?��的时候引入，发布的时候不会加载此�?-->
+			<!-- 表示开发的时候引入，发布的时候不会加载此jar -->
 			<scope>test</scope>
 		</dependency>
-		<!-- 阿里巴巴数据库监�?-->
+		<!-- 阿里巴巴数据库监控 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -66,13 +85,12 @@
 			<artifactId>pagehelper</artifactId>
 			<version>${pagehelper.version}</version>
 		</dependency>
-		<!-- spring核心�?-->
+		<!-- spring核心jar -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
@@ -88,13 +106,11 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -111,14 +127,19 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.xbean</groupId>
 			<artifactId>xbean-spring</artifactId>
-			<version>3.18</version>
+			<version>${xbean-spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.4.Final</version>
+			<version>${hibernate-validator.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -130,46 +151,39 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<!-- mybatis核心�?-->
+		<!-- mybatis核心 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
-		<!-- mybatis/spring�?-->
+		<!-- mybatis/spring整合 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
 		</dependency>
-		<!-- 导入java ee jar �?-->
+		<!-- 导入java ee jar -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${javaee-api.version}</version>
 		</dependency>
-		<!-- 导入Mysql数据库链接jar�?-->
+		<!-- 导入Mysql数据库链接jar -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-java.version}</version>
 		</dependency>
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
-		<!-- <dependency> <groupId>commons-dbcp</groupId> <artifactId>commons-dbcp</artifactId> 
-			<version>1.2.2</version> </dependency> -->
-		<!-- JSTL标签�?-->
+		<!-- <dependency> <groupId>commons-dbcp</groupId> <artifactId>commons-dbcp</artifactId> <version>1.2.2</version> </dependency> -->
+		<!-- JSTL标签 -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
-		<!-- 日志文件管理�?start -->
+		<!-- 日志文件管理 start -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -185,32 +199,36 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		<!-- 日志文件管理�?end -->
+		<!-- 映入JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.6.3</version>
+			<version>${jackson-databind.version}</version>
 		</dependency>
-		<!-- 映入JSON -->
-		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
-			<version>1.9.13</version> </dependency> -->
-		<!-- 上传组件�?-->
+		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> <version>1.9.13</version> 
+			</dependency> -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<!-- 上传组件 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
+			<version>${commons-fileupload.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>${commons-io.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.9</version>
+			<version>${commons-codec.version}</version>
 		</dependency>
-		<!-- activemq 消息服务�?-->
+		<!-- activemq 消息服务 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
@@ -225,7 +243,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
-			<version>2.5.3</version>
+			<version>${dubbo.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>netty</artifactId>
@@ -241,104 +259,37 @@
 		<dependency>
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
-			<version>0.1</version>
+			<version>${zkclient.version}</version>
 		</dependency>
 		<!-- zookeeper -->
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
-			<version>3.5.0-alpha</version>
+			<version>${zookeeper.version}</version>
 		</dependency>
+		<!-- redis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.9.0</version>
+			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring-data-redis.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
-			<!-- 编译的时候使用JDK6和UTF8编码 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<warName>${project.artifactId}</warName>
-					<attachClasses>true</attachClasses>
-					<classesClassifier>api</classesClassifier>
-					<webResources>
-						<resource>
-							<directory>src\main\resources</directory>
-							<targetPath>WEB-INF\classes</targetPath>
-							<includes>
-								<include>**</include>
-							</includes>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
+			<!-- maven编译 -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
-			</plugin>
-
-			<!-- jetty -->
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.14.v20131031</version>
-				<configuration>
-					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<stopPort>9999</stopPort>
-					<webAppConfig>
-						<contextPath>/${project.artifactId}</contextPath>
-						<defaultsDescriptor>src/main/resources/webdefault.xml
-						</defaultsDescriptor>
-					</webAppConfig>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>9080</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
-				</configuration>
-			</plugin>
-
-			<!-- tomcat7 插件 -->
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<port>9090</port>
-					<path>/${project.artifactId}</path>
-					<uriEncoding>UTF-8</uriEncoding>
-					<server>tomcat7</server>
-				</configuration>
-			</plugin>
-			<!-- mybatis代码生成插件：mvn mybatis-generator:generate -->
-			<plugin>
-				<groupId>org.mybatis.generator</groupId>
-				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<version>${mybatis-generator.version}</version>
-				<configuration>
-					<configurationFile>src/test/resources/mybatis-generator/generatorConfig.xml
-					</configurationFile>
-					<verbose>true</verbose>
-					<overwrite>true</overwrite>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.mybatis.generator</groupId>
-						<artifactId>mybatis-generator-core</artifactId>
-						<version>${mybatis-generator.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

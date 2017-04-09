@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -37,6 +36,80 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>student-web</finalName>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<!-- maven打包 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<warName>${project.artifactId}</warName>
+					<attachClasses>true</attachClasses>
+					<classesClassifier>api</classesClassifier>
+					<webResources>
+						<resource>
+							<directory>src\main\resources</directory>
+							<targetPath>WEB-INF\classes</targetPath>
+							<includes>
+								<include>**</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<!-- jetty插件 -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty-maven-plugin.version}</version>
+				<configuration>
+					<scanIntervalSeconds>0</scanIntervalSeconds>
+					<stopPort>9999</stopPort>
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+						<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
+					</webAppConfig>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>9080</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin>
+
+			<!-- tomcat7 插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${tomcat7-maven-plugin.version}</version>
+				<configuration>
+					<port>9090</port>
+					<path>/${project.artifactId}</path>
+					<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+					<server>tomcat7</server>
+				</configuration>
+			</plugin>
+			<!-- mybatis代码生成插件：mvn mybatis-generator:generate -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis-generator.version}</version>
+				<configuration>
+					<configurationFile>src/test/resources/mybatis-generator/generatorConfig.xml</configurationFile>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.mybatis.generator</groupId>
+						<artifactId>mybatis-generator-core</artifactId>
+						<version>${mybatis-generator.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
 	</build>
 </project>
