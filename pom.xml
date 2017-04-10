@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.bilow</groupId>
+	<groupId>org.billow</groupId>
 	<artifactId>student-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -17,7 +16,8 @@
 		<module>student-common</module>
 		<module>student-web</module>
 		<module>student-jobs</module>
-	</modules>
+    <module>student-dubbo</module>
+  </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,6 +51,8 @@
 		<jackson-databind.version>2.6.3</jackson-databind.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		<spring-data-redis.version>1.8.1.RELEASE</spring-data-redis.version>
+		<quartz.version>2.2.1</quartz.version>
+		
 		<jdk.version>1.7</jdk.version>
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
 		<jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
@@ -64,10 +66,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<!-- 表示开发的时候引入，发布的时候不会加载此jar -->
+			<!-- 表示�?��的时候引入，发布的时候不会加载此jar -->
 			<scope>test</scope>
 		</dependency>
-		<!-- 阿里巴巴数据库监控 -->
+		<!-- 阿里巴巴数据库监�?-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -239,34 +241,7 @@
 			<artifactId>activemq-all</artifactId>
 			<version>${activemq-all.version}</version>
 		</dependency>
-		<!-- dubbo -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<version>${dubbo.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>netty</artifactId>
-					<groupId>org.jboss.netty</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- zkclient -->
-		<dependency>
-			<groupId>com.github.sgroschupf</groupId>
-			<artifactId>zkclient</artifactId>
-			<version>${zkclient.version}</version>
-		</dependency>
-		<!-- zookeeper -->
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>${zookeeper.version}</version>
-		</dependency>
+		
 		<!-- redis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -284,6 +259,7 @@
 		<plugins>
 			<!-- maven编译 -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>

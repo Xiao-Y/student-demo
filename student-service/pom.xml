@@ -4,7 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.bilow</groupId>
+		<groupId>org.billow</groupId>
 		<artifactId>student-demo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -15,22 +15,22 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.bilow</groupId>
+			<groupId>org.billow</groupId>
 			<artifactId>student-model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.bilow</groupId>
+			<groupId>org.billow</groupId>
 			<artifactId>student-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.bilow</groupId>
+			<groupId>org.billow</groupId>
 			<artifactId>student-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.bilow</groupId>
+			<groupId>org.billow</groupId>
 			<artifactId>student-dao</artifactId>
 			<version>${project.version}</version>
 		</dependency>

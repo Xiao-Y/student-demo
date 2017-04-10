@@ -2,8 +2,7 @@ package org.billow.common.dubbo.provider.impl;
 
 import java.util.Date;
 
-import org.billow.common.dubbo.provider.DemoServer;
-
+import org.student.dubbo.provider.api.DemoServer;
 
 public class DemoServerImpl implements DemoServer {
 
