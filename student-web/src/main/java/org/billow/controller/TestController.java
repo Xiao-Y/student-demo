@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.billow.api.user.UserService;
 import org.billow.common.annotation.SystemControllerLog;
-import org.billow.common.dubbo.provider.DemoServer;
 import org.billow.model.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.student.dubbo.provider.api.DemoServer;
 
 import com.github.pagehelper.PageHelper;
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
-	xmlns:jms="http://www.springframework.org/schema/jms"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:jms="http://www.springframework.org/schema/jms"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans    
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
                         http://www.springframework.org/schema/jms
@@ -41,11 +40,10 @@
 	</bean>
 	<!-- 带监听的 end -->
 
-	<amq:connectionFactory id="amqConnectionFactory"
-		brokerURL="${brokerURL}" userName="admin" password="admin" />
+	<amq:connectionFactory id="amqConnectionFactory" brokerURL="${brokerURL}" userName="${userName}"
+		password="${password}" />
 
-	<bean id="connectionFactory"
-		class="org.springframework.jms.connection.CachingConnectionFactory">
+	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 		<constructor-arg ref="amqConnectionFactory" />
 		<property name="sessionCacheSize" value="${sessionCacheSize}" />
 	</bean>
@@ -69,15 +67,13 @@
 	</bean>
 
 	<!-- 配置消息队列监听者（Queue） -->
-	<bean id="queueListenerContainer"
-		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<bean id="queueListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destination" ref="demoQueueDestinationListener" />
 		<property name="messageListener" ref="queueMessageListener" />
 	</bean>
 	<!-- 配置消息主题监听者（Topic） -->
-	<bean id="topicListenerContainer"
-		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<bean id="topicListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destination" ref="demoTopicDestinationListener" />
 		<property name="messageListener" ref="topicMessageListener" />
