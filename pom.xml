@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.billow</groupId>
@@ -16,8 +17,8 @@
 		<module>student-common</module>
 		<module>student-web</module>
 		<module>student-jobs</module>
-    <module>student-dubbo</module>
-  </modules>
+		<module>student-dubbo</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,7 +53,7 @@
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		<spring-data-redis.version>1.8.1.RELEASE</spring-data-redis.version>
 		<quartz.version>2.2.1</quartz.version>
-		
+
 		<jdk.version>1.7</jdk.version>
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
 		<jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
@@ -69,7 +70,7 @@
 			<!-- 表示�?��的时候引入，发布的时候不会加载此jar -->
 			<scope>test</scope>
 		</dependency>
-		<!-- 阿里巴巴数据库监�?-->
+		<!-- 阿里巴巴数据库监�? -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -241,7 +242,6 @@
 			<artifactId>activemq-all</artifactId>
 			<version>${activemq-all.version}</version>
 		</dependency>
-		
 		<!-- redis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -252,6 +252,17 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
 			<version>${spring-data-redis.version}</version>
+		</dependency>
+		<!-- quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>${quartz.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
