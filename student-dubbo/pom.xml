@@ -12,10 +12,9 @@
 	<name>student-dubbo</name>
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
-
 	<dependencies>
 		<dependency>
-			<groupId>com.billow</groupId>
+			<groupId>org.billow</groupId>
 			<artifactId>student-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>

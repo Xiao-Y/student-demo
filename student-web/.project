@@ -56,6 +56,16 @@
 			<location>D:/GitHub/student-demo/student-dao/src/main/java</location>
 		</link>
 		<link>
+			<name>student-dubbo</name>
+			<type>2</type>
+			<location>D:/GitHub/student-demo/student-dubbo/src/main/java</location>
+		</link>
+		<link>
+			<name>student-jobs</name>
+			<type>2</type>
+			<location>D:/GitHub/student-demo/student-jobs/src/main/java</location>
+		</link>
+		<link>
 			<name>student-model</name>
 			<type>2</type>
 			<location>D:/GitHub/student-demo/student-model/src/main/java</location>
