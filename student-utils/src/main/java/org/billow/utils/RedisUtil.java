@@ -26,7 +26,7 @@ public class RedisUtil {
 	// private static final String AUTH = ""; // 密码(原始默认是没有密码)
 	private static int MAX_ACTIVE = 1024; // 最大连接数
 	private static int MAX_IDLE = 200; // 设置最大空闲数
-	private static int MAX_WAIT = 10000; // 最大连接时间
+	private static int MAX_WAIT = 10000; // 最大等待时间
 	private static int TIMEOUT = 10000; // 超时时间
 	private static boolean BORROW = true; // 在borrow一个事例时是否提前进行validate操作
 	private static JedisPool pool = null;
