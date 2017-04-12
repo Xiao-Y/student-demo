@@ -3,6 +3,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans    
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
+	<!-- 这个地方不使用rping注解的方式 -->
+	<bean id="testPrintJob" class="org.billow.jobs.job.TestPrintJob" />
+
 	<!--Quartz Scheduler 配置作业 -->
 	<!-- 方案一：调用特定 bean 的一个方法的时候很是方便 -->
 	<bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

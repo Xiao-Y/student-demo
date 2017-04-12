@@ -170,6 +170,7 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
 			<version>${javaee-api.version}</version>
 		</dependency>
 		<!-- 导入Mysql数据库链接jar -->
