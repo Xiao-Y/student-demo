@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.io;
 
 public class ByteUtils {
 	private ByteUtils() {

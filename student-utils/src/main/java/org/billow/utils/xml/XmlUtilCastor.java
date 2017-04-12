@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.xml;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -15,6 +15,7 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
+import org.billow.utils.xml.XmlUtilCastor;
 import org.exolab.castor.mapping.Mapping;
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;

@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.ftp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.log4j.Logger;
+import org.billow.utils.ftp.FtpUtil;
 
 public class FtpUtil {
 

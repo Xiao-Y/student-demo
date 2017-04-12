@@ -1,7 +1,8 @@
-package org.billow.utils;
+package org.billow.utils.mail;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
+import org.billow.utils.mail.MailConfig;
 
 public class MailConfig implements Cloneable {
 	private static final Logger logger = Logger.getLogger(MailConfig.class);

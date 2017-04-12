@@ -1,8 +1,10 @@
-package org.billow.utils;
+package org.billow.utils.plugs;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.billow.utils.plugs.Pagination;
 
 /**
  * 储存分页处理工具类 在调用此类的方法之前需设置总页数(即得先从数据库查询到相应数据的数据量)

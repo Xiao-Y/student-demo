@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.generator;
 
 import java.io.IOException;
 import java.io.StringWriter;

@@ -1,6 +1,10 @@
-package org.billow.utils;
+package org.billow.utils.generator;
 
 import java.net.InetAddress;
+
+import org.billow.utils.generator.UUID;
+import org.billow.utils.io.ByteUtils;
+
 
 public class UUID {
 

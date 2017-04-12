@@ -1,10 +1,11 @@
-package org.billow.utils;
+package org.billow.utils.redis;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.billow.utils.redis.RedisUtil;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;

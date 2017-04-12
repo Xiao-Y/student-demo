@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.date;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

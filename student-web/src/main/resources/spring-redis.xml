@@ -32,4 +32,6 @@
 		<constructor-arg name="redisOperations" ref="redisTemplate" />
 		<property name="defaultExpiration" value="${redis.expiration}" />
 	</bean>
+	<!-- 缓存生成策略 -->
+	<bean id="keyGenerator" class="org.billow.utils.redis.RedisKeyGenerator" />
 </beans>

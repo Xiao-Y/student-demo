@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.io;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,6 +10,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import org.apache.log4j.Logger;
+import org.billow.utils.io.IOUtil;
 
 public class IOUtil {
 	private static final Logger logger = Logger.getLogger(IOUtil.class);

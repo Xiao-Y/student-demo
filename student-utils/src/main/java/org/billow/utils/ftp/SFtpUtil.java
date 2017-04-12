@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.ftp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Vector;
+
+import org.billow.utils.ftp.SFtpUtil;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;

@@ -1,7 +1,7 @@
 /*
  * Excel工具类
  */
-package org.billow.utils;
+package org.billow.utils.poi;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -22,6 +22,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.billow.utils.StringUtils;
 
 public class ExcelUtils {
 	/**

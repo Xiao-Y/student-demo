@@ -1,4 +1,4 @@
-package org.billow.utils;
+package org.billow.utils.mail;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -10,6 +10,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
 import org.apache.log4j.Logger;
+import org.billow.utils.mail.MailConfig;
+import org.billow.utils.mail.MailUtil;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
