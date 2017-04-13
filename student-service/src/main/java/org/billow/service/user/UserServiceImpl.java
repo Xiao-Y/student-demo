@@ -46,7 +46,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "keyGenerator", value = "user")
 	public User findUserById(int id) {
 		return super.selectByPrimaryKey(id);
 	}
