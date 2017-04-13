@@ -8,6 +8,7 @@ import org.billow.api.user.UserService;
 import org.billow.dao.UserMapper;
 import org.billow.model.domain.User;
 import org.billow.service.base.BaseServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,13 +34,21 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
+	@Cacheable(keyGenerator = "keyGenerator", value = "findUserList")
 	public List<User> findUserList(User user) {
 		return userMapper.findUserList(user);
 	}
 
 	@Override
+	@Cacheable(keyGenerator = "keyGenerator", value = "findUserList")
 	public int findUserCount(User user) {
 		return userMapper.findUserCount(user);
+	}
+
+	@Override
+	@Cacheable(keyGenerator = "keyGenerator", value = "user")
+	public User findUserById(int id) {
+		return super.selectByPrimaryKey(id);
 	}
 
 }

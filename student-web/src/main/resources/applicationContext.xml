@@ -30,12 +30,22 @@
 		</property>
 	</bean>
 
+	<!-- 数据源 -->
 	<import resource="classpath:spring-druid.xml" />
+	<!-- 整合mybatis -->
 	<import resource="classpath:spring-mybatis.xml" />
+	<!-- spring事务 -->
 	<import resource="classpath:spring-tx.xml" />
+	<!-- spring整合redis缓存 -->
+	<import resource="classpath:spring-redis.xml" />
+	<!-- 整合定时任务 -->
 	<import resource="classpath:spring-quartz.xml" />
+	<!-- 整合activeMQ -->
 	<import resource="classpath:spring-activemq.xml" />
+	<!-- 整合dubbo -->
 	<import resource="classpath:dubbo-common.xml" />
+	<!-- dubbo生产者 -->
 	<import resource="classpath:dubbo-provider.xml" />
+	<!-- dubbo消费者 -->
 	<import resource="classpath:dubbo-consumer.xml" />
 </beans>  

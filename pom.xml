@@ -48,10 +48,10 @@
 		<zkclient.version>0.1</zkclient.version>
 		<zookeeper.version>3.5.0-alpha</zookeeper.version>
 		<jedis.version>2.9.0</jedis.version>
+		<spring-data-redis.version>1.6.2.RELEASE</spring-data-redis.version>
 		<xbean-spring.version>3.18</xbean-spring.version>
 		<jackson-databind.version>2.6.3</jackson-databind.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
-		<spring-data-redis.version>1.8.1.RELEASE</spring-data-redis.version>
 		<quartz.version>2.2.1</quartz.version>
 
 		<jdk.version>1.7</jdk.version>

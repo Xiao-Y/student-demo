@@ -1019,4 +1019,21 @@ public class ToolsUtils {
 
 		return cal.getTime();
 	}
+
+	/**
+	 * 判断所有的参数是否为空
+	 * 
+	 * @param objects
+	 * @return
+	 */
+	public static boolean isNotEmpty(Object... objects) {
+		if (objects != null) {
+			for (Object o : objects) {
+				if (o == null || "".equals(o)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
