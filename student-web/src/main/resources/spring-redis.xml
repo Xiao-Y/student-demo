@@ -41,11 +41,14 @@
 	<!-- 缓存生成策略 -->
 	<bean id="keyGenerator" class="org.billow.utils.redis.RedisKeyGenerator" />
 
+	<!-- 设置缓存通知 -->
 	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
 		<cache:caching cache="baseService">
 			<cache:cacheable method="selectByPrimaryKey" key-generator="keyGenerator" />
+			<cache:cache-evict method="deleteByPrimaryKey" key-generator="keyGenerator" />
 		</cache:caching>
 	</cache:advice>
+	<!-- 设置缓存切点 -->
 	<aop:config proxy-target-class="false">
 		<aop:advisor advice-ref="cacheAdvice" pointcut="execution(* org.billow.service.base.BaseServiceImpl.*(..))" />
 	</aop:config>
