@@ -53,7 +53,7 @@
 		<jackson-databind.version>2.6.3</jackson-databind.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		<quartz.version>2.2.1</quartz.version>
-		<!-- <activiti.version>5.16</activiti.version> -->
+		<activiti.version>5.19.0</activiti.version>
 
 		<jdk.version>1.7</jdk.version>
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
@@ -267,11 +267,6 @@
 			<version>${quartz.version}</version>
 		</dependency>
 		<!-- activiti工作流 -->
-		<!-- <dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-modeler</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
@@ -279,7 +274,36 @@
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-json-converter</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
+			<version>${activiti.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>vaadin</artifactId>
+					<groupId>com.vaadin</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>dcharts-widget</artifactId>
+					<groupId>org.vaadin.addons</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>activiti-simple-workflow</artifactId>
+					<groupId>org.activiti</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-modeler</artifactId>
 			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
@@ -289,9 +313,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring</artifactId>
+			<artifactId>activiti-diagram-rest</artifactId>
 			<version>${activiti.version}</version>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
