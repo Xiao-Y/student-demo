@@ -1,8 +1,12 @@
 package org.billow.model.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Menu {
+public class Menu implements Serializable {
+
+	private static final long serialVersionUID = -4186056476602697064L;
+
 	private Integer id;
 
 	private String title;

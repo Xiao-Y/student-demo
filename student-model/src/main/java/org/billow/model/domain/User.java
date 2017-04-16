@@ -1,8 +1,13 @@
 package org.billow.model.domain;
 
+import java.io.Serializable;
+
 import org.billow.model.base.BaseModel;
 
-public class User extends BaseModel {
+public class User extends BaseModel implements Serializable{
+
+	private static final long serialVersionUID = 7380568085775453924L;
+
 	private Integer userId;
 
 	private String userName;

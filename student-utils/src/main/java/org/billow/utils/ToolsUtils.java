@@ -21,6 +21,8 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.billow.utils.date.DateTime;
+
 /**
  * 数据操作工具类
  * 
@@ -1016,5 +1018,22 @@ public class ToolsUtils {
 		cal.set(newYear, newMonth, cal.get(5), cal.get(11), cal.get(12), cal.get(13));
 
 		return cal.getTime();
+	}
+
+	/**
+	 * 判断所有的参数是否为空
+	 * 
+	 * @param objects
+	 * @return
+	 */
+	public static boolean isNotEmpty(Object... objects) {
+		if (objects != null) {
+			for (Object o : objects) {
+				if (o == null || "".equals(o)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }

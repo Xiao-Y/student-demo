@@ -12,4 +12,6 @@ public interface UserService extends BaseService<User> {
 	public List<User> findUserList(User user);
 
 	public int findUserCount(User user);
+
+	public User findUserById(int id);
 }

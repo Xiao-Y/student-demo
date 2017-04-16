@@ -1,8 +1,12 @@
 package org.billow.model.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SystemLog {
+public class SystemLog implements Serializable {
+
+	private static final long serialVersionUID = -4788551421806088982L;
+
 	private Integer id;
 
 	private String module;

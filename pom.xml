@@ -48,11 +48,12 @@
 		<zkclient.version>0.1</zkclient.version>
 		<zookeeper.version>3.5.0-alpha</zookeeper.version>
 		<jedis.version>2.9.0</jedis.version>
+		<spring-data-redis.version>1.6.2.RELEASE</spring-data-redis.version>
 		<xbean-spring.version>3.18</xbean-spring.version>
 		<jackson-databind.version>2.6.3</jackson-databind.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
-		<spring-data-redis.version>1.8.1.RELEASE</spring-data-redis.version>
 		<quartz.version>2.2.1</quartz.version>
+		<activiti.version>5.19.0</activiti.version>
 
 		<jdk.version>1.7</jdk.version>
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
@@ -170,6 +171,7 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
 			<version>${javaee-api.version}</version>
 		</dependency>
 		<!-- 导入Mysql数据库链接jar -->
@@ -263,6 +265,56 @@
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz-jobs</artifactId>
 			<version>${quartz.version}</version>
+		</dependency>
+		<!-- activiti工作流 -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-json-converter</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-explorer</artifactId>
+			<version>${activiti.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>vaadin</artifactId>
+					<groupId>com.vaadin</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>dcharts-widget</artifactId>
+					<groupId>org.vaadin.addons</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>activiti-simple-workflow</artifactId>
+					<groupId>org.activiti</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-modeler</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-rest</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-diagram-rest</artifactId>
+			<version>${activiti.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
