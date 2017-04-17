@@ -10,6 +10,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Model;
 import org.apache.commons.lang3.StringUtils;
+import org.billow.utils.ToolsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,15 @@ public class ModuleController {
 	private ManagementService managementService;
 
 	@RequestMapping(value = "create")
-	public void create(@RequestParam("name") String name, @RequestParam("key") String key, @RequestParam("description") String description,
-			HttpServletRequest request, HttpServletResponse response) {
+	public void create(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "key", required = false) String key,
+			@RequestParam(value = "description", required = false) String description, HttpServletRequest request, HttpServletResponse response) {
 		try {
+			if (ToolsUtils.isEmpty(name) || ToolsUtils.isEmpty(key) || ToolsUtils.isEmpty(description)) {
+				name = "test";
+				key = "test";
+				description = "testModel";
+			}
+
 			ObjectMapper objectMapper = new ObjectMapper();
 			ObjectNode editorNode = objectMapper.createObjectNode();
 			editorNode.put("id", "canvas");
@@ -55,7 +62,7 @@ public class ModuleController {
 			modelData.setKey(StringUtils.defaultString(key));
 			repositoryService.saveModel(modelData);
 			repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes("utf-8"));
-			response.sendRedirect(request.getContextPath() + "/modeler.html?modelId=" + modelData.getId());
+			response.sendRedirect(request.getContextPath() + "/process-editor/modeler.html?modelId=" + modelData.getId());
 		} catch (Exception e) {
 			logger.error("创建模型失败：", e);
 			e.printStackTrace();

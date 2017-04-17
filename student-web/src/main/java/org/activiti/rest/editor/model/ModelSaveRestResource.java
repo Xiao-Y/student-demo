@@ -40,7 +40,7 @@ public class ModelSaveRestResource implements ModelDataJsonConstants {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	@RequestMapping(value = "/model/{modelId}/save", method = RequestMethod.PUT)
+	@RequestMapping(value = "/service/model/{modelId}/save", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void saveModel(@PathVariable String modelId, @RequestBody MultiValueMap<String, String> values) {
 		try {
