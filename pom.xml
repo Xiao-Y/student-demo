@@ -53,7 +53,10 @@
 		<jackson-databind.version>2.6.3</jackson-databind.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		<quartz.version>2.2.1</quartz.version>
-		<activiti.version>5.19.0</activiti.version>
+		<!-- <activiti.version>5.19.0</activiti.version> -->
+		<activiti.version>5.22.0</activiti.version>
+		<!-- <batik.version>1.7</batik.version> -->
+		<jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
 
 		<jdk.version>1.7</jdk.version>
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
@@ -205,13 +208,16 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- 映入JSON -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson-databind.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson-mapper-asl.version}</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> <version>1.9.13</version> 
-			</dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -274,11 +280,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
 			<artifactId>activiti-json-converter</artifactId>
 			<version>${activiti.version}</version>
 		</dependency>
@@ -314,6 +315,11 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-diagram-rest</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
 			<version>${activiti.version}</version>
 		</dependency>
 	</dependencies>
