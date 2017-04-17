@@ -39,14 +39,14 @@
 		<property name="jobDetail" ref="simpleJobDetail" />
 		<!-- 初始延迟为1秒 -->
 		<property name="startDelay" value="1000" />
-		<!-- 频率：2s执行一次 -->
-		<property name="repeatInterval" value="2000" />
+		<!-- 频率：60s执行一次 -->
+		<property name="repeatInterval" value="60000" />
 	</bean>
 	<!-- 方案二：计划触发器，使用 CronTriggerFactoryBean -->
 	<bean id="testPrintTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="firstComplexJobDetail" />
-		<!-- 5s执行一次 -->
-		<property name="cronExpression" value="0/5 * * ? * *" />
+		<!-- 50s执行一次 -->
+		<property name="cronExpression" value="0/50 * * ? * *" />
 		<!-- 不重复计数，只执行一次 -->
 		<!-- <property name="repeatCount" value="0" /> -->
 	</bean>
