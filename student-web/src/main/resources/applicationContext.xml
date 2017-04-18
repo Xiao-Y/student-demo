@@ -29,7 +29,9 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	<bean class="org.billow.utils.bean.BeanUtils"/>
+	
 	<!-- 数据源 -->
 	<import resource="classpath:spring-druid.xml" />
 	<!-- 整合mybatis -->
@@ -37,17 +39,17 @@
 	<!-- spring事务 -->
 	<import resource="classpath:spring-tx.xml" />
 	<!-- spring整合redis缓存 -->
-	<import resource="classpath:spring-redis.xml" />
+	<!-- <import resource="classpath:spring-redis.xml" /> -->
 	<!-- 整合定时任务 -->
-	<import resource="classpath:spring-quartz.xml" />
+	<!-- <import resource="classpath:spring-quartz.xml" /> -->
 	<!-- 整合activeMQ -->
-	<import resource="classpath:spring-activemq.xml" />
+	<!-- <import resource="classpath:spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->
-	<import resource="classpath:dubbo-common.xml" />
+	<!-- <import resource="classpath:dubbo-common.xml" /> -->
 	<!-- dubbo生产者 -->
-	<import resource="classpath:dubbo-provider.xml" />
+	<!-- <import resource="classpath:dubbo-provider.xml" /> -->
 	<!-- dubbo消费者 -->
-	<import resource="classpath:dubbo-consumer.xml" />
+	<!-- <import resource="classpath:dubbo-consumer.xml" /> -->
 	<!-- activiti工作流 -->
 	<import resource="classpath:spring-activiti.xml" />
 </beans>  

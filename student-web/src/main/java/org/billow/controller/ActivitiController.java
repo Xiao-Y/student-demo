@@ -68,6 +68,7 @@ public class ActivitiController {
 	@ResponseBody
 	public String deploy(@PathVariable("modelId") String modelId, RedirectAttributes redirectAttributes) {
 		try {
+			
 			Model modelData = repositoryService.getModel(modelId);
 			ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
 			byte[] bpmnBytes = null;

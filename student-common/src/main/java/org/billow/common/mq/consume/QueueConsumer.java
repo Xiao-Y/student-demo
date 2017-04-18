@@ -1,10 +1,12 @@
 package org.billow.common.mq.consume;
 
-import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
+import org.apache.log4j.Logger;
+import org.billow.utils.bean.BeanUtils;
+import org.billow.utils.exception.ActiveMQException;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +18,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class QueueConsumer {
-	@Resource
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(QueueConsumer.class);
+
+	// @Resource
 	private JmsTemplate jmsQueueTemplate;
 
 	public TextMessage receive(Destination destination) {
 
+		try {
+			jmsQueueTemplate = BeanUtils.getBean("jmsQueueTemplate");
+		} catch (Exception e1) {
+			logger.error(e1);
+			throw new ActiveMQException();
+		}
 		TextMessage message = (TextMessage) jmsQueueTemplate.receive(destination);
 		try {
 			if (message != null) {
