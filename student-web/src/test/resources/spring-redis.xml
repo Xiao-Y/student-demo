@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/aop 
+	                    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+						http://www.springframework.org/schema/cache
+						http://www.springframework.org/schema/cache/spring-cache-4.1.xsd">
+	<!-- 开启缓存注解 -->
+	<cache:annotation-driven />
+
+	<!-- 配置JedisPoolConfig实例 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<!-- 配置JedisConnectionFactory -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.pass}" />
+		<property name="database" value="${redis.dbIndex}" />
+		<property name="poolConfig" ref="poolConfig" />
+	</bean>
+
+	<!-- 配置RedisTemplate -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
+
+	<!-- 配置RedisCacheManager -->
+	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+		<constructor-arg name="redisOperations" ref="redisTemplate" />
+		<property name="defaultExpiration" value="${redis.expiration}" />
+	</bean>
+
+	<!-- 缓存生成策略 -->
+	<bean id="keyGenerator" class="org.billow.utils.redis.RedisKeyGenerator" />
+
+	<!-- 设置缓存通知 -->
+	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
+		<cache:caching cache="baseService">
+			<cache:cacheable method="selectByPrimaryKey" key-generator="keyGenerator" />
+			<cache:cache-evict method="deleteByPrimaryKey" key-generator="keyGenerator" />
+		</cache:caching>
+	</cache:advice>
+	<!-- 设置缓存切点 -->
+	<aop:config proxy-target-class="false">
+		<aop:advisor advice-ref="cacheAdvice" pointcut="execution(* org.billow.service.base.BaseServiceImpl.*(..))" />
+	</aop:config>
+</beans>

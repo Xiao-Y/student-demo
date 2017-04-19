@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- 这个地方不使用rping注解的方式 -->
+	<bean id="testPrintJob" class="org.billow.jobs.job.TestPrintJob" />
+
+	<!--Quartz Scheduler 配置作业 -->
+	<!-- 方案一：调用特定 bean 的一个方法的时候很是方便 -->
+	<bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="testPrintJob" />
+		<property name="targetMethod" value="printSomething" />
+		<!-- 作业是否并发调度 -->
+		<property name="concurrent" value="false" />
+	</bean>
+	<!-- 方案二： 更高级的设置，需要给作业传递数据，更加灵活 -->
+	<bean name="firstComplexJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<!--jobClass 关联到一个继承自 QuartzJobBean 的类，它实现了 Quartz 作业接口。调用到这个作业的时候，它的 executeInternal 将被执行 -->
+		<property name="jobClass" value="org.billow.jobs.job.FirstScheduledJob" />
+		<!-- jobDataMap 允许给相关作业 bean 传递一些数据 -->
+		<property name="jobDataMap">
+			<map>
+				<entry key="anotherBean" value-ref="anotherBean" />
+				<entry key="wish" value="billow" />
+			</map>
+		</property>
+		<!-- 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中会删除该任务 -->
+		<property name="durability" value="true" />
+	</bean>
+	<bean name="secondComplexJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="org.billow.jobs.job.SecondScheduledJob" />
+		<property name="durability" value="true" />
+	</bean>
+
+	<!-- 配置 Quartz 调度时要使用到的触发器 -->
+	<!-- 方案一：简单触发器，使用 SimpleTriggerFactoryBean -->
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="simpleJobDetail" />
+		<!-- 初始延迟为1秒 -->
+		<property name="startDelay" value="1000" />
+		<!-- 频率：60s执行一次 -->
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	<!-- 方案二：计划触发器，使用 CronTriggerFactoryBean -->
+	<bean id="testPrintTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="firstComplexJobDetail" />
+		<!-- 50s执行一次 -->
+		<property name="cronExpression" value="0/50 * * ? * *" />
+		<!-- 不重复计数，只执行一次 -->
+		<!-- <property name="repeatCount" value="0" /> -->
+	</bean>
+	<bean id="secondCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="secondComplexJobDetail" />
+		<!-- 晚上8点执行 -->
+		<property name="cronExpression" value="0 0 20 ? * *" />
+	</bean>
+
+	<!-- 启动触发器的配置开始 -->
+	<!-- quartz的调度工厂 调度工厂只能有一个，多个调度任务在list中添加 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="simpleJobDetail" />
+				<ref bean="firstComplexJobDetail" />
+				<ref bean="secondComplexJobDetail" />
+			</list>
+		</property>
+		<property name="triggers">
+			<list>
+				<!-- 所有的调度列表 -->
+				<ref bean="simpleTrigger" />
+				<ref bean="testPrintTrigger" />
+				<ref bean="secondCronTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

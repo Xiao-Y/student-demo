@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="driverClassName" value="${spring.datasource.driver-class-name}" />
+		<property name="url" value="${spring.datasource.url}" />
+		<property name="username" value="${spring.datasource.username}" />
+		<property name="password" value="${spring.datasource.password}" />
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="${spring.datasource.initialSize}" />
+		<!-- 连接池最大数量 -->
+		<property name="maxActive" value="${spring.datasource.maxActive}" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="${spring.datasource.minIdle}" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="${spring.datasource.maxWait}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${spring.datasource.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${spring.datasource.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${spring.datasource.validationQuery}" />
+		<property name="testWhileIdle" value="${spring.datasource.testWhileIdle}" />
+		<property name="testOnBorrow" value="${spring.datasource.testOnBorrow}" />
+		<property name="testOnReturn" value="${spring.datasource.testOnReturn}" />
+		<property name="poolPreparedStatements" value="${spring.datasource.poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${spring.datasource.maxPoolPreparedStatementPerConnectionSize}" />
+		<!-- <property name="filters" value="${spring.datasource.filters}" /> -->
+		<property name="connectionProperties" value="${spring.datasource.connectionProperties}" />
+	</bean>
+
+	<!-- 慢SQL记录 start -->
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="mergeSql" value="true" />
+		<property name="slowSqlMillis" value="1000" />
+		<property name="logSlowSql" value="true" />
+	</bean>
+
+	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+		<!-- <property name="resultSetLogEnabled" value="false" /> -->
+		<property name="statementExecutableSqlLogEnable" value="false" />
+	</bean>
+	<!-- 慢SQL记录 end -->
+
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+	</bean>
+
+	<!-- 配置监控service层 -->
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.billow.service.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
+
+</beans>
