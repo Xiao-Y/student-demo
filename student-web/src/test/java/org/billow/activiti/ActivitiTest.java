@@ -35,7 +35,13 @@ public class ActivitiTest {
 	private TaskService taskService;
 	private HistoryService historyService;
 
-	String modelId = "15007";
+	// company start
+	// String modelId = "15007";
+	// company end
+	// home start
+	String modelId = "1";
+
+	// home end
 
 	@Before
 	public void init() {

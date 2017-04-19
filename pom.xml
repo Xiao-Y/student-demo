@@ -53,8 +53,8 @@
 		<jackson-databind.version>2.6.3</jackson-databind.version>
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		<quartz.version>2.2.1</quartz.version>
-		<!-- <activiti.version>5.19.0</activiti.version> -->
-		<activiti.version>5.22.0</activiti.version>
+		<activiti.version>5.19.0</activiti.version>
+		<!-- <activiti.version>5.22.0</activiti.version> -->
 		<!-- <batik.version>1.7</batik.version> -->
 		<jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
 
