@@ -10,8 +10,6 @@
 /target/*
  
 # ignore eclipse files
-.project
-.classpath
 .settings
 .metadata
 /target

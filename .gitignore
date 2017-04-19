@@ -13,8 +13,6 @@
 /student-web/log/*
  
 # ignore eclipse files
-.project
-.classpath
 .settings
 .metadata
 /target
