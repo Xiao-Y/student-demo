@@ -17,6 +17,7 @@ import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.billow.utils.bean.BeanUtils;
+import org.billow.utils.date.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -125,7 +126,7 @@ public class ActivitiTest {
 			logger.info("任务ID:" + task.getId());
 			logger.info("任务Key:" + task.getTaskDefinitionKey());
 			logger.info("任务名称:" + task.getName());
-			logger.info("任务的创建时间" + task.getCreateTime());
+			logger.info("任务的创建时间" + new DateTime(task.getCreateTime(), DateTime.YEAR_TO_SECOND));
 			logger.info("任务的办理人:" + task.getAssignee());
 			logger.info("流程实例ID:" + task.getProcessInstanceId());
 			logger.info("执行对象ID:" + task.getExecutionId());
@@ -152,7 +153,7 @@ public class ActivitiTest {
 			logger.info("任务ID:" + task.getId());
 			logger.info("任务Key:" + task.getTaskDefinitionKey());
 			logger.info("任务名称:" + task.getName());
-			logger.info("任务的创建时间" + task.getCreateTime());
+			logger.info("任务的创建时间" + new DateTime(task.getCreateTime(), DateTime.YEAR_TO_SECOND));
 			logger.info("任务的办理人:" + task.getAssignee());
 			logger.info("流程实例ID:" + task.getProcessInstanceId());
 			logger.info("执行对象ID:" + task.getExecutionId());
