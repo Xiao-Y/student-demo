@@ -52,7 +52,7 @@ button {
 
 <body>
 	<h1>Create Activeti Model</h1>
-	<form action="<%=basePath%>/activitiController/createModel">
+	<form action="<%=basePath%>/activitiController/saveModel">
 		<div id="model">
 			<h2>Model</h2>
 			key：

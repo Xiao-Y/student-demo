@@ -68,7 +68,17 @@ public class ActivitiController {
 
 	@RequestMapping("/index")
 	public String index() {
-		return "activitiIndex";
+		return "act/activitiIndex";
+	}
+
+	@RequestMapping("/createModel")
+	public String createModel() {
+		return "act/createModel";
+	}
+
+	@RequestMapping("/findModelList")
+	public String findModelList() {
+		return "act/findModelList";
 	}
 
 	/**
@@ -86,8 +96,8 @@ public class ActivitiController {
 	 * @author XiaoY
 	 * @date: 2017年4月22日 上午11:16:15
 	 */
-	@RequestMapping("/createModel")
-	public String createModel(@RequestParam("name") String name, @RequestParam("key") String key,
+	@RequestMapping("/saveModel")
+	public String saveModel(@RequestParam("name") String name, @RequestParam("key") String key,
 			@RequestParam("description") String description, RedirectAttributes redirectAttributes) {
 		redirectAttributes.addAttribute("name", name);
 		redirectAttributes.addAttribute("key", key);
