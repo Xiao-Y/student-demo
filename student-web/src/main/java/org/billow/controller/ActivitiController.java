@@ -10,10 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
@@ -27,11 +29,14 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -61,24 +66,100 @@ public class ActivitiController {
 	@Autowired
 	private HistoryService historyService;
 
+	@RequestMapping("/index")
+	public String index() {
+		return "activitiIndex";
+	}
+
+	/**
+	 * 创建Model
+	 * 
+	 * @param name
+	 *            model的名称
+	 * @param key
+	 *            model的key
+	 * @param description
+	 *            简介
+	 * @param request
+	 * @param response
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年4月22日 上午11:16:15
+	 */
+	@RequestMapping("/createModel")
+	public String createModel(@RequestParam("name") String name, @RequestParam("key") String key,
+			@RequestParam("description") String description, RedirectAttributes redirectAttributes) {
+		redirectAttributes.addAttribute("name", name);
+		redirectAttributes.addAttribute("key", key);
+		redirectAttributes.addAttribute("description", description);
+		return "redirect:/activitiController/diagram";
+	}
+
+	/**
+	 * 进入流程设计器
+	 * 
+	 * @param name
+	 *            model的名称
+	 * @param key
+	 *            model的key
+	 * @param description
+	 *            简介
+	 * @param request
+	 * @param response
+	 * @author XiaoY
+	 * @date: 2017年4月22日 上午11:16:49
+	 */
+	@RequestMapping("/diagram")
+	public void create(@ModelAttribute("name") String name, @ModelAttribute("key") String key,
+			@ModelAttribute("description") String description, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			ObjectNode editorNode = objectMapper.createObjectNode();
+			editorNode.put("id", "canvas");
+			editorNode.put("resourceId", "canvas");
+			ObjectNode stencilSetNode = objectMapper.createObjectNode();
+			stencilSetNode.put("namespace", "http://b3mn.org/stencilset/bpmn2.0#");
+			editorNode.put("stencilset", stencilSetNode);
+			Model modelData = repositoryService.newModel();
+			ObjectNode modelObjectNode = objectMapper.createObjectNode();
+			modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, name);
+			modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
+			description = StringUtils.defaultString(description);
+			modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, description);
+			modelData.setMetaInfo(modelObjectNode.toString());
+			modelData.setName(name);
+			modelData.setKey(StringUtils.defaultString(key));
+			repositoryService.saveModel(modelData);
+			repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes("utf-8"));
+			response.sendRedirect(request.getContextPath() + "/process-editor/modeler.html?modelId="
+					+ modelData.getId());
+		} catch (Exception e) {
+			logger.error("创建模型失败：", e);
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 根据Model部署流程
+	 * 
+	 * @param modelId
+	 * @param redirectAttributes
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年4月22日 上午11:17:26
 	 */
 	@RequestMapping(value = "/deploy/{modelId}")
 	@ResponseBody
 	public String deploy(@PathVariable("modelId") String modelId, RedirectAttributes redirectAttributes) {
 		try {
-			
 			Model modelData = repositoryService.getModel(modelId);
-			ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
-			byte[] bpmnBytes = null;
-
+			ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService
+					.getModelEditorSource(modelData.getId()));
 			BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
-			bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+			byte[] bpmnBytes = new BpmnXMLConverter().convertToXML(model);
 			String processName = modelData.getName() + ".bpmn20.xml";
-			repositoryService.createDeployment().name(modelData.getName()).addString(processName, new String(bpmnBytes, "UTF-8")).deploy();
-			// redirectAttributes.addFlashAttribute("message", "部署成功，部署ID=" +
-			// deployment.getId());
+			repositoryService.createDeployment().name(modelData.getName())
+					.addString(processName, new String(bpmnBytes, "UTF-8")).deploy();
 		} catch (Exception e) {
 			logger.error("根据模型部署流程失败：modelId=" + modelId, e);
 		}
@@ -98,7 +179,8 @@ public class ActivitiController {
 	 * @date 2017年4月17日 下午4:20:44
 	 */
 	@RequestMapping(value = "/instance/{process}")
-	public String startProcessInstance(@PathVariable("process") String processDefinitionKey, RedirectAttributes redirectAttributes) {
+	public String startProcessInstance(@PathVariable("process") String processDefinitionKey,
+			RedirectAttributes redirectAttributes) {
 		ProcessInstance pi = runtimeService// 于正在执行的流程实例和执行对象相关的Service
 				.startProcessInstanceByKey(processDefinitionKey);// 使用流程定义的key启动流程实例，key对应hellworld.bpmn文件中id的属性值，使用key值启动，默认是按照最新版本的流程定义启动
 		System.out.println("流程实例ID:" + pi.getId());// 流程实例ID 101
@@ -124,7 +206,6 @@ public class ActivitiController {
 				.createTaskQuery()// 创建任务查询对象
 				// .taskAssignee(assignee)// 指定个人认为查询，指定办理人
 				.list();
-
 		if (list != null && list.size() > 0) {
 			for (Task task : list) {
 				System.out.println("任务ID:" + task.getId());
@@ -162,7 +243,8 @@ public class ActivitiController {
 		try {
 			Model modelData = repositoryService.getModel(modelId);
 			BpmnJsonConverter jsonConverter = new BpmnJsonConverter();
-			JsonNode editorNode = new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
+			JsonNode editorNode = new ObjectMapper()
+					.readTree(repositoryService.getModelEditorSource(modelData.getId()));
 			BpmnModel bpmnModel = jsonConverter.convertToBpmnModel(editorNode);
 			BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
 			byte[] bpmnBytes = xmlConverter.convertToXML(bpmnModel);
@@ -233,11 +315,11 @@ public class ActivitiController {
 	 */
 	@RequestMapping(value = "/findLastVersionProcessDefinition")
 	public void findLastVersionProcessDefinition() {
-		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().orderByProcessDefinitionVersion().asc() // 使用流程定义的版本升序排列
+		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery()
+				.orderByProcessDefinitionVersion().asc() // 使用流程定义的版本升序排列
 				.list();
 		/**
-		 * Map<String,ProcessDefinition> map集合的key：流程定义的key map集合的value：流程定义的对象
-		 * map集合的特点：当map集合key值相同的情况下，后一次的值将替换前一次的值
+		 * Map<String,ProcessDefinition> map集合的key：流程定义的key map集合的value：流程定义的对象 map集合的特点：当map集合key值相同的情况下，后一次的值将替换前一次的值
 		 */
 		Map<String, ProcessDefinition> map = new HashMap<String, ProcessDefinition>();
 		if (list != null && list.size() > 0) {
@@ -288,9 +370,11 @@ public class ActivitiController {
 	 * 删除流程定义(删除key相同的所有不同版本的流程定义)
 	 */
 	@RequestMapping(value = "/delteProcessDefinitionByKey")
-	public void delteProcessDefinitionByKey(@PathVariable("process") String processDefinitionKey, RedirectAttributes redirectAttributes) {
+	public void delteProcessDefinitionByKey(@PathVariable("process") String processDefinitionKey,
+			RedirectAttributes redirectAttributes) {
 		// 先使用流程定义的key查询流程定义，查询出所有的版本
-		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey)// 使用流程定义的key查询
+		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionKey(processDefinitionKey)// 使用流程定义的key查询
 				.list();
 		// 遍历，获取每个流程定义的部署ID
 		if (list != null && list.size() > 0) {
@@ -317,8 +401,10 @@ public class ActivitiController {
 	 */
 	@RequestMapping(value = "/findHistoryProcessInstance/{processInstanceId}")
 	public void findHistoryProcessInstance(@PathVariable("processInstanceId") String processInstanceId) {
-		HistoricProcessInstance hpi = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-		System.out.println(hpi.getId() + "    " + hpi.getProcessDefinitionId() + "   " + hpi.getStartTime() + "   " + hpi.getDurationInMillis());
+		HistoricProcessInstance hpi = historyService.createHistoricProcessInstanceQuery()
+				.processInstanceId(processInstanceId).singleResult();
+		System.out.println(hpi.getId() + "    " + hpi.getProcessDefinitionId() + "   " + hpi.getStartTime() + "   "
+				+ hpi.getDurationInMillis());
 	}
 
 	/**
@@ -372,8 +458,8 @@ public class ActivitiController {
 				.variableName("请假原因").list();
 		if (list != null && list.size() > 0) {
 			for (HistoricVariableInstance hvi : list) {
-				System.out.println(hvi.getId() + "     " + hvi.getProcessInstanceId() + "   " + hvi.getVariableName() + "   "
-						+ hvi.getVariableTypeName() + "    " + hvi.getValue());
+				System.out.println(hvi.getId() + "     " + hvi.getProcessInstanceId() + "   " + hvi.getVariableName()
+						+ "   " + hvi.getVariableTypeName() + "    " + hvi.getValue());
 				System.out.println("########################################");
 			}
 		}
