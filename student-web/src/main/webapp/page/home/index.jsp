@@ -13,6 +13,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 
+<!-- <link rel="stylesheet" href="../../static/plugins/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="../../static/css/global.css" media="all">
+<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> -->
 
 </head>
 
@@ -108,6 +111,9 @@
 			</script>
 		<!--锁屏模板 end -->
 
+		<!-- <script type="text/javascript" src="../../static/plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="../../static/datas/nav.js"></script>
+		<script src="../../static/js/index.js"></script> -->
 		<script>
 			layui.use('layer', function() {
 				var $ = layui.jquery, layer = layui.layer;

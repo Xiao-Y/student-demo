@@ -11,3 +11,14 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/static/plugins/layui/layui.js"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/static/plugins/layui/modules/icheck.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/index.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/layout.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/navbar.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/area.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/begtable.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/city.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/tab.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/validator.js"></script>
+ --%>

@@ -14,6 +14,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 
+<!-- <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="css/layout.css" media="all" /> -->
 </head>
 
 <body>
@@ -130,6 +133,8 @@
 			<li class="layui-nav-item " data-toggle="closeAll"><a href="javascsript:; ">关闭所有</a></li>
 		</ul>
 	</div>
+	<!-- 	<script src="plugins/layui/layui.js "></script>
+	<script src="js/layout.js "></script> -->
 	<!--<script>
             //这是js的枚举，哈哈。
 			var closedEnum = {
