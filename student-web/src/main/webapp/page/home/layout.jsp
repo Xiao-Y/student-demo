@@ -135,6 +135,7 @@
 	</div>
 	<!-- 	<script src="plugins/layui/layui.js "></script>
 	<script src="js/layout.js "></script> -->
+	<script type="text/javascript" src="${ctx}/static/js/layout.js"></script>
 	<!--<script>
             //这是js的枚举，哈哈。
 			var closedEnum = {

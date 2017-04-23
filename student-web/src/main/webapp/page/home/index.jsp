@@ -114,6 +114,8 @@
 		<!-- <script type="text/javascript" src="../../static/plugins/layui/layui.js"></script>
 		<script type="text/javascript" src="../../static/datas/nav.js"></script>
 		<script src="../../static/js/index.js"></script> -->
+		<script type="text/javascript" src="${ctx}/static/js/index.js"></script>
+		<script type="text/javascript" src="${ctx}/static/datas/nav.js"></script>
 		<script>
 			layui.use('layer', function() {
 				var $ = layui.jquery, layer = layui.layer;
