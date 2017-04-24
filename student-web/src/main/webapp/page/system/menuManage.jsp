@@ -509,18 +509,19 @@
 	<!-- <script type="text/javascript" src="plugins/layui/layui.js"></script> -->
 	<script>
 			layui.config({
-				base: 'plugins/layui/modules/'
+				base: path + '/static/plugins/layui/modules/'
 			});
 
 			layui.use(['icheck', 'laypage','layer'], function() {
 				var $ = layui.jquery,
 					laypage = layui.laypage,
 					layer = parent.layer === undefined ? layui.layer : parent.layer;
+				//表单校验
 				$('input').iCheck({
 					checkboxClass: 'icheckbox_flat-green'
 				});
 
-				//page
+				//分页
 				laypage({
 					cont: 'page',
 					pages: 25, //总页数
