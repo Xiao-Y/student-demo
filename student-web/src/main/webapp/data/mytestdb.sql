@@ -167,24 +167,26 @@ CREATE TABLE `t_menu` (
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', '基本元素', 'fa-cubes', '1', '', '0', '1', '99.000');
-INSERT INTO `t_menu` VALUES ('2', '按钮', '&#xe641;', null, 'button.html', '1', '1', '1.000');
-INSERT INTO `t_menu` VALUES ('3', '表单', '&#xe63c;', null, 'form.html', '1', '1', '2.000');
-INSERT INTO `t_menu` VALUES ('4', '表格', '&#xe63c;', null, 'table.html', '1', '1', '3.000');
-INSERT INTO `t_menu` VALUES ('5', '导航', '&#xe609;', null, 'nav.html', '1', '1', '4.000');
-INSERT INTO `t_menu` VALUES ('6', 'Tab选项卡', '&#xe62a;', null, 'tab.html', '1', '1', '5.000');
-INSERT INTO `t_menu` VALUES ('7', '辅助性元素', '&#xe60c;', null, 'auxiliar.html', '1', '1', '6.000');
-INSERT INTO `t_menu` VALUES ('8', '组件', 'fa-cogs', '0', null, '0', '1', '100.000');
-INSERT INTO `t_menu` VALUES ('9', 'Datatable', 'fa-table', null, 'begtable.html', '8', '1', '1.000');
-INSERT INTO `t_menu` VALUES ('10', 'Navbar组件', 'fa-navicon', null, 'navbar.html', '8', '1', '2.000');
-INSERT INTO `t_menu` VALUES ('11', '第三方组件', '&#x1002;', '0', null, '0', '1', '101.000');
-INSERT INTO `t_menu` VALUES ('12', 'iCheck组件', 'fa-check-square-o', '0', 'icheck.html', '11', '1', '1.000');
-INSERT INTO `t_menu` VALUES ('13', '地址本', 'fa-address-book', '0', null, '0', '1', '102.000');
-INSERT INTO `t_menu` VALUES ('14', 'Github', 'fa-github', null, 'https://www.github.com/', '13', '1', '1.000');
-INSERT INTO `t_menu` VALUES ('15', 'QQ', 'fa-qq', null, 'http://www.qq.com/', '13', '1', '2.000');
-INSERT INTO `t_menu` VALUES ('16', 'Fly社区', '&#xe609;', null, 'http://fly.layui.com/', '13', '1', '3.000');
-INSERT INTO `t_menu` VALUES ('17', '新浪微博', 'fa-weibo', null, 'http://weibo.com/', '13', '1', '4.000');
-INSERT INTO `t_menu` VALUES ('18', '这是一级导航', 'fa-stop-circle', null, 'https://www.baidu.com', '0', '1', '103.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('1','基本元素','fa-cubes','1','','0','1','99.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('2','按钮','&#xe641;',NULL,'button.html','1','1','1.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('3','表单','&#xe63c;',NULL,'form.html','1','1','2.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('4','表格','&#xe63c;',NULL,'table.html','1','1','3.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('5','导航','&#xe609;',NULL,'nav.html','1','1','4.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('6','Tab选项卡','&#xe62a;',NULL,'tab.html','1','1','5.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('7','辅助性元素','&#xe60c;',NULL,'auxiliar.html','1','1','6.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('8','组件','fa-cogs','0',NULL,'0','1','100.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('9','Datatable','fa-table',NULL,'begtable.html','8','1','1.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('10','Navbar组件','fa-navicon',NULL,'navbar.html','8','1','2.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('11','第三方组件','&#x1002;','0',NULL,'0','1','101.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('12','iCheck组件','fa-check-square-o','0','icheck.html','11','1','1.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('13','地址本','fa-address-book','0',NULL,'0','1','102.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('14','Github','fa-github',NULL,'https://www.github.com/','13','1','1.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('15','QQ','fa-qq',NULL,'http://www.qq.com/','13','1','2.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('16','Fly社区','&#xe609;',NULL,'http://fly.layui.com/','13','1','3.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('17','新浪微博','fa-weibo',NULL,'http://weibo.com/','13','1','4.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('18','这是一级导航','fa-stop-circle',NULL,'https://www.baidu.com','0','1','103.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('19','系统管理','fa-cogs','0',NULL,'0','1','90.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('20','菜单管理','&#xe62a;',NULL,'/system/menuManage','19','1','1');
 
 -- ----------------------------
 -- Table structure for t_permission
