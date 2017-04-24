@@ -9,6 +9,7 @@
 <title></title>
 <!-- <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="css/main.css" /> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/static/css/main.css">
 </head>
 
 <body>

@@ -17,6 +17,7 @@
 <!-- <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="css/layout.css" media="all" /> -->
+<link rel="stylesheet" href="${ctx }/static/css/layout.css" media="all">
 </head>
 
 <body>

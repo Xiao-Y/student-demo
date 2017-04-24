@@ -22,10 +22,10 @@ layui.config({
 	navbar.set({
 		spreadOne: true,
 		elem: '#admin-navbar-side',
-		cached: true,
-		data: navs
-			/*cached:true,
-			url: 'datas/nav.json'*/
+		//cached: true,
+		//data: navs
+		//url: 'datas/nav.json'
+		url: path + '/home/menu'
 	});
 	//渲染navbar
 	navbar.render();

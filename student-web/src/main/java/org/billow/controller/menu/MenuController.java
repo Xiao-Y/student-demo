@@ -1,4 +1,4 @@
-package org.billow.controller;
+package org.billow.controller.menu;
 
 import java.util.Collections;
 import java.util.Comparator;
