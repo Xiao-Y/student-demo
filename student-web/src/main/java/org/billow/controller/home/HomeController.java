@@ -2,9 +2,9 @@ package org.billow.controller.home;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
-import javax.ejb.SessionContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,7 +58,12 @@ public class HomeController implements Comparator<Menu> {
 			for (Menu temp : selectAll) {
 				List<Menu> childList = menuService.getMenuChildList(temp.getId());
 				if (ToolsUtils.isNotEmpty(childList)) {
-					for(Menu tempChild : childList){
+					Iterator<Menu> iterator = childList.iterator();
+					while (iterator.hasNext()) {
+						Menu tempChild = iterator.next();
+						if (Integer.compare(0, tempChild.getPid()) == 0) {
+							iterator.remove();
+						}
 						tempChild.setHref(contextPath + tempChild.getHref());
 					}
 				}
