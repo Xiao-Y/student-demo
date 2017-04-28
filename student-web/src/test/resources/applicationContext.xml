@@ -29,9 +29,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean class="org.billow.utils.bean.BeanUtils"/>
-	
+	<bean class="org.billow.utils.bean.BeanUtils" />
+
 	<!-- 数据源 -->
 	<import resource="classpath:spring-druid.xml" />
 	<!-- 整合mybatis -->

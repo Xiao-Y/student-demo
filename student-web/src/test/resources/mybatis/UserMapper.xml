@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.billow.dao.UserMapper">
+<mapper namespace="org.billow.dao.UserDao">
 
-	<resultMap id="BaseResultMap" type="org.billow.model.domain.User">
+	<resultMap id="BaseResultMap" type="org.billow.model.expand.UserDto">
 		<id column="user_id" property="userId" jdbcType="INTEGER" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 		<result column="age" property="age" jdbcType="INTEGER" />
@@ -14,8 +14,7 @@
 		user_id, user_name, age, password, phone_number
 	</sql>
 
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from t_user
@@ -27,7 +26,7 @@
 		where user_id = #{userId,jdbcType=INTEGER}
 	</delete>
 
-	<insert id="insert" parameterType="org.billow.model.domain.User">
+	<insert id="insert" parameterType="org.billow.model.expand.UserDto">
 		insert into t_user (user_id,
 		user_name, age,
 		password, phone_number)
@@ -38,7 +37,7 @@
 		#{phoneNumber,jdbcType=VARCHAR})
 	</insert>
 
-	<insert id="insertSelective" parameterType="org.billow.model.domain.User">
+	<insert id="insertSelective" parameterType="org.billow.model.expand.UserDto">
 		insert into t_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userId != null">
@@ -75,7 +74,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.domain.User">
+	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.UserDto">
 		update t_user
 		<set>
 			<if test="userName != null">
@@ -93,7 +92,7 @@
 		</set>
 		where user_id = #{userId,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="org.billow.model.domain.User">
+	<update id="updateByPrimaryKey" parameterType="org.billow.model.expand.UserDto">
 		update t_user
 		set
 		user_name = #{userName,jdbcType=VARCHAR},
@@ -101,7 +100,8 @@
 		#{age,jdbcType=INTEGER},
 		password = #{password,jdbcType=VARCHAR},
 		phone_number = #{phoneNumber,jdbcType=VARCHAR}
-		where user_id =
+		where
+		user_id =
 		#{userId,jdbcType=INTEGER}
 	</update>
 
@@ -120,16 +120,14 @@
 		</where>
 	</sql>
 	<!-- 关联查询：关联字段user中的别名userid要与article中的userid相同 -->
-	<select id="findUserList" resultMap="BaseResultMap"
-		parameterType="org.billow.model.domain.User">
+	<select id="findUserList" resultMap="BaseResultMap" parameterType="org.billow.model.expand.UserDto">
 		select
 		<include refid="Base_Column_List" />
 		from t_user u
 		<include refid="selectCondition" />
 	</select>
 
-	<select id="findUserCount" resultType="int"
-		parameterType="org.billow.model.domain.User">
+	<select id="findUserCount" resultType="int" parameterType="org.billow.model.expand.UserDto">
 		select count(*) from t_user u
 		<include refid="selectCondition" />
 	</select>
