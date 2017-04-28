@@ -1,38 +1,38 @@
 package org.billow.service.base;
 
 import org.billow.api.base.BaseService;
-import org.billow.dao.base.BaseMapper;
+import org.billow.dao.base.BaseDao;
 
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
-	private BaseMapper<T> baseMapper;
+	private BaseDao<T> baseDao;
 
-	public void setBaseMapper(BaseMapper<T> baseMapper) {
-		this.baseMapper = baseMapper;
+	public void setBaseDao(BaseDao<T> baseDao) {
+		this.baseDao = baseDao;
 	}
 
 	public int deleteByPrimaryKey(Integer TId) {
-		return baseMapper.deleteByPrimaryKey(TId);
+		return baseDao.deleteByPrimaryKey(TId);
 	}
 
 	public int insert(T record) {
-		return baseMapper.insert(record);
+		return baseDao.insert(record);
 	}
 
 	public int insertSelective(T record) {
-		return baseMapper.insertSelective(record);
+		return baseDao.insertSelective(record);
 	}
 
 	public T selectByPrimaryKey(Integer TId) {
-		return (T) baseMapper.selectByPrimaryKey(TId);
+		return (T) baseDao.selectByPrimaryKey(TId);
 	}
 
 	public int updateByPrimaryKeySelective(T record) {
-		return baseMapper.updateByPrimaryKeySelective(record);
+		return baseDao.updateByPrimaryKeySelective(record);
 	}
 
 	public int updateByPrimaryKey(T record) {
-		return baseMapper.updateByPrimaryKey(record);
+		return baseDao.updateByPrimaryKey(record);
 	}
 
 }

@@ -1,6 +1,6 @@
 package org.billow.dao.base;
 
-public interface BaseMapper<T> {
+public interface BaseDao<T> {
 	/**
 	 * 根据主键删除
 	 * 

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.billow.api.menu.MenuService;
-import org.billow.dao.MenuMapper;
+import org.billow.dao.MenuDao;
 import org.billow.model.domain.Menu;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuService {
 
-	private MenuMapper menuMapper;
+	private MenuDao menuDao;
 
 	@Resource
-	public void setMenuMapper(MenuMapper menuMapper) {
-		this.menuMapper = menuMapper;
-		super.setBaseMapper(menuMapper);
+	public void setMenuDao(MenuDao menuDao) {
+		this.menuDao = menuDao;
+		super.setBaseDao(menuDao);
 	}
 
 	@Override
 	public List<Menu> getMenuChildList(int id) {
-		return menuMapper.getMenuChildList(id);
+		return menuDao.getMenuChildList(id);
 	}
 
 	@Override
 	public List<Menu> selectAll(Menu menu) {
-		return menuMapper.selectAll(menu);
+		return menuDao.selectAll(menu);
 	}
 }
