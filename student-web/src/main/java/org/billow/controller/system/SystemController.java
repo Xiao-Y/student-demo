@@ -3,7 +3,7 @@ package org.billow.controller.system;
 import javax.servlet.http.HttpServletRequest;
 
 import org.billow.api.menu.MenuService;
-import org.billow.utils.RequestUtils;
+import org.billow.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +31,7 @@ public class SystemController {
 	@ResponseBody
 	@RequestMapping("/menuManage")
 	public String menuManage(HttpServletRequest request) {
-		Integer pageSize = RequestUtils.getPageSize(request);
-		Integer targetPage = RequestUtils.getTargetPage(request);
-		
+		PageHelper.startPage();
 		menuService.selectAll(null);
 		return BASEPATH + "menuManage";
 	}

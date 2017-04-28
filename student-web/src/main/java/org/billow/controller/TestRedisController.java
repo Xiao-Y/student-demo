@@ -3,7 +3,8 @@ package org.billow.controller;
 import java.util.List;
 
 import org.billow.api.user.UserService;
-import org.billow.model.domain.User;
+import org.billow.model.domain.UserBase;
+import org.billow.model.expand.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,8 @@ public class TestRedisController {
 
 	@RequestMapping("/findUserList2")
 	@ResponseBody
-	public List<User> findUserList2() {
-		List<User> users = userService.findUserList(null);
+	public List<UserDto> findUserList2() {
+		List<UserDto> users = userService.findUserList(null);
 		return users;
 	}
 
@@ -34,8 +35,8 @@ public class TestRedisController {
 
 	@ResponseBody
 	@RequestMapping(value = "/findUserById")
-	public User findUserById() {
-		User i = userService.selectByPrimaryKey(3);
+	public UserBase findUserById() {
+		UserBase i = userService.selectByPrimaryKey(3);
 		return i;
 	}
 }

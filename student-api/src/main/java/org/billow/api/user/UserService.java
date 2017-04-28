@@ -3,15 +3,15 @@ package org.billow.api.user;
 import java.util.List;
 
 import org.billow.api.base.BaseService;
-import org.billow.model.domain.User;
+import org.billow.model.expand.UserDto;
 
-public interface UserService extends BaseService<User> {
+public interface UserService extends BaseService<UserDto> {
 
 	public void deleteTest();
 
-	public List<User> findUserList(User user);
+	public List<UserDto> findUserList(UserDto user);
 
-	public int findUserCount(User user);
+	public int findUserCount(UserDto user);
 
-	public User findUserById(int id);
+	public UserDto findUserById(int id);
 }

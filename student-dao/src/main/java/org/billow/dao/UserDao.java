@@ -3,12 +3,12 @@ package org.billow.dao;
 import java.util.List;
 
 import org.billow.dao.base.BaseDao;
-import org.billow.model.domain.User;
+import org.billow.model.expand.UserDto;
 
 
-public interface UserDao extends BaseDao<User> {
+public interface UserDao extends BaseDao<UserDto> {
 
-	List<User> findUserList(User user);
+	List<UserDto> findUserList(UserDto user);
 
-	int findUserCount(User user);
+	int findUserCount(UserDto user);
 }

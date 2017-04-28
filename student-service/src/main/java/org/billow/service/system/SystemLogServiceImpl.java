@@ -4,12 +4,12 @@ import javax.annotation.Resource;
 
 import org.billow.api.system.SystemLogService;
 import org.billow.dao.SystemLogDao;
-import org.billow.model.domain.SystemLog;
+import org.billow.model.expand.SystemLogDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SystemLogServiceImpl extends BaseServiceImpl<SystemLog> implements SystemLogService {
+public class SystemLogServiceImpl extends BaseServiceImpl<SystemLogDto> implements SystemLogService {
 
 	private SystemLogDao systemLogDao;
 
@@ -20,7 +20,7 @@ public class SystemLogServiceImpl extends BaseServiceImpl<SystemLog> implements 
 	}
 
 	@Override
-	public void persistLog(SystemLog log) {
+	public void persistLog(SystemLogDto log) {
 		systemLogDao.insert(log);
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.billow.dao.SystemLogDao">
-	<resultMap id="BaseResultMap" type="org.billow.model.domain.SystemLog">
+	<resultMap id="BaseResultMap" type="org.billow.model.expand.SystemLogDto">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="module" property="module" jdbcType="VARCHAR" />
 		<result column="function" property="function" jdbcType="VARCHAR" />
@@ -17,8 +17,7 @@
 		create_time,
 		user_id
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from t_system_log
@@ -29,7 +28,7 @@
 		t_system_log
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="org.billow.model.domain.SystemLog">
+	<insert id="insert" parameterType="org.billow.model.expand.SystemLogDto">
 		insert into t_system_log (id,
 		module, function,
 		operation, note, content,
@@ -44,7 +43,7 @@
 		#{userId,jdbcType=INTEGER}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="org.billow.model.domain.SystemLog">
+	<insert id="insertSelective" parameterType="org.billow.model.expand.SystemLogDto">
 		insert into t_system_log
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -105,7 +104,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.domain.SystemLog">
+	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.SystemLogDto">
 		update t_system_log
 		<set>
 			<if test="module != null">
@@ -135,7 +134,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="org.billow.model.domain.SystemLog">
+	<update id="updateByPrimaryKey" parameterType="org.billow.model.expand.SystemLogDto">
 		update
 		t_system_log
 		set module = #{module,jdbcType=VARCHAR},

@@ -6,12 +6,12 @@ import javax.annotation.Resource;
 
 import org.billow.api.menu.MenuService;
 import org.billow.dao.MenuDao;
-import org.billow.model.domain.Menu;
+import org.billow.model.expand.MenuDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuService {
+public class MenuServiceImpl extends BaseServiceImpl<MenuDto> implements MenuService {
 
 	private MenuDao menuDao;
 
@@ -22,12 +22,12 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	}
 
 	@Override
-	public List<Menu> getMenuChildList(int id) {
+	public List<MenuDto> getMenuChildList(int id) {
 		return menuDao.getMenuChildList(id);
 	}
 
 	@Override
-	public List<Menu> selectAll(Menu menu) {
+	public List<MenuDto> selectAll(MenuDto menu) {
 		return menuDao.selectAll(menu);
 	}
 }

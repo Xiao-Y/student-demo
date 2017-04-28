@@ -29,9 +29,16 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean class="org.billow.utils.bean.BeanUtils"/>
-	
+
+	<!-- 用于读取配置文件，使用@Value("${t1.msgname}") -->
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:</value>
+		</property>
+	</bean> -->
+
+	<!-- 以静态变量保存Spring ApplicationContext -->
+	<bean class="org.billow.utils.bean.BeanUtils" />
 	<!-- 数据源 -->
 	<import resource="classpath:spring-druid.xml" />
 	<!-- 整合mybatis -->

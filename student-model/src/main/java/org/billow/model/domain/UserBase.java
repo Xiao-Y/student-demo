@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.billow.model.base.BaseModel;
 
-public class User extends BaseModel implements Serializable{
+public class UserBase extends BaseModel implements Serializable{
 
 	private static final long serialVersionUID = 7380568085775453924L;
 
@@ -17,7 +17,7 @@ public class User extends BaseModel implements Serializable{
 	private String password;
 
 	private String phoneNumber;
-	private SystemLog systemLog;
+	private SystemLogBase systemLog;
 
 	public Integer getUserId() {
 		return userId;
@@ -59,11 +59,11 @@ public class User extends BaseModel implements Serializable{
 		this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
 	}
 
-	public SystemLog getSystemLog() {
+	public SystemLogBase getSystemLog() {
 		return systemLog;
 	}
 
-	public void setSystemLog(SystemLog systemLog) {
+	public void setSystemLog(SystemLogBase systemLog) {
 		this.systemLog = systemLog;
 	}
 

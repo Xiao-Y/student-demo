@@ -1,9 +1,9 @@
 package org.billow.api.system;
 
 import org.billow.api.base.BaseService;
-import org.billow.model.domain.SystemLog;
+import org.billow.model.expand.SystemLogDto;
 
-public interface SystemLogService extends BaseService<SystemLog> {
+public interface SystemLogService extends BaseService<SystemLogDto> {
 
-	void persistLog(SystemLog log);
+	void persistLog(SystemLogDto log);
 }

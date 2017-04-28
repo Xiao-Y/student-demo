@@ -9,7 +9,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.billow.api.menu.MenuService;
-import org.billow.model.domain.Menu;
+import org.billow.model.domain.MenuBase;
+import org.billow.model.expand.MenuDto;
 import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/home")
-public class HomeController implements Comparator<Menu> {
+public class HomeController implements Comparator<MenuBase> {
 
 	@Autowired
 	private MenuService menuService;
@@ -47,20 +48,20 @@ public class HomeController implements Comparator<Menu> {
 	 */
 	@ResponseBody
 	@RequestMapping("/menu")
-	public List<Menu> index(HttpServletRequest request) {
+	public List<MenuDto> index(HttpServletRequest request) {
 		ServletContext servletContext = request.getServletContext();
 		String contextPath = servletContext.getContextPath();
-		Menu menu = new Menu();
+		MenuDto menu = new MenuDto();
 		menu.setPid(0);
-		List<Menu> selectAll = menuService.selectAll(menu);
+		List<MenuDto> selectAll = menuService.selectAll(menu);
 		Collections.sort(selectAll, this);
 		if (ToolsUtils.isNotEmpty(selectAll)) {
-			for (Menu temp : selectAll) {
-				List<Menu> childList = menuService.getMenuChildList(temp.getId());
+			for (MenuBase temp : selectAll) {
+				List<MenuDto> childList = menuService.getMenuChildList(temp.getId());
 				if (ToolsUtils.isNotEmpty(childList)) {
-					Iterator<Menu> iterator = childList.iterator();
+					Iterator<MenuDto> iterator = childList.iterator();
 					while (iterator.hasNext()) {
-						Menu tempChild = iterator.next();
+						MenuBase tempChild = iterator.next();
 						if (Integer.compare(0, tempChild.getPid()) == 0) {
 							iterator.remove();
 						}
@@ -75,7 +76,7 @@ public class HomeController implements Comparator<Menu> {
 	}
 
 	@Override
-	public int compare(Menu m1, Menu m2) {
+	public int compare(MenuBase m1, MenuBase m2) {
 		return m1.getDisplayno().compareTo(m2.getDisplayno());
 	}
 }

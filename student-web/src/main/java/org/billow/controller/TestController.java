@@ -8,7 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.billow.api.user.UserService;
 import org.billow.common.annotation.SystemControllerLog;
-import org.billow.model.domain.User;
+import org.billow.model.domain.UserBase;
+import org.billow.model.expand.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,7 @@ public class TestController {
 	@RequestMapping("/index")
 	public String test(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		User user = new User();
+		UserBase user = new UserBase();
 		user.setAge(23);
 		user.setPassword("111");
 		user.setPhoneNumber("1231313");
@@ -45,17 +46,17 @@ public class TestController {
 
 	@SystemControllerLog(function = "测试查询列表", module = "测试", operation = "查询", note = "非异步")
 	@RequestMapping("/testList")
-	public List<User> testList(Model model, User user, HttpServletRequest request) {
+	public List<UserDto> testList(Model model, UserDto user, HttpServletRequest request) {
 		// Integer pageSize = RequestUtils.getPageSize(request);
 		// Integer targetPage = RequestUtils.getTargetPage(request);
 		PageHelper.startPage(2, 10);
-		List<User> users = userService.findUserList(user);
+		List<UserDto> users = userService.findUserList(user);
 		// int count = userService.findUserCount(user);
 		return users;
 	}
 
 	@RequestMapping("/testJqueryUi")
-	public String testJqueryUi(Model model, User user, HttpServletRequest request) {
+	public String testJqueryUi(Model model, UserBase user, HttpServletRequest request) {
 		return "testJqueryUi";
 	}
 

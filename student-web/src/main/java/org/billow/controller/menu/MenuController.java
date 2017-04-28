@@ -5,7 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.billow.api.menu.MenuService;
-import org.billow.model.domain.Menu;
+import org.billow.model.domain.MenuBase;
+import org.billow.model.expand.MenuDto;
 import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,20 +17,20 @@ import com.alibaba.fastjson.JSON;
 
 @Controller
 @RequestMapping("/menu")
-public class MenuController implements Comparator<Menu> {
+public class MenuController implements Comparator<MenuBase> {
 
 	@Autowired
 	private MenuService menuService;
 
 	@RequestMapping("/index")
 	public void index(HttpRequestHandlerServlet request) {
-		Menu menu = new Menu();
+		MenuDto menu = new MenuDto();
 		menu.setPid(0);
-		List<Menu> selectAll = menuService.selectAll(menu);
+		List<MenuDto> selectAll = menuService.selectAll(menu);
 		Collections.sort(selectAll, this);
 		if (ToolsUtils.isNotEmpty(selectAll)) {
-			for (Menu temp : selectAll) {
-				List<Menu> childList = menuService.getMenuChildList(temp.getId());
+			for (MenuBase temp : selectAll) {
+				List<MenuDto> childList = menuService.getMenuChildList(temp.getId());
 				Collections.sort(childList, this);
 				temp.setChildren(childList);
 			}
@@ -38,7 +39,7 @@ public class MenuController implements Comparator<Menu> {
 	}
 
 	@Override
-	public int compare(Menu m1, Menu m2) {
+	public int compare(MenuBase m1, MenuBase m2) {
 		return m1.getDisplayno().compareTo(m2.getDisplayno());
 	}
 }

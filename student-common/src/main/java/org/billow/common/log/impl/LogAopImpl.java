@@ -9,7 +9,7 @@ import org.aspectj.lang.JoinPoint;
 import org.billow.api.system.SystemLogService;
 import org.billow.common.annotation.SystemControllerLog;
 import org.billow.common.log.LogAop;
-import org.billow.model.domain.SystemLog;
+import org.billow.model.expand.SystemLogDto;
 import org.billow.utils.LoginHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ public class LogAopImpl implements LogAop {
 
 	@Override
 	public void logArgSave(JoinPoint joinPoint) {
-		SystemLog log = new SystemLog();
+		SystemLogDto log = new SystemLogDto();
 		this.saveLog(joinPoint, log);
 	}
 
@@ -35,7 +35,7 @@ public class LogAopImpl implements LogAop {
 	 * @param log
 	 * @throws Exception
 	 */
-	private void saveLog(JoinPoint joinPoint, SystemLog log) {
+	private void saveLog(JoinPoint joinPoint, SystemLogDto log) {
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			map = this.getControllerMethodDescription(joinPoint);

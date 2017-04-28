@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.billow.model.base.BaseModel;
+import org.billow.model.expand.MenuDto;
 
-public class Menu extends BaseModel implements Serializable {
+public class MenuBase extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = -4186056476602697064L;
 
@@ -25,7 +26,7 @@ public class Menu extends BaseModel implements Serializable {
 
 	private Double displayno;
 
-	List<Menu> children;
+	List<MenuDto> children;
 
 	public Integer getId() {
 		return id;
@@ -91,12 +92,12 @@ public class Menu extends BaseModel implements Serializable {
 		this.displayno = displayno;
 	}
 
-	public List<Menu> getChildren() {
+	public List<MenuDto> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<Menu> children) {
-		this.children = children;
+	public void setChildren(List<MenuDto> childList) {
+		this.children = childList;
 	}
 
 	@Override

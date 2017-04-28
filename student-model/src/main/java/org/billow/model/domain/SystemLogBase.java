@@ -3,7 +3,7 @@ package org.billow.model.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SystemLog implements Serializable {
+public class SystemLogBase implements Serializable {
 
 	private static final long serialVersionUID = -4788551421806088982L;
 

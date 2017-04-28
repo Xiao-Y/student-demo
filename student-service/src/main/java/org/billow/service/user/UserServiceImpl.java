@@ -6,13 +6,13 @@ import javax.annotation.Resource;
 
 import org.billow.api.user.UserService;
 import org.billow.dao.UserDao;
-import org.billow.model.domain.User;
+import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserService {
 
 	private UserDao userDao;
 
@@ -25,7 +25,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	@Override
 	public void deleteTest() {
 		this.deleteByPrimaryKey(15);
-		User record = new User();
+		UserDto record = new UserDto();
 		record.setUserId(52);
 		record.setUserName("XXXX");
 		record.setPhoneNumber("22222");
@@ -35,18 +35,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 	@Override
 	@Cacheable(keyGenerator = "keyGenerator", value = "findUserList")
-	public List<User> findUserList(User user) {
+	public List<UserDto> findUserList(UserDto user) {
 		return userDao.findUserList(user);
 	}
 
 	@Override
 	@Cacheable(keyGenerator = "keyGenerator", value = "findUserList")
-	public int findUserCount(User user) {
+	public int findUserCount(UserDto user) {
 		return userDao.findUserCount(user);
 	}
 
 	@Override
-	public User findUserById(int id) {
+	public UserDto findUserById(int id) {
 		return super.selectByPrimaryKey(id);
 	}
 

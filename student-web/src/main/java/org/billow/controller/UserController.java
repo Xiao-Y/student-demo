@@ -8,7 +8,8 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.billow.api.user.UserService;
 import org.billow.common.annotation.SystemControllerLog;
-import org.billow.model.domain.User;
+import org.billow.model.domain.UserBase;
+import org.billow.model.expand.UserDto;
 import org.billow.utils.RequestUtils;
 import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,9 @@ public class UserController {
 
 	@RequestMapping("/findUserList2")
 	@ResponseBody
-	public List<User> findUserList2() {
-		List<User> users = userService.findUserList(null);
-		for (User user : users) {
+	public List<UserDto> findUserList2() {
+		List<UserDto> users = userService.findUserList(null);
+		for (UserBase user : users) {
 			logger.info(user);
 		}
 		return users;
@@ -52,12 +53,12 @@ public class UserController {
 
 	@SystemControllerLog(function = "查询用户列表", module = "用户管理", operation = "查询", note = "非异步")
 	@RequestMapping("/findUserList")
-	public String findUserList(Model model, User user, HttpServletRequest request) {
+	public String findUserList(Model model, UserBase user, HttpServletRequest request) {
 		Integer pageSize = RequestUtils.getPageSize(request);
 		Integer targetPage = RequestUtils.getTargetPage(request);
 		PageHelper.startPage(targetPage, pageSize);
 
-		List<User> users = userService.findUserList(null);
+		List<UserDto> users = userService.findUserList(null);
 		int count = userService.findUserCount(null);
 		user.setRecordCount(count);
 		model.addAttribute("userModel", user);
@@ -68,12 +69,12 @@ public class UserController {
 	@RequestMapping("/prepareForUserAdd")
 	public String prepareForUserAdd(Model model) {
 		// 因为jsp中使用了modelAttribute属性，所以必须在request域中有一个"user"
-		model.addAttribute("user", new User());
+		model.addAttribute("user", new UserBase());
 		return "user/prepareForUserAdd";
 	}
 
 	@RequestMapping("/submitUserInfo")
-	public String submitUserInfo(@Valid User user, BindingResult result, Model model) {
+	public String submitUserInfo(@Valid UserDto user, BindingResult result, Model model) {
 		// @Valid 表示按照在实体上标记的注解验证参数
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -88,13 +89,13 @@ public class UserController {
 
 	@RequestMapping(value = "/prepareForUserUpdate/{userId}", method = RequestMethod.GET)
 	public String prepareForUserUpdate(@PathVariable Integer userId, Model model) {
-		User user = userService.selectByPrimaryKey(userId);
+		UserBase user = userService.selectByPrimaryKey(userId);
 		model.addAttribute("user", user);
 		return "user/prepareForUserAdd";
 	}
 
 	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
-	public String updateUserInfo(@Valid User user, BindingResult result, Model model) {
+	public String updateUserInfo(@Valid UserDto user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "user/prepareForUserAdd";
 		}
@@ -110,10 +111,10 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/searchUser")
-	public List<String> searchUser(@RequestBody User user) {
+	public List<String> searchUser(@RequestBody UserDto user) {
 		String userName = user.getUserName();
 		logger.info(userName);
-		List<User> users = userService.findUserList(user);
+		List<UserDto> users = userService.findUserList(user);
 		List<String> userNames = ToolsUtils.getListByFieldValue(users, "userName");
 		return userNames;
 	}
