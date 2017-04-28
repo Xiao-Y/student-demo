@@ -16,7 +16,7 @@ public class PageHelper extends com.github.pagehelper.PageHelper {
 		HttpServletRequest request = RequestUtils.getRequest();
 		Integer pageSize = RequestUtils.getPageSize(request);
 		Integer targetPage = RequestUtils.getTargetPage(request);
-		startPage(pageSize, targetPage);
+		startPage(targetPage,pageSize);
 	}
 
 	/**
