@@ -51,7 +51,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  * 
  * @date 2017年4月17日 下午3:41:18
  */
-@Controller
+@Controller("/test")
 @RequestMapping("/activitiController")
 public class ActivitiController {
 

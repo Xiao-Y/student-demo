@@ -3,6 +3,7 @@ package org.billow.controller.system;
 import java.util.List;
 
 import org.billow.api.menu.MenuService;
+import org.billow.common.constant.PagePath;
 import org.billow.model.expand.MenuDto;
 import org.billow.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/system")
 public class SystemController {
-
-	public static final String BASEPATH = "page/system/";
 
 	@Autowired
 	private MenuService menuService;
@@ -38,7 +37,7 @@ public class SystemController {
 		List<MenuDto> menus = menuService.selectAll(menu);
 		PageInfo<MenuDto> page = new PageInfo<>(menus);
 		av.addObject("page", page);
-		av.setViewName(BASEPATH + "menuManage");
+		av.setViewName(PagePath.BASEPATH_SYSTEM + "menuManage");
 		return av;
 	}
 
