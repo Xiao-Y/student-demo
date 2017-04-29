@@ -25,4 +25,5 @@ insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`
 insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('18','这是一级导航','fa-stop-circle',NULL,'http://fontawesome.io/icons/','0','1','103.000');
 insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('19','系统管理','fa-cogs','1',NULL,'0','1','90.000');
 insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('20','菜单管理','fa-reorder',NULL,'/system/menuManage','19','1','1.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('21','部署流程','fa-anchor',NULL,'/system/deploy','19','1','2.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('21','流程模板','fa-anchor',NULL,'/act/findActModel','19','1','2.000');
+insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('22',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
