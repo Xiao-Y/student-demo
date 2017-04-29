@@ -61,7 +61,7 @@
 									<input type="checkbox">
 								</td>
 								<td>${menu.title }</td>
-								<td><i class="${menu.icon }"></i></td>
+								<td><i class="fa ${menu.icon }"></i></td>
 								<td>${menu.spread }</td>
 								<td>${menu.href }</td>
 								<td>${menu.validind }</td>
