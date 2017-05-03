@@ -6,11 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.repository.Model;
 import org.apache.log4j.Logger;
 import org.billow.api.system.ActRepositoryService;
+import org.billow.common.constant.MessageTips;
 import org.billow.common.constant.PagePath;
 import org.billow.model.custom.DiagramDto;
+import org.billow.model.custom.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
@@ -70,15 +73,24 @@ public class ActivitiController {
 	 * @author XiaoY
 	 * @date: 2017年4月22日 上午11:16:49
 	 */
+	@ResponseBody
 	@RequestMapping("/diagram")
-	public void create(DiagramDto diagram, HttpServletRequest request, HttpServletResponse response) {
+	public JsonResult create(DiagramDto diagram, HttpServletRequest request, HttpServletResponse response) {
+		JsonResult json = new JsonResult();
 		try {
 			System.out.println(diagram);
-			//Model modelData = actRepositoryService.createModel(diagram);
+			Model modelData = actRepositoryService.createModel(diagram);
+			String url = request.getContextPath() + "/process-editor/modeler.html?modelId=" + modelData.getId();
 			//response.sendRedirect(request.getContextPath() + "/process-editor/modeler.html?modelId=" + modelData.getId());
+			json.setMessage(MessageTips.SAVE_SUCCESS);
+			json.setSuccess(true);
+			json.setRoot(url);
 		} catch (Exception e) {
+			json.setMessage("创建模型失败!");
+			json.setSuccess(false);
 			logger.error("创建模型失败：", e);
 			e.printStackTrace();
 		}
+		return json;
 	}
 }

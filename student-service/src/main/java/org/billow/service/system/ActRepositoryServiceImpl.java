@@ -40,7 +40,7 @@ public class ActRepositoryServiceImpl implements ActRepositoryService {
 	}
 
 	/**
-	 * 获取页面大小
+	 * 获取总页数
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>

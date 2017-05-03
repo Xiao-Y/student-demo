@@ -82,7 +82,7 @@ public class RequestUtils {
 		try {
 			size = Integer.parseInt(sizeStr);
 		} catch (Exception e) {
-			size = 10;
+			size = 8;
 		}
 		return size;
 	}

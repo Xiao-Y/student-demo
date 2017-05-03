@@ -13,7 +13,6 @@
 
 <body>
 	<div class="admin-main">
-
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
 				<i class="layui-icon">&#xe608;</i>
@@ -87,6 +86,7 @@
 		<input type="hidden" value="${pages.pageNum }" id="pageNum">
 	</div>
 	<script type="text/javascript" src="${ctx}/page/system/actModel.js"></script>
+	<script type="text/javascript" src="${ctx}/static/pubForm.js"></script>
 </body>
 
 </html>

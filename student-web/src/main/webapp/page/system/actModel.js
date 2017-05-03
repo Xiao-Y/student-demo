@@ -32,31 +32,9 @@ layui.use(['icheck', 'laypage','layer'], function() {
 	});
 
 	$('#add').on('click', function() {
-		$.get(path + '/act/createModel', null, function(content) {
-			layer.open({
-				type: 1,
-				title: '添加模板',
-				content: content,
-				btn: ['保存', '取消'],
-				area: ['600px', '400px'],
-				maxmin: true,
-				yes: function(index) {
-					layer.close(index);
-					//console.log(index);
-				},
-				full: function(elem) {
-					var win = window.top === window.self ? window : parent.window;
-					$(win).on('resize', function() {
-						var $this = $(this);
-						elem.width($this.width()).height($this.height()).css({
-							top: 0,
-							left: 0
-						});
-						elem.children('div.layui-layer-content').height($this.height() - 95);
-					});
-				}
-			});
-		});
+		var editUrl = path + '/act/createModel';
+		var saveUrl = path + '/act/diagram';
+		switchSubject(null,editUrl,saveUrl);
 	});
 
 	$('#import').on('click', function() {
