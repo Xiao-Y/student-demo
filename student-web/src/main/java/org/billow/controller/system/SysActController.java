@@ -1,5 +1,7 @@
 package org.billow.controller.system;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +14,7 @@ import org.billow.model.custom.DiagramDto;
 import org.billow.model.custom.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,10 +29,10 @@ import com.github.pagehelper.PageInfo;
  * @date 2017年4月29日 下午4:38:16
  */
 @Controller
-@RequestMapping("/act")
-public class ActivitiController {
+@RequestMapping("/sysAct")
+public class SysActController {
 
-	private static final Logger logger = Logger.getLogger(ActivitiController.class);
+	private static final Logger logger = Logger.getLogger(SysActController.class);
 
 	@Autowired
 	private ActRepositoryService actRepositoryService;
@@ -81,7 +84,8 @@ public class ActivitiController {
 			System.out.println(diagram);
 			Model modelData = actRepositoryService.createModel(diagram);
 			String url = request.getContextPath() + "/process-editor/modeler.html?modelId=" + modelData.getId();
-			//response.sendRedirect(request.getContextPath() + "/process-editor/modeler.html?modelId=" + modelData.getId());
+			// response.sendRedirect(request.getContextPath() +
+			// "/process-editor/modeler.html?modelId=" + modelData.getId());
 			json.setMessage(MessageTips.SAVE_SUCCESS);
 			json.setSuccess(true);
 			json.setRoot(url);
@@ -90,6 +94,53 @@ public class ActivitiController {
 			json.setSuccess(false);
 			logger.error("创建模型失败：", e);
 			e.printStackTrace();
+		}
+		return json;
+	}
+
+	/**
+	 * 查看模板流程图
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param modelId
+	 *            模板id
+	 * @param request
+	 * @param response
+	 * 
+	 * @date 2017年5月5日 上午9:36:53
+	 */
+	@RequestMapping("/viewPic/{modelId}")
+	public void viewPic(@PathVariable("modelId") String modelId, HttpServletRequest request, HttpServletResponse response) {
+		byte[] data = actRepositoryService.viewPic(modelId);
+		try {
+			if (data == null) {
+				response.setContentType("text/html;charset=UTF-8");
+				response.getOutputStream().write("暂时没有图片".getBytes("UTF-8"));
+			} else {
+				response.getOutputStream().write(data);
+			}
+			response.getOutputStream().flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping("/deleteModel/{modelId}")
+	public JsonResult deleteModel(@PathVariable("modelId") String modelId) {
+		JsonResult json = new JsonResult();
+		try {
+			actRepositoryService.deleteModel(modelId);
+			json.setSuccess(true);
+			json.setMessage(MessageTips.DELETE_SUCCESS);
+		} catch (Exception e) {
+			json.setSuccess(false);
+			json.setMessage(MessageTips.DELETE_FAILURE);
+			e.printStackTrace();
+			logger.error(e);
 		}
 		return json;
 	}

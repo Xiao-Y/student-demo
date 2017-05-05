@@ -23,6 +23,7 @@ public class ActRepositoryServiceImpl implements ActRepositoryService {
 	@Autowired
 	private RepositoryService repositoryService;
 
+	@Override
 	public PageInfo<Model> getModel() {
 		int pageSize = RequestUtils.getPageSize();
 		int pageNum = RequestUtils.getTargetPage();
@@ -88,12 +89,12 @@ public class ActRepositoryServiceImpl implements ActRepositoryService {
 		editorNode.put("stencilset", stencilSetNode);
 
 		Model modelData = repositoryService.newModel();
-		
+
 		ObjectNode modelObjectNode = objectMapper.createObjectNode();
 		modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, name);
 		modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
 		modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, StringUtils.defaultString(description));
-		
+
 		modelData.setMetaInfo(modelObjectNode.toString());
 		modelData.setName(name);
 		modelData.setKey(StringUtils.defaultString(key));
@@ -101,5 +102,15 @@ public class ActRepositoryServiceImpl implements ActRepositoryService {
 
 		repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes("utf-8"));
 		return modelData;
+	}
+
+	@Override
+	public byte[] viewPic(String modelId) {
+		return repositoryService.getModelEditorSourceExtra(modelId);
+	}
+
+	@Override
+	public void deleteModel(String modelId) throws Exception {
+		repositoryService.deleteModel(modelId);
 	}
 }

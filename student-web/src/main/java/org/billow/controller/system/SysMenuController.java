@@ -14,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping("/system")
-public class SystemController {
+@RequestMapping("/sysMenu")
+public class SysMenuController {
 
 	@Autowired
 	private MenuService menuService;

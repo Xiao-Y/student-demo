@@ -104,12 +104,12 @@ function tipsRB(data){
 	}else{
 		message = '<font color="#FF0000">' + message + '</font>';
 	}
-	var content = '<div style="padding: 20px 80px;">' + message + '</div>';
+	var content = '<div style="padding: 50px 80px;">' + message + '</div>';
 	layer.open({
 		type : 1,
 		offset : 'rb', // 具体配置参考：offset参数项
 		content : content,
-		time: 3000,//2s后自动关闭
+		time: 2000,//2s后自动关闭
 		//btn : '关闭全部',
 		//btnAlign : 'c', // 按钮居中
 		shade : 0,// 不显示遮罩
@@ -126,3 +126,8 @@ function tipsRB(data){
         }
 	});
 }
+$(function(){
+	$("a[data-opt='del']").on('click',function(){
+		alert(44);
+	});
+});

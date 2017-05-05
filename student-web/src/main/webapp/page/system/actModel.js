@@ -1,6 +1,6 @@
 layui.config({
-				base: path + '/static/plugins/layui/modules/'
-			});
+	base: path + '/static/plugins/layui/modules/'
+});
 
 layui.use(['icheck', 'laypage','layer'], function() {
 	var $ = layui.jquery,
@@ -22,7 +22,7 @@ layui.use(['icheck', 'laypage','layer'], function() {
 			//var curr = obj.curr;
 			if(!first) {
 				//layer.msg('第 '+ obj.curr +' 页');
-				location.href = path + '/act/findActModel?pageNo='+obj.curr;
+				location.href = path + '/sysAct/findActModel?pageNo='+obj.curr;
 			}
 		}
 	});
@@ -32,8 +32,8 @@ layui.use(['icheck', 'laypage','layer'], function() {
 	});
 
 	$('#add').on('click', function() {
-		var editUrl = path + '/act/createModel';
-		var saveUrl = path + '/act/diagram';
+		var editUrl = path + '/sysAct/createModel';
+		var saveUrl = path + '/sysAct/diagram';
 		switchSubject(null,editUrl,saveUrl);
 	});
 

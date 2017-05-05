@@ -50,8 +50,8 @@
 							<th>操作</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="model" items="${pages.list}">
+					<tbody id="actModelList">
+						<c:forEach var="model" items="${pages.list}" varStatus="status">
 							<tr>
 								<td>
 									<input type="checkbox">
@@ -68,9 +68,11 @@
 								</td>
 								<td>${model.version }</td>
 								<td>
-									<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-									<a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>
-									<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+									<a href="${ctx }/sysAct/viewPic/${model.id}" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
+									<a href="${ctx }/process-editor/modeler.html?modelId=${model.id}" target="_blank"
+										class="layui-btn layui-btn-mini">编辑</a>
+									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList"
+										url="${ctx }/sysAct/deleteModel/${model.id}" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -88,5 +90,7 @@
 	<script type="text/javascript" src="${ctx}/page/system/actModel.js"></script>
 	<script type="text/javascript" src="${ctx}/static/pubForm.js"></script>
 </body>
+<script type="text/javascript">
 
+</script>
 </html>

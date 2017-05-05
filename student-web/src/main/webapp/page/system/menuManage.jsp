@@ -108,7 +108,7 @@
 						//var curr = obj.curr;
 						if(!first) {
 							//layer.msg('第 '+ obj.curr +' 页');
-							location.href = path + '/system/menuManage?pageNo='+obj.curr;
+							location.href = path + '/sysMenu/menuManage?pageNo='+obj.curr;
 						}
 					}
 				});
