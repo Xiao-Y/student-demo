@@ -1,4 +1,4 @@
-package org.student.dubbo.provider.api;
+package org.billow.dubbo.provider.api;
 
 /**
  * 生产者
