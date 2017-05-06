@@ -78,7 +78,6 @@
 						</c:forEach>
 					</tbody>
 				</table>
-
 			</div>
 		</fieldset>
 		<div class="admin-table-page">

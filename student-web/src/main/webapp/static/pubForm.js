@@ -104,7 +104,7 @@ function tipsRB(data){
 	}else{
 		message = '<font color="#FF0000">' + message + '</font>';
 	}
-	var content = '<div style="padding: 50px 80px;">' + message + '</div>';
+	var content = '<div style="padding: 40px 80px;"><div style="height: 75px;">' + message + '</div></div>';
 	layer.open({
 		type : 1,
 		offset : 'rb', // 具体配置参考：offset参数项
@@ -127,7 +127,21 @@ function tipsRB(data){
 	});
 }
 $(function(){
+	//对指定的行删除
 	$("a[data-opt='del']").on('click',function(){
-		alert(44);
+		var url = $(this).attr("url");
+		layer.confirm('确定删除？',{icon: 2}, function(index){//yes
+			$.ajax({
+		        type : 'POST',
+		        url : url,
+		        dataType : 'json',
+		        success : function(data) {
+		         	tipsRB(data);
+		        }
+		    });
+			layer.close(index);
+		},function(index){//cancel
+		  	layer.close(index);
+		});
 	});
 });
