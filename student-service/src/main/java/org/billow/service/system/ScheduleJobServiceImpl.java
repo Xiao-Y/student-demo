@@ -1,5 +1,7 @@
 package org.billow.service.system;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.billow.api.system.ScheduleJobService;
@@ -11,12 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDto> implements ScheduleJobService {
 
-	@SuppressWarnings("unused")
 	private ScheduleJobDao scheduleJobDao;
 
 	@Resource
 	public void setScheduleJobDao(ScheduleJobDao scheduleJobDao) {
 		this.scheduleJobDao = scheduleJobDao;
 		super.setBaseDao(scheduleJobDao);
+	}
+
+	@Override
+	public List<ScheduleJobDto> selectAll(ScheduleJobDto scheduleJobDto) {
+		return scheduleJobDao.selectAll(scheduleJobDto);
 	}
 }
