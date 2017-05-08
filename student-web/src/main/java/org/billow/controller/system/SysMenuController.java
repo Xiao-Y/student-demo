@@ -3,7 +3,7 @@ package org.billow.controller.system;
 import java.util.List;
 
 import org.billow.api.menu.MenuService;
-import org.billow.common.constant.PagePath;
+import org.billow.common.constant.PagePathCst;
 import org.billow.model.expand.MenuDto;
 import org.billow.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class SysMenuController {
 		List<MenuDto> menus = menuService.selectAll(menu);
 		PageInfo<MenuDto> page = new PageInfo<>(menus);
 		av.addObject("page", page);
-		av.setViewName(PagePath.BASEPATH_SYSTEM + "menuManage");
+		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "menuManage");
 		return av;
 	}
 

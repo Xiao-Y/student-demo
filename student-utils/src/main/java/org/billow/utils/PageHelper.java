@@ -12,11 +12,12 @@ public class PageHelper extends com.github.pagehelper.PageHelper {
 	 * 
 	 * @date 2017年4月28日 下午12:46:31
 	 */
+	@SuppressWarnings("deprecation")
 	public static void startPage() {
 		HttpServletRequest request = RequestUtils.getRequest();
 		Integer pageSize = RequestUtils.getPageSize(request);
 		Integer targetPage = RequestUtils.getTargetPage(request);
-		startPage(targetPage,pageSize);
+		startPage(targetPage, pageSize);
 	}
 
 	/**
@@ -27,6 +28,7 @@ public class PageHelper extends com.github.pagehelper.PageHelper {
 	 * 
 	 * @date 2017年4月28日 下午12:46:31
 	 */
+	@SuppressWarnings("deprecation")
 	public static void startPage(HttpServletRequest request) {
 		Integer pageSize = RequestUtils.getPageSize(request);
 		Integer targetPage = RequestUtils.getTargetPage(request);

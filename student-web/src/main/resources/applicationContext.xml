@@ -30,13 +30,6 @@
 		</property>
 	</bean>
 
-	<!-- 用于读取配置文件，使用@Value("${t1.msgname}") -->
-	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
-		<property name="location">
-			<value>classpath:</value>
-		</property>
-	</bean> -->
-
 	<!-- 以静态变量保存Spring ApplicationContext -->
 	<bean class="org.billow.utils.bean.BeanUtils" />
 	<!-- 数据源 -->
@@ -47,8 +40,6 @@
 	<import resource="classpath:spring-tx.xml" />
 	<!-- spring整合redis缓存 -->
 	<!-- <import resource="classpath:spring-redis.xml" /> -->
-	<!-- 整合定时任务 -->
-	<!-- <import resource="classpath:spring-quartz.xml" /> -->
 	<!-- 整合activeMQ -->
 	<!-- <import resource="classpath:spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->

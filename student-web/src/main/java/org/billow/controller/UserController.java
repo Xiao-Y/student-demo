@@ -51,6 +51,7 @@ public class UserController {
 		return users;
 	}
 
+	@SuppressWarnings("deprecation")
 	@SystemControllerLog(function = "查询用户列表", module = "用户管理", operation = "查询", note = "非异步")
 	@RequestMapping("/findUserList")
 	public String findUserList(Model model, UserBase user, HttpServletRequest request) {

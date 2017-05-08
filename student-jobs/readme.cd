@@ -67,7 +67,10 @@ W 表示离指定日期的最近那个工作日(周一至周五). 例如在日�
 
 
 
-
+小提示
+更新表达式，判断表达式是否正确可用一下代码
+CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("xxxxx");
+抛出异常则表达式不正确
 
 
 

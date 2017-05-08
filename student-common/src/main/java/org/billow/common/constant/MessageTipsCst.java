@@ -1,6 +1,13 @@
 package org.billow.common.constant;
 
-public class MessageTips {
+/**
+ * json返回提示信息
+ * 
+ * @author liuyongtao
+ * 
+ * @date 2017年5月8日 上午10:35:17
+ */
+public class MessageTipsCst {
 
 	/**
 	 * 导入的不是Excel文件

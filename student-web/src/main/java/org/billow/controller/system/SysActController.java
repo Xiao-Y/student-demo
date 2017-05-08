@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.repository.Model;
 import org.apache.log4j.Logger;
 import org.billow.api.system.ActRepositoryService;
-import org.billow.common.constant.MessageTips;
-import org.billow.common.constant.PagePath;
+import org.billow.common.constant.MessageTipsCst;
+import org.billow.common.constant.PagePathCst;
 import org.billow.model.custom.DiagramDto;
 import org.billow.model.custom.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +53,13 @@ public class SysActController {
 		ModelAndView av = new ModelAndView();
 		PageInfo<Model> pages = actRepositoryService.getModel();
 		av.addObject("pages", pages);
-		av.setViewName(PagePath.BASEPATH_SYSTEM + "/actModel");
+		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "/actModel");
 		return av;
 	}
 
 	@RequestMapping("/createModel")
 	public String createModel() {
-		return PagePath.BASEPATH_SYSTEM + "/actAddModel";
+		return PagePathCst.BASEPATH_SYSTEM + "/actAddModel";
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class SysActController {
 			String url = request.getContextPath() + "/process-editor/modeler.html?modelId=" + modelData.getId();
 			// response.sendRedirect(request.getContextPath() +
 			// "/process-editor/modeler.html?modelId=" + modelData.getId());
-			json.setMessage(MessageTips.SAVE_SUCCESS);
+			json.setMessage(MessageTipsCst.SAVE_SUCCESS);
 			json.setSuccess(true);
 			json.setRoot(url);
 		} catch (Exception e) {
@@ -135,10 +135,10 @@ public class SysActController {
 		try {
 			actRepositoryService.deleteModel(modelId);
 			json.setSuccess(true);
-			json.setMessage(MessageTips.DELETE_SUCCESS);
+			json.setMessage(MessageTipsCst.DELETE_SUCCESS);
 		} catch (Exception e) {
 			json.setSuccess(false);
-			json.setMessage(MessageTips.DELETE_FAILURE);
+			json.setMessage(MessageTipsCst.DELETE_FAILURE);
 			e.printStackTrace();
 			logger.error(e);
 		}
