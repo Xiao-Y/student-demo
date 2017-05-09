@@ -1,5 +1,6 @@
 package org.billow.controller.system;
 
+import java.util.Date;
 import java.util.List;
 
 import org.billow.api.system.ScheduleJobService;
@@ -55,6 +56,7 @@ public class SysAutoTaskController {
 		ScheduleJobDto dto = new ScheduleJobDto();
 		dto.setJobId(jobId);
 		dto.setJobStatus(jobStatus);
+		dto.setUpdateTime(new Date());
 		try {
 			scheduleJobService.updateByPrimaryKeySelective(dto);
 			json.setSuccess(true);

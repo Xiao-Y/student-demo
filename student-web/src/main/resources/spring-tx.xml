@@ -25,7 +25,7 @@
 		<tx:attributes>
 			<tx:method name="delete*" propagation="REQUIRES_NEW" read-only="false" />
 			<tx:method name="insert*" propagation="REQUIRES_NEW" read-only="false" />
-			<tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRES_NEW" read-only="false" />
 			<tx:method name="persist*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
 			<tx:method name="find*" propagation="SUPPORTS" />
 			<tx:method name="get*" propagation="SUPPORTS" />

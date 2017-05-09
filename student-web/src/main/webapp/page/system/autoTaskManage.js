@@ -24,10 +24,16 @@ layui.use(['laypage', 'layer', 'form'], function() {
 	
 	//绑定开头事件
 	form.on('switch', function(data){
-//		var $obj = $(this);
-//		var checked = $this.is(":checked");
-//		console.log(checked);
-		var jobStatus = 1;//checked === true ? 1 : 0;
+		console.log(data.value);
+		var $this = $(this);
+		console.log($this);
+		var checked = $this.is(":checked");
+//		var jobStatus = checked === true ? 1 : 0;
+		var jobStatus = 0;
+		if(checked === true){
+			jobStatus = 1;
+		}
+//		console.log(checked + " " + jobStatus + " " + $this.val());
 		var url = path + "/sysAutoTask/updateJobStatus/" + 1;
 		$.post(
 			url,
@@ -40,10 +46,10 @@ layui.use(['laypage', 'layer', 'form'], function() {
 //					}else{
 //						$this.attr("checked", true);
 //					}
-//					form.render('checkbox');
 //				}
 				//tipsRB(data);
 			});
+					form.render('checkbox');
 	});
 	
 	/**
