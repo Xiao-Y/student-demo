@@ -1,7 +1,6 @@
 ﻿<!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/static/taglib.jsp"%>
-<jsp:include page="/static/public.jsp" />
 <html>
 
 <head>
@@ -13,6 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
+<jsp:include page="/static/public.jsp" />
 
 <!-- <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />

@@ -21,4 +21,53 @@ layui.use(['laypage', 'layer', 'form'], function() {
 			}
 		}
 	});
+	
+	//绑定开头事件
+	form.on('switch', function(data){
+//		var $obj = $(this);
+//		var checked = $this.is(":checked");
+//		console.log(checked);
+		var jobStatus = 1;//checked === true ? 1 : 0;
+		var url = path + "/sysAutoTask/updateJobStatus/" + 1;
+		$.post(
+			url,
+			{jobStatus : jobStatus},
+			function(data, status){
+//				console.log(data.success === false);
+//				if(data.success === false){
+//					if(checked === true){
+//						$this.attr("checked", false);
+//					}else{
+//						$this.attr("checked", true);
+//					}
+//					form.render('checkbox');
+//				}
+				//tipsRB(data);
+			});
+	});
+	
+	/**
+	 * 提示信息
+	 * 
+	 * @param {}
+	 *            info
+	 */
+	function tipsRB(data) {
+		var message = data.message;
+		var success = data.success;
+		if (success === true) {
+			message = '<font color="#00CC00">' + message + '</font>';
+		} else {
+			message = '<font color="#FF0000">' + message + '</font>';
+		}
+		var content = '<div style="padding: 40px 80px;"><div style="height: 75px;">'
+				+ message + '</div></div>';
+		layer.open({
+			type : 1,
+			offset : 'rb', // 具体配置参考：offset参数项
+			content : content,
+			time : 2000,// 2s后自动关闭
+			shade : 0// 不显示遮罩
+		});
+	}
 });

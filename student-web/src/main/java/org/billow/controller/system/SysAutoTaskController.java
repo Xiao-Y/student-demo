@@ -3,12 +3,16 @@ package org.billow.controller.system;
 import java.util.List;
 
 import org.billow.api.system.ScheduleJobService;
+import org.billow.common.constant.MessageTipsCst;
 import org.billow.common.constant.PagePathCst;
+import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.ScheduleJobDto;
 import org.billow.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
@@ -43,4 +47,24 @@ public class SysAutoTaskController {
 		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "autoTaskEdit");
 		return av;
 	}
+
+	@ResponseBody
+	@RequestMapping("/updateJobStatus/{jobId}")
+	public JsonResult updateJobStatus(@PathVariable("jobId") Long jobId, String jobStatus) {
+		JsonResult json = new JsonResult();
+		ScheduleJobDto dto = new ScheduleJobDto();
+		dto.setJobId(jobId);
+		dto.setJobStatus(jobStatus);
+		try {
+			scheduleJobService.updateByPrimaryKeySelective(dto);
+			json.setSuccess(true);
+			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
+			int i = 1/0;
+		} catch (Exception e) {
+			json.setSuccess(false);
+			json.setMessage(MessageTipsCst.UPDATE_FAILURE);
+		}
+		return json;
+	}
+
 }

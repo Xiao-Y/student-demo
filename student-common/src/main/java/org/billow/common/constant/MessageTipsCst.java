@@ -60,6 +60,11 @@ public class MessageTipsCst {
 	public static final String UPDATE_SUCCESS = "更新成功！";
 
 	/**
+	 * 更新失败！
+	 */
+	public static final String UPDATE_FAILURE = "更新失败！";
+
+	/**
 	 * 提示
 	 */
 	public static final String HINT = "提示";

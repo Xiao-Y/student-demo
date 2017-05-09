@@ -1,7 +1,6 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/static/taglib.jsp"%>
-<jsp:include page="/static/public.jsp" />
 <html>
 
 <head>
@@ -11,6 +10,7 @@
 		<link rel="stylesheet" href="css/global.css" media="all">
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 		<link rel="stylesheet" href="css/table.css" /> -->
+<jsp:include page="/static/public.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/static/css/global.css" media="all">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/static/css/table.css">
 </head>

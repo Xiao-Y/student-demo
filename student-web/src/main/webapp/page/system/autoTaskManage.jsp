@@ -1,14 +1,14 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/static/taglib.jsp"%>
-<jsp:include page="/static/public.jsp" />
 <html>
 
 <head>
 <meta charset="UTF-8">
 <title>自动任务管理</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/static/css/global.css" media="all">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/static/css/table.css">
+<jsp:include page="/static/public.jsp" />
+<link rel="stylesheet" href="${ctx }/static/css/global.css">
+<link rel="stylesheet" href="${ctx }/static/css/table.css">
 <script type="text/javascript" src="${ctx }/page/system/autoTaskManage.js"></script>
 </head>
 <body>
@@ -16,22 +16,14 @@
 
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i> 添加
+				<i class="layui-icon">&#xe608;</i>
+				添加
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i> 搜索
+				<i class="layui-icon">&#xe615;</i>
+				搜索
 			</a>
 		</blockquote>
-		<div class="layui-form">
-			<input type="checkbox" checked name="open" lay-skin="switch" lay-text="启用|禁用">
-			<div class="layui-form-item" pane>
-				<label class="layui-form-label">开关开</label>
-				<div class="layui-input-block">
-					<input type="checkbox" checked name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
-					<input type="checkbox" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="启用|禁用">
-				</div>
-			</div>
-		</div>
 		<fieldset class="layui-elem-field">
 			<legend>自动任务列表</legend>
 			<div class="layui-field-box">
@@ -41,7 +33,7 @@
 							<th>任务分组</th>
 							<th>任务名称</th>
 							<th>cron表达式</th>
-							<th>任务是否有状态</th>
+							<th>是否有状态</th>
 							<th>BeanClass</th>
 							<th>SpringId</th>
 							<th>执行方法</th>
@@ -58,7 +50,14 @@
 								<td>${task.jobGroup }</td>
 								<td>${task.jobName }</td>
 								<td>${task.cronExpression }</td>
-								<td>${task.isConcurrent }</td>
+								<td>
+									<c:if test="${task.isConcurrent == 1 }">
+										<i class="fa fa-check-circle fa-2x" />
+									</c:if>
+									<c:if test="${task.isConcurrent == 0 }">
+										<i class="fa fa-ban fa-2x" />
+									</c:if>
+								</td>
 								<td>${task.beanClass }</td>
 								<td>${task.springId }</td>
 								<td>${task.methodName }</td>
@@ -70,8 +69,10 @@
 									<fmt:formatDate value="${task.updateTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
 								<td>
-									<%-- ${task.jobStatus } --%>
-
+									<div class="layui-form">
+										<input value="${task.jobId }" type="checkbox" <c:if test="${task.jobStatus == 1 }">checked</c:if>
+											name=jobStatus lay-skin="switch" lay-text="启用|禁用">
+									</div>
 								</td>
 								<td>
 									<a href="${ctx }/sysAutoTask/editAutoTask" class="layui-btn layui-btn-mini">编辑</a>

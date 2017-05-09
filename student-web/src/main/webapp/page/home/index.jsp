@@ -1,7 +1,6 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/static/taglib.jsp"%>
-<jsp:include page="/static/public.jsp" />
 <html>
 <head>
 <meta charset="utf-8">
@@ -13,6 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 
+<jsp:include page="/static/public.jsp" />
 <!-- <link rel="stylesheet" href="../../static/plugins/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="../../static/css/global.css" media="all">
 <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> -->
