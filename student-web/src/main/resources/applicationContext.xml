@@ -50,7 +50,7 @@
 	<!-- <import resource="classpath:dubbo-consumer.xml" /> -->
 	<!-- activiti工作流 -->
 	<import resource="classpath:spring-activiti.xml" />
-	
+
 	<!-- 定时任务 -->
 	<!-- 调度工厂:动态配置自动任务 -->
 	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />

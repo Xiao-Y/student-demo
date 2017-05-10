@@ -61,8 +61,8 @@ public class SysAutoTaskController {
 			scheduleJobService.updateByPrimaryKeySelective(dto);
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
-			int i = 1/0;
 		} catch (Exception e) {
+			e.printStackTrace();
 			json.setSuccess(false);
 			json.setMessage(MessageTipsCst.UPDATE_FAILURE);
 		}

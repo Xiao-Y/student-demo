@@ -45,14 +45,13 @@
 	</bean>
 	<!-- 慢SQL记录 end -->
 
-	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
-	</bean>
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
 
 	<!-- 配置监控service层 -->
 	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
 		<property name="patterns">
 			<list>
-				<value>com.billow.service.*</value>
+				<value>org.billow.service.*</value>
 			</list>
 		</property>
 	</bean>

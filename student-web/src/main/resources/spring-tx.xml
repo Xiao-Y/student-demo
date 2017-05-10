@@ -23,22 +23,28 @@
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="delete*" propagation="REQUIRES_NEW" read-only="false" />
-			<tx:method name="insert*" propagation="REQUIRES_NEW" read-only="false" />
-			<tx:method name="update*" propagation="REQUIRES_NEW" read-only="false" />
-			<tx:method name="persist*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="persist*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="modify*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="edit*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+
 			<tx:method name="find*" propagation="SUPPORTS" />
 			<tx:method name="get*" propagation="SUPPORTS" />
 			<tx:method name="select*" propagation="SUPPORTS" />
-			<tx:method name="*" propagation="REQUIRES_NEW" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="*" propagation="SUPPORTS" />
 		</tx:attributes>
 	</tx:advice>
 
 	<aop:config>
 		<!--把事务控制在Service层 -->
-		<aop:pointcut id="fooServiceMethods" expression="execution(* org.billow.service.*.*(..))" />
+		<aop:pointcut id="fooServiceMethods" expression="execution(* org.billow.service..*Impl.*(..))" />
 		<!-- 日志 -->
-		<aop:pointcut id="controllerLogPointcut" expression="execution(* org.billow.controller.*Controller.*(..))" />
+		<aop:pointcut id="controllerLogPointcut" expression="execution(* org.billow.controller.*.*Controller.*(..))" />
 
 		<aop:advisor pointcut-ref="fooServiceMethods" advice-ref="txAdvice" />
 
