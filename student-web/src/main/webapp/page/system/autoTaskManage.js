@@ -23,33 +23,26 @@ layui.use(['laypage', 'layer', 'form'], function() {
 	});
 	
 	//绑定开头事件
-	form.on('switch', function(data){
-		console.log(data.value);
-		var $this = $(this);
-		console.log($this);
-		var checked = $this.is(":checked");
-//		var jobStatus = checked === true ? 1 : 0;
-		var jobStatus = 0;
-		if(checked === true){
-			jobStatus = 1;
-		}
-//		console.log(checked + " " + jobStatus + " " + $this.val());
-		var url = path + "/sysAutoTask/updateJobStatus/" + 1;
+	form.on('switch', function(field){
+		var checked = field.elem.checked;
+		var jobId = field.elem.value;
+		//checked true 表示启用，否则禁用
+		var jobStatus = checked === true ? 1 : 0;
+		var url = path + "/sysAutoTask/updateJobStatus/" + jobId;
 		$.post(
 			url,
 			{jobStatus : jobStatus},
 			function(data, status){
-//				console.log(data.success === false);
-//				if(data.success === false){
-//					if(checked === true){
-//						$this.attr("checked", false);
-//					}else{
-//						$this.attr("checked", true);
-//					}
-//				}
-				//tipsRB(data);
+				if(data.success === false){
+					if(checked === true){
+						field.elem.checked = false;
+					}else{
+						field.elem.checked = true;
+					}
+				}
+				form.render('checkbox');
+				tipsRB(data);
 			});
-					form.render('checkbox');
 	});
 	
 	/**

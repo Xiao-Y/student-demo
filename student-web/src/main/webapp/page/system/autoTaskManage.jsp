@@ -71,7 +71,7 @@
 								<td>
 									<div class="layui-form">
 										<input name="jobId" type="hidden" value="${task.jobId }" />
-										<input type="checkbox" <c:if test="${task.jobStatus == 1 }">checked</c:if> name=jobStatus lay-skin="switch"
+										<input type="checkbox" value="${task.jobId }" <c:if test="${task.jobStatus == 1 }">checked</c:if> name=jobStatus lay-skin="switch"
 											lay-text="启用|禁用" />
 									</div>
 								</td>
