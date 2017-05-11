@@ -69,4 +69,20 @@ public class SysAutoTaskController {
 		return json;
 	}
 
+	@ResponseBody
+	@RequestMapping("/deleteAutoTask/{jobId}")
+	public JsonResult deleteAutoTask(@PathVariable("jobId") int jobId){
+		JsonResult json = new JsonResult();
+		try {
+			scheduleJobService.deleteByPrimaryKey(jobId);
+			json.setSuccess(true);
+			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMessage(MessageTipsCst.UPDATE_FAILURE);
+		}
+		return json;
+	}
+	
 }

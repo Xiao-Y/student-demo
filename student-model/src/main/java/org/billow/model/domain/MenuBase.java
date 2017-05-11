@@ -8,7 +8,7 @@ import org.billow.model.expand.MenuDto;
 
 public class MenuBase extends BaseModel implements Serializable {
 
-	private static final long serialVersionUID = -4186056476602697064L;
+	private static final long serialVersionUID = 8914050685684807538L;
 
 	private Integer id;
 
@@ -102,7 +102,7 @@ public class MenuBase extends BaseModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Menu [id=" + id + ", title=" + title + ", icon=" + icon + ", spread=" + spread + ", href=" + href + ", pid=" + pid + ", validind="
-				+ validind + ", displayno=" + displayno + "]";
+		return "Menu [id=" + id + ", title=" + title + ", icon=" + icon + ", spread=" + spread + ", href=" + href
+				+ ", pid=" + pid + ", validind=" + validind + ", displayno=" + displayno + "]";
 	}
 }

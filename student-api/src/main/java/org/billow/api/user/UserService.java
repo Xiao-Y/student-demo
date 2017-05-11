@@ -13,5 +13,5 @@ public interface UserService extends BaseService<UserDto> {
 
 	public int findUserCount(UserDto user);
 
-	public UserDto findUserById(int id);
+	public UserDto findUserById(Integer id);
 }
