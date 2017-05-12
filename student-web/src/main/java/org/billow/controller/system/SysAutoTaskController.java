@@ -31,6 +31,17 @@ public class SysAutoTaskController {
 	@Autowired
 	private ScheduleJobService scheduleJobService;
 
+	/**
+	 * 显示自动任务列表
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param scheduleJobDto
+	 * @return
+	 * 
+	 * @date 2017年5月11日 下午2:59:15
+	 */
 	@RequestMapping("/findAutoTask")
 	public ModelAndView findAutoTask(ScheduleJobDto scheduleJobDto) {
 		ModelAndView av = new ModelAndView();
@@ -42,6 +53,17 @@ public class SysAutoTaskController {
 		return av;
 	}
 
+	/**
+	 * 自动任务修改页面
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param scheduleJobDto
+	 * @return
+	 * 
+	 * @date 2017年5月11日 下午2:59:31
+	 */
 	@RequestMapping("/editAutoTask")
 	public ModelAndView editAutoTask(ScheduleJobDto scheduleJobDto) {
 		ModelAndView av = new ModelAndView();
@@ -49,6 +71,20 @@ public class SysAutoTaskController {
 		return av;
 	}
 
+	/**
+	 * 启用、禁用自动任务
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param jobId
+	 *            自动任务id
+	 * @param jobStatus
+	 *            任务状态，1-启用，0-禁用
+	 * @return
+	 * 
+	 * @date 2017年5月11日 下午2:58:16
+	 */
 	@ResponseBody
 	@RequestMapping("/updateJobStatus/{jobId}")
 	public JsonResult updateJobStatus(@PathVariable("jobId") Long jobId, String jobStatus) {
@@ -69,4 +105,20 @@ public class SysAutoTaskController {
 		return json;
 	}
 
+	@ResponseBody
+	@RequestMapping("/deleteAutoTask/{jobId}")
+	public JsonResult deleteAutoTask(@PathVariable("jobId") int jobId){
+		JsonResult json = new JsonResult();
+		try {
+			scheduleJobService.deleteByPrimaryKey(jobId);
+			json.setSuccess(true);
+			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMessage(MessageTipsCst.UPDATE_FAILURE);
+		}
+		return json;
+	}
+	
 }
