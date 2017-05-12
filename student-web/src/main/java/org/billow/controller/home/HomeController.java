@@ -62,7 +62,7 @@ public class HomeController implements Comparator<MenuBase> {
 					Iterator<MenuDto> iterator = childList.iterator();
 					while (iterator.hasNext()) {
 						MenuBase tempChild = iterator.next();
-						if (Integer.compare(0, tempChild.getPid()) == 0) {
+						if (Long.compare(0, tempChild.getPid()) == 0) {
 							iterator.remove();
 						}
 						tempChild.setHref(contextPath + tempChild.getHref());

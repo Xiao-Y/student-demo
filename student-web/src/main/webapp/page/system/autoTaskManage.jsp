@@ -10,18 +10,17 @@
 <link rel="stylesheet" href="${ctx }/static/css/global.css">
 <link rel="stylesheet" href="${ctx }/static/css/table.css">
 <script type="text/javascript" src="${ctx }/page/system/autoTaskManage.js"></script>
+<script type="text/javascript" src="${ctx}/static/pubForm.js"></script>
 </head>
 <body>
 	<div class="admin-main">
 
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i>
-				添加
+				<i class="layui-icon">&#xe608;</i> 添加
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i>
-				搜索
+				<i class="layui-icon">&#xe615;</i> 搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -77,7 +76,8 @@
 								</td>
 								<td>
 									<a href="${ctx }/sysAutoTask/editAutoTask" class="layui-btn layui-btn-mini">编辑</a>
-									<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+									<a href="javascript:;" data-opt="del" url="${ctx }/sysAutoTask/deleteAutoTask/${task.jobId}"
+										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

@@ -46,7 +46,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 	}
 
 	@Override
-	public UserDto findUserById(int id) {
+	public UserDto findUserById(Integer id) {
 		return super.selectByPrimaryKey(id);
 	}
 

@@ -1,25 +1,13 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-  <meta charset="utf-8">
-  <title>表单模块 - layui</title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/static/plugins/layui/css/layui.css">
-
-<style>
-body {
-	padding: 10px;
-}
-</style>
+<meta charset="utf-8">
+<title>添加/修改自动任务</title>
+<jsp:include page="/static/public.jsp" />
+<script type="text/javascript" src="${ctx }/page/system/autoTaskEdit.js"></script>
 </head>
-<body>
-
+<body style="padding: 10px;">
 	<form class="layui-form layui-form-pane1" action="">
 		<div class="layui-form-item">
 			<label class="layui-form-label">输入框</label>
@@ -172,85 +160,28 @@ body {
 			</div>
 		</div>
 	</form>
-
-	<br>
-	<br>
-	<br>
-
-
-	<script type="text/javascript" src="${pageContext.request.contextPath }/static/plugins/layui/layui.js"></script>
-
-	<script>
-		layui.use('form', function() {
-			var form = layui.form();
-
-			//自定义验证规则
-			form.verify({
-				title : function(value) {
-					if (value.length < 5) {
-						return '标题也太短了吧';
-					}
-				},
-				pass : [ /(.+){6,12}$/, '密码必须6到12位' ]
-			});
-
-			//事件监听
-			form.on('select', function(data) {
-				console.log(data);
-			});
-
-			form.on('select(aihao)', function(data) {
-				console.log(data);
-			});
-
-			form.on('checkbox', function(data) {
-				console.log(data.elem.checked);
-			});
-
-			form.on('switch', function(data) {
-				console.log(data);
-			});
-
-			form.on('radio', function(data) {
-				console.log(data);
-			});
-
-			//监听提交
-			form.on('submit(*)', function(data) {
-				console.log(data)
-				return false;
-			});
-
-		});
-	</script>
-
-
-	<form id="test">
-		<input type="radio" value="girl" disabled>
-		<input type="checkbox" name="love[a]">
-		<input type="checkbox" name="love[b]">
-		<input value="1">
-		<select name="quiz">
-			<option value="">请选择问题</option>
-			<option disabled value="你工作的第一个城市">你工作的第一个城市</option>
-			<option value="你的工号">你的工号</option>
-			<option value="你最喜欢的老师">你最喜欢的老师</option>
-		</select>
-		<button>go</button>
-	</form>
-	<script>
-		layui.use('jquery', function() {
-			var $ = layui.jquery;
-			var submit = function() {
-				return false;
-			};
-			$('#test').on('submit', function() {
-				return false
-			});
-			$('#test').on('submit', function() {
-				return true
-			});
-		});
-	</script>
 </body>
+<script type="text/javascript">
+layui.use('form', function() {
+	var $ = layui.jquery,form = layui.form(),layer = parent.layer === undefined ? layui.layer : parent.layer;
+	//自定义验证规则
+	form.verify({
+		title : function(value) {
+			if (value.length < 5) {
+				return '标题也太短了吧';
+			}
+		},
+		pass : [ /(.+){6,12}$/, '密码必须6到12位' ]
+	});
+
+	//监听提交
+	form.on('submit(*)', function(data) {
+		console.log(data);
+		layer.alert(JSON.stringify(data.field), {  
+	      title: '最终的提交信息'  
+	    })
+		return false;
+	});
+});
+</script>
 </html>

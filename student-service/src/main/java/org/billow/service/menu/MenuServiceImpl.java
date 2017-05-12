@@ -22,7 +22,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDto> implements MenuSer
 	}
 
 	@Override
-	public List<MenuDto> getMenuChildList(int id) {
+	public List<MenuDto> getMenuChildList(Integer id) {
 		return menuDao.getMenuChildList(id);
 	}
 

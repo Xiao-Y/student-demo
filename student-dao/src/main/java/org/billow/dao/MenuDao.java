@@ -7,7 +7,7 @@ import org.billow.model.expand.MenuDto;
 
 public interface MenuDao extends BaseDao<MenuDto> {
 
-	public List<MenuDto> getMenuChildList(int id);
+	public List<MenuDto> getMenuChildList(Integer id);
 
 	public List<MenuDto> selectAll(MenuDto menu);
 }
