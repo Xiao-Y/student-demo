@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <form id="diagram" class="layui-form" action="${ctx}/sysAct/diagram">
-	<div class="layui-form-item">
-	</div>
+	<div class="layui-form-item"></div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">KEY</label>
 		<div class="layui-input-block">

@@ -2,13 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/static/taglib.jsp"%>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>自动任务管理</title>
 <jsp:include page="/static/public.jsp" />
-<link rel="stylesheet" href="${ctx }/static/css/global.css">
-<link rel="stylesheet" href="${ctx }/static/css/table.css">
+<link rel="stylesheet" href="${ctx }/static/css/global.css" />
+<link rel="stylesheet" href="${ctx }/static/css/table.css" />
 <script type="text/javascript" src="${ctx }/page/system/autoTaskManage.js"></script>
 <script type="text/javascript" src="${ctx}/static/pubForm.js"></script>
 </head>
@@ -17,10 +16,12 @@
 
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i> 添加
+				<i class="layui-icon">&#xe608;</i>
+				添加
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i> 搜索
+				<i class="layui-icon">&#xe615;</i>
+				搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -70,12 +71,12 @@
 								<td>
 									<div class="layui-form">
 										<input name="jobId" type="hidden" value="${task.jobId }" />
-										<input type="checkbox" value="${task.jobId }" <c:if test="${task.jobStatus == 1 }">checked</c:if> name=jobStatus lay-skin="switch"
-											lay-text="启用|禁用" />
+										<input type="checkbox" value="${task.jobId }" <c:if test="${task.jobStatus == 1 }">checked</c:if>
+											name=jobStatus lay-skin="switch" lay-text="启用|禁用" />
 									</div>
 								</td>
 								<td>
-									<a href="${ctx }/sysAutoTask/editAutoTask" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="${ctx }/sysAutoTask/editAutoTask/${task.jobId}" class="layui-btn layui-btn-mini">编辑</a>
 									<a href="javascript:;" data-opt="del" url="${ctx }/sysAutoTask/deleteAutoTask/${task.jobId}"
 										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>

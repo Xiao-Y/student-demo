@@ -68,9 +68,11 @@ public class SysAutoTaskController {
 	 * 
 	 * @date 2017年5月11日 下午2:59:31
 	 */
-	@RequestMapping("/editAutoTask")
-	public ModelAndView editAutoTask(ScheduleJobDto scheduleJobDto) {
+	@RequestMapping("/editAutoTask/{jobId}")
+	public ModelAndView editAutoTask(@PathVariable("jobId") Integer jobId) {
 		ModelAndView av = new ModelAndView();
+		ScheduleJobDto dto = scheduleJobService.selectByPrimaryKey(jobId);
+		av.addObject("task", dto);
 		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "autoTaskEdit");
 		return av;
 	}
