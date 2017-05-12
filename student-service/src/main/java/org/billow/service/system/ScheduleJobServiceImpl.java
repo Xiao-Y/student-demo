@@ -30,4 +30,9 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDto> impl
 	public List<ScheduleJobDto> selectAll(ScheduleJobDto scheduleJobDto) {
 		return scheduleJobDao.selectAll(scheduleJobDto);
 	}
+
+	@Override
+	public void updateJobStatus(ScheduleJobDto dto) {
+		scheduleJobDao.updateByPrimaryKeySelective(dto);
+	}
 }

@@ -3,9 +3,9 @@ package org.billow.controller.system;
 import java.util.List;
 
 import org.billow.api.menu.MenuService;
-import org.billow.common.constant.PagePathCst;
 import org.billow.model.expand.MenuDto;
 import org.billow.utils.PageHelper;
+import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

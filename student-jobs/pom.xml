@@ -15,17 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.billow</groupId>
-			<artifactId>student-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.billow</groupId>
 			<artifactId>student-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.billow</groupId>
-			<artifactId>student-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

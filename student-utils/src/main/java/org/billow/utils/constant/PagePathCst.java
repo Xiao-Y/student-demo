@@ -1,4 +1,4 @@
-package org.billow.common.constant;
+package org.billow.utils.constant;
 
 /**
  * 系统请求路径

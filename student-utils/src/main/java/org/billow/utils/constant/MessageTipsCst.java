@@ -1,4 +1,4 @@
-package org.billow.common.constant;
+package org.billow.utils.constant;
 
 /**
  * json返回提示信息

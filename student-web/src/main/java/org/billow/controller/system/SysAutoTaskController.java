@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.billow.api.system.ScheduleJobService;
-import org.billow.common.constant.MessageTipsCst;
-import org.billow.common.constant.PagePathCst;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.ScheduleJobDto;
 import org.billow.utils.PageHelper;
+import org.billow.utils.constant.MessageTipsCst;
+import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -94,7 +94,7 @@ public class SysAutoTaskController {
 		dto.setJobStatus(jobStatus);
 		dto.setUpdateTime(new Date());
 		try {
-			scheduleJobService.updateByPrimaryKeySelective(dto);
+			scheduleJobService.updateJobStatus(dto);
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
 		} catch (Exception e) {
@@ -105,9 +105,20 @@ public class SysAutoTaskController {
 		return json;
 	}
 
+	/**
+	 * 删除自动任务
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param jobId
+	 * @return
+	 * 
+	 * @date 2017年5月12日 上午8:42:28
+	 */
 	@ResponseBody
 	@RequestMapping("/deleteAutoTask/{jobId}")
-	public JsonResult deleteAutoTask(@PathVariable("jobId") int jobId){
+	public JsonResult deleteAutoTask(@PathVariable("jobId") int jobId) {
 		JsonResult json = new JsonResult();
 		try {
 			scheduleJobService.deleteByPrimaryKey(jobId);
@@ -120,5 +131,5 @@ public class SysAutoTaskController {
 		}
 		return json;
 	}
-	
+
 }

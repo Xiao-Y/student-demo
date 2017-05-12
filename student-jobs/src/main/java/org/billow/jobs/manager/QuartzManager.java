@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.billow.common.constant.QuartzCst;
 import org.billow.jobs.quartzJobFactory.QuartzJobFactory;
 import org.billow.jobs.quartzJobFactory.QuartzJobFactoryDisallowConcurrentExecution;
 import org.billow.model.expand.ScheduleJobDto;
+import org.billow.utils.constant.QuartzCst;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -160,7 +160,6 @@ public class QuartzManager {
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
 		scheduler.deleteJob(jobKey);
-
 	}
 
 	/**

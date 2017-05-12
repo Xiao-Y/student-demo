@@ -13,11 +13,6 @@
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-		<dependency>
-			<groupId>org.billow</groupId>
-			<artifactId>student-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<!-- dubbo -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
