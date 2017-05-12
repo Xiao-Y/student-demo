@@ -6,6 +6,7 @@ import java.util.List;
 import org.billow.api.system.ScheduleJobService;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.ScheduleJobDto;
+import org.billow.service.TaskManagerService;
 import org.billow.utils.PageHelper;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
@@ -30,6 +31,9 @@ public class SysAutoTaskController {
 
 	@Autowired
 	private ScheduleJobService scheduleJobService;
+
+	@Autowired
+	private TaskManagerService taskManagerService;
 
 	/**
 	 * 显示自动任务列表
@@ -87,14 +91,14 @@ public class SysAutoTaskController {
 	 */
 	@ResponseBody
 	@RequestMapping("/updateJobStatus/{jobId}")
-	public JsonResult updateJobStatus(@PathVariable("jobId") Long jobId, String jobStatus) {
+	public JsonResult updateJobStatus(@PathVariable("jobId") Integer jobId, String jobStatus) {
 		JsonResult json = new JsonResult();
 		ScheduleJobDto dto = new ScheduleJobDto();
 		dto.setJobId(jobId);
 		dto.setJobStatus(jobStatus);
 		dto.setUpdateTime(new Date());
 		try {
-			scheduleJobService.updateJobStatus(dto);
+			taskManagerService.updateJobStatus(dto);
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
 		} catch (Exception e) {
@@ -121,7 +125,7 @@ public class SysAutoTaskController {
 	public JsonResult deleteAutoTask(@PathVariable("jobId") int jobId) {
 		JsonResult json = new JsonResult();
 		try {
-			scheduleJobService.deleteByPrimaryKey(jobId);
+			taskManagerService.deleteAutoTask(jobId);
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
 		} catch (Exception e) {

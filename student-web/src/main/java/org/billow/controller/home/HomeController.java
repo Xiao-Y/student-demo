@@ -65,7 +65,11 @@ public class HomeController implements Comparator<MenuBase> {
 						if (Long.compare(0, tempChild.getPid()) == 0) {
 							iterator.remove();
 						}
-						tempChild.setHref(contextPath + tempChild.getHref());
+						String href = tempChild.getHref();
+						if(ToolsUtils.isNotEmpty(href) && !(href.startsWith("https") || href.startsWith("http"))){
+							href = contextPath + href;
+						}
+						tempChild.setHref(href);
 					}
 				}
 				Collections.sort(childList, this);

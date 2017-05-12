@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Table</title>
+<title>流程模板列表</title>
 <link rel="stylesheet" href="${ctx }/static/css/global.css" media="all">
 <link rel="stylesheet" href="${ctx }/static/css/table.css">
 </head>

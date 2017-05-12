@@ -89,14 +89,14 @@
 				base: path + '/static/plugins/layui/modules/'
 			});
 
-			layui.use(['icheck', 'laypage','layer'], function() {
+			layui.use(['laypage','layer'], function() {
 				var $ = layui.jquery,
 					laypage = layui.laypage,
 					layer = parent.layer === undefined ? layui.layer : parent.layer;
 				//表单校验
-				$('input').iCheck({
-					checkboxClass: 'icheckbox_flat-green'
-				});
+// 				$('input').iCheck({
+// 					checkboxClass: 'icheckbox_flat-green'
+// 				});
 				//分页
 				laypage({
 					cont: 'page',
@@ -159,7 +159,7 @@
 					$input.on('ifUnchecked', function(e) {
 						$this.removeAttr('style');
 					});
-					$input.iCheck('toggle');
+// 					$input.iCheck('toggle');
 				}).find('input').each(function() {
 					var $this = $(this);
 					$this.on('ifChecked', function(e) {
@@ -171,7 +171,7 @@
 				});
 				$('#selected-all').on('ifChanged', function(event) {
 					var $input = $('.site-table tbody tr td').find('input');
-					$input.iCheck(event.currentTarget.checked ? 'check' : 'uncheck');
+// 					$input.iCheck(event.currentTarget.checked ? 'check' : 'uncheck');
 				});
 			});
 		</script>

@@ -112,12 +112,13 @@ public class QuartzManager {
 	}
 
 	/**
-	 * 暂停一个job
+	 * 禁用一个job
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>
 	 * 
 	 * @param scheduleJob
+	 *            JobName/JobGroup
 	 * @throws SchedulerException
 	 * 
 	 * @date 2017年5月7日 下午5:17:56
@@ -129,12 +130,13 @@ public class QuartzManager {
 	}
 
 	/**
-	 * 恢复一个job
+	 * 启用一个job
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>
 	 * 
 	 * @param scheduleJob
+	 *            JobName/JobGroup
 	 * @throws SchedulerException
 	 * 
 	 * @date 2017年5月7日 下午5:18:05
@@ -152,6 +154,7 @@ public class QuartzManager {
 	 * added by liuyongtao<br>
 	 * 
 	 * @param scheduleJob
+	 *            JobName/JobGroup
 	 * @throws SchedulerException
 	 * 
 	 * @date 2017年5月7日 下午5:18:12
@@ -169,6 +172,7 @@ public class QuartzManager {
 	 * added by liuyongtao<br>
 	 * 
 	 * @param scheduleJob
+	 *            JobName/JobGroup
 	 * @throws SchedulerException
 	 * 
 	 * @date 2017年5月7日 下午5:18:21
@@ -186,6 +190,7 @@ public class QuartzManager {
 	 * added by liuyongtao<br>
 	 * 
 	 * @param scheduleJob
+	 *            JobName/JobGroup/CronExpression
 	 * @throws SchedulerException
 	 * 
 	 * @date 2017年5月7日 下午5:18:28
@@ -242,6 +247,23 @@ public class QuartzManager {
 			trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
 			// 按新的trigger重新设置job执行
 			scheduler.rescheduleJob(triggerKey, trigger);
+		}
+	}
+
+	/**
+	 * 添加任务，任务状态要为ScheduleJob.STATUS_RUNNING
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param job
+	 * @throws SchedulerException
+	 * 
+	 * @date 2017年5月7日 下午5:18:37
+	 */
+	public void addJobList(List<ScheduleJobDto> list) throws SchedulerException {
+		for (ScheduleJobDto job : list) {
+			this.addJob(job);
 		}
 	}
 }

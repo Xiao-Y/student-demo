@@ -14,7 +14,7 @@ public class ScheduleJobBase implements Serializable {
 
 	private static final long serialVersionUID = 1526258179204692695L;
 
-	private Long jobId;
+	private Integer jobId;
 
 	private Date createTime;
 
@@ -321,7 +321,7 @@ public class ScheduleJobBase implements Serializable {
 	 * @author XiaoY
 	 * @date: 2017年5月6日 下午11:06:23
 	 */
-	public void setJobId(Long jobId) {
+	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
 	}
 
@@ -332,7 +332,7 @@ public class ScheduleJobBase implements Serializable {
 	 * @author XiaoY
 	 * @date: 2017年5月6日 下午11:06:47
 	 */
-	public Long getJobId() {
+	public Integer getJobId() {
 		return jobId;
 	}
 }
