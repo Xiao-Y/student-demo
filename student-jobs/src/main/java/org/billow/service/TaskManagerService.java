@@ -36,4 +36,13 @@ public interface TaskManagerService {
 	 * @date 2017年5月12日 下午7:17:41
 	 */
 	public void deleteAutoTask(int jobId) throws Exception;
+
+	/**
+	 * 保存/更新自动任务
+	 * 
+	 * @param scheduleJobDto
+	 * @author XiaoY
+	 * @date: 2017年5月13日 下午8:28:20
+	 */
+	public void saveAutoTask(ScheduleJobDto scheduleJobDto);
 }

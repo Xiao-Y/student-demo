@@ -138,4 +138,20 @@ public class SysAutoTaskController {
 		return json;
 	}
 
+	@ResponseBody
+	@RequestMapping("/saveAutoTask")
+	public JsonResult saveAutoTask(ScheduleJobDto scheduleJobDto){
+		JsonResult json = new JsonResult();
+		try {
+			taskManagerService.saveAutoTask(scheduleJobDto);
+			json.setSuccess(true);
+			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
+			json.setRoot("/sysAutoTask/findAutoTask");
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.setSuccess(false);
+			json.setMessage(MessageTipsCst.UPDATE_FAILURE);
+		}
+		return json;
+	}
 }

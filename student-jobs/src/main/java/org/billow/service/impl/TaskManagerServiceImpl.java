@@ -42,4 +42,9 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 		quartzManager.deleteJob(scheduleJobDto);
 		scheduleJobService.deleteByPrimaryKey(jobId);
 	}
+
+	@Override
+	public void saveAutoTask(ScheduleJobDto scheduleJobDto) {
+		
+	}
 }

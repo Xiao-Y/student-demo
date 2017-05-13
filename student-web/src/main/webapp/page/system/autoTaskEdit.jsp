@@ -10,7 +10,7 @@
 <script type="text/javascript" src="${ctx }/page/system/autoTaskEdit.js"></script>
 </head>
 <body style="padding: 10px;">
-	<form class="layui-form layui-form-pane1" action="">
+	<form class="layui-form layui-form-pane1" data-type="ajax" action="${ctx }/sysAutoTask/saveAutoTask">
 		<div class="layui-form-item">
 			<label class="layui-form-label">任务分组</label>
 			<div class="layui-input-block">
@@ -33,13 +33,13 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否有状态</label>
 			<div class="layui-input-inline">
-				<input type="checkbox" name="isConcurrent" lay-skin="switch" <c:if test="${task.isConcurrent == 1 }">checked</c:if> lay-filter="switchTest"
-					lay-text="是|否">
+				<input type="checkbox" name="isConcurrent" lay-skin="switch" <c:if test="${task.isConcurrent == 1 }">checked</c:if> lay-text="是|否"
+					value="1">
 			</div>
 			<label class="layui-form-label">任务状态</label>
 			<div class="layui-input-inline">
-				<input type="checkbox" name="jobStatus" lay-skin="switch" <c:if test="${task.jobStatus == 1 }">checked</c:if> lay-filter="switchTest"
-					lay-text="启用|禁用">
+				<input type="checkbox" name="jobStatus" lay-skin="switch" <c:if test="${task.jobStatus == 1 }">checked</c:if> lay-text="启用|禁用"
+					value="1">
 			</div>
 		</div>
 		<div class="layui-form-item layui-form-text">
