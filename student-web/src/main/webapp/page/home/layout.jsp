@@ -1,8 +1,7 @@
 ﻿<!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/static/taglib.jsp"%>
+<%@ include file="/pub/taglib.jsp"%>
 <html>
-
 <head>
 <meta charset="utf-8">
 <title>Layout</title>
@@ -12,12 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<jsp:include page="/static/public.jsp" />
-
-<!-- <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
-<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
-<link rel="stylesheet" href="css/layout.css" media="all" /> -->
-<link rel="stylesheet" href="${ctx }/static/css/layout.css" media="all">
+<jsp:include page="/pub/pubCss.jsp" />
 </head>
 
 <body>
@@ -58,8 +52,8 @@
 			<div class="beg-layout-main beg-layout-panel">
 				<ul class="layui-nav beg-layout-nav" lay-filter="user">
 					<li class="layui-nav-item"><a href="javascript:;" class="beg-layou-head">
-							<img src="${ctx}/static/images/0.jpg" />
-							<span>beginner</span>
+							<img src="${ctx }/static/images/0.jpg" />
+							<span>billow</span>
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
@@ -110,7 +104,7 @@
 				</div>
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show">
-						<iframe src="${ctx}/home/main"></iframe>
+						<iframe src="${ctx }/home/main"></iframe>
 					</div>
 				</div>
 			</div>
@@ -134,9 +128,8 @@
 			<li class="layui-nav-item " data-toggle="closeAll"><a href="javascsript:; ">关闭所有</a></li>
 		</ul>
 	</div>
-	<!-- 	<script src="plugins/layui/layui.js "></script>
-	<script src="js/layout.js "></script> -->
-	<script type="text/javascript" src="${ctx}/static/js/layout.js"></script>
+	<script src="${ctx }/plugins/layui/layui.js "></script>
+	<script src="${ctx }/js/layout.js "></script>
 	<!--<script>
             //这是js的枚举，哈哈。
 			var closedEnum = {

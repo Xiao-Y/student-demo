@@ -1,34 +1,29 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/static/taglib.jsp"%>
+<%@ include file="/pub/taglib.jsp"%>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>流程模板列表</title>
-<jsp:include page="/static/public.jsp" />
-<link rel="stylesheet" href="${ctx }/static/css/global.css" />
-<link rel="stylesheet" href="${ctx }/static/css/table.css" />
+<jsp:include page="/pub/pubTableCss.jsp" />
+<jsp:include page="/pub/pubTableJs.jsp" />
+<script type="text/javascript" src="${ctx}/page/system/actModel.js"></script>
+<script type="text/javascript" src="${ctx}/js/extend/pubPopForm.js"></script>
 </head>
-
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i>
-				添加模板
+				<i class="layui-icon">&#xe608;</i> 添加模板
 			</a>
 			<a href="#" class="layui-btn layui-btn-small" id="import">
-				<i class="layui-icon">&#xe608;</i>
-				导入信息
+				<i class="layui-icon">&#xe608;</i> 导入信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-				导出信息
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i>
-				搜索
+				<i class="layui-icon">&#xe615;</i> 搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -69,10 +64,9 @@
 								<td>${model.version }</td>
 								<td>
 									<a href="${ctx }/sysAct/viewPic/${model.id}" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-									<a href="${ctx }/process-editor/modeler.html?modelId=${model.id}" target="_blank"
-										class="layui-btn layui-btn-mini">编辑</a>
-									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList"
-										url="${ctx }/sysAct/deleteModel/${model.id}" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+									<a href="${ctx }/process-editor/modeler.html?modelId=${model.id}" target="_blank" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList" url="${ctx }/sysAct/deleteModel/${model.id}"
+										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -80,13 +74,8 @@
 				</table>
 			</div>
 		</fieldset>
-		<div class="admin-table-page">
-			<div id="page" class="page"></div>
-		</div>
-		<input type="hidden" value="${pages.pages }" id="pages">
-		<input type="hidden" value="${pages.pageNum }" id="pageNum">
+		<!-- 分页 -->
+		<jsp:include page="/pub/pubPage.jsp" />
 	</div>
-	<script type="text/javascript" src="${ctx}/page/system/actModel.js"></script>
-	<script type="text/javascript" src="${ctx}/static/pubForm.js"></script>
 </body>
 </html>

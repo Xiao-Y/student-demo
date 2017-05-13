@@ -1,15 +1,14 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/static/taglib.jsp"%>
+<%@ include file="/pub/taglib.jsp"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>自动任务管理</title>
-<jsp:include page="/static/public.jsp" />
-<link rel="stylesheet" href="${ctx }/static/css/global.css" />
-<link rel="stylesheet" href="${ctx }/static/css/table.css" />
+<jsp:include page="/pub/pubTableCss.jsp" />
+<jsp:include page="/pub/pubJs.jsp" />
 <script type="text/javascript" src="${ctx }/page/system/autoTaskManage.js"></script>
-<script type="text/javascript" src="${ctx}/static/pubForm.js"></script>
+<script type="text/javascript" src="${ctx}/js/extend/pubTable.js"></script>
 </head>
 <body>
 	<div class="admin-main">
@@ -84,10 +83,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
-
 			</div>
 		</fieldset>
-		<jsp:include page="/static/pubPage.jsp" />
+		<jsp:include page="/pub/pubPage.jsp" />
 	</div>
 </body>
 </html>

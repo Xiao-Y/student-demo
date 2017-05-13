@@ -1,22 +1,18 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/static/taglib.jsp"%>
+<%@ include file="/pub/taglib.jsp"%>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title></title>
-<!-- <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
-<link rel="stylesheet" href="css/main.css" /> -->
-<jsp:include page="/static/public.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath }/static/css/main.css">
+<link rel="stylesheet" href="${ctx }/plugins/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="${ctx }/css/main.css" />
 </head>
 
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 			<p>本模板基于LayUI实现 ,支持所有LayUI组件.</p>
-
 			<p>交流群：248049395</p>
 		</blockquote>
 		<fieldset class="layui-elem-field">
