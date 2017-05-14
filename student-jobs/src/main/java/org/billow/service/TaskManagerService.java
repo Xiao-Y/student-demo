@@ -1,5 +1,7 @@
 package org.billow.service;
 
+import java.util.Map;
+
 import org.billow.model.expand.ScheduleJobDto;
 
 /**
@@ -44,5 +46,5 @@ public interface TaskManagerService {
 	 * @author XiaoY
 	 * @date: 2017年5月13日 下午8:28:20
 	 */
-	public void saveAutoTask(ScheduleJobDto scheduleJobDto);
+	public Map<String, String> saveAutoTask(ScheduleJobDto scheduleJobDto) throws Exception;
 }
