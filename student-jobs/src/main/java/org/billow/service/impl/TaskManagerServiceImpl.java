@@ -1,7 +1,7 @@
 package org.billow.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.billow.api.system.ScheduleJobService;
 import org.billow.jobs.manager.QuartzManager;
@@ -59,14 +59,16 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	}
 
 	@Override
-	public Map<String, String> saveAutoTask(ScheduleJobDto scheduleJobDto) throws Exception {
+	public List<String> saveAutoTask(ScheduleJobDto scheduleJobDto) throws Exception {
 		boolean exceptionFlag = false;
-		Map<String, String> map = new HashMap<>();
+		List<String> list = new ArrayList<>();
 		String isConcurrent = scheduleJobDto.getIsConcurrent();
 		Integer jobId = scheduleJobDto.getJobId();
 		String jobStatus = scheduleJobDto.getJobStatus();
-		exceptionFlag = this.checkAutoTask(scheduleJobDto, map);
-
+		exceptionFlag = this.checkAutoTask(scheduleJobDto, list);
+		if (exceptionFlag) {
+			return list;
+		}
 		if (ToolsUtils.isEmpty(isConcurrent)) {
 			isConcurrent = IS_CONCURRENT_NO;
 		}
@@ -78,7 +80,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 		} else {// 表示更新
 
 		}
-		return map;
+		return list;
 	}
 
 	/**
@@ -94,55 +96,62 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	 * 
 	 * @date 2017年5月14日 下午12:11:55
 	 */
-	private boolean checkAutoTask(ScheduleJobDto scheduleJobDto, Map<String, String> map) {
+	private boolean checkAutoTask(ScheduleJobDto scheduleJobDto, List<String> list) {
 		String jobStatus = scheduleJobDto.getJobStatus();
 		String cronExpression = scheduleJobDto.getCronExpression();
 		String springId = scheduleJobDto.getSpringId();
 		String beanClass = scheduleJobDto.getBeanClass();
 		String methodName = scheduleJobDto.getMethodName();
+		// 异常标识
 		boolean exceptionFlag = false;
 		try {
 			CronScheduleBuilder.cronSchedule(cronExpression);
 		} catch (Exception e) {
 			exceptionFlag = true;
-			map.put("1", "cron表达式错误，请查证！");
+			list.add("cron表达式错误，请查证！");
 		}
-		boolean beanFlag = false;
+
+		// bean是否为空的标识
+		boolean beanEmptyFlag = false;
 		if (ToolsUtils.isEmpty(springId) && ToolsUtils.isEmpty(beanClass)) {
-			map.put("2", "springId或beanClass不能同时为空！");
+			list.add("springId或beanClass不能同时为空！");
 			exceptionFlag = true;
-			beanFlag = true;
+			beanEmptyFlag = true;
 		}
 		// springId和beanClass不同时为空并且为执行状态的时候才检查
-		if (beanFlag && JOB_STATUS_RESUME == jobStatus) {
+		if (beanEmptyFlag && JOB_STATUS_RESUME == jobStatus) {
+			// bean能否获取标识
+			boolean beanFlag = true;
 			Class<?> clazz = null;
 			// bean相关检查
 			if (ToolsUtils.isNotEmpty(springId)) {
 				try {
 					BeanUtils.getBean(springId);
 				} catch (Exception e) {
-					map.put("2", "springId错误，未获取相关Bean！");
+					list.add("springId错误，未获取相关Bean！");
 					exceptionFlag = true;
+					beanFlag = false;
 				}
 			} else {
 				try {
 					clazz = Class.forName(beanClass);
 					clazz.newInstance();
 				} catch (Exception e) {
-					map.put("2", "beanClass错误，未获取相关类！");
+					list.add("beanClass错误，未获取相关类！");
 					exceptionFlag = true;
+					beanFlag = false;
 				}
 			}
-			// 对执行方法检查
-			if (ToolsUtils.isNotEmpty(methodName)) {
+			// 对执行方法检查（bean可以获取）
+			if (ToolsUtils.isNotEmpty(methodName) && beanFlag) {
 				try {
 					clazz.getDeclaredMethod(methodName);
 				} catch (NoSuchMethodException | SecurityException e) {
-					map.put("4", "方法：" + methodName + "，未获取！");
+					list.add("方法：" + methodName + "，未获取！");
 					exceptionFlag = true;
 				}
 			} else {
-				map.put("3", "执行方法不能为空！");
+				list.add("执行方法不能为空！");
 				exceptionFlag = true;
 			}
 		}

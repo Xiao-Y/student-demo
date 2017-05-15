@@ -72,6 +72,7 @@
 				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			</div>
 		</div>
+		<font color="#FF0000" size="23"></font>
 	</form>
 </body>
 </html>

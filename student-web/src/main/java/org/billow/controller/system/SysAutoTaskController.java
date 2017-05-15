@@ -1,13 +1,20 @@
 package org.billow.controller.system;
 
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.billow.api.system.ScheduleJobService;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.ScheduleJobDto;
 import org.billow.service.TaskManagerService;
 import org.billow.utils.PageHelper;
+import org.billow.utils.ToolsUtils;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +35,8 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/sysAutoTask")
 public class SysAutoTaskController {
+
+	private static final Logger logger = Logger.getLogger(SysAutoTaskController.class);
 
 	@Autowired
 	private ScheduleJobService scheduleJobService;
@@ -140,10 +149,19 @@ public class SysAutoTaskController {
 
 	@ResponseBody
 	@RequestMapping("/saveAutoTask")
-	public JsonResult saveAutoTask(ScheduleJobDto scheduleJobDto){
+	public JsonResult saveAutoTask(ScheduleJobDto scheduleJobDto) {
 		JsonResult json = new JsonResult();
+		List<String> list = new ArrayList<>();
 		try {
-			taskManagerService.saveAutoTask(scheduleJobDto);
+			list = taskManagerService.saveAutoTask(scheduleJobDto);
+			if (ToolsUtils.isNotEmpty(list)) {
+				json.setSuccess(false);
+				String returnStr = StringUtils.join(list, "&");
+				json.setMessage(returnStr);
+				json.setRoot("exceptionFlag");
+				logger.info("==================" + returnStr + "====================");
+				return json;
+			}
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.UPDATE_SUCCESS);
 			json.setRoot("/sysAutoTask/findAutoTask");

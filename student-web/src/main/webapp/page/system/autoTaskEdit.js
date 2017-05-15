@@ -42,12 +42,21 @@ layui.use('form', function() {
 	function tipsCenter(data) {
 		var message = data.message;
 		var success = data.success;
+		var msg = '';
+		var root = data.root;
 		if (success === true) {
-			message = '<font color="#00CC00">' + message + '</font>';
+			msg = '<font color="#00CC00" size="2px">' + message + '</font>';
 		} else {
-			message = '<font color="#FF0000">' + message + '</font>';
+			if(root == 'exceptionFlag'){
+				var messages = message.split("&");
+				for(var i = 0; i < messages.length; i++){
+					msg += '<font color="#FF0000" size="2px">' + (1+i) + "、" + messages[i] + '</font><br/>';
+				}
+			}else{
+				msg = '<font color="#FF0000" size="2px">' + message + '</font>';
+			}
 		}
-		var content = '<div style="padding: 40px 80px;">' + message + '</div>';
+		var content = '<div style="height: 180px;width: 280px;"><div style="padding: 30px 30px;">' + msg + '</div></div>';
 		layer.open({
 			type : 1,
 			offset : 'auto', // 具体配置参考：offset参数项
@@ -56,8 +65,8 @@ layui.use('form', function() {
 			shade : 0.5,// 不显示遮罩
 			end : function () {
 				if(success === true){
-		            if(data.root){
-		            	location.href = path + data.root;
+		            if(root){
+		            	location.href = path + root;
 		            }
 				}
 	        }
