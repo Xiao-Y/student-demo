@@ -43,8 +43,10 @@ public interface TaskManagerService {
 	 * 保存/更新自动任务
 	 * 
 	 * @param scheduleJobDto
+	 * @return 返回错误信息
+	 * @throws Exception
 	 * @author XiaoY
-	 * @date: 2017年5月13日 下午8:28:20
+	 * @date: 2017年5月22日 上午10:08:48
 	 */
 	public List<String> saveAutoTask(ScheduleJobDto scheduleJobDto) throws Exception;
 }

@@ -37,7 +37,7 @@ public class AssManage {
 	public void viewDependence(HttpServletRequest request, HttpServletResponse response) {
 		ServletContext servletContext = request.getSession().getServletContext();
 		String realPath = servletContext.getRealPath("/");
-		File file = new File(realPath + "/static/images/MoKuaiYiLai.png");
+		File file = new File(realPath + "/images/MoKuaiYiLai.png");
 		FileInputStream fis = null;
 		OutputStream os = null;
 		try {

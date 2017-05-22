@@ -14,7 +14,7 @@
 	<div class="admin-main">
 
 		<blockquote class="layui-elem-quote">
-			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+			<a href="${ctx }/sysAutoTask/editAutoTask/-1" class="layui-btn layui-btn-small" id="add">
 				<i class="layui-icon">&#xe608;</i>
 				添加
 			</a>

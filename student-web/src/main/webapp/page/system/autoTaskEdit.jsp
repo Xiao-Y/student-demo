@@ -11,6 +11,7 @@
 </head>
 <body style="padding: 10px;">
 	<form class="layui-form layui-form-pane1" data-type="ajax" action="${ctx }/sysAutoTask/saveAutoTask">
+		<input type="hidden" name="jobId" value="${task.jobId }">
 		<div class="layui-form-item">
 			<label class="layui-form-label">任务分组</label>
 			<div class="layui-input-block">
@@ -63,7 +64,7 @@
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">描述</label>
 			<div class="layui-input-block">
-				<textarea placeholder="请输入内容" name="description" value="${task.description }" class="layui-textarea"></textarea>
+				<textarea placeholder="请输入内容" name="description" class="layui-textarea">${task.description }</textarea>
 			</div>
 		</div>
 		<div class="layui-form-item">

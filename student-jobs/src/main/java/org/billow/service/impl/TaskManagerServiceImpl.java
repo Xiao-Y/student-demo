@@ -1,6 +1,7 @@
 package org.billow.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.billow.api.system.ScheduleJobService;
@@ -60,25 +61,36 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 
 	@Override
 	public List<String> saveAutoTask(ScheduleJobDto scheduleJobDto) throws Exception {
-		boolean exceptionFlag = false;
 		List<String> list = new ArrayList<>();
 		String isConcurrent = scheduleJobDto.getIsConcurrent();
 		Integer jobId = scheduleJobDto.getJobId();
 		String jobStatus = scheduleJobDto.getJobStatus();
-		exceptionFlag = this.checkAutoTask(scheduleJobDto, list);
-		if (exceptionFlag) {
-			return list;
+		// 启用状态时检验合法性
+		if (JOB_STATUS_RESUME.equals(jobStatus)) {
+			boolean exceptionFlag = this.checkAutoTask(scheduleJobDto, list);
+			if (exceptionFlag) {
+				return list;
+			}
 		}
 		if (ToolsUtils.isEmpty(isConcurrent)) {
-			isConcurrent = IS_CONCURRENT_NO;
+			scheduleJobDto.setIsConcurrent(IS_CONCURRENT_NO);
 		}
 		if (ToolsUtils.isEmpty(jobStatus)) {
 			jobStatus = JOB_STATUS_PAUSE;
+			scheduleJobDto.setJobStatus(JOB_STATUS_PAUSE);
 		}
 		if (null == jobId) {// 表示添加
-
+			scheduleJobDto.setUpdateTime(new Date());
+			scheduleJobDto.setCreateTime(new Date());
+			scheduleJobService.insert(scheduleJobDto);
 		} else {// 表示更新
-
+			ScheduleJobDto jobDto = scheduleJobService.selectByPrimaryKey(scheduleJobDto.getJobId());
+			scheduleJobDto.setCreateTime(jobDto.getCreateTime());
+			scheduleJobService.updateByPrimaryKey(scheduleJobDto);
+		}
+		// 启用状态时添加运行定时任务
+		if (JOB_STATUS_RESUME.equals(jobStatus)) {
+			quartzManager.addJob(scheduleJobDto);
 		}
 		return list;
 	}
@@ -119,7 +131,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 			beanEmptyFlag = true;
 		}
 		// springId和beanClass不同时为空并且为执行状态的时候才检查
-		if (beanEmptyFlag && JOB_STATUS_RESUME == jobStatus) {
+		if (!beanEmptyFlag && JOB_STATUS_RESUME.equals(jobStatus)) {
 			// bean能否获取标识
 			boolean beanFlag = true;
 			Class<?> clazz = null;
@@ -143,16 +155,18 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 				}
 			}
 			// 对执行方法检查（bean可以获取）
-			if (ToolsUtils.isNotEmpty(methodName) && beanFlag) {
-				try {
-					clazz.getDeclaredMethod(methodName);
-				} catch (NoSuchMethodException | SecurityException e) {
-					list.add("方法：" + methodName + "，未获取！");
+			if (beanFlag) {
+				if (ToolsUtils.isNotEmpty(methodName)) {
+					try {
+						clazz.getDeclaredMethod(methodName);
+					} catch (NoSuchMethodException | SecurityException e) {
+						list.add("方法：" + methodName + "，未获取！");
+						exceptionFlag = true;
+					}
+				} else {
+					list.add("执行方法不能为空！");
 					exceptionFlag = true;
 				}
-			} else {
-				list.add("执行方法不能为空！");
-				exceptionFlag = true;
 			}
 		}
 		return exceptionFlag;

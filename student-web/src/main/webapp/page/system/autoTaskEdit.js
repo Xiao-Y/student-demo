@@ -18,10 +18,11 @@ layui.use('form', function() {
 	    })*/
 		var form = data.form;
 	    var url = form.action;
-	    var data = JSON.stringify(data.field);
+	    //var data = JSON.stringify(data.field);
 	    //var data = $(this).serialize();
-//		console.log(JSON.stringify(data.field));
-//		console.log($(form).serialize());
+		console.log(JSON.stringify(data.field));
+		var data = $(form).serialize();
+		console.log($(form).serialize());
 		$.ajax({
             type: "POST",
             dataType: "json",

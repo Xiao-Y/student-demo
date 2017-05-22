@@ -1,14 +1,11 @@
 package org.billow.controller.system;
 
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.billow.api.system.ScheduleJobService;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.ScheduleJobDto;
@@ -73,6 +70,7 @@ public class SysAutoTaskController {
 	 * added by liuyongtao<br>
 	 * 
 	 * @param scheduleJobDto
+	 *            jobId为-1表示是添加，不为-1表示修改
 	 * @return
 	 * 
 	 * @date 2017年5月11日 下午2:59:31
@@ -80,8 +78,10 @@ public class SysAutoTaskController {
 	@RequestMapping("/editAutoTask/{jobId}")
 	public ModelAndView editAutoTask(@PathVariable("jobId") Integer jobId) {
 		ModelAndView av = new ModelAndView();
-		ScheduleJobDto dto = scheduleJobService.selectByPrimaryKey(jobId);
-		av.addObject("task", dto);
+		if (jobId.compareTo(-1) != 0) {// 表示编辑
+			ScheduleJobDto dto = scheduleJobService.selectByPrimaryKey(jobId);
+			av.addObject("task", dto);
+		}
 		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "autoTaskEdit");
 		return av;
 	}
@@ -147,6 +147,14 @@ public class SysAutoTaskController {
 		return json;
 	}
 
+	/**
+	 * 保存自动任务
+	 * 
+	 * @param scheduleJobDto
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月22日 上午10:07:54
+	 */
 	@ResponseBody
 	@RequestMapping("/saveAutoTask")
 	public JsonResult saveAutoTask(ScheduleJobDto scheduleJobDto) {
