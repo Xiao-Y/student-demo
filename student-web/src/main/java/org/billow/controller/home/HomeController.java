@@ -27,11 +27,26 @@ public class HomeController implements Comparator<MenuBase> {
 	@Autowired
 	private MenuService menuService;
 
+	/**
+	 * 登陆
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月24日 下午10:32:24
+	 */
 	@RequestMapping("/login")
 	public String login() {
 		return "page/home/login";
 	}
 
+	/**
+	 * 进入主页
+	 * 
+	 * @param user
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月24日 下午10:32:33
+	 */
 	@RequestMapping("/homeIndex")
 	public String homeIndex(UserDto user) {
 		HttpSession session = RequestUtils.getRequest().getSession();
@@ -88,6 +103,9 @@ public class HomeController implements Comparator<MenuBase> {
 		return selectAll;
 	}
 
+	/**
+	 * 菜单排序
+	 */
 	@Override
 	public int compare(MenuBase m1, MenuBase m2) {
 		return m1.getDisplayno().compareTo(m2.getDisplayno());

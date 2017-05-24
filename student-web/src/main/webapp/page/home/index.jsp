@@ -20,7 +20,7 @@
 			<div class="layui-main">
 				<div class="admin-login-box">
 					<a class="logo" style="left: 0;" href="#">
-						<span style="font-size: 22px;">BeginnerAdmin</span>
+						<span style="font-size: 22px;">后台管理</span>
 					</a>
 					<div class="admin-side-toggle">
 						<i class="fa fa-bars" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
 					<li class="layui-nav-item" id="video1"><a href="javascript:;">视频</a></li>
 					<li class="layui-nav-item"><a href="javascript:;" class="admin-header-user">
 							<img src="${ctx }/images/0.jpg" />
-							<span>beginner</span>
+							<span>${currentUser.userName }</span>
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
@@ -51,14 +51,14 @@
 								</a>
 							</dd>
 							<dd>
-								<a href="login.html">
+								<a href="${ctx }/home/login">
 									<i class="fa fa-sign-out" aria-hidden="true"></i> 注销
 								</a>
 							</dd>
 						</dl></li>
 				</ul>
 				<ul class="layui-nav admin-header-item-mobile">
-					<li class="layui-nav-item"><a href="login.html">
+					<li class="layui-nav-item"><a href="${ctx }/home/login">
 							<i class="fa fa-sign-out" aria-hidden="true"></i> 注销
 						</a></li>
 				</ul>
@@ -70,7 +70,7 @@
 		<div class="layui-body" style="bottom: 0; border-left: solid 2px #1AA094;" id="admin-body">
 			<div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab">
 				<ul class="layui-tab-title">
-					<li class="layui-this"><i class="fa fa-dashboard" aria-hidden="true"></i> <cite>控制面板</cite></li>
+					<li class="layui-this"><i class="fa fa-dashboard" aria-hidden="true"></i> <cite>我的工作台</cite></li>
 				</ul>
 				<div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;">
 					<div class="layui-tab-item layui-show">
@@ -82,8 +82,8 @@
 		<div class="layui-footer footer footer-demo" id="admin-footer">
 			<div class="layui-main">
 				<p>
-					2016 &copy;
-					<a href="#">beginner.zhengjinfan.cn</a>
+					2017 &copy;
+					<a href="#">billow.org</a>
 					LGPL license
 				</p>
 			</div>
@@ -119,7 +119,6 @@
 						area : [ '800px', '500px' ]
 					});
 				});
-
 			});
 		</script>
 	</div>

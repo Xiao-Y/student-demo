@@ -25,10 +25,12 @@
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i></label>
 					<!-- <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input"> -->
 					<select name="userName">
-						<option value="">请选择省</option>
-						<option value="浙江" selected="">浙江省</option>
-						<option value="你的工号">江西省</option>
-						<option value="你最喜欢的老师">福建省</option>
+						<option value="">请选用户</option>
+						<option value="Admin">Admin</option>
+						<option value="Board Chairman">Board Chairman</option>
+						<option value="General manager">General Manager</option>
+						<option value="Manager">Manager</option>
+						<option value="Employee" selected="selected">Employee</option>
 					</select>
 				</div>
 				<div class="layui-form-item">
@@ -51,7 +53,7 @@
 			</form>
 		</div>
 		<footer>
-			<p>Beginner ©</p>
+			<p>Billow ©</p>
 		</footer>
 	</div>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/plugins/layui/layui.js"></script>
