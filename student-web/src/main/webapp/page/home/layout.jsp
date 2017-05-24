@@ -52,7 +52,7 @@
 			<div class="beg-layout-main beg-layout-panel">
 				<ul class="layui-nav beg-layout-nav" lay-filter="user">
 					<li class="layui-nav-item"><a href="javascript:;" class="beg-layou-head">
-							<img src="${ctx }/static/images/0.jpg" />
+							<img src="${ctx }/images/0.jpg" />
 							<span>billow</span>
 						</a>
 						<dl class="layui-nav-child">

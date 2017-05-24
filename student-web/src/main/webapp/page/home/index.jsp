@@ -31,7 +31,7 @@
 					<li class="layui-nav-item"><a href="javascript:;">浏览网站</a></li>
 					<li class="layui-nav-item" id="video1"><a href="javascript:;">视频</a></li>
 					<li class="layui-nav-item"><a href="javascript:;" class="admin-header-user">
-							<img src="${ctx }/static/images/0.jpg" />
+							<img src="${ctx }/images/0.jpg" />
 							<span>beginner</span>
 						</a>
 						<dl class="layui-nav-child">
@@ -97,7 +97,7 @@
 		<script type="text/template" id="lock-temp">
 				<div class="admin-header-lock" id="lock-box">
 					<div class="admin-header-lock-img">
-						<img src="images/0.jpg"/>
+						<img src="${ctx }/images/0.jpg"/>
 					</div>
 					<div class="admin-header-lock-name" id="lockUserName">beginner</div>
 					<input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="lockPwd" id="lockPwd" />

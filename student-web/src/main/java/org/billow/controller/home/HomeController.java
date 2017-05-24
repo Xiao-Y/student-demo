@@ -7,10 +7,13 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.billow.api.menu.MenuService;
 import org.billow.model.domain.MenuBase;
 import org.billow.model.expand.MenuDto;
+import org.billow.model.expand.UserDto;
+import org.billow.utils.RequestUtils;
 import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,9 +27,15 @@ public class HomeController implements Comparator<MenuBase> {
 	@Autowired
 	private MenuService menuService;
 
-	@RequestMapping("/homeIndex")
-	public String homeIndex() {
+	@RequestMapping("/login")
+	public String login() {
+		return "page/home/login";
+	}
 
+	@RequestMapping("/homeIndex")
+	public String homeIndex(UserDto user) {
+		HttpSession session = RequestUtils.getRequest().getSession();
+		session.setAttribute("currentUser", user);
 		return "page/home/index";
 	}
 
@@ -66,7 +75,7 @@ public class HomeController implements Comparator<MenuBase> {
 							iterator.remove();
 						}
 						String href = tempChild.getHref();
-						if(ToolsUtils.isNotEmpty(href) && !(href.startsWith("https") || href.startsWith("http"))){
+						if (ToolsUtils.isNotEmpty(href) && !(href.startsWith("https") || href.startsWith("http"))) {
 							href = contextPath + href;
 						}
 						tempChild.setHref(href);
