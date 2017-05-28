@@ -9,5 +9,12 @@ package org.billow.utils.constant;
  */
 public class PagePathCst {
 
+	/**
+	 * 系统管理
+	 */
 	public static final String BASEPATH_SYSTEM = "page/system/";
+	/**
+	 * 申请管理
+	 */
+	public static final String BASEPATH_APPLY = "page/apply/";
 }

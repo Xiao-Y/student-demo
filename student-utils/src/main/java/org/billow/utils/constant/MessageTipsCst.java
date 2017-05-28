@@ -78,4 +78,24 @@ public class MessageTipsCst {
 	 * 部署成功
 	 */
 	public static final String DEPLOY_SUCCESS = "部署成功！";
+	/**
+	 * 提交成功
+	 */
+	public static final String SUBMIT_SUCCESS = "提交成功！";
+	/**
+	 * 提交失败
+	 */
+	public static final String SUBMIT_FAILURE = "提交失败！";
+	/**
+	 * 提示成功
+	 */
+	public static final String TYPE_SUCCES = "success";
+	/**
+	 * 提示失败
+	 */
+	public static final String TYPE_ERROR = "error";
+	/**
+	 * 提示信息
+	 */
+	public static final String TYPE_TIP = "tip";
 }

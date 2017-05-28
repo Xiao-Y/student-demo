@@ -6,6 +6,8 @@ public class JsonResult {
 	private Long total;
 	private Object root;
 	private String hint = "提示";
+	// success,error,tip
+	private String type;
 
 	public JsonResult() {
 		super();
@@ -70,5 +72,26 @@ public class JsonResult {
 
 	public void setHint(String hint) {
 		this.hint = hint;
+	}
+
+	/**
+	 * success,error,tip
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月28日 下午6:41:34
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * success,error,tip
+	 * @param type
+	 * @author XiaoY
+	 * @date: 2017年5月28日 下午6:41:37
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 }
