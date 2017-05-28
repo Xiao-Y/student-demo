@@ -1,29 +1,63 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.6.14 
-*********************************************************************
-*/
-/*!40101 SET NAMES utf8 */;
+Navicat MySQL Data Transfer
 
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('22',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('1','基本元素','fa-cube','0','','0','1','99.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('8','组件','fa-cogs','0',NULL,'0','1','100.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('11','第三方组件','fa-cubes','0',NULL,'0','1','101.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('13','地址本','fa-address-book','0',NULL,'0','1','102.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('18','这是一级导航','fa-stop-circle',NULL,'http://fontawesome.io/icons/','0','1','103.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('19','系统管理','fa-cogs','1',NULL,'0','1','90.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('2','按钮','fa-bold',NULL,'button.html','1','1','1.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('3','表单','fa-list-alt',NULL,'form.html','1','1','2.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('4','表格','fa-table',NULL,'table.html','1','1','3.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('5','导航','fa-paper-plane',NULL,'nav.html','1','1','4.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('6','Tab选项卡','fa-bars',NULL,'tab.html','1','1','5.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('7','辅助性元素','fa-american-sign-language-interpreting',NULL,'auxiliar.html','1','1','6.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('9','Datatable','fa-table',NULL,'begtable.html','8','1','1.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('10','Navbar组件','fa-navicon',NULL,'navbar.html','8','1','2.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('12','iCheck组件','fa-check-square-o','0','icheck.html','11','1','1.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('14','Github','fa-github',NULL,'https://www.github.com/','13','1','1.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('15','QQ','fa-qq',NULL,'http://www.qq.com/','13','1','2.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('16','Fly社区','fa-facebook-official',NULL,'http://fly.layui.com/','13','1','3.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('17','新浪微博','fa-weibo',NULL,'http://weibo.com/','13','1','4.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('20','菜单管理','fa-reorder',NULL,'/sysMenu/menuManage','19','1','1.000');
-insert into `t_menu` (`id`, `title`, `icon`, `spread`, `href`, `pid`, `validind`, `displayno`) values('21','流程模板','fa-anchor',NULL,'/sysAct/findActModel','19','1','2.000');
+Source Server         : localhost
+Source Server Version : 50045
+Source Host           : localhost:3306
+Source Database       : mytestdb
+
+Target Server Type    : MYSQL
+Target Server Version : 50045
+File Encoding         : 65001
+
+Date: 2017-05-28 12:48:44
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for t_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `t_menu`;
+CREATE TABLE `t_menu` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) default NULL,
+  `icon` varchar(255) default NULL,
+  `spread` tinyint(1) default NULL,
+  `href` varchar(255) default NULL,
+  `pid` int(11) default NULL,
+  `validind` tinyint(1) default NULL,
+  `displayno` double(11,3) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_menu
+-- ----------------------------
+INSERT INTO `t_menu` VALUES ('1', '基本元素', 'fa-cube', '0', '', '0', '1', '99.000');
+INSERT INTO `t_menu` VALUES ('2', '按钮', 'fa-bold', null, 'button.html', '1', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('3', '表单', 'fa-list-alt', null, 'form.html', '1', '1', '2.000');
+INSERT INTO `t_menu` VALUES ('4', '表格', 'fa-table', null, 'table.html', '1', '1', '3.000');
+INSERT INTO `t_menu` VALUES ('5', '导航', 'fa-paper-plane', null, 'nav.html', '1', '1', '4.000');
+INSERT INTO `t_menu` VALUES ('6', 'Tab选项卡', 'fa-bars', null, 'tab.html', '1', '1', '5.000');
+INSERT INTO `t_menu` VALUES ('7', '辅助性元素', 'fa-american-sign-language-interpreting', null, 'auxiliar.html', '1', '1', '6.000');
+INSERT INTO `t_menu` VALUES ('8', '组件', 'fa-cogs', '0', null, '0', '1', '100.000');
+INSERT INTO `t_menu` VALUES ('9', 'Datatable', 'fa-table', null, 'begtable.html', '8', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('10', 'Navbar组件', 'fa-navicon', null, 'navbar.html', '8', '1', '2.000');
+INSERT INTO `t_menu` VALUES ('11', '第三方组件', 'fa-cubes', '0', null, '0', '1', '101.000');
+INSERT INTO `t_menu` VALUES ('12', 'iCheck组件', 'fa-check-square-o', '0', 'icheck.html', '11', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('13', '地址本', 'fa-address-book', '0', null, '0', '1', '102.000');
+INSERT INTO `t_menu` VALUES ('14', 'Github', 'fa-github', null, 'https://www.github.com/', '13', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('15', 'QQ', 'fa-qq', null, 'http://www.qq.com/', '13', '1', '2.000');
+INSERT INTO `t_menu` VALUES ('16', 'Fly社区', 'fa-facebook-official', null, 'http://fly.layui.com/', '13', '1', '3.000');
+INSERT INTO `t_menu` VALUES ('17', '新浪微博', 'fa-weibo', null, 'http://weibo.com/', '13', '1', '4.000');
+INSERT INTO `t_menu` VALUES ('18', '这是一级导航', 'fa-stop-circle', null, 'http://fontawesome.io/icons/', '0', '1', '103.000');
+INSERT INTO `t_menu` VALUES ('19', '系统管理', 'fa-cogs', '1', null, '0', '1', '90.000');
+INSERT INTO `t_menu` VALUES ('20', '菜单管理', 'fa-reorder', null, '/sysMenu/menuManage', '19', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('21', '流程模板', 'fa-anchor', null, '/sysAct/findActModel', '19', '1', '2.000');
+INSERT INTO `t_menu` VALUES ('22', '自动任务', 'fa-tasks', null, '/sysAutoTask/findAutoTask', '19', '1', '3.000');
+INSERT INTO `t_menu` VALUES ('23', '辅助管理', 'fa-stop-circle', '0', null, '0', '1', '91.000');
+INSERT INTO `t_menu` VALUES ('24', '图标查看', 'fa-stop-circle', null, 'http://fontawesome.io/icons/', '23', '1', '20.000');
+INSERT INTO `t_menu` VALUES ('25', '模块依赖', 'fa-stop-circle', null, '/assManage/viewDependence', '23', '1', '16.000');
+INSERT INTO `t_menu` VALUES ('26', '流程管理', 'fa-cogs', '0', '', '0', '1', '80.000');
+INSERT INTO `t_menu` VALUES ('27', '流程部署', 'fa-anchor', null, '/sysAct/findActModel', '26', '1', '1.000');

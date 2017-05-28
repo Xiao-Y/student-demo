@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.DeploymentQuery;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ModelQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.billow.api.system.ActRepositoryService;
 import org.billow.model.custom.DiagramDto;
 import org.billow.utils.RequestUtils;
+import org.billow.utils.ToolsUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,14 @@ public class ActRepositoryServiceImpl implements ActRepositoryService {
 		int firstResult = this.startResult(pageNum, pageSize);
 		ModelQuery createModelQuery = repositoryService.createModelQuery();
 		List<Model> list = createModelQuery.orderByLastUpdateTime().desc().listPage(firstResult, pageSize);
+		DeploymentQuery deploymentQuery = repositoryService.createDeploymentQuery();
+		for (Model m : list) {
+			List<Deployment> deploymentList = deploymentQuery.deploymentName(m.getName()).orderByDeploymenTime().desc().list();
+			if (ToolsUtils.isNotEmpty(deploymentList)) {
+				Deployment deployment = deploymentList.get(0);
+				m.setDeploymentId(deployment.getId());
+			}
+		}
 		long count = createModelQuery.count();
 		int pages = this.pages(count, pageSize);
 		PageInfo<Model> pageInfo = new PageInfo<>();

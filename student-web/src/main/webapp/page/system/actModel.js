@@ -37,6 +37,24 @@ layui.use(['laypage','layer'], function() {
 		switchSubject(null,editUrl,saveUrl);
 	});
 
+	$("a[name='deploy']").on("click",function(){
+		$this = $(this);
+		var id = $this.attr("data-id");
+		var name = $this.attr("data-name");
+		var url = path + '/sysAct/deploy/' + name + "/" + id;
+		$.ajax({
+	        type : 'POST',
+	        url : url,
+	        dataType : 'json',
+	        success : function(data) {
+	         	tipsFormRB(data);
+	         	if(success === true){
+		            $this.attr("disabled",true);
+				}
+	        }
+	    });
+	});
+	
 //	$('#import').on('click', function() {
 //		var that = this;
 //		var index = layer.tips('只想提示地精准些', that,{tips: [1, 'white']});

@@ -69,4 +69,13 @@ public class MessageTipsCst {
 	 */
 	public static final String HINT = "提示";
 
+	/**
+	 * 部署失败
+	 */
+	public static final String DEPLOY_FAILURE = "部署失败！";
+
+	/**
+	 * 部署成功
+	 */
+	public static final String DEPLOY_SUCCESS = "部署成功！";
 }

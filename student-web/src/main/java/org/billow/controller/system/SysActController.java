@@ -5,6 +5,11 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.bpmn.converter.BpmnXMLConverter;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.editor.language.json.converter.BpmnJsonConverter;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.Model;
 import org.apache.log4j.Logger;
 import org.billow.api.system.ActRepositoryService;
@@ -19,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -36,6 +43,9 @@ public class SysActController {
 
 	@Autowired
 	private ActRepositoryService actRepositoryService;
+
+	@Autowired
+	private RepositoryService repositoryService;
 
 	/**
 	 * 查询流程模板
@@ -112,7 +122,7 @@ public class SysActController {
 	 * @date 2017年5月5日 上午9:36:53
 	 */
 	@RequestMapping("/viewPic/{modelId}")
-	public void viewPic(@PathVariable("modelId") String modelId, HttpServletRequest request, HttpServletResponse response) {
+	public void viewPic(@PathVariable String modelId, HttpServletRequest request, HttpServletResponse response) {
 		byte[] data = actRepositoryService.viewPic(modelId);
 		try {
 			if (data == null) {
@@ -128,9 +138,17 @@ public class SysActController {
 		}
 	}
 
+	/**
+	 * 删除模板
+	 * 
+	 * @param modelId
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月25日 下午10:40:16
+	 */
 	@ResponseBody
 	@RequestMapping("/deleteModel/{modelId}")
-	public JsonResult deleteModel(@PathVariable("modelId") String modelId) {
+	public JsonResult deleteModel(@PathVariable String modelId) {
 		JsonResult json = new JsonResult();
 		try {
 			actRepositoryService.deleteModel(modelId);
@@ -139,6 +157,42 @@ public class SysActController {
 		} catch (Exception e) {
 			json.setSuccess(false);
 			json.setMessage(MessageTipsCst.DELETE_FAILURE);
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return json;
+	}
+
+	/**
+	 * 部署流程定义
+	 * 
+	 * @param modelId
+	 *            模板id
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月25日 下午10:40:46
+	 */
+	@ResponseBody
+	@RequestMapping("/deploy/{modelName}/{modelId}")
+	public JsonResult deploy(@PathVariable String modelName, @PathVariable String modelId) {
+		logger.info("==============" + modelId + "------>" + modelName);
+		JsonResult json = new JsonResult();
+		// 流程xml文件的名称
+		String processName = modelName + ".bpmn20.xml";
+		byte[] source = repositoryService.getModelEditorSource(modelId);
+		try {
+			ObjectNode objectNode = (ObjectNode) new ObjectMapper().readTree(source);
+			BpmnModel bpmnModel = new BpmnJsonConverter().convertToBpmnModel(objectNode);
+			byte[] bpmnBytes = new BpmnXMLConverter().convertToXML(bpmnModel);
+			DeploymentBuilder createDeployment = repositoryService.createDeployment();
+			createDeployment.name(modelName);
+			createDeployment.addString(processName, new String(bpmnBytes, "UTF-8"));
+			createDeployment.deploy();
+			json.setSuccess(true);
+			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
+		} catch (Exception e) {
+			json.setSuccess(false);
+			json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
 			e.printStackTrace();
 			logger.error(e);
 		}

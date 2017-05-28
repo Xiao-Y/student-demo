@@ -65,6 +65,7 @@
 								<td>
 									<a href="${ctx }/sysAct/viewPic/${model.id}" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
 									<a href="${ctx }/process-editor/modeler.html?modelId=${model.id}" target="_blank" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="javascript:;" name="deploy" data-id="${model.id }" data-name="${model.name }" class="layui-btn layui-btn-warm layui-btn-mini">部署</a>
 									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList" url="${ctx }/sysAct/deleteModel/${model.id}"
 										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>
