@@ -1,21 +1,17 @@
-package org.billow.model.custom;
+package org.billow.model.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * 请假实体对象
- * 
- * @author XiaoY
- * @date: 2017年5月28日 下午3:49:01
- */
-public class LeaveDto {
+public class LeaveBase implements Serializable {
 
-	// 流程实例id
-	private String processInstanceId;
+	private static final long serialVersionUID = 1256101489100186030L;
+
+	private Integer id;
 	// 用户id
-	private String userId;
+	private Integer userId;
 	// 请假始时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startTime;
@@ -30,26 +26,12 @@ public class LeaveDto {
 	// 原因
 	private String reason;
 
-	/**
-	 * 流程实例id
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2017年5月28日 下午5:16:41
-	 */
-	public String getProcessInstanceId() {
-		return processInstanceId;
+	public Integer getId() {
+		return id;
 	}
 
-	/**
-	 * 流程实例id
-	 * 
-	 * @param processInstanceId
-	 * @author XiaoY
-	 * @date: 2017年5月28日 下午5:16:44
-	 */
-	public void setProcessInstanceId(String processInstanceId) {
-		this.processInstanceId = processInstanceId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/**
@@ -59,7 +41,7 @@ public class LeaveDto {
 	 * @author XiaoY
 	 * @date: 2017年5月28日 下午5:16:52
 	 */
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
@@ -70,7 +52,7 @@ public class LeaveDto {
 	 * @author XiaoY
 	 * @date: 2017年5月28日 下午5:16:55
 	 */
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

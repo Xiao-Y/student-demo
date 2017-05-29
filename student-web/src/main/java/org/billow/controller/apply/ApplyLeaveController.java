@@ -1,9 +1,11 @@
 package org.billow.controller.apply;
 
+import org.activiti.engine.ActivitiException;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.log4j.Logger;
 import org.billow.api.leave.LeaveService;
 import org.billow.model.custom.JsonResult;
-import org.billow.model.custom.LeaveDto;
+import org.billow.model.expand.LeaveDto;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/applyLeave")
-public class LeaveController {
+public class ApplyLeaveController {
 
-	private static final Logger logger = Logger.getLogger(LeaveController.class);
+	private static final Logger logger = Logger.getLogger(ApplyLeaveController.class);
 
 	@Autowired
 	private LeaveService leaveService;
@@ -55,14 +57,29 @@ public class LeaveController {
 	public JsonResult saveLeave(LeaveDto leave) {
 		JsonResult json = new JsonResult();
 		logger.info("leave ===>>" + leave);
+		String message = "";
+		String type = "";
 		try {
-			leaveService.saveLeave(leave);
-			json.setType(MessageTipsCst.TYPE_SUCCES);
+			ProcessInstance processInstance = leaveService.saveLeave(leave);
+			message = "流程已启动，流程ID：" + processInstance.getId();
+			type = MessageTipsCst.TYPE_SUCCES;
+		} catch (ActivitiException e) {
+			if (e.getMessage().indexOf("no processes deployed with key") != -1) {
+				logger.warn("没有部署流程!", e);
+				message = "没有部署流程，请在[工作流]->[流程管理]页面点击<重新部署流程>";
+				type = MessageTipsCst.TYPE_ERROR;
+			} else {
+				message = "系统内部错误！";
+				type = MessageTipsCst.TYPE_ERROR;
+				logger.error("启动请假流程失败：", e);
+			}
 		} catch (Exception e) {
-			json.setType(MessageTipsCst.TYPE_ERROR);
-			e.printStackTrace();
-			logger.error(e);
+			message = "系统内部错误！";
+			type = MessageTipsCst.TYPE_ERROR;
+			logger.error("启动请假流程失败：", e);
 		}
+		json.setMessage(message);
+		json.setType(type);
 		return json;
 	}
 }

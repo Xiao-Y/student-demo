@@ -26,11 +26,12 @@
 					<!-- <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input"> -->
 					<select name="userName">
 						<option value="">请选用户</option>
-						<option value="Admin">Admin</option>
+						<option value="admin">Admin</option>
 						<option value="Board Chairman">Board Chairman</option>
 						<option value="General manager">General Manager</option>
 						<option value="Manager">Manager</option>
-						<option value="Employee" selected="selected">Employee</option>
+						<option value="sa">Sa</option>
+						<option value="employee" selected="selected">Employee</option>
 					</select>
 				</div>
 				<div class="layui-form-item">

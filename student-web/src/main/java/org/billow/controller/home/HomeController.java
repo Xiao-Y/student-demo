@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.billow.api.leave.LeaveService;
 import org.billow.api.menu.MenuService;
 import org.billow.model.domain.MenuBase;
 import org.billow.model.expand.MenuDto;
@@ -26,6 +27,9 @@ public class HomeController implements Comparator<MenuBase> {
 
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	private LeaveService leaveService;
 
 	/**
 	 * 登陆

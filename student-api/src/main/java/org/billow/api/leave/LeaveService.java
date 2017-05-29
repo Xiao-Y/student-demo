@@ -1,6 +1,8 @@
 package org.billow.api.leave;
 
-import org.billow.model.custom.LeaveDto;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.billow.api.base.BaseService;
+import org.billow.model.expand.LeaveDto;
 
 /**
  * 申请管理
@@ -8,7 +10,7 @@ import org.billow.model.custom.LeaveDto;
  * @author XiaoY
  * @date: 2017年5月28日 下午6:58:31
  */
-public interface LeaveService {
+public interface LeaveService extends BaseService<LeaveDto> {
 
 	/**
 	 * 保存请假申请，启动流程实例
@@ -18,6 +20,6 @@ public interface LeaveService {
 	 * @author XiaoY
 	 * @date: 2017年5月28日 下午7:00:46
 	 */
-	void saveLeave(LeaveDto leave) throws Exception;
+	ProcessInstance saveLeave(LeaveDto leave) throws Exception;
 
 }

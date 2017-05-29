@@ -15,9 +15,12 @@ layui.use(['form', 'laydate'], function() {
             url: url,
             data: data,
             success: function (obj) {
-            	var message = data.message;
-				var type = data.type;
+            	var message = obj.message;
+				var type = obj.type;
 				new TipBox({type:type,str:message,hasBtn:true});
+				if(type == 'success'){
+					$("#reset").click();
+				}
             },
             error: function(obj) {
             	layer.alert('网络错误', {

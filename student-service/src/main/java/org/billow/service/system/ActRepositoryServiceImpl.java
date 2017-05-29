@@ -11,7 +11,7 @@ import org.activiti.engine.repository.ModelQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.billow.api.system.ActRepositoryService;
 import org.billow.model.custom.DiagramDto;
-import org.billow.utils.RequestUtils;
+import org.billow.utils.PageHelper;
 import org.billow.utils.ToolsUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
@@ -28,59 +28,22 @@ public class ActRepositoryServiceImpl implements ActRepositoryService {
 
 	@Override
 	public PageInfo<Model> getModel() {
-		int pageSize = RequestUtils.getPageSize();
-		int pageNum = RequestUtils.getTargetPage();
-		int firstResult = this.startResult(pageNum, pageSize);
 		ModelQuery createModelQuery = repositoryService.createModelQuery();
-		List<Model> list = createModelQuery.orderByLastUpdateTime().desc().listPage(firstResult, pageSize);
+		long count = createModelQuery.count();
+		PageInfo<Model> pageInfo = PageHelper.getPageInfo(count);
+		List<Model> list = createModelQuery.orderByLastUpdateTime().desc()
+				.listPage(pageInfo.getFirstPage(), pageInfo.getPageSize());
 		DeploymentQuery deploymentQuery = repositoryService.createDeploymentQuery();
 		for (Model m : list) {
-			List<Deployment> deploymentList = deploymentQuery.deploymentName(m.getName()).orderByDeploymenTime().desc().list();
+			List<Deployment> deploymentList = deploymentQuery.deploymentName(m.getName()).orderByDeploymenTime().desc()
+					.list();
 			if (ToolsUtils.isNotEmpty(deploymentList)) {
 				Deployment deployment = deploymentList.get(0);
 				m.setDeploymentId(deployment.getId());
 			}
 		}
-		long count = createModelQuery.count();
-		int pages = this.pages(count, pageSize);
-		PageInfo<Model> pageInfo = new PageInfo<>();
 		pageInfo.setList(list);
-		pageInfo.setPages(pages);
-		pageInfo.setPageNum(pageNum);
-		pageInfo.setTotal(count);
 		return pageInfo;
-	}
-
-	/**
-	 * 获取总页数
-	 * 
-	 * <br>
-	 * added by liuyongtao<br>
-	 * 
-	 * @param count
-	 * @param pageSize
-	 * @return
-	 * 
-	 * @date 2017年4月29日 下午5:36:31
-	 */
-	private int pages(long count, int pageSize) {
-		return (int) ((count % pageSize) == 0 ? (count / pageSize) : ((count / pageSize) + 1));
-	}
-
-	/**
-	 * 数据起始位置
-	 * 
-	 * <br>
-	 * added by liuyongtao<br>
-	 * 
-	 * @param targetPage
-	 * @param pageSize
-	 * @return
-	 * 
-	 * @date 2017年4月29日 下午5:45:08
-	 */
-	private int startResult(int targetPage, int pageSize) {
-		return (targetPage - 1) * pageSize;
 	}
 
 	@Override
