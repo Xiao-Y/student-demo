@@ -35,22 +35,20 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	private LeaveDao leaveDao;
 
 	@Override
-	public PageInfo<Task> findApprovalLeave(LeaveDto leaveDto) {
+	public PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) {
 		List<LeaveDto> results = new ArrayList<LeaveDto>();
 		UserDto userDto = leaveDto.getUserDto();
-		// String processDefinitionId = "QingJia:4:35004";
 		String processDefinitionKey = "QingJia";
 		String assignee = userDto.getUserName();
 		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey)
 				.taskAssignee(assignee);
 		long count = taskQuery.count();
-		PageInfo<Task> pageInfo = PageHelper.getPageInfo(count);
+		PageInfo<LeaveDto> pageInfo = PageHelper.getPageInfo(count);
 		List<Task> tasks = taskQuery.listPage(pageInfo.getFirstPage(), pageInfo.getPageSize());
 		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
 		for (Task task : tasks) {
-			String processDefinitionId = task.getProcessInstanceId();
-			ProcessInstance processInstance = processInstanceQuery.processDefinitionId(processDefinitionId)
-					.singleResult();
+			String processInstanceId = task.getProcessInstanceId();
+			ProcessInstance processInstance = processInstanceQuery.processInstanceId(processInstanceId).singleResult();
 			String businessKey = processInstance.getBusinessKey();
 			if (ToolsUtils.isEmpty(businessKey)) {
 				continue;
@@ -58,10 +56,11 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 			LeaveDto dto = leaveDao.selectByPrimaryKey(Integer.valueOf(businessKey));
 			dto.setTask(task);
 			dto.setProcessInstance(processInstance);
+			String processDefinitionId = task.getProcessDefinitionId();
 			dto.setProcessDefinition(getProcessDefinition(processDefinitionId));
 			results.add(dto);
 		}
-		pageInfo.setList(tasks);
+		pageInfo.setList(results);
 		return pageInfo;
 	}
 

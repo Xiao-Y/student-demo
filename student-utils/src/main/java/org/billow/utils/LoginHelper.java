@@ -16,7 +16,20 @@ public class LoginHelper {
 		UserDto user = getLoginUser(session);
 		Integer userId = null;
 		if (user != null) {
-			userId = user.getUserId();
+			if (user.getUserName().equals("employee")) {
+				userId = 1;
+			} else if (user.getUserName().equals("admin")) {
+				userId = 2;
+			} else if (user.getUserName().equals("sa")) {
+				userId = 3;
+			} else if (user.getUserName().equals("Manager")) {
+				userId = 4;
+			} else if (user.getUserName().equals("General manager")) {
+				userId = 5;
+			} else if (user.getUserName().equals("Board Chairman")) {
+				userId = 6;
+			}
+			// userId = user.getUserId();
 		}
 		return userId;
 	}

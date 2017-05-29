@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50045
 File Encoding         : 65001
 
-Date: 2017-05-28 12:48:44
+Date: 2017-05-29 14:21:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,7 @@ CREATE TABLE `t_menu` (
   `validind` tinyint(1) default NULL,
   `displayno` double(11,3) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
@@ -61,3 +61,7 @@ INSERT INTO `t_menu` VALUES ('24', '图标查看', 'fa-stop-circle', null, 'http
 INSERT INTO `t_menu` VALUES ('25', '模块依赖', 'fa-stop-circle', null, '/assManage/viewDependence', '23', '1', '16.000');
 INSERT INTO `t_menu` VALUES ('26', '流程管理', 'fa-cogs', '0', '', '0', '1', '80.000');
 INSERT INTO `t_menu` VALUES ('27', '流程部署', 'fa-anchor', null, '/sysAct/findActModel', '26', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('28', '申请管理', 'fa-cogs', '0', '', '0', '1', '70.000');
+INSERT INTO `t_menu` VALUES ('29', '请假申请', 'fa-cogs', '0', '/applyLeave/editLeave', '28', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('30', '审批管理', 'fa-cogs', '0', '', '0', '1', '60.000');
+INSERT INTO `t_menu` VALUES ('31', '请假审批', 'fa-cogs', '0', '/approvalLeave/findApprovalLeave', '30', '1', '1.000');

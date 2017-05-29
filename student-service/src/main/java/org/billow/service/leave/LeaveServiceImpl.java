@@ -9,6 +9,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.billow.api.leave.LeaveService;
 import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
+import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,9 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 
 	@Override
 	public ProcessInstance saveLeave(LeaveDto leave) throws Exception {
+		UserDto userDto = leave.getUserDto();
 		leave.setApplyTime(new Date());
+		leave.setUserId(userDto.getUserId());
 		int id = leaveDao.insert(leave);
 		String processDefinitionKey = "QingJia";
 		String businessKey = id + "";
