@@ -30,8 +30,10 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	@Override
 	public ProcessInstance saveLeave(LeaveDto leave) throws Exception {
 		leave.setApplyTime(new Date());
+		int id = leaveDao.insert(leave);
 		String processDefinitionKey = "QingJia";
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey);
+		String businessKey = id + "";
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey);
 		return processInstance;
 	}
 
