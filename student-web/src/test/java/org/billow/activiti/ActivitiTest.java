@@ -16,7 +16,6 @@ import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -51,7 +50,7 @@ public class ActivitiTest {
 
 	@Before
 	public void init() {
-		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ctx = new ClassPathXmlApplicationContext("classpath:spring-activiti.xml");
 		try {
 			runtimeService = BeanUtils.getBean("runtimeService");
 			repositoryService = BeanUtils.getBean("repositoryService");
@@ -109,7 +108,7 @@ public class ActivitiTest {
 	public void startProcessInstance() {
 		logger.info("=================================启动流程实例=================================");
 		// 使用流程定义的key启动流程实例，key对应hellworld.bpmn文件中id的属性值，使用key值启动，默认是按照最新版本的流程定义启动
-		String processKey = "QingJia";// act_re_procdef表中的key
+		String processKey = "QingJiaProcess";// act_re_procdef表中的key
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processKey);
 		logger.info("流程实例ID:" + processInstance.getId());// 流程实例ID:30001/5001
 		logger.info("流程定义ID:" + processInstance.getProcessDefinitionId());// 流程定义ID:QingJiaProcess:2:27504/QingJia:1:2504
