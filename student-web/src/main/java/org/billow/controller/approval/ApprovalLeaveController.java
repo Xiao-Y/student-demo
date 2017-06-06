@@ -3,9 +3,9 @@ package org.billow.controller.approval;
 import javax.servlet.http.HttpSession;
 
 import org.billow.api.approval.ApprovalLeaveService;
+import org.billow.common.login.LoginHelper;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
-import org.billow.utils.LoginHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
