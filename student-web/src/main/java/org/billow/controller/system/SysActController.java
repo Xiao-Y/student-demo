@@ -21,7 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -188,6 +190,39 @@ public class SysActController {
 			createDeployment.name(modelName);
 			createDeployment.addString(processName, new String(bpmnBytes, "UTF-8"));
 			createDeployment.deploy();
+			json.setSuccess(true);
+			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
+		} catch (Exception e) {
+			json.setSuccess(false);
+			json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return json;
+	}
+
+	/**
+	 * 打开文件部署流程上传页面
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月6日 下午9:50:37
+	 */
+	@RequestMapping("/fileDeploy")
+	public String fileDeploy() {
+		return PagePathCst.BASEPATH_SYSTEM + "/actFileDeploy";
+	}
+
+	@ResponseBody
+	@RequestMapping("/saveFileDeploy")
+	public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile,
+			@RequestParam("deployName") String deployName) {
+		JsonResult json = new JsonResult();
+		try {
+			// 创建发布配置对象
+			/*
+			 * DeploymentBuilder builder = repositoryService.createDeployment(); // 设置发布信息 builder.name("请假流程")// 添加部署规则的显示别名 .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")// 添加规则文件 .addClasspathResource("diagrams/QingJiaModel.QingJia.png");// 添加规则图片 不添加会自动产生一个图片不推荐 // 完成发布 builder.deploy();
+			 */
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
 		} catch (Exception e) {

@@ -37,10 +37,10 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		UserDto userDto = leave.getUserDto();
 		leave.setApplyTime(new Date());
 		leave.setUserId(userDto.getUserId());
-		int id = leaveDao.insert(leave);
-		String processDefinitionKey = "QingJia";
+		leaveDao.insert(leave);
 		// 业务主键
-		String businessKey = LeaveDto.class.getSimpleName() + "." + id;
+		String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
+		String processDefinitionKey = "QingJia";
 		// 启动流程实例
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey);
 		String processInstanceId = processInstance.getProcessInstanceId();
