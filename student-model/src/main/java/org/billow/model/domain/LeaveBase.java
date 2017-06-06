@@ -25,6 +25,8 @@ public class LeaveBase implements Serializable {
 	private String leaveType;
 	// 原因
 	private String reason;
+	// 状态 1-提交申请，3-审批中，5-审批通过，7-驳回
+	private String status;
 
 	public Integer getId() {
 		return id;
@@ -164,5 +166,27 @@ public class LeaveBase implements Serializable {
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	/**
+	 * 状态 1-提交申请，3-审批中，5-审批通过，7-驳回
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月5日 下午8:47:23
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * 状态 1-提交申请，3-审批中，5-审批通过，7-驳回
+	 * 
+	 * @param status
+	 * @author XiaoY
+	 * @date: 2017年6月5日 下午8:47:27
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

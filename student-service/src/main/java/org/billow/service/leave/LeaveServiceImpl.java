@@ -5,7 +5,9 @@ import java.util.Date;
 import javax.annotation.Resource;
 
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.billow.api.leave.LeaveService;
 import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
@@ -27,6 +29,8 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 
 	@Autowired
 	private RuntimeService runtimeService;
+	@Autowired
+	private TaskService taskService;
 
 	@Override
 	public ProcessInstance saveLeave(LeaveDto leave) throws Exception {
@@ -35,8 +39,15 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		leave.setUserId(userDto.getUserId());
 		int id = leaveDao.insert(leave);
 		String processDefinitionKey = "QingJia";
-		String businessKey = id + "";
+		// 业务主键
+		String businessKey = LeaveDto.class.getSimpleName() + "." + id;
+		// 启动流程实例
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey);
+		String processInstanceId = processInstance.getProcessInstanceId();
+		// 查询任务
+		Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+		// 添加保存流程变量
+		taskService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
 		return processInstance;
 	}
 

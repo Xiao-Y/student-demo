@@ -1,12 +1,13 @@
 package org.billow.service.approval;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
@@ -32,35 +33,41 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	@Autowired
 	private RepositoryService repositoryService;
 	@Autowired
+	private HistoryService historyService;
+	@Autowired
 	private LeaveDao leaveDao;
 
 	@Override
 	public PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) {
-		List<LeaveDto> results = new ArrayList<LeaveDto>();
-		UserDto userDto = leaveDto.getUserDto();
-		String processDefinitionKey = "QingJia";
-		String assignee = userDto.getUserName();
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey)
-				.taskAssignee(assignee);
-		long count = taskQuery.count();
-		PageInfo<LeaveDto> pageInfo = PageHelper.getPageInfo(count);
-		List<Task> tasks = taskQuery.listPage(pageInfo.getFirstPage(), pageInfo.getPageSize());
-		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-		for (Task task : tasks) {
-			String processInstanceId = task.getProcessInstanceId();
-			ProcessInstance processInstance = processInstanceQuery.processInstanceId(processInstanceId).singleResult();
-			String businessKey = processInstance.getBusinessKey();
-			if (ToolsUtils.isEmpty(businessKey)) {
-				continue;
+		PageHelper.startPage();
+		List<LeaveDto> leavList = leaveDao.selectAll(leaveDto);
+		if (ToolsUtils.isNotEmpty(leavList)) {
+			String processDefinitionKey = "QingJia";
+			UserDto userDto = leaveDto.getUserDto();
+			ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
+			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey)
+					.taskAssignee(userDto.getUserName());
+			ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+			for (LeaveDto leave : leavList) {
+				// 查询流程实例
+				String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
+				ProcessInstance processInstance = processInstanceQuery.processInstanceBusinessKey(businessKey)
+						.singleResult();
+				leave.setProcessInstance(processInstance);
+				if (processInstance != null) {
+					// 查询任务
+					String processInstanceId = processInstance.getProcessInstanceId();
+					Task task = taskQuery.processInstanceId(processInstanceId).singleResult();
+					leave.setTask(task);
+					// 查询流程定义
+					String processDefinitionId = processInstance.getProcessDefinitionId();
+					ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(
+							processDefinitionId).singleResult();
+					leave.setProcessDefinition(processDefinition);
+				}
 			}
-			LeaveDto dto = leaveDao.selectByPrimaryKey(Integer.valueOf(businessKey));
-			dto.setTask(task);
-			dto.setProcessInstance(processInstance);
-			String processDefinitionId = task.getProcessDefinitionId();
-			dto.setProcessDefinition(getProcessDefinition(processDefinitionId));
-			results.add(dto);
 		}
-		pageInfo.setList(results);
+		PageInfo<LeaveDto> pageInfo = new PageInfo<>(leavList);
 		return pageInfo;
 	}
 

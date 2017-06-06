@@ -17,25 +17,22 @@ import org.billow.model.domain.LeaveBase;
 public class LeaveDto extends LeaveBase {
 
 	private static final long serialVersionUID = 3221605134094266678L;
-
 	// 流程实例id
 	private String processInstanceId;
-
 	private UserDto userDto;
-	
-	 // 流程任务
-    private Task task;
+	// 流程任务
+	private Task task;
 
-    private Map<String, Object> variables;
+	private Map<String, Object> variables;
 
-    // 运行中的流程实例
-    private ProcessInstance processInstance;
+	// 运行中的流程实例
+	private ProcessInstance processInstance;
 
-    // 历史的流程实例
-    private HistoricProcessInstance historicProcessInstance;
+	// 历史的流程实例
+	private HistoricProcessInstance historicProcessInstance;
 
-    // 流程定义
-    private ProcessDefinition processDefinition;
+	// 流程定义
+	private ProcessDefinition processDefinition;
 
 	/**
 	 * 流程实例id

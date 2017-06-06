@@ -1,11 +1,15 @@
 package org.billow.controller.apply;
 
+import javax.servlet.http.HttpSession;
+
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.log4j.Logger;
 import org.billow.api.leave.LeaveService;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.LeaveDto;
+import org.billow.model.expand.UserDto;
+import org.billow.utils.LoginHelper;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +58,13 @@ public class ApplyLeaveController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveLeave")
-	public JsonResult saveLeave(LeaveDto leave) {
-		JsonResult json = new JsonResult();
-		logger.info("leave ===>>" + leave);
+	public JsonResult saveLeave(HttpSession session, LeaveDto leave) {
+		UserDto userDto = LoginHelper.getLoginUser(session);
+		leave.setUserDto(userDto);
 		String message = "";
 		String type = "";
 		try {
+			leave.setStatus("1");
 			ProcessInstance processInstance = leaveService.saveLeave(leave);
 			message = "流程已启动，流程ID：" + processInstance.getId();
 			type = MessageTipsCst.TYPE_SUCCES;
@@ -78,6 +83,7 @@ public class ApplyLeaveController {
 			type = MessageTipsCst.TYPE_ERROR;
 			logger.error("启动请假流程失败：", e);
 		}
+		JsonResult json = new JsonResult();
 		json.setMessage(message);
 		json.setType(type);
 		return json;

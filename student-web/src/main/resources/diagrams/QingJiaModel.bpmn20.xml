@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="QingJia" name="请假流程" isExecutable="true">
+    <startEvent id="start" name="开始"></startEvent>
+    <userTask id="QingJiaShengQin" name="请假申请" activiti:assignee="employee"></userTask>
+    <sequenceFlow id="sid-92777CB4-0BCF-4870-A859-D49E48E5F066" sourceRef="start" targetRef="QingJiaShengQin"></sequenceFlow>
+    <userTask id="BuMenJingLi" name="审核【部门经理】" activiti:assignee="admin"></userTask>
+    <sequenceFlow id="sid-47259280-9C7C-464D-8922-DC81CA733773" sourceRef="QingJiaShengQin" targetRef="BuMenJingLi"></sequenceFlow>
+    <userTask id="ZhongJingLi" name="审核【总经理】" activiti:assignee="sa"></userTask>
+    <sequenceFlow id="sid-B35A44FC-3BF7-4D11-BDD6-CE1F2616C53A" sourceRef="BuMenJingLi" targetRef="ZhongJingLi"></sequenceFlow>
+    <endEvent id="end" name="结束"></endEvent>
+    <sequenceFlow id="sid-E047A802-DC45-4316-9C32-39DE52FC747C" sourceRef="ZhongJingLi" targetRef="end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_QingJia">
+    <bpmndi:BPMNPlane bpmnElement="QingJia" id="BPMNPlane_QingJia">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="135.0" y="115.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="QingJiaShengQin" id="BPMNShape_QingJiaShengQin">
+        <omgdc:Bounds height="80.0" width="100.0" x="225.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BuMenJingLi" id="BPMNShape_BuMenJingLi">
+        <omgdc:Bounds height="80.0" width="100.0" x="360.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ZhongJingLi" id="BPMNShape_ZhongJingLi">
+        <omgdc:Bounds height="80.0" width="100.0" x="495.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="640.0" y="116.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-B35A44FC-3BF7-4D11-BDD6-CE1F2616C53A" id="BPMNEdge_sid-B35A44FC-3BF7-4D11-BDD6-CE1F2616C53A">
+        <omgdi:waypoint x="460.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="495.0" y="130.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E047A802-DC45-4316-9C32-39DE52FC747C" id="BPMNEdge_sid-E047A802-DC45-4316-9C32-39DE52FC747C">
+        <omgdi:waypoint x="595.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="130.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-92777CB4-0BCF-4870-A859-D49E48E5F066" id="BPMNEdge_sid-92777CB4-0BCF-4870-A859-D49E48E5F066">
+        <omgdi:waypoint x="165.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="225.0" y="130.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-47259280-9C7C-464D-8922-DC81CA733773" id="BPMNEdge_sid-47259280-9C7C-464D-8922-DC81CA733773">
+        <omgdi:waypoint x="325.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="130.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

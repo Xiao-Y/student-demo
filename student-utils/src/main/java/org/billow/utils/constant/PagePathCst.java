@@ -17,4 +17,8 @@ public class PagePathCst {
 	 * 申请管理
 	 */
 	public static final String BASEPATH_APPLY = "page/apply/";
+	/**
+	 * 审批管理
+	 */
+	public static final String BASEPATH_APPROVAL = "page/approval/";
 }

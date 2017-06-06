@@ -3,13 +3,13 @@ package org.billow.controller.approval;
 import javax.servlet.http.HttpSession;
 
 import org.billow.api.approval.ApprovalLeaveService;
+import org.billow.common.login.LoginHelper;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
-import org.billow.utils.LoginHelper;
+import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
@@ -34,7 +34,6 @@ public class ApprovalLeaveController {
 	 * @author XiaoY
 	 * @date: 2017年5月28日 下午10:10:05
 	 */
-	@ResponseBody
 	@RequestMapping("/findApprovalLeave")
 	public ModelAndView findApprovalLeave(HttpSession session, LeaveDto leaveDto) {
 		UserDto userDto = LoginHelper.getLoginUser(session);
@@ -42,7 +41,7 @@ public class ApprovalLeaveController {
 		PageInfo<LeaveDto> list = approvalLeaveService.findApprovalLeave(leaveDto);
 		ModelAndView av = new ModelAndView();
 		av.addObject("paegs", list);
-		av.setViewName("");
+		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "taskList");
 		return av;
 	}
 }
