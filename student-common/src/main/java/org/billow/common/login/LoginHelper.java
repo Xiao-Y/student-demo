@@ -1,8 +1,9 @@
-package org.billow.utils;
+package org.billow.common.login;
 
 import javax.servlet.http.HttpSession;
 
 import org.billow.model.expand.UserDto;
+import org.billow.utils.RequestUtils;
 
 public class LoginHelper {
 

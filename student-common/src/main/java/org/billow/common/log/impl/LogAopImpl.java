@@ -9,8 +9,8 @@ import org.aspectj.lang.JoinPoint;
 import org.billow.api.system.SystemLogService;
 import org.billow.common.annotation.SystemControllerLog;
 import org.billow.common.log.LogAop;
+import org.billow.common.login.LoginHelper;
 import org.billow.model.expand.SystemLogDto;
-import org.billow.utils.LoginHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
