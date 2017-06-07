@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 
 /**
@@ -108,4 +109,16 @@ public interface WorkFlowService {
 	 * @date 2017年6月7日 下午12:24:38
 	 */
 	public void addComment(String taskId, String processInstanceId, String type, String message);
+
+	/**
+	 * 根据流程实例id和type查询批注信息
+	 * 
+	 * @param processInstanceId
+	 *            流程实例id
+	 * @param type
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月7日 下午10:36:19
+	 */
+	public List<Comment> findCommentByProcessInstanceId(String processInstanceId, String type);
 }

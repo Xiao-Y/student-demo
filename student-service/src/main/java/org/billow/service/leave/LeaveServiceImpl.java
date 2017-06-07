@@ -1,12 +1,12 @@
 package org.billow.service.leave;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.billow.api.leave.LeaveService;
 import org.billow.api.workflow.WorkFlowService;
@@ -29,10 +29,6 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	}
 
 	@Autowired
-	private RuntimeService runtimeService;
-	@Autowired
-	private TaskService taskService;
-	@Autowired
 	private WorkFlowService workFlowService;
 
 	@Override
@@ -52,6 +48,17 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		// 保存批注信息
 		workFlowService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
 		return processInstance;
+	}
+
+	@Override
+	public LeaveDto findLeaveDto(LeaveDto leave) {
+		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave.getId());
+		if (leaveDto != null) {
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
+					leave.getType());
+			leaveDto.setComments(comments);
+		}
+		return leaveDto;
 	}
 
 }

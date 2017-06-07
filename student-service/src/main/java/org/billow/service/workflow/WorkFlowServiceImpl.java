@@ -14,6 +14,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
@@ -21,10 +22,12 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.apache.log4j.Logger;
 import org.billow.api.workflow.WorkFlowService;
+import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +56,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 	@Override
 	public <T> List<T> findMyTask(List<T> list, String processDefinitionKey, String assignee) throws Exception {
 		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey).taskAssignee(assignee);
+		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey)
+				.taskAssignee(assignee);
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
 		for (int i = 0; i < list.size(); i++) {
 			T t = list.get(i);
@@ -62,7 +66,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 			Integer id = (Integer) getId.invoke(t);
 			String businessKey = clazz.getSimpleName() + "." + id;
 			// 查询流程实例
-			ProcessInstance processInstance = processInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
+			ProcessInstance processInstance = processInstanceQuery.processInstanceBusinessKey(businessKey)
+					.singleResult();
 			Method setProcessInstance = clazz.getMethod("setProcessInstance", ProcessInstance.class);
 			setProcessInstance.invoke(t, processInstance);
 			if (processInstance != null) {
@@ -73,7 +78,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 				setTask.invoke(t, task);
 				// 查询流程定义
 				String processDefinitionId = processInstance.getProcessDefinitionId();
-				ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId).singleResult();
+				ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId)
+						.singleResult();
 				Method setProcessDefinition = clazz.getMethod("setProcessDefinition", ProcessDefinition.class);
 				setProcessDefinition.invoke(t, processDefinition);
 			}
@@ -102,8 +108,9 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 						.getDeployedProcessDefinition(historicProcessInstance.getProcessDefinitionId());
 
 				// 获取流程历史中已执行节点，并按照节点在流程中执行先后顺序排序
-				List<HistoricActivityInstance> historicActivityInstanceList = historyService.createHistoricActivityInstanceQuery()
-						.processInstanceId(pProcessInstanceId).orderByHistoricActivityInstanceId().asc().list();
+				List<HistoricActivityInstance> historicActivityInstanceList = historyService
+						.createHistoricActivityInstanceQuery().processInstanceId(pProcessInstanceId)
+						.orderByHistoricActivityInstanceId().asc().list();
 
 				// 已执行的节点ID集合
 				List<String> executedActivityIdList = new ArrayList<String>();
@@ -111,12 +118,14 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 				logger.info("获取已经执行的节点ID");
 				for (HistoricActivityInstance activityInstance : historicActivityInstanceList) {
 					executedActivityIdList.add(activityInstance.getActivityId());
-					logger.info("第[" + index + "]个已执行节点=" + activityInstance.getActivityId() + " : " + activityInstance.getActivityName());
+					logger.info("第[" + index + "]个已执行节点=" + activityInstance.getActivityId() + " : "
+							+ activityInstance.getActivityName());
 					index++;
 				}
 
 				// 获取流程图图像字符流
-				InputStream imageStream = ProcessDiagramGenerator.generateDiagram(processDefinition, "png", executedActivityIdList);
+				InputStream imageStream = ProcessDiagramGenerator.generateDiagram(processDefinition, "png",
+						executedActivityIdList);
 
 				response.setContentType("image/png");
 				OutputStream os = response.getOutputStream();
@@ -137,8 +146,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
 	@Override
 	public ProcessDefinition getProcessDefinition(String processDefinitionId) {
-		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId)
-				.singleResult();
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(processDefinitionId).singleResult();
 		return processDefinition;
 	}
 
@@ -157,5 +166,24 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 	@Override
 	public void addComment(String taskId, String processInstanceId, String type, String message) {
 		taskService.addComment(taskId, processInstanceId, type, message);
+	}
+
+	@Override
+	public List<Comment> findCommentByProcessInstanceId(String processInstanceId, String type) {
+		List<Comment> list = new ArrayList<>();
+		// 使用流程实例ID，查询历史任务，获取历史任务对应的每个任务ID
+		List<HistoricTaskInstance> htiList = historyService.createHistoricTaskInstanceQuery()// 历史任务表查询
+				.processInstanceId(processInstanceId)// 使用流程实例ID查询
+				.list();
+		if (ToolsUtils.isNotEmpty(htiList)) {
+			for (HistoricTaskInstance ht : htiList) {
+				// 任务ID
+				String htaskId = ht.getId();
+				// 获取批注信息
+				List<Comment> taskComments = taskService.getTaskComments(htaskId, type);// 对用历史完成后的任务ID
+				list.addAll(taskComments);
+			}
+		}
+		return list;
 	}
 }

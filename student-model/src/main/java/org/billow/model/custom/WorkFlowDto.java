@@ -1,11 +1,13 @@
 package org.billow.model.custom;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 
 /**
@@ -23,17 +25,16 @@ public class WorkFlowDto implements Serializable {
 	private String processInstanceId;
 	// 流程任务
 	private Task task;
-
+	// 流程变量
 	private Map<String, Object> variables;
-
 	// 运行中的流程实例
 	private ProcessInstance processInstance;
-
 	// 历史的流程实例
 	private HistoricProcessInstance historicProcessInstance;
-
 	// 流程定义
 	private ProcessDefinition processDefinition;
+	// 批注信息
+	private List<Comment> comments;
 
 	/**
 	 * 流程实例id
@@ -96,4 +97,13 @@ public class WorkFlowDto implements Serializable {
 	public void setProcessDefinition(ProcessDefinition processDefinition) {
 		this.processDefinition = processDefinition;
 	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 }
