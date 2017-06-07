@@ -21,5 +21,4 @@ public interface LeaveService extends BaseService<LeaveDto> {
 	 * @date: 2017年5月28日 下午7:00:46
 	 */
 	ProcessInstance saveLeave(LeaveDto leave) throws Exception;
-
 }

@@ -13,16 +13,20 @@
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i> 添加信息
+				<i class="layui-icon">&#xe608;</i>
+				添加信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small" id="import">
-				<i class="layui-icon">&#xe608;</i> 导入信息
+				<i class="layui-icon">&#xe608;</i>
+				导入信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+				导出信息
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i> 搜索
+				<i class="layui-icon">&#xe615;</i>
+				搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -59,9 +63,8 @@
 									<fmt:formatDate value="${leave.endTime  }" pattern="yyyy-MM-dd" />
 								</td>
 								<td>
-									<a class="trace" href='#' pid="${pi.id }" pdid="${pi.processDefinitionId}" title="点击查看流程图">${task.name }</a>
+									<a target="_blank" title="点击查看流程图" href='${ctx }/approvalLeave/getActivitiProccessImage/${pi.id }'>${task.name }</a>
 								</td>
-								<%--<td><a target="_blank" href='${ctx }/workflow/resource/process-instance?pid=${pi.id }&type=xml'>${task.name }</a></td> --%>
 								<td>
 									<fmt:formatDate value="${task.createTime  }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
