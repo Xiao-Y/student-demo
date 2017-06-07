@@ -15,7 +15,7 @@ import org.activiti.engine.task.Task;
  * 
  * @date 2017年6月7日 上午9:11:03
  */
-public class WorkFolwDto implements Serializable {
+public class WorkFlowDto implements Serializable {
 
 	private static final long serialVersionUID = -8464617402822701998L;
 

@@ -7,7 +7,7 @@
 <title>请假待办任务列表</title>
 <jsp:include page="/pub/pubTableCss.jsp" />
 <jsp:include page="/pub/pubJs.jsp" />
-<script type="text/javascript" src="${ctx }/page/approval/taskList.js"></script>
+<script type="text/javascript" src="${ctx }/page/approval/leaveTaskList.js"></script>
 </head>
 <body>
 	<div class="admin-main">
@@ -76,7 +76,7 @@
 									</c:if>
 									<c:if test="${not empty task.assignee }">
 										<%-- 此处用tkey记录当前节点的名称 --%>
-										<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' href="#">办理</a>
+										<a class="handle" href="${ctx }/applyLeave/editLeave?id=${leave.id }&actionType=view">办理</a>
 									</c:if>
 								</td>
 							</tr>

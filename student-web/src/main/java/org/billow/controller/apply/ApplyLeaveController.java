@@ -44,6 +44,11 @@ public class ApplyLeaveController {
 	@RequestMapping("/editLeave")
 	public ModelAndView editLeave(LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
+		if("view".equals(leave.getActionType())){
+			LeaveDto leaveDto = leaveService.selectByPrimaryKey(leave.getId());
+			leaveDto.setActionType(leave.getActionType());
+			av.addObject("leaveDto", leaveDto);
+		}
 		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApply");
 		return av;
 	}

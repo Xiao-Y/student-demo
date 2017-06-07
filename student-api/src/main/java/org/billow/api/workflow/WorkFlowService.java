@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 
 /**
  * 工作流程统一正理类
@@ -57,4 +59,53 @@ public interface WorkFlowService {
 	 * @return
 	 */
 	public ProcessDefinition getProcessDefinition(String processDefinitionId);
+
+	/**
+	 * 通过流程定义key启动流程实例
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param processDefinitionKey
+	 *            流程定义key
+	 * @param businessKey
+	 *            业务主键
+	 * @return 流程实例
+	 * 
+	 * @date 2017年6月7日 下午12:17:34
+	 */
+	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey);
+
+	/**
+	 * 通过流程实例id查询任务
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param processInstanceId
+	 *            流程实例id
+	 * @return 任务
+	 * 
+	 * @date 2017年6月7日 下午12:20:23
+	 */
+	public Task findTaskByProcessInstanceId(String processInstanceId);
+
+	/**
+	 * 保存批注信息
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param taskId
+	 *            任务Id
+	 * @param processInstanceId
+	 *            流程实例id
+	 * @param type
+	 *            关键字
+	 * @param message
+	 *            信息
+	 * 
+	 * @date 2017年6月7日 下午12:24:38
+	 */
+	public void addComment(String taskId, String processInstanceId, String type, String message);
 }

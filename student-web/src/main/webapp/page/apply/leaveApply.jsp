@@ -16,11 +16,14 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label"></label>
 				<div class="layui-input-block"></div>
+				<input type="hidden" name="id" value="${leaveDto.id}">
+				<input type="hidden" id="actionType" name="actionType" value="${leaveDto.actionType}">
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">请假类型：</label>
 				<div class="layui-input-block">
-					<select name="leaveType" lay-verify="required" lay-search>
+					<input type="hidden" id="leaveTypeTemp" value="${leaveDto.leaveType}">
+					<select id="leaveType" name="leaveType" lay-verify="required" lay-search>
 						<option value=""></option>
 						<option value="1">公休</option>
 						<option value="1">病假</option>
@@ -33,21 +36,23 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">开始时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
+						class="layui-input" value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />"
 						onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
+						class="layui-input" value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />"
 						onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">请假原因：</label>
 				<div class="layui-input-block">
-					<textarea placeholder="请输入内容"  lay-verify="required" class="layui-textarea" name="reason"></textarea>
+					<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="reason">${leaveDto.reason }</textarea>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -59,4 +64,19 @@
 		</div>
 	</form>
 </body>
+<script type="text/javascript">
+	$(function() {
+		$("#leaveType").val($("#leaveTypeTemp").val());
+		var actionType = $("#actionType").val();
+		if (actionType == 'view') {
+			$("input").attr('disabled', true);
+			$("textarea").attr('readonly', true);
+			$(':radio').attr('disabled', true);
+			$(':checkbox').attr('disabled', true);
+			$(':button').attr('disabled', true);
+			$('a').removeAttr('onclick');
+			$('select').attr('disabled', true);
+		}
+	});
+</script>
 </html>

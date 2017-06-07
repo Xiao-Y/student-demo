@@ -9,6 +9,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.billow.api.leave.LeaveService;
+import org.billow.api.workflow.WorkFlowService;
 import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
@@ -31,6 +32,8 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	private RuntimeService runtimeService;
 	@Autowired
 	private TaskService taskService;
+	@Autowired
+	private WorkFlowService workFlowService;
 
 	@Override
 	public ProcessInstance saveLeave(LeaveDto leave) throws Exception {
@@ -42,12 +45,12 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
 		String processDefinitionKey = "QingJia";
 		// 启动流程实例
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey);
+		ProcessInstance processInstance = workFlowService.startProcessInstanceByKey(processDefinitionKey, businessKey);
 		String processInstanceId = processInstance.getProcessInstanceId();
 		// 查询任务
-		Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-		// 添加保存流程变量
-		taskService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
+		Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);
+		// 保存批注信息
+		workFlowService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
 		return processInstance;
 	}
 

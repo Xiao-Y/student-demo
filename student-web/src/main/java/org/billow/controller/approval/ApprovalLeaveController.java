@@ -50,7 +50,7 @@ public class ApprovalLeaveController {
 		PageInfo<LeaveDto> list = approvalLeaveService.findApprovalLeave(leaveDto);
 		ModelAndView av = new ModelAndView();
 		av.addObject("paegs", list);
-		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "taskList");
+		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveTaskList");
 		return av;
 	}
 

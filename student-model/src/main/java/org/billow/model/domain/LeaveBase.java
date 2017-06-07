@@ -3,10 +3,10 @@ package org.billow.model.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.billow.model.custom.WorkFolwDto;
+import org.billow.model.custom.WorkFlowDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class LeaveBase extends WorkFolwDto implements Serializable {
+public class LeaveBase extends WorkFlowDto implements Serializable {
 
 	private static final long serialVersionUID = 1256101489100186030L;
 

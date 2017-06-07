@@ -141,4 +141,21 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 				.singleResult();
 		return processDefinition;
 	}
+
+	@Override
+	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey) {
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey);
+		return processInstance;
+	}
+
+	@Override
+	public Task findTaskByProcessInstanceId(String processInstanceId) {
+		Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+		return task;
+	}
+
+	@Override
+	public void addComment(String taskId, String processInstanceId, String type, String message) {
+		taskService.addComment(taskId, processInstanceId, type, message);
+	}
 }
