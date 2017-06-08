@@ -1,8 +1,12 @@
 package org.billow.api.leave;
 
+import java.util.List;
+
 import org.activiti.engine.runtime.ProcessInstance;
 import org.billow.api.base.BaseService;
 import org.billow.model.expand.LeaveDto;
+
+import com.github.pagehelper.PageInfo;
 
 /**
  * 申请管理
@@ -31,4 +35,17 @@ public interface LeaveService extends BaseService<LeaveDto> {
 	 * @date: 2017年6月7日 下午10:32:20
 	 */
 	LeaveDto findLeaveDto(LeaveDto leave) throws Exception;
+
+	/**
+	 * 查询请假申请列表
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param leave
+	 * @return
+	 * 
+	 * @date 2017年6月8日 下午7:44:46
+	 */
+	PageInfo<LeaveDto> findLeaveList(LeaveDto leave);
 }

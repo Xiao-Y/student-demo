@@ -1,5 +1,7 @@
 package org.billow.controller.apply;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.ActivitiException;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.pagehelper.PageInfo;
 
 /**
  * 请假申请
@@ -87,5 +91,14 @@ public class ApplyLeaveController {
 		json.setMessage(message);
 		json.setType(type);
 		return json;
+	}
+
+	public ModelAndView findLeaveList(HttpSession session, LeaveDto leave) {
+		UserDto userDto = LoginHelper.getLoginUser(session);
+		leave.setUserDto(userDto);
+		PageInfo<LeaveDto> pages = leaveService.findLeaveList(leave);
+		ModelAndView av = new ModelAndView();
+		av.addObject("pages", pages);
+		return av;
 	}
 }

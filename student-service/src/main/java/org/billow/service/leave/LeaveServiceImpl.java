@@ -14,8 +14,11 @@ import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
+import org.billow.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements LeaveService {
@@ -58,6 +61,12 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
+	}
+
+	@Override
+	public PageInfo<LeaveDto> findLeaveList(LeaveDto leave) {
+		PageHelper.startPage();
+		return null;
 	}
 
 }
