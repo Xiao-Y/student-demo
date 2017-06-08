@@ -49,7 +49,7 @@
 					<tbody>
 						<c:forEach var="leave" items="${paegs.list}">
 							<c:set var="task" value="${leave.task }" />
-							<c:set var="pi" value="${leave.processInstance }" />
+							<c:set var="pi" value="${leave.historicProcessInstance }" />
 							<tr id="${leave.id }" tid="${task.id }">
 								<td>${leave.leaveType }</td>
 								<td>${leave.userId }</td>
@@ -63,12 +63,16 @@
 									<fmt:formatDate value="${leave.endTime  }" pattern="yyyy-MM-dd" />
 								</td>
 								<td>
-									<a target="_blank" title="点击查看流程图" href='${ctx }/approvalLeave/getActivitiProccessImage/${pi.id }'>${task.name }</a>
+									<a target="_blank" title="点击查看流程图" href='${ctx }/approvalLeave/getActivitiProccessImage/${pi.id }'>
+										<c:if test="${empty task.name }">已完成</c:if>
+										<c:if test="${not empty task.name }">${task.name }</c:if>
+									</a>
 								</td>
 								<td>
 									<fmt:formatDate value="${task.createTime  }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
-								<td>${pi.suspended ? "已挂起" : "正常" }；<b title='流程版本号'>V: ${leave.processDefinition.version }</b>
+								<td>
+									<b title='流程版本号'>V: ${leave.processDefinition.version }</b>
 								</td>
 								<td>
 									<c:if test="${empty task.assignee }">

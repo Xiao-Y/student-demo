@@ -14,10 +14,13 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -48,7 +51,6 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 	private HistoryService historyService;
 	@Autowired
 	private RepositoryService repositoryService;
-
 	@Autowired
 	private TaskService taskService;
 	@Autowired
@@ -56,8 +58,44 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
 	@Override
 	public <T> List<T> findMyTaskList(List<T> list, String processDefinitionKey, String assignee) throws Exception {
-		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey).taskAssignee(assignee);
+		// ProcessInstanceQuery processInstanceQuery =
+		// runtimeService.createProcessInstanceQuery();
+		// TaskQuery taskQuery =
+		// taskService.createTaskQuery().processDefinitionKey(processDefinitionKey).taskAssignee(assignee);
+		// ProcessDefinitionQuery processDefinitionQuery =
+		// repositoryService.createProcessDefinitionQuery();
+		// for (int i = 0; i < list.size(); i++) {
+		// T t = list.get(i);
+		// Class<? extends Object> clazz = t.getClass();
+		// Method getId = clazz.getMethod("getId");
+		// Integer id = (Integer) getId.invoke(t);
+		// String businessKey = clazz.getSimpleName() + "." + id;
+		// // 查询流程实例
+		// ProcessInstance processInstance =
+		// processInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
+		// Method setProcessInstance = clazz.getMethod("setProcessInstance",
+		// ProcessInstance.class);
+		// setProcessInstance.invoke(t, processInstance);
+		// if (processInstance != null) {
+		// // 查询任务
+		// String processInstanceId = processInstance.getProcessInstanceId();
+		// Task task =
+		// taskQuery.processInstanceId(processInstanceId).singleResult();
+		// Method setTask = clazz.getMethod("setTask", Task.class);
+		// setTask.invoke(t, task);
+		// // 查询流程定义
+		// String processDefinitionId =
+		// processInstance.getProcessDefinitionId();
+		// ProcessDefinition processDefinition =
+		// processDefinitionQuery.processDefinitionId(processDefinitionId).singleResult();
+		// Method setProcessDefinition = clazz.getMethod("setProcessDefinition",
+		// ProcessDefinition.class);
+		// setProcessDefinition.invoke(t, processDefinition);
+		// }
+		// }
+		HistoricProcessInstanceQuery historicProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery();
+
+		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey);// .taskAssignee(assignee);
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
 		for (int i = 0; i < list.size(); i++) {
 			T t = list.get(i);
@@ -65,21 +103,43 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 			Method getId = clazz.getMethod("getId");
 			Integer id = (Integer) getId.invoke(t);
 			String businessKey = clazz.getSimpleName() + "." + id;
-			// 查询流程实例
-			ProcessInstance processInstance = processInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
-			Method setProcessInstance = clazz.getMethod("setProcessInstance", ProcessInstance.class);
-			setProcessInstance.invoke(t, processInstance);
-			if (processInstance != null) {
+			// 查询历史流程实例
+			HistoricProcessInstance historicProcessInstance = historicProcessInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
+			Method setProcessInstance = clazz.getMethod("setHistoricProcessInstance", HistoricProcessInstance.class);
+			setProcessInstance.invoke(t, historicProcessInstance);
+			if (historicProcessInstance != null) {
 				// 查询任务
-				String processInstanceId = processInstance.getProcessInstanceId();
+				String processInstanceId = historicProcessInstance.getId();
 				Task task = taskQuery.processInstanceId(processInstanceId).singleResult();
 				Method setTask = clazz.getMethod("setTask", Task.class);
 				setTask.invoke(t, task);
 				// 查询流程定义
-				String processDefinitionId = processInstance.getProcessDefinitionId();
+				String processDefinitionId = historicProcessInstance.getProcessDefinitionId();
 				ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId).singleResult();
 				Method setProcessDefinition = clazz.getMethod("setProcessDefinition", ProcessDefinition.class);
 				setProcessDefinition.invoke(t, processDefinition);
+				if (task != null) {
+					// 查询当前流程的节点
+					// 然后根据当前任务获取当前流程的流程定义，然后根据流程定义获得所有的节点
+					ProcessDefinitionEntity pdf = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService)
+							.getDeployedProcessDefinition(processDefinitionId);
+					// 根据任务获取当前流程执行ID，执行实例以及当前流程节点的ID
+					List<ActivityImpl> activities = pdf.getActivities();
+					String executionId = task.getExecutionId();
+					ExecutionEntity execution = (ExecutionEntity) runtimeService.createExecutionQuery().executionId(executionId).singleResult();
+					String activitiId = execution.getActivityId();
+					// 4、然后循环activitiList
+					// 并判断出当前流程所处节点，然后得到当前节点实例，根据节点实例获取所有从当前节点出发的路径，然后根据路径获得下一个节点实例：
+					String nodeName = "已结束";
+					for (ActivityImpl activityImpl : activities) {
+						if (activitiId.equals(activityImpl.getId())) {
+							nodeName = (String) activityImpl.getProperty("name");
+							logger.debug("当前任务：" + nodeName); // 输出某个节点的某种属性
+							break;
+						}
+					}
+					task.setName(nodeName);
+				}
 			}
 		}
 		return list;
