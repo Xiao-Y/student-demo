@@ -43,7 +43,7 @@ public class ApprovalLeaveController {
 	private LeaveService leaveService;
 
 	/**
-	 * 查询个人任务（要审批的请假）
+	 * 查询个人任务列表（要审批的请假）
 	 * 
 	 * @return
 	 * @author XiaoY
@@ -77,12 +77,17 @@ public class ApprovalLeaveController {
 	 * @date: 2017年5月28日 下午3:58:24
 	 */
 	@RequestMapping("/leaveApplyApp")
-	public ModelAndView leaveApplyApp(LeaveDto leave) {
+	public ModelAndView leaveApplyApp(HttpSession session, LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
-		leave.setType(ActivitiCommentCst.TYPE_LEAVE_COMMENT);
-		LeaveDto leaveDto = leaveService.findLeaveDto(leave);
-		leaveDto.setActionType(leave.getActionType());
-		av.addObject("leaveDto", leaveDto);
+		UserDto userDto = LoginHelper.getLoginUser(session);
+		try {
+			leave.setUserDto(userDto);
+			leave.setType(ActivitiCommentCst.TYPE_LEAVE_COMMENT);
+			LeaveDto leaveDto = leaveService.findLeaveDto(leave);
+			av.addObject("leaveDto", leaveDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyApp");
 		return av;
 	}
@@ -97,10 +102,13 @@ public class ApprovalLeaveController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveLeaveApplyApp")
-	public JsonResult saveLeaveApplyApp(LeaveDto leave) {
+	public JsonResult saveLeaveApplyApp(HttpSession session, LeaveDto leave) {
 		String message;
 		String type;
+		UserDto userDto = LoginHelper.getLoginUser(session);
 		try {
+			leave.setUserDto(userDto);
+			approvalLeaveService.saveLeaveApplyApp(leave);
 			type = MessageTipsCst.TYPE_SUCCES;
 			message = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {

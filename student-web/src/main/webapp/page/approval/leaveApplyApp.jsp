@@ -55,7 +55,7 @@
 		<legend>申请审批</legend>
 		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
 			action="${ctx }/approvalLeave/saveLeaveApplyApp">
-			<input type="hidden" id="id" value="${leaveDto.id}">
+			<input type="hidden" name="id" value="${leaveDto.id}">
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">批注信息：</label>
 				<div class="layui-input-block">

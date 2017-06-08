@@ -30,5 +30,5 @@ public interface LeaveService extends BaseService<LeaveDto> {
 	 * @author XiaoY
 	 * @date: 2017年6月7日 下午10:32:20
 	 */
-	LeaveDto findLeaveDto(LeaveDto leave);
+	LeaveDto findLeaveDto(LeaveDto leave) throws Exception;
 }

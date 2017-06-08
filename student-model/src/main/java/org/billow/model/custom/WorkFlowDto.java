@@ -35,6 +35,8 @@ public class WorkFlowDto implements Serializable {
 	private ProcessDefinition processDefinition;
 	// 批注信息
 	private List<Comment> comments;
+	// 批注内容
+	private String commentInfo;
 
 	/**
 	 * 流程实例id
@@ -104,6 +106,14 @@ public class WorkFlowDto implements Serializable {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public String getCommentInfo() {
+		return commentInfo;
+	}
+
+	public void setCommentInfo(String commentInfo) {
+		this.commentInfo = commentInfo;
 	}
 
 }

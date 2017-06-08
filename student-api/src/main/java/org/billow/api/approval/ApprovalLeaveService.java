@@ -22,4 +22,16 @@ public interface ApprovalLeaveService {
 	 */
 	PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto);
 
+	/**
+	 * 保存请假审批
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param leave
+	 * 
+	 * @date 2017年6月8日 下午12:20:44
+	 */
+	void saveLeaveApplyApp(LeaveDto leave) throws Exception;
+
 }

@@ -32,7 +32,7 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 			UserDto userDto = leaveDto.getUserDto();
 			String assignee = userDto.getUserName();
 			try {
-				leavList = workFlowService.findMyTask(leavList, processDefinitionKey, assignee);
+				leavList = workFlowService.findMyTaskList(leavList, processDefinitionKey, assignee);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -52,5 +52,15 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	protected ProcessDefinition getProcessDefinition(String processDefinitionId) {
 		ProcessDefinition processDefinition = workFlowService.getProcessDefinition(processDefinitionId);
 		return processDefinition;
+	}
+
+	@Override
+	public void saveLeaveApplyApp(LeaveDto leave) throws Exception {
+		leave.setStatus("3");
+		leaveDao.updateByPrimaryKeySelective(leave);
+		String processDefinitionKey = "QingJia";
+		UserDto userDto = leave.getUserDto();
+		String assignee = userDto.getUserName();
+		workFlowService.complete(leave, processDefinitionKey, assignee);
 	}
 }
