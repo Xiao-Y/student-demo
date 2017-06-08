@@ -152,7 +152,7 @@ public class ActivitiTest {
 	@Test
 	public void findMyTask() {
 		logger.info("=================================开始查询=================================");
-		String taskAssignee = "李四";
+		String taskAssignee = "employee";
 		List<Task> list = taskService.createTaskQuery().taskAssignee(taskAssignee).list();
 		for (Task task : list) {
 			logger.info("任务ID:" + task.getId());

@@ -223,19 +223,17 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 		String businessKey = clazz.getSimpleName() + "." + id;
 		// 查询流程实例
 		ProcessInstance processInstance = processInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
-		Method setProcessInstance = clazz.getMethod("setProcessInstance", ProcessInstance.class);
-		setProcessInstance.invoke(t, processInstance);
 		if (processInstance != null) {
 			// 查询任务
 			String processInstanceId = processInstance.getProcessInstanceId();
 			Task task = taskQuery.processInstanceId(processInstanceId).singleResult();
-			// 完成任务
 			String taskId = task.getId();
-			taskService.complete(taskId);
 			// 添加批注信息
 			Method getCommentInfo = clazz.getMethod("getCommentInfo");
 			String message = (String) getCommentInfo.invoke(t);
 			taskService.addComment(taskId, processInstanceId, ActivitiCommentCst.TYPE_LEAVE_COMMENT, message);
+			// 完成任务
+			taskService.complete(taskId);
 		}
 	}
 }
