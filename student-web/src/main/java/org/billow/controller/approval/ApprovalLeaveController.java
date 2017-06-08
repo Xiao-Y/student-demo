@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.billow.api.approval.ApprovalLeaveService;
+import org.billow.api.leave.LeaveService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.common.login.LoginHelper;
 import org.billow.model.expand.LeaveDto;
@@ -36,6 +37,9 @@ public class ApprovalLeaveController {
 	@Autowired
 	private WorkFlowService workflowService;
 
+	@Autowired
+	private LeaveService leaveService;
+
 	/**
 	 * 查询个人任务（要审批的请假）
 	 * 
@@ -60,5 +64,24 @@ public class ApprovalLeaveController {
 	@RequestMapping("/getActivitiProccessImage/{pProcessInstanceId}")
 	public void getActivitiProccessImage(@PathVariable String pProcessInstanceId, HttpServletResponse response) throws Exception {
 		workflowService.getActivitiProccessImage(pProcessInstanceId, response);
+	}
+
+	/**
+	 * 请假审批
+	 * 
+	 * @param leave
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年5月28日 下午3:58:24
+	 */
+	@RequestMapping("/leaveApplyApp")
+	public ModelAndView leaveApplyApp(LeaveDto leave) {
+		ModelAndView av = new ModelAndView();
+		leave.setType("comment");
+		LeaveDto leaveDto = leaveService.findLeaveDto(leave);
+		leaveDto.setActionType(leave.getActionType());
+		av.addObject("leaveDto", leaveDto);
+		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyApp");
+		return av;
 	}
 }
