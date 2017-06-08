@@ -53,7 +53,9 @@
 	</fieldset>
 	<fieldset class="layui-elem-field">
 		<legend>申请审批</legend>
-		<form class="layui-form layui-form-pane1" style="margin: 15px;" action="">
+		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
+			action="${ctx }/approvalLeave/saveLeaveApplyApp">
+			<input type="hidden" id="id" value="${leaveDto.id}">
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">批注信息：</label>
 				<div class="layui-input-block">
@@ -66,7 +68,6 @@
 				</div>
 			</div>
 		</form>
-		</div>
 	</fieldset>
 	<fieldset class="layui-elem-field">
 		<legend>历史批注信息</legend>
@@ -85,7 +86,7 @@
 							<tr>
 								<td>${comment.userId }</td>
 								<td>
-									<fmt:formatDate value="${comment.time }" pattern="yyyy-MM-dd" />
+									<fmt:formatDate value="${comment.time }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
 								<td>${comment.fullMessage }</td>
 							</tr>

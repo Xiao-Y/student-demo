@@ -50,7 +50,7 @@
 					<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="reason">${leaveDto.reason }</textarea>
 				</div>
 			</div>
-			<div class="layui-form-item" id="saveLeaveDiv">
+			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button class="layui-btn" lay-submit lay-filter="*">申请</button>
 					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>

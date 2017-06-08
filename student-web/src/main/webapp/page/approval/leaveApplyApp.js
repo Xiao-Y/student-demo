@@ -9,18 +9,24 @@ layui.use(['form', 'laydate'], function() {
 		var form = data.form;
 	    var url = form.action;
 		var data = $(form).serialize();
+		var redrect = false;
 		$.ajax({
             type: "POST",
             dataType: "json",
             url: url,
+            async: false,
             data: data,
             success: function (obj) {
             	var message = obj.message;
 				var type = obj.type;
-				new TipBox({type:type,str:message,hasBtn:true});
-				if(type == 'success'){
-					$("#reset").click();
-				}
+				var root = obj.root;
+			 	if(type == 'success'){
+		            new TipBox({type:type,str:message,hasBtn:true,setTime:1500,callBack:function(){
+		            	$(window.location).attr('href', path + root);
+		            }});  
+			 	}else{
+		            new TipBox({type:type,str:message,hasBtn:true})  
+			 	}
             },
             error: function(obj) {
             	layer.alert('网络错误', {
@@ -28,6 +34,6 @@ layui.use(['form', 'laydate'], function() {
 			    });
             }
         });
-		return false;//阻止表单跳转。如果需要表单跳转，去掉这段即可。
+		return false;
 	});
 });

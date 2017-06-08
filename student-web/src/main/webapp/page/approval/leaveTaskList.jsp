@@ -76,7 +76,7 @@
 									</c:if>
 									<c:if test="${not empty task.assignee }">
 										<%-- 此处用tkey记录当前节点的名称 --%>
-										<a class="handle" href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${pi.id }">办理</a>
+										<a href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${pi.id }">办理</a>
 									</c:if>
 								</td>
 							</tr>
