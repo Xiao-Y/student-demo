@@ -15,6 +15,7 @@ import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.billow.utils.PageHelper;
+import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +67,19 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	@Override
 	public PageInfo<LeaveDto> findLeaveList(LeaveDto leave) {
 		PageHelper.startPage();
-		return null;
+		List<LeaveDto> leavList = leaveDao.selectAll(leave);
+		if (ToolsUtils.isNotEmpty(leavList)) {
+			String processDefinitionKey = "QingJia";
+			UserDto userDto = leave.getUserDto();
+			String assignee = userDto.getUserName();
+			try {
+				leavList = workFlowService.findMyTaskList(leavList, processDefinitionKey, assignee);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		PageInfo<LeaveDto> pages = new PageInfo<>(leavList);
+		return pages;
 	}
 
 }

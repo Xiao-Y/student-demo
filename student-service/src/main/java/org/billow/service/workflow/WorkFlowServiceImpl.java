@@ -93,53 +93,62 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 		// setProcessDefinition.invoke(t, processDefinition);
 		// }
 		// }
-		HistoricProcessInstanceQuery historicProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery();
 
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey);// .taskAssignee(assignee);
+		// 创建查询
+		HistoricProcessInstanceQuery historicProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery();
+		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey);//.taskAssignee(assignee);
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+
 		for (int i = 0; i < list.size(); i++) {
 			T t = list.get(i);
 			Class<? extends Object> clazz = t.getClass();
+			// 拼接businessKey
 			Method getId = clazz.getMethod("getId");
 			Integer id = (Integer) getId.invoke(t);
 			String businessKey = clazz.getSimpleName() + "." + id;
-			// 查询历史流程实例
+			// 查询历史流程实例（为获取流程实例Id）
 			HistoricProcessInstance historicProcessInstance = historicProcessInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
+			// 设置历史流程到实体类中
 			Method setProcessInstance = clazz.getMethod("setHistoricProcessInstance", HistoricProcessInstance.class);
 			setProcessInstance.invoke(t, historicProcessInstance);
 			if (historicProcessInstance != null) {
-				// 查询任务
+				// 通过流程实例Id查询当前用户的任务
 				String processInstanceId = historicProcessInstance.getId();
 				Task task = taskQuery.processInstanceId(processInstanceId).singleResult();
+				// 设置任务到实体类中
 				Method setTask = clazz.getMethod("setTask", Task.class);
 				setTask.invoke(t, task);
 				// 查询流程定义
 				String processDefinitionId = historicProcessInstance.getProcessDefinitionId();
 				ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId).singleResult();
+				// 设置流程定义到实体类中
 				Method setProcessDefinition = clazz.getMethod("setProcessDefinition", ProcessDefinition.class);
 				setProcessDefinition.invoke(t, processDefinition);
+				String taskName = "已结束";
 				if (task != null) {
-					// 查询当前流程的节点
-					// 然后根据当前任务获取当前流程的流程定义，然后根据流程定义获得所有的节点
+					// 1.获取当前流程的流程定义
 					ProcessDefinitionEntity pdf = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService)
 							.getDeployedProcessDefinition(processDefinitionId);
-					// 根据任务获取当前流程执行ID，执行实例以及当前流程节点的ID
+					// 2.流程定义获得所有的节点
 					List<ActivityImpl> activities = pdf.getActivities();
+					// 3.根据任务获取当前流程执行ID，执行实例以及当前流程节点的ID
 					String executionId = task.getExecutionId();
+					// 3.1根据流程执行ID获取执行实例
 					ExecutionEntity execution = (ExecutionEntity) runtimeService.createExecutionQuery().executionId(executionId).singleResult();
+					// 3.2从执行实例中获取当前流程节点的ID
 					String activitiId = execution.getActivityId();
 					// 4、然后循环activitiList
-					// 并判断出当前流程所处节点，然后得到当前节点实例，根据节点实例获取所有从当前节点出发的路径，然后根据路径获得下一个节点实例：
-					String nodeName = "已结束";
+					// 并判断出当前流程所处节点
 					for (ActivityImpl activityImpl : activities) {
 						if (activitiId.equals(activityImpl.getId())) {
-							nodeName = (String) activityImpl.getProperty("name");
-							logger.debug("当前任务：" + nodeName); // 输出某个节点的某种属性
+							// 当前任(输出某个节点的某种属性)
+							taskName = (String) activityImpl.getProperty("name");
 							break;
 						}
 					}
-					task.setName(nodeName);
 				}
+				Method setTaskName = clazz.getMethod("setTaskName", String.class);
+				setTaskName.invoke(t, taskName);
 			}
 		}
 		return list;

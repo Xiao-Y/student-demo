@@ -1,7 +1,5 @@
 package org.billow.controller.apply;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.ActivitiException;
@@ -93,12 +91,27 @@ public class ApplyLeaveController {
 		return json;
 	}
 
+	/**
+	 * 查询个人请假列表
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param session
+	 * @param leave
+	 * @return
+	 * 
+	 * @date 2017年6月9日 上午8:22:18
+	 */
+	@RequestMapping("/findLeaveList")
 	public ModelAndView findLeaveList(HttpSession session, LeaveDto leave) {
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		leave.setUserDto(userDto);
+		leave.setUserName(userDto.getUserName());
 		PageInfo<LeaveDto> pages = leaveService.findLeaveList(leave);
 		ModelAndView av = new ModelAndView();
-		av.addObject("pages", pages);
+		av.addObject("page", pages);
+		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApplyList");
 		return av;
 	}
 }

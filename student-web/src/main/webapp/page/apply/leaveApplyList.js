@@ -19,7 +19,7 @@ layui.use([ 'laypage', 'layer' ], function() {
 			//var curr = obj.curr;
 			if (!first) {
 				//layer.msg('第 '+ obj.curr +' 页');
-				location.href = path + '/sysMenu/menuManage?pageNo=' + obj.curr;
+				location.href = path + '/applyLeave/findLeaveList?pageNo=' + obj.curr;
 			}
 		}
 	});
@@ -27,32 +27,11 @@ layui.use([ 'laypage', 'layer' ], function() {
 	$('#search').on('click', function() {
 		parent.layer.alert('你点击了搜索按钮');
 	});
-
+	//添加申请
 	$('#add').on('click', function() {
-		$.get('temp/edit-form.html', null, function(form) {
-			layer.open({
-				type : 1,
-				title : '添加表单',
-				content : form,
-				btn : [ '保存', '取消' ],
-				area : [ '600px', '400px' ],
-				maxmin : true,
-				yes : function(index) {
-					console.log(index);
-				},
-				full : function(elem) {
-					var win = window.top === window.self ? window : parent.window;
-					$(win).on('resize', function() {
-						var $this = $(this);
-						elem.width($this.width()).height($this.height()).css({
-							top : 0,
-							left : 0
-						});
-						elem.children('div.layui-layer-content').height($this.height() - 95);
-					});
-				}
-			});
-		});
+		var editUrl = path + '/applyLeave/editLeave';
+		var saveUrl = path + '/applyLeave/saveLeave';
+		switchSubject(null,editUrl,saveUrl);
 	});
 
 	$('#import').on('click', function() {

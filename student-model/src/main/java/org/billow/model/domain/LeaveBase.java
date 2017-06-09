@@ -28,6 +28,8 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	private String reason;
 	// 状态 1-提交申请，3-审批中，5-审批通过，7-驳回
 	private String status;
+	// 用户名称
+	private String userName;
 
 	public Integer getId() {
 		return id;
@@ -189,5 +191,33 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * 用户名称
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年6月9日 上午8:27:14
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * 用户名称
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param userName
+	 * 
+	 * @date 2017年6月9日 上午8:27:18
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }
