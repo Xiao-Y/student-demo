@@ -2,8 +2,12 @@ layui.config({
 	base : path + '/plugins/layui/modules/'
 });
 
-layui.use([ 'laypage', 'layer' ], function() {
-	var $ = layui.jquery, laypage = layui.laypage, layer = parent.layer === undefined ? layui.layer : parent.layer;
+layui.use([ 'laypage', 'layer','form', 'laydate'], function() {
+	var $ = layui.jquery, 
+	laypage = layui.laypage, 
+	form = layui.form(),
+	laydate = layui.laydate(),
+	layer = parent.layer === undefined ? layui.layer : parent.layer;
 	//表单校验
 	// 				$('input').iCheck({
 	// 					checkboxClass: 'icheckbox_flat-green'
@@ -32,6 +36,7 @@ layui.use([ 'laypage', 'layer' ], function() {
 		var editUrl = path + '/applyLeave/editLeave';
 		var saveUrl = path + '/applyLeave/saveLeave';
 		switchSubject(null,editUrl,saveUrl);
+		//form.render();
 	});
 
 	$('#import').on('click', function() {

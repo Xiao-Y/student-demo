@@ -8,6 +8,8 @@
 <jsp:include page="/pub/pubTableCss.jsp" />
 <jsp:include page="/pub/pubJs.jsp" />
 <script type="text/javascript" src="${ctx }/page/apply/leaveApplyList.js"></script>
+<script type="text/javascript" src="${ctx}/js/extend/pubPopForm.js"></script>
+
 </head>
 <body>
 	<div class="admin-main">

@@ -1,3 +1,6 @@
+layui.config({
+	base : path + '/plugins/layui/lay/modules/'
+});
 layui.use(['form', 'laydate'], function() {
 	var $ = layui.jquery,
 	form = layui.form(),
