@@ -14,13 +14,11 @@
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
-			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i>
-				请假申请
+			<a href="${ctx }/applyLeave/editLeave" class="layui-btn layui-btn-small">
+				<i class="layui-icon">&#xe608;</i> 请假申请
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i>
-				搜索
+				<i class="layui-icon">&#xe615;</i> 搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -37,6 +35,7 @@
 							<th>申请时间</th>
 							<th>当前节点</th>
 							<th>任务创建时间</th>
+							<th>流程状态</th>
 							<th>流程状态</th>
 						</tr>
 					</thead>
@@ -58,7 +57,7 @@
 									<fmt:formatDate value="${leave.applyTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
 								<td>
-									<a target="_blank" title="点击查看流程图" href='${ctx }/approvalLeave/getActivitiProccessImage/${pi.id }'>
+									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlowController/openActivitiProccessImagePage/leaveComment/${pi.id }'>
 										${leave.taskName } </a>
 								</td>
 								<td>

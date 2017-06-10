@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/pub/taglib.jsp"%>
+<%@ include file="/pub/pubTips.jsp"%>
 <html>
 <head>
 <title>请假申请</title>
-<jsp:include page="/pub/pubCss.jsp" />
-<jsp:include page="/pub/pubJs.jsp" />
+<jsp:include page="/pub/pubFormCss.jsp" />
+<jsp:include page="/pub/pubFormJs.jsp" />
+<script type="text/javascript" src="${ctx }/page/apply/leaveApply.js"></script>
 </head>
 
 <body>
@@ -29,17 +31,15 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">开始时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
-						class="layui-input" value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />"
-						onclick="layui.laydate({elem: this})">
+					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+						value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />" onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
-						class="layui-input" value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />"
-						onclick="layui.laydate({elem: this})">
+					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+						value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />" onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item layui-form-text">

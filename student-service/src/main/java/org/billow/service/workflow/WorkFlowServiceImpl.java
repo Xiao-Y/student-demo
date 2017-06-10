@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
+import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
@@ -43,7 +46,7 @@ import org.springframework.stereotype.Service;
  * @date 2017年6月7日 上午8:58:53
  */
 @Service
-public class WorkFlowServiceImpl implements WorkFlowService {
+public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment> {
 
 	private static final Logger logger = Logger.getLogger(WorkFlowServiceImpl.class);
 
@@ -55,6 +58,11 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 	private TaskService taskService;
 	@Autowired
 	private RuntimeService runtimeService;
+
+	@Override
+	public int compare(Comment o1, Comment o2) {
+		return o2.getTime().compareTo(o1.getTime());
+	}
 
 	@Override
 	public <T> List<T> findMyTaskList(List<T> list, String processDefinitionKey, String assignee) throws Exception {
@@ -96,7 +104,7 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
 		// 创建查询
 		HistoricProcessInstanceQuery historicProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery();
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey);//.taskAssignee(assignee);
+		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey);// .taskAssignee(assignee);
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
 
 		for (int i = 0; i < list.size(); i++) {
@@ -107,20 +115,25 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 			Integer id = (Integer) getId.invoke(t);
 			String businessKey = clazz.getSimpleName() + "." + id;
 			// 查询历史流程实例（为获取流程实例Id）
-			HistoricProcessInstance historicProcessInstance = historicProcessInstanceQuery.processInstanceBusinessKey(businessKey).singleResult();
+			HistoricProcessInstance historicProcessInstance = historicProcessInstanceQuery.processInstanceBusinessKey(
+					businessKey).singleResult();
 			// 设置历史流程到实体类中
 			Method setProcessInstance = clazz.getMethod("setHistoricProcessInstance", HistoricProcessInstance.class);
 			setProcessInstance.invoke(t, historicProcessInstance);
 			if (historicProcessInstance != null) {
 				// 通过流程实例Id查询当前用户的任务
 				String processInstanceId = historicProcessInstance.getId();
+				// 设置历史流程Id到实体类中
+				Method setProcessInstanceId = clazz.getMethod("setProcessInstanceId", String.class);
+				setProcessInstanceId.invoke(t, processInstanceId);
 				Task task = taskQuery.processInstanceId(processInstanceId).singleResult();
 				// 设置任务到实体类中
 				Method setTask = clazz.getMethod("setTask", Task.class);
 				setTask.invoke(t, task);
 				// 查询流程定义
 				String processDefinitionId = historicProcessInstance.getProcessDefinitionId();
-				ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId).singleResult();
+				ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId)
+						.singleResult();
 				// 设置流程定义到实体类中
 				Method setProcessDefinition = clazz.getMethod("setProcessDefinition", ProcessDefinition.class);
 				setProcessDefinition.invoke(t, processDefinition);
@@ -134,7 +147,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 					// 3.根据任务获取当前流程执行ID，执行实例以及当前流程节点的ID
 					String executionId = task.getExecutionId();
 					// 3.1根据流程执行ID获取执行实例
-					ExecutionEntity execution = (ExecutionEntity) runtimeService.createExecutionQuery().executionId(executionId).singleResult();
+					ExecutionEntity execution = (ExecutionEntity) runtimeService.createExecutionQuery()
+							.executionId(executionId).singleResult();
 					// 3.2从执行实例中获取当前流程节点的ID
 					String activitiId = execution.getActivityId();
 					// 4、然后循环activitiList
@@ -158,7 +172,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 	@Override
 	public <T> T findMyTask(T t, String processDefinitionKey, String assignee) throws Exception {
 		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey).taskAssignee(assignee);
+		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey)
+				.taskAssignee(assignee);
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
 
 		Class<? extends Object> clazz = t.getClass();
@@ -177,7 +192,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 			setTask.invoke(t, task);
 			// 查询流程定义
 			String processDefinitionId = processInstance.getProcessDefinitionId();
-			ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId).singleResult();
+			ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId)
+					.singleResult();
 			Method setProcessDefinition = clazz.getMethod("setProcessDefinition", ProcessDefinition.class);
 			setProcessDefinition.invoke(t, processDefinition);
 		}
@@ -205,8 +221,9 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 						.getDeployedProcessDefinition(historicProcessInstance.getProcessDefinitionId());
 
 				// 获取流程历史中已执行节点，并按照节点在流程中执行先后顺序排序
-				List<HistoricActivityInstance> historicActivityInstanceList = historyService.createHistoricActivityInstanceQuery()
-						.processInstanceId(pProcessInstanceId).orderByHistoricActivityInstanceId().asc().list();
+				List<HistoricActivityInstance> historicActivityInstanceList = historyService
+						.createHistoricActivityInstanceQuery().processInstanceId(pProcessInstanceId)
+						.orderByHistoricActivityInstanceId().asc().list();
 
 				// 已执行的节点ID集合
 				List<String> executedActivityIdList = new ArrayList<String>();
@@ -214,12 +231,14 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 				logger.info("获取已经执行的节点ID");
 				for (HistoricActivityInstance activityInstance : historicActivityInstanceList) {
 					executedActivityIdList.add(activityInstance.getActivityId());
-					logger.info("第[" + index + "]个已执行节点=" + activityInstance.getActivityId() + " : " + activityInstance.getActivityName());
+					logger.info("第[" + index + "]个已执行节点=" + activityInstance.getActivityId() + " : "
+							+ activityInstance.getActivityName());
 					index++;
 				}
 
 				// 获取流程图图像字符流
-				InputStream imageStream = ProcessDiagramGenerator.generateDiagram(processDefinition, "png", executedActivityIdList);
+				InputStream imageStream = ProcessDiagramGenerator.generateDiagram(processDefinition, "png",
+						executedActivityIdList);
 
 				response.setContentType("image/png");
 				OutputStream os = response.getOutputStream();
@@ -240,8 +259,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
 	@Override
 	public ProcessDefinition getProcessDefinition(String processDefinitionId) {
-		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId)
-				.singleResult();
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(processDefinitionId).singleResult();
 		return processDefinition;
 	}
 
@@ -278,13 +297,15 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 				list.addAll(taskComments);
 			}
 		}
+		Collections.sort(list, this);
 		return list;
 	}
 
 	@Override
 	public <T> void complete(T t, String processDefinitionKey, String assignee) throws Exception {
 		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey).taskAssignee(assignee);
+		TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(processDefinitionKey)
+				.taskAssignee(assignee);
 
 		Class<? extends Object> clazz = t.getClass();
 		Method getId = clazz.getMethod("getId");
@@ -298,6 +319,7 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 			Task task = taskQuery.processInstanceId(processInstanceId).singleResult();
 			String taskId = task.getId();
 			// 添加批注信息
+			Authentication.setAuthenticatedUserId(assignee);// 添加批注人
 			Method getCommentInfo = clazz.getMethod("getCommentInfo");
 			String message = (String) getCommentInfo.invoke(t);
 			taskService.addComment(taskId, processInstanceId, ActivitiCommentCst.TYPE_LEAVE_COMMENT, message);

@@ -6,7 +6,9 @@
 <head>
 <title>请假申请审批</title>
 <jsp:include page="/pub/pubCss.jsp" />
+<jsp:include page="/pub/pubFormCss.jsp" />
 <jsp:include page="/pub/pubJs.jsp" />
+<jsp:include page="/pub/pubFormJs.jsp" />
 <script type="text/javascript" src="${ctx }/page/approval/leaveApplyApp.js"></script>
 </head>
 
@@ -31,17 +33,15 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">开始时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
-						class="layui-input" value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />"
-						disabled="disabled">
+					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+						value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />" disabled="disabled">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
-						class="layui-input" value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />"
-						disabled="disabled">
+					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+						value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />" disabled="disabled">
 				</div>
 			</div>
 			<div class="layui-form-item layui-form-text">
@@ -53,8 +53,7 @@
 	</fieldset>
 	<fieldset class="layui-elem-field">
 		<legend>申请审批</legend>
-		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
-			action="${ctx }/approvalLeave/saveLeaveApplyApp">
+		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/approvalLeave/saveLeaveApplyApp">
 			<input type="hidden" name="id" value="${leaveDto.id}">
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">批注信息：</label>

@@ -126,3 +126,36 @@ function tipsFormRB(data){
         }
 	});
 }
+
+/**
+ * 异步提交表单
+ * @param {} data
+ * @return {Boolean}
+ */
+function submitForm(data){
+	var form = data.form;
+    var url = form.action;
+	var data = $(form).serialize();
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        url: url,
+        data: data,
+        success: function (obj) {
+        	var message = obj.message;
+			var type = obj.type;
+			var root = obj.root;
+		 	if(type == 'success'){
+	            new TipBox({type:type,str:message,hasBtn:true,setTime:1500,callBack:function(){
+	            	$(window.location).attr('href', path + root);
+	            }});  
+		 	}else{
+	            new TipBox({type:type,str:message,hasBtn:true})  
+		 	}
+        },
+        error: function(obj) {
+        	new TipBox({type:'error',str:'网络错误',hasBtn:true})  
+        }
+    });
+	return false;
+}

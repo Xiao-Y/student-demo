@@ -4,12 +4,18 @@ import javax.servlet.http.HttpSession;
 
 import org.billow.model.expand.UserDto;
 import org.billow.utils.RequestUtils;
+import org.billow.utils.ToolsUtils;
 
 public class LoginHelper {
 
 	public static UserDto getLoginUser(HttpSession session) {
-		Object attribute = session.getAttribute("currentUser");
-		return attribute == null ? null : (UserDto) attribute;
+		UserDto userDto = (UserDto) session.getAttribute("currentUser");
+		if (ToolsUtils.isEmpty(userDto.getUserName())) {
+			userDto = new UserDto();
+			userDto.setUserName("employee");
+			userDto.setUserId(1);
+		}
+		return userDto;
 	}
 
 	public static Integer getLoginUserId() {

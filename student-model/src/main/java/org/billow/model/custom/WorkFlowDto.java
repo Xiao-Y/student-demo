@@ -39,6 +39,8 @@ public class WorkFlowDto implements Serializable {
 	private String commentInfo;
 	// 任务名称
 	private String taskName;
+	// 批注信息表中type的值
+	private String commentType;
 
 	/**
 	 * 流程实例id
@@ -124,6 +126,14 @@ public class WorkFlowDto implements Serializable {
 
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
+	}
+
+	public String getCommentType() {
+		return commentType;
+	}
+
+	public void setCommentType(String commentType) {
+		this.commentType = commentType;
 	}
 
 }

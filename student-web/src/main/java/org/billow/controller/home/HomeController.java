@@ -54,6 +54,11 @@ public class HomeController implements Comparator<MenuBase> {
 	@RequestMapping("/homeIndex")
 	public String homeIndex(UserDto user) {
 		HttpSession session = RequestUtils.getRequest().getSession();
+		if (ToolsUtils.isEmpty(user.getUserName())) {
+			user = new UserDto();
+			user.setUserName("employee");
+			user.setUserId(1);
+		}
 		session.setAttribute("currentUser", user);
 		return "page/home/index";
 	}
