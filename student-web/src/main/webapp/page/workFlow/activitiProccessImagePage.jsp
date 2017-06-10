@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div style="text-align: center;">
-		<img src="<c:url value='/workFlowController/getActivitiProccessImage/${pProcessInstanceId }' />">
+		<img src="<c:url value='/workFlow/getActivitiProccessImage/${processInstanceId }' />">
 	</div>
 	<fieldset class="layui-elem-field">
 		<legend>历史批注信息</legend>

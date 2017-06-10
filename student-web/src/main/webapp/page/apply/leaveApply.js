@@ -9,6 +9,6 @@ layui.use(['form', 'laydate'], function() {
 
 	//监听提交
 	form.on('submit(*)', function(data) {
-		return submitForm(data);
+		return submitFormNewTip(data);
 	});
 });

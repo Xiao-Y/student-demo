@@ -244,7 +244,7 @@ public class SysActController {
 			// 设置发布信息
 			builder.name("请假流程")// 添加部署规则的显示别名
 					.addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")// 添加规则文件
-					.addClasspathResource("diagrams/QingJiaModel.QingJia.png");// 添加规则图片 不添加会自动产生一个图片不推荐
+					.addClasspathResource("diagrams/QingJiaModel.png");// 添加规则图片 不添加会自动产生一个图片不推荐
 			// 完成发布
 			builder.deploy();
 			json.setSuccess(true);

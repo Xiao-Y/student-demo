@@ -132,7 +132,7 @@ function tipsFormRB(data){
  * @param {} data
  * @return {Boolean}
  */
-function submitForm(data){
+function submitFormNewTip(data){
 	var form = data.form;
     var url = form.action;
 	var data = $(form).serialize();

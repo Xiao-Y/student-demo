@@ -59,7 +59,7 @@
 									<fmt:formatDate value="${leave.endTime  }" pattern="yyyy-MM-dd" />
 								</td>
 								<td>
-									<a target="_blank" title="点击查看流程图" href='${ctx }/approvalLeave/getActivitiProccessImage/${pi.id }'>
+									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlow/openActivitiProccessImagePage/leaveComment/${pi.id }'>
 										<c:if test="${empty task.name }">已完成</c:if>
 										<c:if test="${not empty task.name }">${task.name }</c:if>
 									</a>

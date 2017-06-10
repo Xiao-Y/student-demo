@@ -56,7 +56,7 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 
 	@Override
 	public void saveLeaveApplyApp(LeaveDto leave) throws Exception {
-		leave.setStatus("3");
+		leave.setStatus(leave.getOutcome());
 		leaveDao.updateByPrimaryKeySelective(leave);
 		String processDefinitionKey = "QingJia";
 		UserDto userDto = leave.getUserDto();

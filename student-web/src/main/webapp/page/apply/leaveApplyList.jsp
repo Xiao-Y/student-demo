@@ -36,7 +36,6 @@
 							<th>当前节点</th>
 							<th>任务创建时间</th>
 							<th>流程状态</th>
-							<th>流程状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -57,8 +56,7 @@
 									<fmt:formatDate value="${leave.applyTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
 								<td>
-									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlowController/openActivitiProccessImagePage/leaveComment/${pi.id }'>
-										${leave.taskName } </a>
+									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlow/openActivitiProccessImagePage/leaveComment/${pi.id }'> ${leave.taskName } </a>
 								</td>
 								<td>
 									<fmt:formatDate value="${task.createTime }" pattern="yyyy-MM-dd HH:mm:ss" />

@@ -48,9 +48,9 @@ layui.use(['laypage','layer'], function() {
 	        dataType : 'json',
 	        success : function(data) {
 	         	tipsFormRB(data);
-	         	if(success === true){
+	         	/*if(success === true){
 		            $this.attr("disabled",true);
-				}
+				}*/
 	        }
 	    });
 	});

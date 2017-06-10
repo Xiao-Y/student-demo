@@ -6,7 +6,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -325,7 +327,11 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 			String message = (String) getCommentInfo.invoke(t);
 			taskService.addComment(taskId, processInstanceId, ActivitiCommentCst.TYPE_LEAVE_COMMENT, message);
 			// 完成任务
-			taskService.complete(taskId);
+			Method getutcome = clazz.getMethod("getOutcome");
+			String outcome = (String) getutcome.invoke(t);
+			Map<String, Object> map = new HashMap<>();
+			map.put("outcome", outcome);
+			taskService.complete(taskId, map);
 		}
 	}
 

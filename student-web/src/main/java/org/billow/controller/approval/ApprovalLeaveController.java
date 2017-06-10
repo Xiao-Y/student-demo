@@ -2,7 +2,6 @@ package org.billow.controller.approval;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -18,7 +17,6 @@ import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,15 +58,6 @@ public class ApprovalLeaveController {
 		av.addObject("paegs", list);
 		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveTaskList");
 		return av;
-	}
-
-	/**
-	 * 获取流程图像，已执行节点和流程线高亮显示
-	 */
-	@RequestMapping("/getActivitiProccessImage/{pProcessInstanceId}")
-	public void getActivitiProccessImage(@PathVariable String pProcessInstanceId, HttpServletResponse response)
-			throws Exception {
-		workflowService.getActivitiProccessImage(pProcessInstanceId, response);
 	}
 
 	/**

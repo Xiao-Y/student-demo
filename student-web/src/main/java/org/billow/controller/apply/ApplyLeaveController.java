@@ -116,31 +116,4 @@ public class ApplyLeaveController {
 		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApplyList");
 		return av;
 	}
-
-	/**
-	 * 查看请假跟踪流程图，包含历史批注
-	 * 
-	 * @param session
-	 * @param leave
-	 * @return
-	 * @author XiaoY
-	 * @date: 2017年6月10日 上午9:37:14
-	 *//*
-	@RequestMapping("/viewLeaveImage")
-	public ModelAndView viewLeaveImage(LeaveDto leave) {
-		ModelAndView av = new ModelAndView();
-		LeaveDto leaveDto = null;
-		try {
-			leaveDto = leaveService.findLeaveDto(leave);
-			List<Comment> comments = leaveDto.getComments();
-			av.addObject("comments", comments);
-			av.addObject("processInstanceId", leaveDto.getProcessInstanceId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
-		}
-		av.addObject("leaveDto", leaveDto);
-		av.setViewName(PagePathCst.BASEPATH_WORKFLOW + "activitiProccessImagePage");
-		return av;
-	}*/
 }

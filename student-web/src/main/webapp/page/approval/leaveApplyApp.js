@@ -9,6 +9,8 @@ layui.use(['form', 'laydate'], function() {
 
 	//监听提交
 	form.on('submit(*)', function(data) {
-		return submitForm(data);
+		var outcome = $(data.elem).text();
+		$("#outcome").val(outcome);//按钮的值
+		return submitFormNewTip(data);
 	});
 });

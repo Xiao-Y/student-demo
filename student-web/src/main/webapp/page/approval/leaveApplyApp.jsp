@@ -63,6 +63,7 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
+					<input type="hidden" value="" id="outcome" name="outcome">
 					<c:forEach var="transName" items="${transNames }">
 						<button class="layui-btn" lay-submit lay-filter="*">${transName }</button>
 					</c:forEach>

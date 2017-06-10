@@ -43,6 +43,8 @@ public class WorkFlowDto implements Serializable {
 	private String commentType;
 	// 任务Id
 	private String taskId;
+	// 流程图中连线的变量
+	private String outcome;
 
 	/**
 	 * 流程实例id
@@ -144,6 +146,14 @@ public class WorkFlowDto implements Serializable {
 
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
+	}
+
+	public String getOutcome() {
+		return outcome;
+	}
+
+	public void setOutcome(String outcome) {
+		this.outcome = outcome;
 	}
 
 }
