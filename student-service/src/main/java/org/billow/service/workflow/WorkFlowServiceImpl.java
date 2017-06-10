@@ -23,6 +23,7 @@ import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -326,5 +327,40 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 			// 完成任务
 			taskService.complete(taskId);
 		}
+	}
+
+	@Override
+	public List<String> getOutGoingTransNames(String taskId) throws Exception {
+		List<String> transNames = new ArrayList<>();
+		// 通过任务Id获取任务对象
+		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+		if (task == null) {
+			throw new Exception("没有获取到任务Id为" + taskId + "的任务！");
+		}
+		String processDefinitionId = task.getProcessDefinitionId();
+		// 获取流程定义的实体类
+		ProcessDefinitionEntity pde = (ProcessDefinitionEntity) repositoryService
+				.getProcessDefinition(processDefinitionId);
+		// 获取流程实例
+		String processInstanceId = task.getProcessInstanceId();
+		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+				.processInstanceId(processInstanceId).singleResult();
+		// 获取前活动的ID
+		String activityId = processInstance.getActivityId();
+		// 通过当前活动的Id获取对应的活动对象
+		ActivityImpl activityImpl = pde.findActivity(activityId);
+		// 通过活动对象找当前活动的所有出口
+		List<PvmTransition> transitions = activityImpl.getOutgoingTransitions();
+		// 提取所有出口的名称，封装成集合
+		for (PvmTransition pt : transitions) {
+			String name = (String) pt.getProperty("name");
+			if (ToolsUtils.isNotEmpty(name)) {
+				transNames.add(name);
+			}
+		}
+		if (ToolsUtils.isEmpty(transNames)) {
+			transNames.add("提交");// 默认
+		}
+		return transNames;
 	}
 }

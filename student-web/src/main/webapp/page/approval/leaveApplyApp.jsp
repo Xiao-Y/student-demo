@@ -63,7 +63,9 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button class="layui-btn" lay-submit lay-filter="*">同意</button>
+					<c:forEach var="transName" items="${transNames }">
+						<button class="layui-btn" lay-submit lay-filter="*">${transName }</button>
+					</c:forEach>
 				</div>
 			</div>
 		</form>

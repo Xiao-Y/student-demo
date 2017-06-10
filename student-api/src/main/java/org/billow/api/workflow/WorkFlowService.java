@@ -157,4 +157,16 @@ public interface WorkFlowService {
 	 * @date 2017年6月8日 下午12:54:15
 	 */
 	public <T> void complete(T t, String processDefinitionKey, String assignee) throws Exception;
+
+	/**
+	 * 根据任务Id，获取所有出口的名称，用于生成按钮
+	 * 
+	 * @param taskId
+	 *            任务Id
+	 * @return
+	 * @throws Exception
+	 * @author XiaoY
+	 * @date: 2017年6月10日 下午12:38:53
+	 */
+	public List<String> getOutGoingTransNames(String taskId) throws Exception;
 }

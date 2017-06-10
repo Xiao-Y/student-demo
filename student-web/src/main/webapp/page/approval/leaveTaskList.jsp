@@ -13,20 +13,16 @@
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i>
-				添加信息
+				<i class="layui-icon">&#xe608;</i> 添加信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small" id="import">
-				<i class="layui-icon">&#xe608;</i>
-				导入信息
+				<i class="layui-icon">&#xe608;</i> 导入信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-				导出信息
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i>
-				搜索
+				<i class="layui-icon">&#xe615;</i> 搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -80,7 +76,7 @@
 									</c:if>
 									<c:if test="${not empty task.assignee }">
 										<%-- 此处用tkey记录当前节点的名称 --%>
-										<a href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${pi.id }">办理</a>
+										<a href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${pi.id }&taskId=${task.id}">办理</a>
 									</c:if>
 								</td>
 							</tr>

@@ -1,5 +1,7 @@
 package org.billow.controller.approval;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -64,7 +66,8 @@ public class ApprovalLeaveController {
 	 * 获取流程图像，已执行节点和流程线高亮显示
 	 */
 	@RequestMapping("/getActivitiProccessImage/{pProcessInstanceId}")
-	public void getActivitiProccessImage(@PathVariable String pProcessInstanceId, HttpServletResponse response) throws Exception {
+	public void getActivitiProccessImage(@PathVariable String pProcessInstanceId, HttpServletResponse response)
+			throws Exception {
 		workflowService.getActivitiProccessImage(pProcessInstanceId, response);
 	}
 
@@ -84,7 +87,9 @@ public class ApprovalLeaveController {
 			leave.setUserDto(userDto);
 			leave.setType(ActivitiCommentCst.TYPE_LEAVE_COMMENT);
 			LeaveDto leaveDto = leaveService.findLeaveDto(leave);
+			List<String> transNames = workflowService.getOutGoingTransNames(leave.getTaskId());
 			av.addObject("leaveDto", leaveDto);
+			av.addObject("transNames", transNames);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
