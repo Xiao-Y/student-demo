@@ -12,7 +12,7 @@ import org.billow.common.login.LoginHelper;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
-import org.billow.utils.constant.ActivitiCommentCst;
+import org.billow.utils.constant.ActivitiCst;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class ApprovalLeaveController {
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		try {
 			leave.setUserDto(userDto);
-			leave.setType(ActivitiCommentCst.TYPE_LEAVE_COMMENT);
+			leave.setType(ActivitiCst.TYPE_LEAVE_COMMENT);
 			LeaveDto leaveDto = leaveService.findLeaveDto(leave);
 			List<String> transNames = workflowService.getOutGoingTransNames(leave.getTaskId());
 			av.addObject("leaveDto", leaveDto);

@@ -26,18 +26,16 @@
 					<!-- <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input"> -->
 					<select name="userName">
 						<option value="">请选用户</option>
-						<option value="admin">Admin</option>
-						<option value="Board Chairman">Board Chairman</option>
-						<option value="General manager">General Manager</option>
-						<option value="Manager">Manager</option>
-						<option value="sa">Sa</option>
-						<option value="employee" selected="selected">Employee</option>
+						<option value="admin">admin</option>
+						<option value="leaderuser">leaderuser</option>
+						<option value="hruser">hruser</option>
+						<option value="billow" selected="selected">billow</option>
 					</select>
 				</div>
 				<div class="layui-form-item">
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe642;</i>
 					</label>
-					<input type="password" name="password" lay-verify="password" value="123456" autocomplete="off" placeholder="这里输入密码" class="layui-input">
+					<input type="password" name="password" lay-verify="password" value="000000" autocomplete="off" placeholder="这里输入密码" class="layui-input">
 				</div>
 				<div class="layui-form-item">
 					<div class="beg-pull-left beg-login-remember">

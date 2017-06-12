@@ -74,7 +74,7 @@ public class ApplyLeaveController {
 		} catch (ActivitiException e) {
 			if (e.getMessage().indexOf("no processes deployed with key") != -1) {
 				logger.warn("没有部署流程!", e);
-				message = "没有部署流程，请在[工作流]->[流程管理]页面点击<重新部署流程>";
+				message = "没有部署流程，请在[流程管理]->[流程部署]页面点击<部署流程>";
 				type = MessageTipsCst.TYPE_ERROR;
 			} else {
 				message = "系统内部错误！";

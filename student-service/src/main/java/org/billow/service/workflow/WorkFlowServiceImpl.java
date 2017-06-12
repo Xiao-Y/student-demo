@@ -37,7 +37,7 @@ import org.activiti.engine.task.TaskQuery;
 import org.apache.log4j.Logger;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.utils.ToolsUtils;
-import org.billow.utils.constant.ActivitiCommentCst;
+import org.billow.utils.constant.ActivitiCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -325,7 +325,7 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 			Authentication.setAuthenticatedUserId(assignee);// 添加批注人
 			Method getCommentInfo = clazz.getMethod("getCommentInfo");
 			String message = (String) getCommentInfo.invoke(t);
-			taskService.addComment(taskId, processInstanceId, ActivitiCommentCst.TYPE_LEAVE_COMMENT, message);
+			taskService.addComment(taskId, processInstanceId, ActivitiCst.TYPE_LEAVE_COMMENT, message);
 			// 完成任务
 			Method getutcome = clazz.getMethod("getOutcome");
 			String outcome = (String) getutcome.invoke(t);
@@ -368,5 +368,69 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 			transNames.add("提交");// 默认
 		}
 		return transNames;
+	}
+
+	@Override
+	public <T> List<T> findTaskNodeList(List<T> list) throws Exception {
+		for (int i = 0; i < list.size(); i++) {
+			findTaskNode(list.get(i));
+		}
+		return list;
+	}
+
+	public <T> void findTaskNode(T t) throws Exception {
+		// 创建查询
+		HistoricProcessInstanceQuery historicProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery();
+		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+		TaskQuery taskQuery = taskService.createTaskQuery();
+		Class<? extends Object> clazz = t.getClass();
+		Method getId = clazz.getMethod("getId");
+		Integer id = (Integer) getId.invoke(t);
+		String businessKey = clazz.getSimpleName() + "." + id;
+		// 查询历史流程实例（为获取流程实例Id）
+		HistoricProcessInstance historicProcessInstance = historicProcessInstanceQuery.processInstanceBusinessKey(
+				businessKey).singleResult();
+		String processInstanceId = historicProcessInstance.getId();
+		// 设置流程实例
+		Method setProcessInstanceId = clazz.getMethod("setProcessInstanceId", String.class);
+		setProcessInstanceId.invoke(t, processInstanceId);
+		// 通过流程定论Id,查询流程定义
+		String processDefinitionId = historicProcessInstance.getProcessDefinitionId();
+		ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(processDefinitionId)
+				.singleResult();
+		// 设置流程定义到实体类中
+		Method setProcessDefinition = clazz.getMethod("setProcessDefinition", ProcessDefinition.class);
+		setProcessDefinition.invoke(t, processDefinition);
+		// 通过流程实例Id查询出当前活动的任务
+		Task task = taskQuery.processInstanceId(processInstanceId).active().singleResult();
+		// 设置任务到实体类中
+		Method setTask = clazz.getMethod("setTask", Task.class);
+		setTask.invoke(t, task);
+		String taskName = "已结束";
+		if (task != null) {
+			// 1.获取当前流程的流程定义
+			ProcessDefinitionEntity pdf = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService)
+					.getDeployedProcessDefinition(processDefinitionId);
+			// 2.流程定义获得所有的节点
+			List<ActivityImpl> activities = pdf.getActivities();
+			// 3.根据任务获取当前流程执行ID，执行实例以及当前流程节点的ID
+			String executionId = task.getExecutionId();
+			// 3.1根据流程执行ID获取执行实例
+			ExecutionEntity execution = (ExecutionEntity) runtimeService.createExecutionQuery()
+					.executionId(executionId).singleResult();
+			// 3.2从执行实例中获取当前流程节点的ID
+			String activitiId = execution.getActivityId();
+			// 4、然后循环activitiList
+			// 并判断出当前流程所处节点
+			for (ActivityImpl activityImpl : activities) {
+				if (activitiId.equals(activityImpl.getId())) {
+					// 当前任(输出某个节点的某种属性)
+					taskName = (String) activityImpl.getProperty("name");
+					break;
+				}
+			}
+		}
+		Method setTaskName = clazz.getMethod("setTaskName", String.class);
+		setTaskName.invoke(t, taskName);
 	}
 }

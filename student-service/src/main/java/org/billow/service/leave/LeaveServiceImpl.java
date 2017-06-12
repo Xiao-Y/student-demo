@@ -16,6 +16,7 @@ import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.billow.utils.PageHelper;
 import org.billow.utils.ToolsUtils;
+import org.billow.utils.constant.ActivitiCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		leaveDao.insert(leave);
 		// 业务主键
 		String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
-		String processDefinitionKey = "QingJia";
+		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
 		// 启动流程实例
 		ProcessInstance processInstance = workFlowService.startProcessInstanceByKey(processDefinitionKey, businessKey);
 		String processInstanceId = processInstance.getProcessInstanceId();
@@ -58,7 +59,8 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
 		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave.getId());
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
+					leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
@@ -69,11 +71,8 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		PageHelper.startPage();
 		List<LeaveDto> leavList = leaveDao.selectAll(leave);
 		if (ToolsUtils.isNotEmpty(leavList)) {
-			String processDefinitionKey = "QingJia";
-			UserDto userDto = leave.getUserDto();
-			String assignee = userDto.getUserName();
 			try {
-				leavList = workFlowService.findMyTaskList(leavList, processDefinitionKey, assignee);
+				leavList = workFlowService.findTaskNodeList(leavList);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

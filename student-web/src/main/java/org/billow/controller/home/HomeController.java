@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.activiti.engine.impl.identity.Authentication;
 import org.billow.api.leave.LeaveService;
 import org.billow.api.menu.MenuService;
 import org.billow.model.domain.MenuBase;
@@ -56,9 +57,10 @@ public class HomeController implements Comparator<MenuBase> {
 		HttpSession session = RequestUtils.getRequest().getSession();
 		if (ToolsUtils.isEmpty(user.getUserName())) {
 			user = new UserDto();
-			user.setUserName("employee");
+			user.setUserName("billow");
 			user.setUserId(1);
 		}
+		Authentication.setAuthenticatedUserId(user.getUserName());
 		session.setAttribute("currentUser", user);
 		return "page/home/index";
 	}

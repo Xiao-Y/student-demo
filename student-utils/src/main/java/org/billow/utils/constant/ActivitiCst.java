@@ -1,13 +1,18 @@
 package org.billow.utils.constant;
 
 /**
- * 流程图ac_hi_comment表中type
+ * 流程图
  * 
  * @author liuyongtao
  * 
  * @date 2017年6月8日 上午9:20:59
  */
-public class ActivitiCommentCst {
+public class ActivitiCst {
+
+	/**
+	 * 流程定义KEY-请假流程
+	 */
+	public final static String PROCESSDEFINITION_KEY_LEAVE = "leave";
 
 	/**
 	 * comment表中type的类型
