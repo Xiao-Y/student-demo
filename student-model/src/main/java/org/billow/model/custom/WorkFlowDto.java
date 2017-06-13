@@ -45,6 +45,8 @@ public class WorkFlowDto implements Serializable {
 	private String taskId;
 	// 流程图中连线的变量
 	private String outcome;
+	// true-同意,false-驳回
+	private boolean applyPass;
 
 	/**
 	 * 流程实例id
@@ -154,6 +156,14 @@ public class WorkFlowDto implements Serializable {
 
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	public boolean getApplyPass() {
+		return applyPass;
+	}
+
+	public void setApplyPass(boolean applyPass) {
+		this.applyPass = applyPass;
 	}
 
 }

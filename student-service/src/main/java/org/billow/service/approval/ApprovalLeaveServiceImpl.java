@@ -6,6 +6,7 @@ import org.billow.api.workflow.WorkFlowService;
 import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
+import org.billow.utils.constant.ActivitiCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	public void saveLeaveApplyApp(LeaveDto leave) throws Exception {
 		leave.setStatus(leave.getOutcome());
 		leaveDao.updateByPrimaryKeySelective(leave);
-		String processDefinitionKey = "QingJia";
+		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
 		UserDto userDto = leave.getUserDto();
 		String assignee = userDto.getUserName();
 		workFlowService.complete(leave, processDefinitionKey, assignee);
