@@ -148,7 +148,6 @@ public class ApprovalLeaveController {
 		LeaveDto leaveDto = new LeaveDto();
 		leaveDto.setId(leaveId);
 		leaveDto.setUserDto(userDto);
-		leaveDto.setUserName(userDto.getUserName());
 		leaveDto.setStatus("3");
 		try {
 			approvalLeaveService.leaveClaim(leaveDto, taskId);
