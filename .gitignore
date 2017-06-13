@@ -17,4 +17,4 @@
 .metadata
 /target
 /student-web/src/main/webapp/WEB-INF/classes
-/student-web/log
+/student-web/log/student-web

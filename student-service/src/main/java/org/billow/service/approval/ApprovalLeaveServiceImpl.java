@@ -51,7 +51,9 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 
 	@Override
 	public void leaveClaim(LeaveDto leaveDto, String taskId) throws Exception {
-		workFlowService.claim(taskId, leaveDto.getUserName());
+		// 任务签收人
+		String userName = leaveDto.getUserDto().getUserName();
+		workFlowService.claim(taskId, userName);
 		leaveDao.updateByPrimaryKeySelective(leaveDto);
 	}
 }

@@ -6,8 +6,13 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/org.eclipse.wst.jsdt.core.javascriptValidator.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
@@ -43,42 +48,42 @@
 		<link>
 			<name>student-api</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-api/src/main/java</location>
+			<location>D:/project/student-demo/student-api/src/main/java</location>
 		</link>
 		<link>
 			<name>student-common</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-common/src/main/java</location>
+			<location>D:/project/student-demo/student-common/src/main/java</location>
 		</link>
 		<link>
 			<name>student-dao</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-dao/src/main/java</location>
+			<location>D:/project/student-demo/student-dao/src/main/java</location>
 		</link>
 		<link>
 			<name>student-dubbo</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-dubbo/src/main/java</location>
+			<location>D:/project/student-demo/student-dubbo/src/main/java</location>
 		</link>
 		<link>
 			<name>student-jobs</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-jobs/src/main/java</location>
+			<location>D:/project/student-demo/student-jobs/src/main/java</location>
 		</link>
 		<link>
 			<name>student-model</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-model/src/main/java</location>
+			<location>D:/project/student-demo/student-model/src/main/java</location>
 		</link>
 		<link>
 			<name>student-service</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-service/src/main/java</location>
+			<location>D:/project/student-demo/student-service/src/main/java</location>
 		</link>
 		<link>
 			<name>student-utils</name>
 			<type>2</type>
-			<location>D:/GitHub/student-demo/student-utils/src/main/java</location>
+			<location>D:/project/student-demo/student-utils/src/main/java</location>
 		</link>
 	</linkedResources>
 </projectDescription>
