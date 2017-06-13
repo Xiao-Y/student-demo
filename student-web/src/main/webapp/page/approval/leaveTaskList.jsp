@@ -52,7 +52,7 @@
 							<c:set var="pi" value="${leave.historicProcessInstance }" />
 							<tr id="${leave.id }" tid="${task.id }">
 								<td>${leave.leaveType }</td>
-								<td>${leave.userId }</td>
+								<td>${leave.userName }</td>
 								<td>
 									<fmt:formatDate value="${leave.applyTime  }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
