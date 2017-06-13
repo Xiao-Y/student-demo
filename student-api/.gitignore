@@ -12,6 +12,7 @@
 # ignore eclipse files
 .settings
 .metadata
+.classpath
+.project
 /target
 
-/target
