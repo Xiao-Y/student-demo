@@ -1,15 +1,11 @@
 package org.billow.service.approval;
 
-import java.util.List;
-
 import org.activiti.engine.repository.ProcessDefinition;
 import org.billow.api.approval.ApprovalLeaveService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
-import org.billow.utils.PageHelper;
-import org.billow.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,21 +20,21 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	private WorkFlowService workFlowService;
 
 	@Override
-	public PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) {
-		PageHelper.startPage();
-		List<LeaveDto> leavList = leaveDao.selectAll(leaveDto);
-		if (ToolsUtils.isNotEmpty(leavList)) {
-			String processDefinitionKey = "QingJia";
-			UserDto userDto = leaveDto.getUserDto();
-			String assignee = userDto.getUserName();
-			try {
-				leavList = workFlowService.findMyTaskList(leavList, processDefinitionKey, assignee);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		PageInfo<LeaveDto> pageInfo = new PageInfo<>(leavList);
+	public PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) throws Exception {
+		/*
+		 * PageHelper.startPage(); List<LeaveDto> leavList =
+		 * leaveDao.selectAll(leaveDto); if (ToolsUtils.isNotEmpty(leavList)) {
+		 * String processDefinitionKey =
+		 * ActivitiCst.PROCESSDEFINITION_KEY_LEAVE; UserDto userDto =
+		 * leaveDto.getUserDto(); String assignee = userDto.getUserName(); try {
+		 * leavList = workFlowService.findMyTaskList(leavList,
+		 * processDefinitionKey, assignee); } catch (Exception e) {
+		 * e.printStackTrace(); } } PageInfo<LeaveDto> pageInfo = new
+		 * PageInfo<>(leavList);
+		 */
+		UserDto userDto = leaveDto.getUserDto();
+		String userId = userDto.getUserName();
+		PageInfo<LeaveDto> pageInfo = workFlowService.findTodoTaskList(userId, leaveDao);
 		return pageInfo;
 	}
 

@@ -53,7 +53,13 @@ public class ApprovalLeaveController {
 	public ModelAndView findApprovalLeave(HttpSession session, LeaveDto leaveDto) {
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		leaveDto.setUserDto(userDto);
-		PageInfo<LeaveDto> list = approvalLeaveService.findApprovalLeave(leaveDto);
+		PageInfo<LeaveDto> list = null;
+		try {
+			list = approvalLeaveService.findApprovalLeave(leaveDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("查询个人任务列表出错！");
+		}
 		ModelAndView av = new ModelAndView();
 		av.addObject("paegs", list);
 		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveTaskList");

@@ -9,6 +9,8 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 
+import com.github.pagehelper.PageInfo;
+
 /**
  * 工作流程统一正理类
  * 
@@ -189,4 +191,19 @@ public interface WorkFlowService {
 	 * @date: 2017年6月12日 下午10:07:52
 	 */
 	public <T> void findTaskNode(T t) throws Exception;
+
+	/**
+	 * 查询待办任务
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param userId
+	 *            用户Id
+	 * @return
+	 * @throws Exception
+	 * 
+	 * @date 2017年6月13日 上午8:51:48
+	 */
+	public <T, C> PageInfo<T> findTodoTaskList(String userId, C s) throws Exception;
 }

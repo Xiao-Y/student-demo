@@ -20,7 +20,7 @@ public interface ApprovalLeaveService {
 	 * @author XiaoY
 	 * @date: 2017年5月28日 下午10:21:45
 	 */
-	PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto);
+	PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) throws Exception;
 
 	/**
 	 * 保存请假审批
