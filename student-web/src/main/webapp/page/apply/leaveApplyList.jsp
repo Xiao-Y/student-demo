@@ -56,7 +56,7 @@
 									<fmt:formatDate value="${leave.applyTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
 								<td>
-									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlow/openActivitiProccessImagePage/leaveComment/${pi.id }'> ${leave.taskName } </a>
+									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlow/openActivitiProccessImagePage/leaveComment/${leave.processInstanceId }'> ${leave.taskName } </a>
 								</td>
 								<td>
 									<fmt:formatDate value="${task.createTime }" pattern="yyyy-MM-dd HH:mm:ss" />
