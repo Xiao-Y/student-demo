@@ -17,6 +17,7 @@ import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -114,6 +115,48 @@ public class ApprovalLeaveController {
 		} catch (Exception e) {
 			type = MessageTipsCst.TYPE_ERROR;
 			message = MessageTipsCst.SUBMIT_FAILURE;
+			e.printStackTrace();
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setMessage(message);
+		json.setType(type);
+		json.setRoot("/approvalLeave/findApprovalLeave");
+		return json;
+	}
+
+	/**
+	 * 任务签收
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param leaveId
+	 *            请假表主键
+	 * @param taskId
+	 *            任务Id
+	 * @return
+	 * 
+	 * @date 2017年6月13日 下午2:40:28
+	 */
+	@ResponseBody
+	@RequestMapping("/leaveClaim/{leaveId}/{taskId}")
+	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId, HttpSession session) {
+		String message;
+		String type;
+		UserDto userDto = LoginHelper.getLoginUser(session);
+		LeaveDto leaveDto = new LeaveDto();
+		leaveDto.setId(leaveId);
+		leaveDto.setUserDto(userDto);
+		leaveDto.setUserName(userDto.getUserName());
+		leaveDto.setStatus("3");
+		try {
+			approvalLeaveService.leaveClaim(leaveDto, taskId);
+			type = MessageTipsCst.TYPE_SUCCES;
+			message = MessageTipsCst.CLAIM_SUCCESS;
+		} catch (Exception e) {
+			type = MessageTipsCst.TYPE_ERROR;
+			message = MessageTipsCst.CLAIM_FAILURE;
 			e.printStackTrace();
 			logger.error(e);
 		}

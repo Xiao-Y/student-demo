@@ -55,35 +55,31 @@ layui.use([ 'laypage', 'layer' ], function() {
 		});
 	});
 
-	$('#import').on('click', function() {
-		var that = this;
-		var index = layer.tips('只想提示地精准些', that, {
-			tips : [ 1, 'white' ]
-		});
-		$('#layui-layer' + index).children('div.layui-layer-content').css('color', '#000000');
-	});
-
-	$('.site-table tbody tr').on('click', function(event) {
+	//任务签收
+	$("a[name='leaveClaim']").on('click',function(){
 		var $this = $(this);
-		var $input = $this.children('td').eq(0).find('input');
-		$input.on('ifChecked', function(e) {
-			$this.css('background-color', '#EEEEEE');
-		});
-		$input.on('ifUnchecked', function(e) {
-			$this.removeAttr('style');
-		});
-		//$input.iCheck('toggle');
-	}).find('input').each(function() {
-		var $this = $(this);
-		$this.on('ifChecked', function(e) {
-			$this.parents('tr').css('background-color', '#EEEEEE');
-		});
-		$this.on('ifUnchecked', function(e) {
-			$this.parents('tr').removeAttr('style');
-		});
-	});
-	$('#selected-all').on('ifChanged', function(event) {
-		var $input = $('.site-table tbody tr td').find('input');
-		//$input.iCheck(event.currentTarget.checked ? 'check' : 'uncheck');
+		var id = $this.attr("id");
+		var taskId = $this.attr("taskId");
+		var url = path + "/approvalLeave/leaveClaim/" + id + "/" + taskId;
+		$.ajax({
+	        type: "POST",
+	        dataType: "json",
+	        url: url,
+	        success: function (obj) {
+	        	var message = obj.message;
+				var type = obj.type;
+				var root = obj.root;
+			 	if(type == 'success'){
+		            new TipBox({type:type,str:message,hasBtn:true,setTime:1500000,callBack:function(){
+		            	$(window.location).attr('href', path + root);
+		            }});  
+			 	}else{
+		            new TipBox({type:type,str:message,hasBtn:true})  
+			 	}
+	        },
+	        error: function(obj) {
+	        	new TipBox({type:'error',str:'网络错误',hasBtn:true})  
+	        }
+	    });
 	});
 });

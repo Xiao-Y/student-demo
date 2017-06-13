@@ -98,4 +98,12 @@ public class MessageTipsCst {
 	 * 提示信息
 	 */
 	public static final String TYPE_TIP = "tip";
+	/**
+	 * 签收成功
+	 */
+	public static final String CLAIM_SUCCESS = "签收成功！";
+	/**
+	 * 签收失败
+	 */
+	public static final String CLAIM_FAILURE = "签收失败！";
 }

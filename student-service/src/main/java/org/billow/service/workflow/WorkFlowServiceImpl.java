@@ -459,4 +459,9 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 		pageInfo.setList(results);
 		return pageInfo;
 	}
+
+	@Override
+	public void claim(String taskId, String userName) {
+		taskService.claim(taskId, userName);
+	}
 }

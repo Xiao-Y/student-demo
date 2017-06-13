@@ -21,17 +21,6 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 
 	@Override
 	public PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) throws Exception {
-		/*
-		 * PageHelper.startPage(); List<LeaveDto> leavList =
-		 * leaveDao.selectAll(leaveDto); if (ToolsUtils.isNotEmpty(leavList)) {
-		 * String processDefinitionKey =
-		 * ActivitiCst.PROCESSDEFINITION_KEY_LEAVE; UserDto userDto =
-		 * leaveDto.getUserDto(); String assignee = userDto.getUserName(); try {
-		 * leavList = workFlowService.findMyTaskList(leavList,
-		 * processDefinitionKey, assignee); } catch (Exception e) {
-		 * e.printStackTrace(); } } PageInfo<LeaveDto> pageInfo = new
-		 * PageInfo<>(leavList);
-		 */
 		UserDto userDto = leaveDto.getUserDto();
 		String userId = userDto.getUserName();
 		PageInfo<LeaveDto> pageInfo = workFlowService.findTodoTaskList(userId, leaveDao);
@@ -58,5 +47,11 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 		UserDto userDto = leave.getUserDto();
 		String assignee = userDto.getUserName();
 		workFlowService.complete(leave, processDefinitionKey, assignee);
+	}
+
+	@Override
+	public void leaveClaim(LeaveDto leaveDto, String taskId) throws Exception {
+		workFlowService.claim(taskId, leaveDto.getUserName());
+		leaveDao.updateByPrimaryKeySelective(leaveDto);
 	}
 }

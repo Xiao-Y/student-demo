@@ -206,4 +206,19 @@ public interface WorkFlowService {
 	 * @date 2017年6月13日 上午8:51:48
 	 */
 	public <T, C> PageInfo<T> findTodoTaskList(String userId, C s) throws Exception;
+
+	/**
+	 * 任务签收
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param taskId
+	 *            任务Id
+	 * @param userName
+	 *            签收人
+	 * 
+	 * @date 2017年6月13日 下午2:56:21
+	 */
+	public void claim(String taskId, String userName);
 }

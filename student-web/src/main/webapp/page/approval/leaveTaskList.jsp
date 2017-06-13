@@ -1,6 +1,7 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/pub/taglib.jsp"%>
+<%@ include file="/pub/pubTips.jsp"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -77,7 +78,7 @@
 								</td>
 								<td>
 									<c:if test="${empty task.assignee }">
-										<a class="claim" href="${ctx }/oa/leave/task/claim/${task.id}">签收</a>
+										<a class="claim" id="${leave.id}" name="leaveClaim" taskId="${task.id}" href="javascript:;">签收</a>
 									</c:if>
 									<c:if test="${not empty task.assignee }">
 										<%-- 此处用tkey记录当前节点的名称 --%>
