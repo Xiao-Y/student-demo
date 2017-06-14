@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
@@ -35,23 +36,34 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 
 	@Autowired
 	private WorkFlowService workFlowService;
+	@Autowired
+	private IdentityService identityService;
 
 	@Override
 	public ProcessInstance saveLeave(LeaveDto leave) throws Exception {
 		UserDto userDto = leave.getUserDto();
 		leave.setApplyTime(new Date());
 		leave.setUserId(userDto.getUserId());
-		leaveDao.insert(leave);
-		// 业务主键
-		String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
-		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
-		// 启动流程实例
-		ProcessInstance processInstance = workFlowService.startProcessInstanceByKey(processDefinitionKey, businessKey);
-		String processInstanceId = processInstance.getProcessInstanceId();
-		// 查询任务
-		Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);
-		// 保存批注信息
-		workFlowService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
+		ProcessInstance processInstance = null;
+		try {
+			leaveDao.insert(leave);
+			// 用来设置启动流程的人员ID，引擎会自动把用户ID保存到activiti:initiator中
+			identityService.setAuthenticatedUserId(userDto.getUserName());
+			// 业务主键
+			String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
+			String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+			// 启动流程实例
+			processInstance = workFlowService.startProcessInstanceByKey(processDefinitionKey, businessKey);
+			String processInstanceId = processInstance.getProcessInstanceId();
+			// 查询任务
+			Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);
+			// 保存批注信息
+			workFlowService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			identityService.setAuthenticatedUserId(null);
+		}
 		return processInstance;
 	}
 
@@ -59,8 +71,7 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
 		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave.getId());
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
-					leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
