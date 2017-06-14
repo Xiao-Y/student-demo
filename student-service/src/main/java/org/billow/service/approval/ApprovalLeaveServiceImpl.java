@@ -42,7 +42,11 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 
 	@Override
 	public void saveLeaveApplyApp(LeaveDto leave) throws Exception {
-		leave.setStatus(leave.getOutcome());
+		if (leave.getApplyPass()) {
+			leave.setStatus("3");
+		} else {
+			leave.setStatus("7");
+		}
 		leaveDao.updateByPrimaryKeySelective(leave);
 		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
 		UserDto userDto = leave.getUserDto();

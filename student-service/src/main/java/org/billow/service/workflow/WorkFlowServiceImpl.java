@@ -290,7 +290,9 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 			Authentication.setAuthenticatedUserId(assignee);// 添加批注人
 			Method getCommentInfo = clazz.getMethod("getCommentInfo");
 			String message = (String) getCommentInfo.invoke(t);
-			taskService.addComment(taskId, processInstanceId, ActivitiCst.TYPE_LEAVE_COMMENT, message);
+			if (ToolsUtils.isNotEmpty(message)) {
+				taskService.addComment(taskId, processInstanceId, ActivitiCst.TYPE_LEAVE_COMMENT, message);
+			}
 			// 完成任务
 			// Method getutcome = clazz.getMethod("getOutcome");
 			// String outcome = (String) getutcome.invoke(t);
