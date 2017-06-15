@@ -71,7 +71,8 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
 		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave.getId());
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
+					leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
@@ -90,6 +91,16 @@ public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements Leave
 		}
 		PageInfo<LeaveDto> pages = new PageInfo<>(leavList);
 		return pages;
+	}
+
+	@Override
+	public void updateLeave(LeaveDto leave) throws Exception {
+		leave.setApplyTime(new Date());
+		leaveDao.updateByPrimaryKeySelective(leave);
+		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+		UserDto userDto = leave.getUserDto();
+		String assignee = userDto.getUserName();
+		workFlowService.complete(leave, processDefinitionKey, assignee);
 	}
 
 }

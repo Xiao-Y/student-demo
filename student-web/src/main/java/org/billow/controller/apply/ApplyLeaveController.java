@@ -46,7 +46,15 @@ public class ApplyLeaveController {
 	@RequestMapping("/editLeave")
 	public ModelAndView editLeave(LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
-		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApply");
+		String viewName = PagePathCst.BASEPATH_APPLY + "leaveApply";
+		if (leave.getId() != null) {
+			LeaveDto leaveDto = leaveService.selectByPrimaryKey(leave.getId());
+			if (leaveDto != null && "7".equals(leaveDto.getStatus())) {// 被驳回的
+				viewName = PagePathCst.BASEPATH_APPLY + "leaveApplyRe";
+				av.addObject("leaveDto", leaveDto);
+			}
+		}
+		av.setViewName(viewName);
 		return av;
 	}
 
@@ -115,5 +123,39 @@ public class ApplyLeaveController {
 		av.addObject("page", pages);
 		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApplyList");
 		return av;
+	}
+
+	/**
+	 * 被驳回后修改
+	 * 
+	 * @param session
+	 * @param leave
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月14日 下午9:17:28
+	 */
+	@ResponseBody
+	@RequestMapping("/updateLeave")
+	public JsonResult updateLeave(HttpSession session, LeaveDto leave) {
+		UserDto userDto = LoginHelper.getLoginUser(session);
+		leave.setUserDto(userDto);
+		leave.setUserName(userDto.getUserName());
+		String message = "";
+		String type = "";
+		try {
+			leave.setStatus("1");
+			leaveService.updateLeave(leave);
+			message = MessageTipsCst.UPDATE_SUCCESS;
+			type = MessageTipsCst.TYPE_SUCCES;
+		} catch (Exception e) {
+			message = "系统内部错误！";
+			type = MessageTipsCst.TYPE_ERROR;
+			logger.error("启动请假流程失败：", e);
+		}
+		JsonResult json = new JsonResult();
+		json.setMessage(message);
+		json.setType(type);
+		json.setRoot("/approvalLeave/findApprovalLeave");
+		return json;
 	}
 }

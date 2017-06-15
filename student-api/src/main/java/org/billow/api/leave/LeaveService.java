@@ -1,7 +1,5 @@
 package org.billow.api.leave;
 
-import java.util.List;
-
 import org.activiti.engine.runtime.ProcessInstance;
 import org.billow.api.base.BaseService;
 import org.billow.model.expand.LeaveDto;
@@ -48,4 +46,13 @@ public interface LeaveService extends BaseService<LeaveDto> {
 	 * @date 2017年6月8日 下午7:44:46
 	 */
 	PageInfo<LeaveDto> findLeaveList(LeaveDto leave);
+
+	/**
+	 * 更新请假信息
+	 * 
+	 * @param leave
+	 * @author XiaoY
+	 * @date: 2017年6月14日 下午9:18:57
+	 */
+	void updateLeave(LeaveDto leave) throws Exception;
 }

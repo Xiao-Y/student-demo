@@ -5,15 +5,17 @@
 <html>
 <head>
 <title>请假申请</title>
-<jsp:include page="/pub/pubCss.jsp" />
-<jsp:include page="/pub/pubJs.jsp" />
-<script type="text/javascript" src="${ctx }/page/apply/leaveApply.js"></script>
+<jsp:include page="/pub/pubFormCss.jsp" />
+<jsp:include page="/pub/pubFormJs.jsp" />
+<script type="text/javascript" src="${ctx }/page/apply/leaveApplyRe.js"></script>
 </head>
 
 <body>
 	<fieldset class="layui-elem-field">
 		<legend>请假申请信息</legend>
-		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/applyLeave/saveLeave">
+		<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/applyLeave/updateLeave">
+			<input type="hidden" id="id" name="id" value="${leaveDto.id}">
+			<input type="hidden" id="status" name="status" value="${leaveDto.status}">
 			<div class="layui-form-item">
 				<label class="layui-form-label">请假类型：</label>
 				<div class="layui-input-block">
@@ -31,23 +33,28 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">开始时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
-						class="layui-input" value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />"
-						onclick="layui.laydate({elem: this})">
+					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+						value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />" onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
-						class="layui-input" value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />"
-						onclick="layui.laydate({elem: this})">
+					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
+						value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />" onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">请假原因：</label>
 				<div class="layui-input-block">
 					<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="reason">${leaveDto.reason }</textarea>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">操作：</label>
+				<div class="layui-input-block">
+					<input type="radio" name="applyPass" value="true" title="重新申请" checked>
+					<input type="radio" name="applyPass" value="false" title="结束申请">
 				</div>
 			</div>
 			<div class="layui-form-item">

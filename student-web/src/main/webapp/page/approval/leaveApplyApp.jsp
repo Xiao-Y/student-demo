@@ -54,7 +54,7 @@
 	<fieldset class="layui-elem-field">
 		<legend>申请审批</legend>
 		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/approvalLeave/saveLeaveApplyApp">
-			<div class="layui-form-item" pane>
+			<div class="layui-form-item">
 				<label class="layui-form-label">审批：</label>
 				<div class="layui-input-block">
 					<input type="radio" name="applyPass" value="true" title="同意" checked>
