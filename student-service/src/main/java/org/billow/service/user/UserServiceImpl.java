@@ -50,4 +50,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 		return super.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public UserDto getUserByOpenId(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

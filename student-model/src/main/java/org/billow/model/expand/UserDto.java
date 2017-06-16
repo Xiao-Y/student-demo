@@ -8,12 +8,25 @@ public class UserDto extends UserBase {
 
 	private boolean rememberMe;
 
+	/**
+	 * 微信账号唯一标识
+	 */
+	private String openID;
+	
 	public boolean isRememberMe() {
 		return rememberMe;
 	}
 
 	public void setRememberMe(boolean rememberMe) {
 		this.rememberMe = rememberMe;
+	}
+
+	public String getOpenID() {
+		return openID;
+	}
+
+	public void setOpenID(String openID) {
+		this.openID = openID;
 	}
 
 }
