@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.billow.api.user.UserService;
 import org.billow.model.expand.UserDto;
 import org.billow.utils.HttpRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,15 +27,14 @@ import com.google.gson.reflect.TypeToken;
 @RequestMapping("/QrGen")
 public class QrGen {
 
-	// public static final String appid = "wx62c96fa78688299a";
-	// public static final String appsecret =
-	// "523ed37219fd29e999222a1f61ea80ac";
-	// public static final String redirect_uri =
-	// "http%3a%2f%2f10.11.246.139%3a8090%2fstudent-web%2fhome%2flogin";
+	public static final String appid = "wx62c96fa78688299a";
+	public static final String appsecret = "523ed37219fd29e999222a1f61ea80ac";
+
+	public static final String redirect_uri = "http%3a%2f%2f1p7v403130.iask.in%2fstudent-web%2fQrGen%2floginByQrGen";
 	// ------------------------------------------//
-	public static final String appid = "wxe92da7aab459b577";
-	public static final String appsecret = "f8dd42dc18a52aed57127085c311582e";
-	public static final String redirect_uri = "http%3a%2f%2fpre.fliplus.com%2fvp-web-buyer-wechat%2flogin.jhtml";
+	// public static final String appid = "wxe92da7aab459b577";
+	// public static final String appsecret = "f8dd42dc18a52aed57127085c311582e";
+	// public static final String redirect_uri = "http%3a%2f%2fpre.fliplus.com%2fvp-web-buyer-wechat%2flogin.jhtml";
 
 	// public static final String appid = "wxe92da7aab459b577";
 	// public static final String appsecret =
@@ -43,6 +43,7 @@ public class QrGen {
 	// "http%3a%2f%2fpre.fliplus.com%2fvp-web-buyer-wechat%2flogin.jhtml";
 	// ------------------------------------------//
 
+	@Autowired
 	private UserService userService;
 
 	@RequestMapping("/index")
@@ -70,19 +71,23 @@ public class QrGen {
 			map = new HashMap<String, UserDto>();
 			req.getServletContext().setAttribute("UUID_MAP", map);
 		}
+		// 把旧的uuid移除
+		String uuid = req.getParameter("uuid");
+		map.remove(uuid);
 		// 把uuid放入map中
 		map.put(randomUUID.toString(), null);
 
 		// 二维码图片扫描后的链接
-		// String url =
-		// "http://10.11.246.139:8090/student-web/QrGen/loginByQrGen?uuid=" +
-		// randomUUID;
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri=" + redirect_uri
-				+ "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri="
+				+ redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
 
 		// 生成二维码图片
 		ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
 		String fileName = randomUUID + ".jpg";
+		File file = new File(req.getServletContext().getRealPath("/temp"));
+		if (!file.isDirectory()) {
+			file.mkdirs();
+		}
 		OutputStream os = new FileOutputStream(new File(req.getServletContext().getRealPath("/temp"), fileName));
 		os.write(qrOut.toByteArray());
 		os.flush();
@@ -97,9 +102,6 @@ public class QrGen {
 
 	/**
 	 * 手机端扫描二维码执行的方法
-	 * 跳转到“http://pre.fliplus.com/vp-web-buyer-wechat/login.jhtml”的后台方法
-	 * 比如loginByQrGen，在这个里面主要是为了获取code和openid，使用openid到后台去查询这个用户是否存在
-	 * 如果存在则进去系统页面，跳转页面绑定（我这个地方没你们的登陆做不了）
 	 * 
 	 * @param req
 	 * @param resp
@@ -109,8 +111,9 @@ public class QrGen {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/loginByQrGen")
 	protected void loginByQrGen(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;charset=UTF-8");
 		// 获取二维码链接中的uuid
-		String uuid = req.getParameter("uuid");
+		String uuid = req.getParameter("state");
 		// 通过应用获取共享的uuid集合
 		Map<String, UserDto> uuidMap = (Map<String, UserDto>) req.getServletContext().getAttribute("UUID_MAP");
 		// 如果集合内没有这个uuid，则响应结果
@@ -159,9 +162,16 @@ public class QrGen {
 	protected void checkScan(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 获取页面的uuid参数
 		String uuid = req.getParameter("uuid");
+		// 失效时间
+		Integer count = Integer.valueOf(req.getParameter("count"));
 		// 通过应用获取共享的uuid集合
 		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute("UUID_MAP");
 		if (map != null) {
+			// 移除失效的uuid
+			if (count > 8) {
+				map.remove(uuid);
+				resp.getOutputStream().write("invalid".getBytes());
+			}
 			// 查询该uuid是否存在，且二维码已经被扫描并匹配到账号
 			if (map.containsKey(uuid)) {
 				UserDto user = (UserDto) map.get(uuid);

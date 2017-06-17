@@ -51,9 +51,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 	}
 
 	@Override
-	public UserDto getUserByOpenId(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDto getUserByOpenId(String openId) {
+		return userDao.getUserByOpenId(openId);
 	}
 
 }

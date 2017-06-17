@@ -8,6 +8,7 @@
 		<result column="age" property="age" jdbcType="INTEGER" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -20,10 +21,16 @@
 		from t_user
 		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
+	<select id="getUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where open_id = #{openId,jdbcType=VARCHAR}
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from t_user
-		where user_id = #{userId,jdbcType=INTEGER}
+		where user_id = #{userId,jdbcType=VARCHAR}
 	</delete>
 
 	<insert id="insert" parameterType="org.billow.model.expand.UserDto">

@@ -15,5 +15,13 @@ public interface UserService extends BaseService<UserDto> {
 
 	public UserDto findUserById(Integer id);
 
-	public UserDto getUserByOpenId(String string);
+	/**
+	 * 微信查询
+	 * 
+	 * @param openId
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月17日 上午7:54:00
+	 */
+	public UserDto getUserByOpenId(String openId);
 }
