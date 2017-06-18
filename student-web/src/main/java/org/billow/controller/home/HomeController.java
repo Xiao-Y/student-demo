@@ -204,11 +204,12 @@ public class HomeController implements Comparator<MenuBase> {
 		// 生成二维码图片
 		ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
 		String fileName = randomUUID + ".jpg";
-		File file = new File(req.getServletContext().getRealPath("/temp"));
+		String tempPath = req.getServletContext().getRealPath("/temp");
+		File file = new File(tempPath);
 		if (!file.isDirectory()) {
 			file.mkdirs();
 		}
-		OutputStream os = new FileOutputStream(new File(req.getServletContext().getRealPath("/temp"), fileName));
+		OutputStream os = new FileOutputStream(new File(tempPath, fileName));
 		os.write(qrOut.toByteArray());
 		os.flush();
 		os.close();
