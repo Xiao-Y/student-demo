@@ -56,6 +56,8 @@ public class HomeController implements Comparator<MenuBase> {
 	@Autowired
 	private UserService userService;
 
+	private static final String UUID_MAP = "UUID_MAP";
+
 	/**
 	 * 登陆
 	 * 
@@ -178,10 +180,10 @@ public class HomeController implements Comparator<MenuBase> {
 		// 生成UUID随机数
 		UUID randomUUID = UUID.randomUUID();
 		// 通过应用获取共享的uuid集合
-		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute("UUID_MAP");
+		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute(UUID_MAP);
 		if (map == null) {
 			map = new HashMap<String, UserDto>();
-			req.getServletContext().setAttribute("UUID_MAP", map);
+			req.getServletContext().setAttribute(UUID_MAP, map);
 		}
 		// 把旧的uuid移除
 		String uuid = req.getParameter("uuid");
@@ -225,7 +227,7 @@ public class HomeController implements Comparator<MenuBase> {
 		// 获取二维码链接中的uuid
 		String uuid = req.getParameter("state");
 		// 通过应用获取共享的uuid集合
-		Map<String, UserDto> uuidMap = (Map<String, UserDto>) req.getAttribute("UUID_MAP");
+		Map<String, UserDto> uuidMap = (Map<String, UserDto>) req.getServletContext().getAttribute(UUID_MAP);
 		// 如果集合内没有这个uuid，则响应结果
 		if (uuidMap == null || !uuidMap.containsKey(uuid)) {
 			resp.getOutputStream().write("二维码不存在或已失效！".getBytes());
@@ -276,7 +278,7 @@ public class HomeController implements Comparator<MenuBase> {
 		// 失效时间
 		Integer count = Integer.valueOf(req.getParameter("count"));
 		// 通过应用获取共享的uuid集合
-		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute("UUID_MAP");
+		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute(UUID_MAP);
 		if (map != null) {
 			// 移除失效的uuid
 			if (count > 8) {
