@@ -17,6 +17,7 @@ import org.billow.api.user.UserService;
 import org.billow.model.expand.UserDto;
 import org.billow.utils.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,21 +28,12 @@ import com.google.gson.reflect.TypeToken;
 @RequestMapping("/QrGen")
 public class QrGen {
 
-	public static final String appid = "wx62c96fa78688299a";
-	public static final String appsecret = "523ed37219fd29e999222a1f61ea80ac";
-
-	public static final String redirect_uri = "http%3a%2f%2f1p7v403130.iask.in%2fstudent-web%2fQrGen%2floginByQrGen";
-	// ------------------------------------------//
-	// public static final String appid = "wxe92da7aab459b577";
-	// public static final String appsecret = "f8dd42dc18a52aed57127085c311582e";
-	// public static final String redirect_uri = "http%3a%2f%2fpre.fliplus.com%2fvp-web-buyer-wechat%2flogin.jhtml";
-
-	// public static final String appid = "wxe92da7aab459b577";
-	// public static final String appsecret =
-	// "f8dd42dc18a52aed57127085c311582e";
-	// public static final String redirect_uri =
-	// "http%3a%2f%2fpre.fliplus.com%2fvp-web-buyer-wechat%2flogin.jhtml";
-	// ------------------------------------------//
+	@Value("${weichat.appid}")
+	public String appid;
+	@Value("${weichat.appsecret}")
+	public String appsecret;
+	@Value("${weichat.redirectUri}")
+	public String redirectUri;
 
 	@Autowired
 	private UserService userService;
@@ -64,7 +56,6 @@ public class QrGen {
 	public void showQrGen(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 生成UUID随机数
 		UUID randomUUID = UUID.randomUUID();
-
 		// 通过应用获取共享的uuid集合
 		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute("UUID_MAP");
 		if (map == null) {
@@ -79,7 +70,7 @@ public class QrGen {
 
 		// 二维码图片扫描后的链接
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri="
-				+ redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
+				+ redirectUri + "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
 
 		// 生成二维码图片
 		ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
