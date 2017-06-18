@@ -16,6 +16,10 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
+	<!-- 为了能在controller层获取配置文件中的值 -->
+	<context:property-placeholder ignore-unresolvable="true"
+		location="classpath:applicationContext.properties" />
+
 	<!-- 配置多个 扫描不同的包controller，用于工作流设计器 -->
 	<context:component-scan base-package="org.activiti.rest.diagram,org.activiti.rest.editor" />
 

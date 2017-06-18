@@ -281,7 +281,7 @@ public class HomeController implements Comparator<MenuBase> {
 		Map<String, UserDto> map = (Map<String, UserDto>) req.getServletContext().getAttribute(UUID_MAP);
 		if (map != null) {
 			// 移除失效的uuid
-			if (count > 8) {
+			if (count > 30) {
 				map.remove(uuid);
 				resp.getOutputStream().write("invalid".getBytes());
 			}
