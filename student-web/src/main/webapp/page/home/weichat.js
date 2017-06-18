@@ -40,9 +40,9 @@ $(document).ready(function() {
                     }
             	});
 	    	if (flag == 'invalid') {
+	    		window.clearInterval(intervalId);
 	    		count = 0;
                 $("#QrGen").attr("src", path + "/images/0617135536.png");
-	    		window.clearInterval(intervalId);
 	    	}
         },1000);
     }

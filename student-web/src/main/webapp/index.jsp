@@ -3,7 +3,7 @@
 <html>
 <body bgcolor="#FFFFFF" text="#000000">
 	<script language="JavaScript">
-		location.href = "${pageContext.request.contextPath }//home/login"
+		location.href = "${pageContext.request.contextPath }/home/login"
 	</script>
 </body>
 </html>
