@@ -30,6 +30,7 @@ import org.billow.model.expand.UserDto;
 import org.billow.utils.HttpRequest;
 import org.billow.utils.RequestUtils;
 import org.billow.utils.ToolsUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -79,15 +80,22 @@ public class HomeController implements Comparator<MenuBase> {
 	 * @date: 2017年5月24日 下午10:32:33
 	 */
 	@RequestMapping("/homeIndex")
-	public String homeIndex(UserDto user) {
-		HttpSession session = RequestUtils.getRequest().getSession();
+	public String homeIndex(UserDto user, HttpServletRequest request) {
+		HttpSession session = RequestUtils.getSession(request);
+
+		String type = request.getParameter("type");
+		if ("weichat".equals(type)) {// 从微信进入的
+			UserDto currentUser = (UserDto) session.getAttribute("currentUser");
+			BeanUtils.copyProperties(currentUser, user);
+		}
+
 		if (ToolsUtils.isEmpty(user.getUserName())) {
 			user = new UserDto();
 			user.setUserName("billow");
 			user.setUserId(1);
 		}
-		Authentication.setAuthenticatedUserId(user.getUserName());
 		session.setAttribute("currentUser", user);
+		Authentication.setAuthenticatedUserId(user.getUserName());
 		return "page/home/index";
 	}
 

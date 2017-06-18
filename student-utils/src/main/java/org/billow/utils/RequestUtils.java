@@ -1,6 +1,7 @@
 package org.billow.utils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -98,7 +99,22 @@ public class RequestUtils {
 	 * @date 2017年1月22日 下午3:13:54
 	 */
 	public static HttpServletRequest getRequest() {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
 		return request;
+	}
+
+	/**
+	 * 获取HttpSession
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年1月22日 下午3:13:54
+	 */
+	public static HttpSession getSession(HttpServletRequest request) {
+		return request.getSession();
 	}
 }

@@ -36,7 +36,7 @@ $(document).ready(function() {
             	    flag = data;
                     if (data == "ok") {
                         //验证成功并重定向到welcome页面
-                        window.location = path + "/home/main";
+                        top.location = path + "/home/homeIndex?type=weichat";
                     }
             	});
 	    	if (flag == 'invalid') {
