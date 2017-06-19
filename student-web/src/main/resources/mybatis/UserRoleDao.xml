@@ -7,10 +7,10 @@
 		<result column="role_id" jdbcType="INTEGER" property="roleId" />
 	</resultMap>
 
-	<!-- 用户级联查询出角色信息 -->
-	<resultMap id="RoleResultMap" type="org.billow.model.expand.UserRoleDto" extends="BaseResultMap">
-		<collection property="roleDto" javaType="org.billow.model.expand.RoleDto" column="role_id"
-			ofType="org.billow.model.expand.UserDto" select="org.billow.dao.RoleDao.selectByPrimaryKey" />
+	<!-- 用户id级联查询出角色信息 -->
+	<resultMap id="UserRoleResultMap" type="org.billow.model.expand.UserRoleDto" extends="BaseResultMap">
+		<collection property="roleDto" javaType="org.billow.model.expand.RoleDto" column="id"
+			ofType="org.billow.model.expand.RoleDto" select="org.billow.dao.RoleDao.selectByPrimaryKey" />
 	</resultMap>
 
 	<insert id="insert" parameterType="org.billow.model.expand.UserRoleDto">
@@ -39,8 +39,10 @@
 		</trim>
 	</insert>
 
-	<select id="findRoleByUserId" resultMap="RoleResultMap" parameterType="org.billow.model.expand.UserRoleDto">
-		select r.user_id,r.role_id from
+	<select id="findUserRoleByUserId" resultMap="UserRoleResultMap" parameterType="org.billow.model.expand.UserRoleDto">
+		select r.user_id,r.role_id as id
+		from
 		t_user_role r
+		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
 </mapper>

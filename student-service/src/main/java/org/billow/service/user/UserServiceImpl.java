@@ -1,13 +1,17 @@
 package org.billow.service.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.billow.api.user.UserService;
 import org.billow.dao.UserDao;
+import org.billow.model.expand.RoleDto;
 import org.billow.model.expand.UserDto;
+import org.billow.model.expand.UserRoleDto;
 import org.billow.service.base.BaseServiceImpl;
+import org.billow.utils.ToolsUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +56,22 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 	@Override
 	public UserDto getUserByOpenId(String openId) {
 		return userDao.getUserByOpenId(openId);
+	}
+
+	@Override
+	public UserDto findRoleListByUserId(int userId) {
+		UserDto userDto = userDao.findRoleListByUserId(userId);
+		if (userDto != null) {
+			List<RoleDto> roleDtos = new ArrayList<>();
+			List<UserRoleDto> userRoleDtos = userDto.getUserRoleDtos();
+			if (ToolsUtils.isNotEmpty(userRoleDtos)) {
+				for (UserRoleDto userRoleDto : userRoleDtos) {
+					roleDtos.add(userRoleDto.getRoleDto());
+				}
+			}
+			userDto.setRoleDtos(roleDtos);
+		}
+		return userDto;
 	}
 
 }

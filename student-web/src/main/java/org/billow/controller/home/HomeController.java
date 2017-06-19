@@ -25,7 +25,9 @@ import org.billow.api.menu.MenuService;
 import org.billow.api.user.UserService;
 import org.billow.model.domain.MenuBase;
 import org.billow.model.expand.MenuDto;
+import org.billow.model.expand.RoleDto;
 import org.billow.model.expand.UserDto;
+import org.billow.model.expand.UserRoleDto;
 import org.billow.utils.HttpRequest;
 import org.billow.utils.RequestUtils;
 import org.billow.utils.ToolsUtils;
@@ -68,6 +70,12 @@ public class HomeController implements Comparator<MenuBase> {
 	 */
 	@RequestMapping("/login")
 	public String login() {
+		UserDto user = userService.findRoleListByUserId(1);
+		List<UserRoleDto> userRoleDtos = user.getUserRoleDtos();
+		for(UserRoleDto userRoleDto : userRoleDtos){
+			RoleDto roleDto = userRoleDto.getRoleDto();
+			System.out.println(roleDto);
+		}
 		return "page/home/login";
 	}
 

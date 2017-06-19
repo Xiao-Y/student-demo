@@ -17,10 +17,24 @@
 		<!-- 生成流程图的字体 -->
 		<property name="activityFontName" value="宋体" />
 		<property name="labelFontName" value="宋体" />
+
+		<!-- 自定义用户、用户组的配置 -->
+		<property name="customSessionFactories">
+			<list>
+				<bean class="org.billow.common.activiti.custom.CustomUserEntityManagerFactory">
+					<property name="customUserEntityManager" ref="customUserEntityManager" />
+				</bean>
+				<bean class="org.billow.common.activiti.custom.CustomGroupEntityManagerFactory">
+					<property name="customGroupEntityManager" ref="customGroupEntityManager" />
+				</bean>
+			</list>
+		</property>
 	</bean>
-	
-	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
-	
+	<bean id="customUserEntityManager" class="org.billow.common.activiti.custom.manager.CustomUserEntityManager" />
+	<bean id="customGroupEntityManager" class="org.billow.common.activiti.custom.manager.CustomGroupEntityManager" />
+
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+
 	<!--定义引擎工厂bean -->
 	<bean id="processEngineFactory" class="org.activiti.spring.ProcessEngineFactoryBean">
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />

@@ -10,10 +10,11 @@
 		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
 		<result column="open_id" property="openId" jdbcType="VARCHAR" />
 	</resultMap>
-	
-	<!-- 与角色信息 -->
-	<resultMap id="BaseResultMap" type="org.billow.model.expand.UserDto" extends="BaseResultMap">
-		<collection property="userRoleDtos" javaType="ArrayList"/>
+
+	<!-- 级联角色信息 -->
+	<resultMap id="userResultMap" type="org.billow.model.expand.UserDto" extends="BaseResultMap">
+		<collection property="userRoleDtos" ofType="org.billow.model.expand.UserRoleDto" javaType="ArrayList"
+			column="user_id" select="org.billow.dao.UserRoleDao.findUserRoleByUserId" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -34,19 +35,26 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from t_user
 		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
-	
+
 	<select id="getUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from t_user
 		where open_id = #{openId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findRoleListByUserId" resultMap="userResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -102,7 +110,7 @@
 			</if>
 		</trim>
 	</insert>
-	
+
 	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.UserDto">
 		update t_user
 		<set>
@@ -121,7 +129,7 @@
 		</set>
 		where user_id = #{userId,jdbcType=INTEGER}
 	</update>
-	
+
 	<update id="updateByPrimaryKey" parameterType="org.billow.model.expand.UserDto">
 		update t_user
 		set

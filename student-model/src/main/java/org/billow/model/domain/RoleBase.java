@@ -27,4 +27,9 @@ public class RoleBase extends BaseModel implements Serializable {
 	public void setRolename(String rolename) {
 		this.rolename = rolename == null ? null : rolename.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "RoleBase [id=" + id + ", rolename=" + rolename + "]";
+	}
 }

@@ -10,8 +10,9 @@ public class UserDto extends UserBase {
 	private static final long serialVersionUID = -4013903577078716039L;
 
 	private boolean rememberMe;
-	
+
 	private List<UserRoleDto> userRoleDtos = new ArrayList<>();
+	private List<RoleDto> roleDtos = new ArrayList<>();
 
 	public boolean isRememberMe() {
 		return rememberMe;
@@ -28,5 +29,13 @@ public class UserDto extends UserBase {
 	public void setUserRoleDtos(List<UserRoleDto> userRoleDtos) {
 		this.userRoleDtos = userRoleDtos;
 	}
-	
+
+	public List<RoleDto> getRoleDtos() {
+		return roleDtos;
+	}
+
+	public void setRoleDtos(List<RoleDto> roleDtos) {
+		this.roleDtos = roleDtos;
+	}
+
 }

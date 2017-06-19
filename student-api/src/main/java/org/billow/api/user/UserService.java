@@ -24,4 +24,15 @@ public interface UserService extends BaseService<UserDto> {
 	 * @date: 2017年6月17日 上午7:54:00
 	 */
 	public UserDto getUserByOpenId(String openId);
+
+	/**
+	 * 通过用户id查询出角色信息
+	 * 
+	 * @param userId
+	 *            用户id
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月19日 下午9:32:11
+	 */
+	public UserDto findRoleListByUserId(int userId);
 }

@@ -3,7 +3,6 @@ package org.billow.dao;
 import java.util.List;
 
 import org.billow.dao.base.BaseDao;
-import org.billow.model.expand.RoleDto;
 import org.billow.model.expand.UserDto;
 
 public interface UserDao extends BaseDao<UserDto> {
@@ -12,6 +11,14 @@ public interface UserDao extends BaseDao<UserDto> {
 
 	int findUserCount(UserDto user);
 
+	/**
+	 * 微信查询
+	 * 
+	 * @param openId
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月19日 下午9:52:43
+	 */
 	UserDto getUserByOpenId(String openId);
 
 	/**
@@ -26,5 +33,5 @@ public interface UserDao extends BaseDao<UserDto> {
 	 * 
 	 * @date 2017年6月19日 下午3:48:57
 	 */
-	List<RoleDto> findRoleListByUserId(String userId);
+	UserDto findRoleListByUserId(int userId);
 }

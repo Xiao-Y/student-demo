@@ -9,6 +9,7 @@ import org.billow.service.base.BaseServiceImpl;
 
 public class RoleServiceImpl extends BaseServiceImpl<RoleDto> implements RoleService {
 
+	@SuppressWarnings("unused")
 	private RoleDao roleDao;
 
 	@Resource
