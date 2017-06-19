@@ -1,5 +1,8 @@
 package org.billow.model.expand;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.billow.model.domain.UserBase;
 
 public class UserDto extends UserBase {
@@ -7,12 +10,9 @@ public class UserDto extends UserBase {
 	private static final long serialVersionUID = -4013903577078716039L;
 
 	private boolean rememberMe;
-
-	/**
-	 * 微信账号唯一标识
-	 */
-	private String openID;
 	
+	private List<UserRoleDto> userRoleDtos = new ArrayList<>();
+
 	public boolean isRememberMe() {
 		return rememberMe;
 	}
@@ -21,12 +21,12 @@ public class UserDto extends UserBase {
 		this.rememberMe = rememberMe;
 	}
 
-	public String getOpenID() {
-		return openID;
+	public List<UserRoleDto> getUserRoleDtos() {
+		return userRoleDtos;
 	}
 
-	public void setOpenID(String openID) {
-		this.openID = openID;
+	public void setUserRoleDtos(List<UserRoleDto> userRoleDtos) {
+		this.userRoleDtos = userRoleDtos;
 	}
-
+	
 }

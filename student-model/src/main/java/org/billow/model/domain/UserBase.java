@@ -18,6 +18,10 @@ public class UserBase extends BaseModel implements Serializable{
 
 	private String phoneNumber;
 	private SystemLogBase systemLog;
+	/**
+	 * 微信账号唯一标识
+	 */
+	private String openID;
 
 	public Integer getUserId() {
 		return userId;
@@ -67,6 +71,13 @@ public class UserBase extends BaseModel implements Serializable{
 		this.systemLog = systemLog;
 	}
 
+	public String getOpenID() {
+		return openID;
+	}
+
+	public void setOpenID(String openID) {
+		this.openID = openID;
+	}
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", age=" + age + ", password=" + password + ", phoneNumber=" + phoneNumber + "]";

@@ -30,7 +30,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 		record.setUserName("XXXX");
 		record.setPhoneNumber("22222");
 		this.insert(record);
-		throw new RuntimeException();
 	}
 
 	@Override

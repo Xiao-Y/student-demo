@@ -10,17 +10,38 @@
 		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
 		<result column="open_id" property="openId" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<!-- 与角色信息 -->
+	<resultMap id="BaseResultMap" type="org.billow.model.expand.UserDto" extends="BaseResultMap">
+		<collection property="userRoleDtos" javaType="ArrayList"/>
+	</resultMap>
 
 	<sql id="Base_Column_List">
 		user_id, user_name, age, password, phone_number
 	</sql>
 
+	<!-- 公用查询条件 -->
+	<sql id="selectCondition">
+		<where>
+			<if test="null != userName and '' != userName">
+				u.user_Name like CONCAT('%','${userName}','%')
+			</if>
+			<if test="null != phoneNumber and '' != phoneNumber">
+				and u.phone_Number like CONCAT('%','${phoneNumber}','%')
+			</if>
+			<if test="null != age">
+				and u.age = #{age}
+			</if>
+		</where>
+	</sql>
+	
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from t_user
 		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
+	
 	<select id="getUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -81,6 +102,7 @@
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.UserDto">
 		update t_user
 		<set>
@@ -99,6 +121,7 @@
 		</set>
 		where user_id = #{userId,jdbcType=INTEGER}
 	</update>
+	
 	<update id="updateByPrimaryKey" parameterType="org.billow.model.expand.UserDto">
 		update t_user
 		set
@@ -112,21 +135,6 @@
 		#{userId,jdbcType=INTEGER}
 	</update>
 
-	<!-- 公用查询条件 -->
-	<sql id="selectCondition">
-		<where>
-			<if test="null != userName and '' != userName">
-				u.user_Name like CONCAT('%','${userName}','%')
-			</if>
-			<if test="null != phoneNumber and '' != phoneNumber">
-				and u.phone_Number like CONCAT('%','${phoneNumber}','%')
-			</if>
-			<if test="null != age">
-				and u.age = #{age}
-			</if>
-		</where>
-	</sql>
-	<!-- 关联查询：关联字段user中的别名userid要与article中的userid相同 -->
 	<select id="findUserList" resultMap="BaseResultMap" parameterType="org.billow.model.expand.UserDto">
 		select
 		<include refid="Base_Column_List" />
