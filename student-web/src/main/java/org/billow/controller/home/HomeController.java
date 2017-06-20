@@ -1,8 +1,6 @@
 package org.billow.controller.home;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collections;
@@ -72,7 +70,7 @@ public class HomeController implements Comparator<MenuBase> {
 	public String login() {
 		UserDto user = userService.findRoleListByUserId(1);
 		List<UserRoleDto> userRoleDtos = user.getUserRoleDtos();
-		for(UserRoleDto userRoleDto : userRoleDtos){
+		for (UserRoleDto userRoleDto : userRoleDtos) {
 			RoleDto roleDto = userRoleDto.getRoleDto();
 			System.out.println(roleDto);
 		}
@@ -207,20 +205,22 @@ public class HomeController implements Comparator<MenuBase> {
 		// 把uuid放入map中
 		map.put(randomUUID.toString(), null);
 		// 二维码图片扫描后的链接
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri="
-				+ redirectUri + "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri=" + redirectUri
+				+ "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
 		// 生成二维码图片
-		ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
+		// ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
 		String fileName = randomUUID + ".jpg";
 		String tempPath = req.getServletContext().getRealPath("/temp");
 		File file = new File(tempPath);
 		if (!file.isDirectory()) {
 			file.mkdirs();
 		}
-		OutputStream os = new FileOutputStream(new File(tempPath, fileName));
-		os.write(qrOut.toByteArray());
-		os.flush();
-		os.close();
+		String logo = req.getServletContext().getRealPath("/images/logo.png");
+		QrGenUtil.zxingCodeCreate(url, tempPath + "/" + fileName, 350, logo);
+		// OutputStream os = new FileOutputStream(new File(tempPath, fileName));
+		// os.write(qrOut.toByteArray());
+		// os.flush();
+		// os.close();
 		// 返回页面json字符串，uuid用于轮询检查时所带的参数， img用于页面图片显示
 		String jsonStr = "{\"uuid\":\"" + randomUUID + "\",\"img\":\"" + "/temp/" + fileName + "\"}";
 		OutputStream outStream = resp.getOutputStream();
@@ -256,9 +256,8 @@ public class HomeController implements Comparator<MenuBase> {
 			String url = "https://api.weixin.qq.com/sns/oauth2/access_token";
 			String param = "appid=" + appid + "&secret=" + appsecret + "&grant_type=authorization_code&code=" + code;
 			Gson gson = new Gson();
-			Map<String, String> map = gson.fromJson(HttpRequest.sendGet(url, param),
-					new TypeToken<Map<String, String>>() {
-					}.getType());
+			Map<String, String> map = gson.fromJson(HttpRequest.sendGet(url, param), new TypeToken<Map<String, String>>() {
+			}.getType());
 			Object openID = map.get("openid");
 			if (openID != null && !"".equals(openID)) {
 				// 通过openID获取user对象
@@ -275,6 +274,7 @@ public class HomeController implements Comparator<MenuBase> {
 			uuidMap.remove(uuid);
 			resp.getOutputStream().write("你还未绑定，请关注微信号并绑定账号！并使用微信客户端扫描！".getBytes());
 		} catch (Exception e) {
+			resp.getOutputStream().write("登陆失败！".getBytes());
 			e.printStackTrace();
 		}
 	}
