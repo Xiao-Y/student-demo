@@ -4,11 +4,14 @@ $(document).ready(function() {
 	}); 
     var uuid;//后台唯一值
     var count = 0;
+    var arr = [];//用于记录所有定时器序号
     //显示二维码
     showQrGen();
     
     //绑定刷新
     $("#QrGen").on("click",function(){
+    	debugger;
+    	clearIntervals(arr);
 	    showQrGen();
     });
     //显示二维码
@@ -20,7 +23,7 @@ $(document).ready(function() {
 	        //设置该uuid值
 	        uuid = obj.uuid;
 	        //设置二维码图片地址
-	        $("#QrGen").attr("src", path + "/" + obj.img);
+	        $("#QrGen").attr("src", path + obj.img);
 	        //检查验证登录
 	        checkScan();
 	    });
@@ -28,7 +31,7 @@ $(document).ready(function() {
     
     //轮询
 	function checkScan() {
-    	var intervalId = setInterval(function() {
+    	arr.push(setInterval(function() {
         	count++;
         	var flag = "";
             $.get(path + "/home/checkScan?uuid=" + uuid + "&count=" + count,
@@ -40,10 +43,19 @@ $(document).ready(function() {
                     }
             	});
 	    	if (flag == 'invalid') {
-	    		window.clearInterval(intervalId);
+	    		debugger;
 	    		count = 0;
+	    		clearIntervals(arr);
                 $("#QrGen").attr("src", path + "/images/0617135536.png");
 	    	}
-        },1000);
+        },1000));
+    }
+    
+    //清除所有定时器 
+    function clearIntervals(array){
+    	debugger;
+        for (var i = 0; i < array.length; i++) {
+           window.clearInterval(array[i]);
+        };
     }
 });

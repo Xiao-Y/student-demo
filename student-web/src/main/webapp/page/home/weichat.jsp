@@ -6,6 +6,7 @@
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/page/home/weichat.js"></script>
+<title>微信扫一扫</title>
 </head>
 <body style="text-align: center;">
 	<h3>打开微信扫一扫，可以快速登陆</h3>
