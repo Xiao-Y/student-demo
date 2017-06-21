@@ -33,12 +33,12 @@ i {
 				<div class="layui-form-item">
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i></label>
 					<!-- <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input"> -->
-					<select name="userName">
+					<select name="userId">
 						<option value="">请选用户</option>
-						<option value="admin">admin</option>
-						<option value="leaderuser">leaderuser</option>
-						<option value="hruser">hruser</option>
-						<option value="billow" selected="selected">billow</option>
+						<option value="4">admin</option>
+						<option value="3">hruser</option>
+						<option value="2">leaderuser</option>
+						<option value="1" selected="selected">billow</option>
 					</select>
 				</div>
 				<div class="layui-form-item">

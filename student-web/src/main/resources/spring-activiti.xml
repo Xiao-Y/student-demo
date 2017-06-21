@@ -19,19 +19,9 @@
 		<property name="labelFontName" value="宋体" />
 
 		<!-- 自定义用户、用户组的配置 -->
-		<property name="customSessionFactories">
-			<list>
-				<bean class="org.billow.common.activiti.custom.CustomUserEntityManagerFactory">
-					<property name="customUserEntityManager" ref="customUserEntityManager" />
-				</bean>
-				<bean class="org.billow.common.activiti.custom.CustomGroupEntityManagerFactory">
-					<property name="customGroupEntityManager" ref="customGroupEntityManager" />
-				</bean>
-			</list>
-		</property>
+		<property name="dbIdentityUsed" value="false" />
+		<!-- 通过视图的形式 -->
 	</bean>
-	<bean id="customUserEntityManager" class="org.billow.common.activiti.custom.manager.CustomUserEntityManager" />
-	<bean id="customGroupEntityManager" class="org.billow.common.activiti.custom.manager.CustomGroupEntityManager" />
 
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
 

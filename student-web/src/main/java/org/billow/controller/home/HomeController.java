@@ -95,13 +95,14 @@ public class HomeController implements Comparator<MenuBase> {
 			BeanUtils.copyProperties(currentUser, user);
 		}
 
-		if (ToolsUtils.isEmpty(user.getUserName())) {
+		if (null == user.getUserId()) {
 			user = new UserDto();
 			user.setUserName("billow");
 			user.setUserId(1);
 		}
+		user = userService.selectByPrimaryKey(user.getUserId());
 		session.setAttribute("currentUser", user);
-		Authentication.setAuthenticatedUserId(user.getUserName());
+		Authentication.setAuthenticatedUserId(user.getUserId().toString());
 		return "page/home/index";
 	}
 
