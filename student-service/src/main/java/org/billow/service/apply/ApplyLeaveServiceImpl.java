@@ -1,4 +1,4 @@
-package org.billow.service.leave;
+package org.billow.service.apply;
 
 import java.util.Date;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
-import org.billow.api.leave.LeaveService;
+import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.dao.LeaveDao;
 import org.billow.model.expand.LeaveDto;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageInfo;
 
 @Service
-public class LeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements LeaveService {
+public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements ApplyLeaveService {
 
 	private LeaveDao leaveDao;
 

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.log4j.Logger;
-import org.billow.api.leave.LeaveService;
+import org.billow.api.apply.ApplyLeaveService;
 import org.billow.common.login.LoginHelper;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.LeaveDto;
@@ -33,7 +33,7 @@ public class ApplyLeaveController {
 	private static final Logger logger = Logger.getLogger(ApplyLeaveController.class);
 
 	@Autowired
-	private LeaveService leaveService;
+	private ApplyLeaveService applyLeaveService;
 
 	/**
 	 * 请假申请
@@ -48,7 +48,7 @@ public class ApplyLeaveController {
 		ModelAndView av = new ModelAndView();
 		String viewName = PagePathCst.BASEPATH_APPLY + "leaveApply";
 		if (leave.getId() != null) {
-			LeaveDto leaveDto = leaveService.selectByPrimaryKey(leave.getId());
+			LeaveDto leaveDto = applyLeaveService.selectByPrimaryKey(leave.getId());
 			if (leaveDto != null && "7".equals(leaveDto.getStatus())) {// 被驳回的
 				viewName = PagePathCst.BASEPATH_APPLY + "leaveApplyRe";
 				av.addObject("leaveDto", leaveDto);
@@ -76,7 +76,7 @@ public class ApplyLeaveController {
 		String type = "";
 		try {
 			leave.setStatus("1");
-			ProcessInstance processInstance = leaveService.saveLeave(leave);
+			ProcessInstance processInstance = applyLeaveService.saveLeave(leave);
 			message = "流程已启动，流程ID：" + processInstance.getId();
 			type = MessageTipsCst.TYPE_SUCCES;
 		} catch (ActivitiException e) {
@@ -118,7 +118,7 @@ public class ApplyLeaveController {
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		leave.setUserDto(userDto);
 		leave.setUserName(userDto.getUserName());
-		PageInfo<LeaveDto> pages = leaveService.findLeaveList(leave);
+		PageInfo<LeaveDto> pages = applyLeaveService.findLeaveList(leave);
 		ModelAndView av = new ModelAndView();
 		av.addObject("page", pages);
 		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApplyList");
@@ -144,7 +144,7 @@ public class ApplyLeaveController {
 		String type = "";
 		try {
 			leave.setStatus("1");
-			leaveService.updateLeave(leave);
+			applyLeaveService.updateLeave(leave);
 			message = MessageTipsCst.UPDATE_SUCCESS;
 			type = MessageTipsCst.TYPE_SUCCES;
 		} catch (Exception e) {

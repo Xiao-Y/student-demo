@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.approval.ApprovalLeaveService;
-import org.billow.api.leave.LeaveService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.common.login.LoginHelper;
 import org.billow.model.custom.JsonResult;
@@ -42,7 +42,7 @@ public class ApprovalLeaveController {
 	@Autowired
 	private WorkFlowService workflowService;
 	@Autowired
-	private LeaveService leaveService;
+	private ApplyLeaveService applyLeaveService;
 
 	/**
 	 * 查询个人任务列表（要审批的请假）
@@ -84,7 +84,7 @@ public class ApprovalLeaveController {
 		try {
 			leave.setUserDto(userDto);
 			leave.setType(ActivitiCst.TYPE_LEAVE_COMMENT);
-			LeaveDto leaveDto = leaveService.findLeaveDto(leave);
+			LeaveDto leaveDto = applyLeaveService.findLeaveDto(leave);
 			List<String> transNames = workflowService.getOutGoingTransNames(leave.getTaskId());
 			av.addObject("leaveDto", leaveDto);
 			av.addObject("transNames", transNames);

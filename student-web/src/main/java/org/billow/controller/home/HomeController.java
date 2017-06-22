@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.impl.identity.Authentication;
-import org.billow.api.leave.LeaveService;
+import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.menu.MenuService;
 import org.billow.api.user.UserService;
 import org.billow.model.domain.MenuBase;
@@ -53,7 +53,7 @@ public class HomeController implements Comparator<MenuBase> {
 	@Autowired
 	private MenuService menuService;
 	@Autowired
-	private LeaveService leaveService;
+	private ApplyLeaveService applyLeaveService;
 	@Autowired
 	private UserService userService;
 

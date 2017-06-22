@@ -1,4 +1,4 @@
-package org.billow.api.leave;
+package org.billow.api.apply;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.billow.api.base.BaseService;
@@ -12,7 +12,7 @@ import com.github.pagehelper.PageInfo;
  * @author XiaoY
  * @date: 2017年5月28日 下午6:58:31
  */
-public interface LeaveService extends BaseService<LeaveDto> {
+public interface ApplyLeaveService extends BaseService<LeaveDto> {
 
 	/**
 	 * 保存请假申请，启动流程实例
