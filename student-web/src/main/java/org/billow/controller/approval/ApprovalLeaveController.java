@@ -12,6 +12,7 @@ import org.billow.common.login.LoginHelper;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
+import org.billow.utils.ToolsUtils;
 import org.billow.utils.constant.ActivitiCst;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
@@ -79,6 +80,7 @@ public class ApprovalLeaveController {
 	public ModelAndView leaveApplyApp(HttpSession session, LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
 		UserDto userDto = LoginHelper.getLoginUser(session);
+		String reportBack = leave.getFlag();
 		try {
 			leave.setUserDto(userDto);
 			leave.setType(ActivitiCst.TYPE_LEAVE_COMMENT);
@@ -89,7 +91,12 @@ public class ApprovalLeaveController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyApp");
+		// 进入销假页面
+		if (ToolsUtils.isNotEmpty(reportBack) && "reportBack".equals(reportBack)) {
+			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyReportBack");
+		} else {
+			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyApp");
+		}
 		return av;
 	}
 
@@ -141,8 +148,7 @@ public class ApprovalLeaveController {
 	 */
 	@ResponseBody
 	@RequestMapping("/leaveClaim/{leaveId}/{taskId}")
-	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId,
-			HttpSession session) {
+	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId, HttpSession session) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);

@@ -1,6 +1,7 @@
 package org.billow.api.workflow;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -159,6 +160,25 @@ public interface WorkFlowService {
 	 * @date 2017年6月8日 下午12:54:15
 	 */
 	public <T> void complete(T t, String processDefinitionKey, String assignee) throws Exception;
+
+	/**
+	 * 完成个人任务，并添加批注信息
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param t
+	 * @param processDefinitionKey
+	 *            流程定义key
+	 * @param assignee
+	 *            任务人
+	 * @param variables
+	 *            流程变量
+	 * @throws Exception
+	 * 
+	 * @date 2017年6月22日 上午9:58:11
+	 */
+	public <T> void complete(T t, String processDefinitionKey, String assignee, Map<String, Object> variables) throws Exception;
 
 	/**
 	 * 根据任务Id，获取所有出口的名称，用于生成按钮

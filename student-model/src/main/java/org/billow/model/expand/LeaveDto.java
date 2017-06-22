@@ -13,6 +13,7 @@ public class LeaveDto extends LeaveBase {
 	private static final long serialVersionUID = 3221605134094266678L;
 	private UserDto userDto;
 	private String type;
+	private String flag;
 
 	public UserDto getUserDto() {
 		return userDto;
@@ -28,5 +29,13 @@ public class LeaveDto extends LeaveBase {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 }

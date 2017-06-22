@@ -14,16 +14,20 @@
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i> 添加信息
+				<i class="layui-icon">&#xe608;</i>
+				添加信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small" id="import">
-				<i class="layui-icon">&#xe608;</i> 导入信息
+				<i class="layui-icon">&#xe608;</i>
+				导入信息
 			</a>
 			<a href="#" class="layui-btn layui-btn-small">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+				导出信息
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i> 搜索
+				<i class="layui-icon">&#xe615;</i>
+				搜索
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -60,7 +64,8 @@
 									<fmt:formatDate value="${leave.endTime  }" pattern="yyyy-MM-dd" />
 								</td>
 								<td>
-									<a target="_blank" title="点击查看流程图" href='${ctx }/workFlow/openActivitiProccessImagePage/leaveComment/${leave.processInstanceId }'>
+									<a target="_blank" title="点击查看流程图"
+										href='${ctx }/workFlow/openActivitiProccessImagePage/leaveComment/${leave.processInstanceId }'>
 										<c:if test="${empty task.name }">已完成</c:if>
 										<c:if test="${not empty task.name }">${task.name }</c:if>
 									</a>
@@ -80,8 +85,12 @@
 											<a class="claim" id="${leave.id}" name="leaveClaim" taskId="${task.id}" href="javascript:;">签收</a>
 										</c:if>
 										<c:if test="${not empty task.assignee }">
-											<%-- 此处用tkey记录当前节点的名称 --%>
-											<a href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${leave.processInstanceId }&taskId=${task.id}">办理</a>
+											<c:if test="${leave.userName == task.assignee }">
+												<a href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${leave.processInstanceId }&taskId=${task.id}&flag=reportBack">销假 </a>
+											</c:if>
+											<c:if test="${leave.userName != task.assignee }">  
+												<a href="${ctx }/approvalLeave/leaveApplyApp?id=${leave.id }&processInstanceId=${leave.processInstanceId }&taskId=${task.id}">办理</a>
+											</c:if>
 										</c:if>
 									</c:if>
 								</td>

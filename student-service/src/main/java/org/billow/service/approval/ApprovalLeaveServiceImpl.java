@@ -1,5 +1,8 @@
 package org.billow.service.approval;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.activiti.engine.repository.ProcessDefinition;
 import org.billow.api.approval.ApprovalLeaveService;
 import org.billow.api.workflow.WorkFlowService;
@@ -51,7 +54,10 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
 		UserDto userDto = leave.getUserDto();
 		String assignee = userDto.getUserName();
-		workFlowService.complete(leave, processDefinitionKey, assignee);
+		boolean applyPass = leave.getApplyPass();
+		Map<String, Object> map = new HashMap<>();
+		map.put("applyPass", applyPass);
+		workFlowService.complete(leave, processDefinitionKey, assignee, map);
 	}
 
 	@Override
