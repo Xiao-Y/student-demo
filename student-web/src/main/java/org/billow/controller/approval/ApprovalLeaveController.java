@@ -148,7 +148,8 @@ public class ApprovalLeaveController {
 	 */
 	@ResponseBody
 	@RequestMapping("/leaveClaim/{leaveId}/{taskId}")
-	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId, HttpSession session) {
+	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId,
+			HttpSession session) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);

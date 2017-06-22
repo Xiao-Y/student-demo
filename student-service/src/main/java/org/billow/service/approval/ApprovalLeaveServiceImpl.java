@@ -57,6 +57,13 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 		boolean applyPass = leave.getApplyPass();
 		Map<String, Object> map = new HashMap<>();
 		map.put("applyPass", applyPass);
+		// 销假
+		if ("reportBack".equals(leave.getFlag())) {
+			map.put("startTime", leave.getStartTime());
+			map.put("endTime", leave.getEndTime());
+			map.put("status", "9");// 销假完成
+			map.put("id", leave.getId());
+		}
 		workFlowService.complete(leave, processDefinitionKey, assignee, map);
 	}
 
