@@ -10,28 +10,34 @@ public final class StringUtils {
 
 	private String defaultCharset = "UTF-8";
 
+	/**
+	 * 获取默认编码，UTF-8
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:06:30
+	 */
 	public String getDefaultCharset() {
 		return defaultCharset;
 	}
 
-	public void setDefaultCharset(String defaultCharset) {
-		this.defaultCharset = defaultCharset;
-	}
-
-	public static String newString(String value, int length) {
-		if (value == null)
-			return null;
-		StringBuilder buffer = new StringBuilder();
-		for (int i = 0; i < length; i++)
-			buffer.append(value);
-
-		return buffer.toString();
-	}
-
-	public static String newString(char inChr, int length) {
-		return newString(String.valueOf(inChr), length);
-	}
-
+	/**
+	 * 复制字符串
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源字符串
+	 * @param copyTimes
+	 *            复制的次数
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:08:27
+	 */
 	public static String copyString(String str, int copyTimes) {
 		if (str == null)
 			return null;
@@ -42,6 +48,17 @@ public final class StringUtils {
 		return buffer.toString();
 	}
 
+	/**
+	 * 获取字节长度
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:09:08
+	 */
 	public static int getBytesLength(String str) {
 		if (str == null)
 			return -1;
@@ -49,6 +66,24 @@ public final class StringUtils {
 			return str.getBytes().length;
 	}
 
+	/**
+	 * 从指定位置搜索字符串出现的位置
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param subStr
+	 *            目标
+	 * @param startIndex
+	 *            开始搜索的位置
+	 * @param occurrenceTimes
+	 *            第几次出现
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:21:27
+	 */
 	public static int indexOf(String str, String subStr, int startIndex, int occurrenceTimes) {
 		int foundCount = 0;
 		int index = startIndex;
@@ -69,10 +104,44 @@ public final class StringUtils {
 		return index - substrLength;
 	}
 
+	/**
+	 * 从头开始搜索字符串出现的位置
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param subStr
+	 *            目标
+	 * @param occurrenceTimes
+	 *            第几次出现
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:21:27
+	 */
 	public static int indexOf(String str, String subStr, int occurrenceTimes) {
 		return indexOf(str, subStr, 0, occurrenceTimes);
 	}
 
+	/**
+	 * 
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param subStr
+	 *            目标
+	 * @param fromIndex
+	 *            开始搜索的位置
+	 * @param caseSensitive
+	 *            是否忽略大小写
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:28:27
+	 */
 	public static int indexOf(String str, String subStr, int fromIndex, boolean caseSensitive) {
 		if (!caseSensitive)
 			return str.toLowerCase().indexOf(subStr.toLowerCase(), fromIndex);
@@ -80,6 +149,24 @@ public final class StringUtils {
 			return str.indexOf(subStr, fromIndex);
 	}
 
+	/**
+	 * 将字符串替换成指定的字符串
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param searchStr
+	 *            目标
+	 * @param replaceStr
+	 *            指定的字符串
+	 * @param caseSensitive
+	 *            是否忽略大小写
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:30:27
+	 */
 	public static String replace(String str, String searchStr, String replaceStr, boolean caseSensitive) {
 		int i = 0;
 		int j = 0;
@@ -102,14 +189,62 @@ public final class StringUtils {
 		return buffer.toString();
 	}
 
+	/**
+	 * 将字符串替换成指定的字符串（忽略大小写）
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param searchStr
+	 *            目标
+	 * @param replaceStr
+	 *            指定的字符串
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:30:27
+	 */
 	public static String replace(String str, String searchStr, String replaceStr) {
 		return replace(str, searchStr, replaceStr, true);
 	}
 
+	/**
+	 * 将字符串替换成指定的字符串（忽略大小写）
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param searchChar
+	 *            目标
+	 * @param replaceStr
+	 *            指定的字符串
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:30:27
+	 */
 	public static String replace(String str, char searchChar, String replaceStr) {
 		return replace(str, String.valueOf(searchChar), replaceStr, true);
 	}
 
+	/**
+	 * 从指定位置开始替换字符串
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 *            源
+	 * @param beginIndex
+	 *            指定位置
+	 * @param replaceStr
+	 *            指定的字符串
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:35:33
+	 */
 	public static String replace(String str, int beginIndex, String replaceStr) {
 		if (str == null)
 			return null;
@@ -193,6 +328,17 @@ public final class StringUtils {
 		return returnArray;
 	}
 
+	/**
+	 * 去掉右边的空白
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:12:29
+	 */
 	public static String rightTrim(String str) {
 		if (str == null)
 			return "";
@@ -203,6 +349,17 @@ public final class StringUtils {
 		return str.substring(0, length);
 	}
 
+	/**
+	 * 去掉左边的空白
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:12:51
+	 */
 	public static String leftTrim(String str) {
 		if (str == null)
 			return "";
@@ -214,10 +371,34 @@ public final class StringUtils {
 		return str.substring(start);
 	}
 
+	/**
+	 * 去掉所有空白
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:13:54
+	 */
 	public static String absoluteTrim(String str) {
 		return replace(str, " ", "");
 	}
 
+	/**
+	 * 全部转小写
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @param beginIndex
+	 * @param endIndex
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:05:47
+	 */
 	public static String lowerCase(String str, int beginIndex, int endIndex) {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append(str.substring(0, beginIndex));
@@ -226,6 +407,19 @@ public final class StringUtils {
 		return buffer.toString();
 	}
 
+	/**
+	 * 全部转大写
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @param beginIndex
+	 * @param endIndex
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:05:33
+	 */
 	public static String upperCase(String str, int beginIndex, int endIndex) {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append(str.substring(0, beginIndex));
@@ -234,6 +428,17 @@ public final class StringUtils {
 		return buffer.toString();
 	}
 
+	/**
+	 * 首字母转小写
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param iString
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:05:12
+	 */
 	public static String lowerCaseFirstChar(String iString) {
 		if (iString == null || iString.length() < 1)
 			throw new IllegalArgumentException("String must have at least one character.");
@@ -241,6 +446,17 @@ public final class StringUtils {
 			return (new StringBuilder(iString.length())).append(iString.substring(0, 1).toLowerCase()).append(iString.substring(1)).toString();
 	}
 
+	/**
+	 * 首字母转大写
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param iString
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:04:25
+	 */
 	public static String upperCaseFirstChar(String iString) {
 		if (iString == null || iString.length() < 1)
 			throw new IllegalArgumentException("String must have at least one character.");
@@ -266,6 +482,20 @@ public final class StringUtils {
 		return foundCount;
 	}
 
+	/**
+	 * 字符串转Map<br/>
+	 * 形式：a=1,b=2,c=3或者1,2,3<br/>
+	 * 转换：map.put("a",1)或者map.(1,1)
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @param splitString
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:00:02
+	 */
 	public static Map<String, String> toMap(String str, String splitString) {
 		Map<String, String> map = new HashMap<>();
 		String values[] = split(str, splitString);
@@ -288,6 +518,17 @@ public final class StringUtils {
 		return map;
 	}
 
+	/**
+	 * 字符串转ascii
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param str
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:03:21
+	 */
 	public static String native2ascii(String str) {
 		char ca[] = str.toCharArray();
 		StringBuilder buffer = new StringBuilder(ca.length * 6);
@@ -302,6 +543,17 @@ public final class StringUtils {
 		return buffer.toString();
 	}
 
+	/**
+	 * 数组转字符串
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param sources
+	 * @return
+	 * 
+	 * @date 2017年6月23日 上午9:02:39
+	 */
 	public static String concat(Object sources[]) {
 		if (sources == null)
 			return "";
