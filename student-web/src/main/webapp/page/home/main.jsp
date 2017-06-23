@@ -11,6 +11,12 @@
 
 <body>
 	<fieldset class="layui-elem-field">
+		<legend>部署流程</legend>
+		<div class="layui-field-box">
+			<a href="${ctx }/sysAct/deployTest">部署</a>
+		</div>
+	</fieldset>
+	<fieldset class="layui-elem-field">
 		<legend>我的待办任务</legend>
 		<div class="layui-field-box">内容区域</div>
 	</fieldset>
