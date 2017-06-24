@@ -8,20 +8,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.billow.utils.date.DateTime;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 数据操作工具类
@@ -251,16 +257,26 @@ public class ToolsUtils {
 		Date year = new Date();
 		String thisYear = df.format(year);
 		selectTime.append("<select name=year>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) + 1) + ">").append(Integer.parseInt(thisYear) + 1).append("</option>");
-		selectTime.append("<option selected value=" + thisYear + ">").append(Integer.parseInt(thisYear)).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 1) + ">").append(Integer.parseInt(thisYear) - 1).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 2) + ">").append(Integer.parseInt(thisYear) - 2).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 3) + ">").append(Integer.parseInt(thisYear) - 3).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 4) + ">").append(Integer.parseInt(thisYear) - 4).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 5) + ">").append(Integer.parseInt(thisYear) - 5).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 6) + ">").append(Integer.parseInt(thisYear) - 6).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 7) + ">").append(Integer.parseInt(thisYear) - 7).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 8) + ">").append(Integer.parseInt(thisYear) - 8).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) + 1) + ">")
+				.append(Integer.parseInt(thisYear) + 1).append("</option>");
+		selectTime.append("<option selected value=" + thisYear + ">").append(Integer.parseInt(thisYear))
+				.append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 1) + ">")
+				.append(Integer.parseInt(thisYear) - 1).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 2) + ">")
+				.append(Integer.parseInt(thisYear) - 2).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 3) + ">")
+				.append(Integer.parseInt(thisYear) - 3).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 4) + ">")
+				.append(Integer.parseInt(thisYear) - 4).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 5) + ">")
+				.append(Integer.parseInt(thisYear) - 5).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 6) + ">")
+				.append(Integer.parseInt(thisYear) - 6).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 7) + ">")
+				.append(Integer.parseInt(thisYear) - 7).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 8) + ">")
+				.append(Integer.parseInt(thisYear) - 8).append("</option>");
 		selectTime.append("</select>");
 		return selectTime.toString();
 	}
@@ -437,11 +453,7 @@ public class ToolsUtils {
 	}
 
 	/**
-	 * 本方法用于将yyyy-MM-dd型的字符串转换成日期类型 取得参数日期的偏移日期，参数date格式为yyyy-MM-dd
-	 * 当输入addDay为正数时，为基准日期的后N天；负数时，为为基准日期的前N天
-	 * 列1：参数date为2008-01-01，addDay为-1，返回值为2007-12-31
-	 * 列2：参数date为2008-01-01，addDay为 1，返回值为2008-01-02
-	 * 列3：参数date为2008-01-01，addDay为 0，返回值为2008-01-01
+	 * 本方法用于将yyyy-MM-dd型的字符串转换成日期类型 取得参数日期的偏移日期，参数date格式为yyyy-MM-dd 当输入addDay为正数时，为基准日期的后N天；负数时，为为基准日期的前N天 列1：参数date为2008-01-01，addDay为-1，返回值为2007-12-31 列2：参数date为2008-01-01，addDay为 1，返回值为2008-01-02 列3：参数date为2008-01-01，addDay为 0，返回值为2008-01-01
 	 * 
 	 * @param strDate
 	 * @param addDay
@@ -817,8 +829,8 @@ public class ToolsUtils {
 					}
 				}
 			}
-		} else if ("01".equals(month) || "03".equals(month) || "05".equals(month) || "07".equals(month) || "08".equals(month) || "10".equals(month)
-				|| "12".equals(month)) {
+		} else if ("01".equals(month) || "03".equals(month) || "05".equals(month) || "07".equals(month)
+				|| "08".equals(month) || "10".equals(month) || "12".equals(month)) {
 			if (dayIn > 31) {
 				return false;
 			}
@@ -874,8 +886,8 @@ public class ToolsUtils {
 		if (propertyName == null || "".equals(propertyName)) {
 			return "";
 		} else {
-			return new StringBuilder(propertyName.length()).append(propertyName.substring(0, 1).toUpperCase()).append(propertyName.substring(1))
-					.toString();
+			return new StringBuilder(propertyName.length()).append(propertyName.substring(0, 1).toUpperCase())
+					.append(propertyName.substring(1)).toString();
 		}
 	}
 
@@ -1035,5 +1047,149 @@ public class ToolsUtils {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * 保存上传的文件，返回文件名的字符串以“*”分隔
+	 * 
+	 * @param imgUrls
+	 * @param request
+	 * @param realPath
+	 * @return
+	 */
+	public static String uploadFile(MultipartFile[] imgUrls, HttpServletRequest request, String realPath) {
+		String path = request.getSession().getServletContext().getRealPath(realPath);
+		// 获取图片的分割符
+		String imageSplit = ToolsUtils.getSystemConfigString(request, "imageUploadSplit");
+		StringBuffer buffer = new StringBuffer("");
+		for (MultipartFile m : imgUrls) {
+			// 获取文件的名称
+			String fileName = m.getOriginalFilename();
+			if (!StringUtils.isEmpty(fileName)) {
+				fileName = ToolsUtils.generateFileName(fileName);
+				File targetFile = new File(path, fileName);
+				// 文件路径不存在
+				if (!targetFile.exists()) {
+					// 新建文件
+					targetFile.mkdirs();
+				}
+				// 保存
+				try {
+					m.transferTo(targetFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// 拼接图片的名字，用于保存
+				buffer.append(fileName);
+				buffer.append(imageSplit);
+			}
+		}
+		String imgUrl = buffer.toString();
+		if (!StringUtils.isEmpty(imgUrl)) {
+			int index = imgUrl.lastIndexOf(imageSplit);
+			imgUrl = imgUrl.substring(0, index);
+		}
+		return imgUrl;
+	}
+
+	/**
+	 * 删除图片
+	 * 
+	 * @param realPath
+	 *            图片路径
+	 * @param imgUrls
+	 *            图片名称字符串，可以为单个
+	 * 
+	 * @date 2015年8月25日下午12:02:11
+	 */
+	public static void deleteFile(HttpServletRequest request, String imgUrls, String realPath) {
+		// 获取图片的分割符
+		String imageSplit = ToolsUtils.getSystemConfigString(request, "imageSplit");
+		String path = request.getSession().getServletContext().getRealPath(realPath);
+		if (!StringUtils.isEmpty(imgUrls)) {
+			String[] imageNames = imgUrls.split(imageSplit);
+			for (String imageName : imageNames) {
+				File file = new File(path, imageName);
+				if (file.exists()) {
+					file.delete();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 返回用户的IP地址
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String toIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("X-Forwarded-For");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_CLIENT_IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
+
+	/**
+	 * 传入原图名称，获得一个以时间格式的新名称
+	 * 
+	 * @param fileName
+	 *            　原图名称
+	 * @return
+	 */
+	public static String generateFileName(String fileName) {
+		DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+		String formatDate = format.format(new Date());
+		int random = new Random().nextInt(10000);
+		int position = fileName.lastIndexOf(".");
+		String extension = fileName.substring(position);
+		return formatDate + random + extension;
+	}
+
+	/**
+	 * 加载资源文件
+	 * 
+	 * @param filename
+	 * 
+	 * @date 2015年8月25日上午9:23:04
+	 */
+	public static Properties readPropertiesFile(String filename) {
+		Properties properties = new Properties();
+		try {
+			InputStream in = ToolsUtils.class.getClassLoader().getResourceAsStream(filename);
+			properties.load(in);
+			in.close(); // 关闭流
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return properties;
+	}
+
+	/**
+	 * 从内存中，通过key获取系统属性的value
+	 * 
+	 * @param request
+	 * @param key
+	 *            关键字
+	 * @return value
+	 */
+	public static String getSystemConfigString(HttpServletRequest request, String key) {
+		ServletContext sct = request.getServletContext();
+		Properties properties = (Properties) sct.getAttribute("SYSTEM_CONFIG");
+		String value = properties.getProperty(key);
+		return value;
 	}
 }
