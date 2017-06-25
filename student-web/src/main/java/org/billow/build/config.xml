@@ -11,9 +11,11 @@
 
 	<controllerPackageName>org.billow.controller.test</controllerPackageName>
 	<controllerClazzName>TestController</controllerClazzName>
+	<explainController>Test控制器</explainController>
 
 	<servicePackageName>org.billow.api.test</servicePackageName>
 	<serviceClazzName>TestService</serviceClazzName>
+	<explainService>service接口</explainService>
 
 	<serviceImplPackageName>org.billow.service.test</serviceImplPackageName>
 	<serviceImplClazzName>TestServiceImpl</serviceImplClazzName>
@@ -21,13 +23,16 @@
 
 	<daoPackageName>org.billow.dao</daoPackageName>
 	<daoClazzName>TestDao</daoClazzName>
+	<explainDao>dao接口</explainDao>
 
 	<modelBasePackageName>org.billow.model.domain</modelBasePackageName>
 	<modelBaseClazzName>TestBase</modelBaseClazzName>
+	<explainModelBase>数据库模型</explainModelBase>
 
 	<modelPackageName>org.billow.model.expand</modelPackageName>
 	<modelClazzName>TestDto</modelClazzName>
-	
+	<explainModel>model模型</explainModel>
+
 	<mapperPackageName>mybatis</mapperPackageName>
 	<mapperXMLName>TestDao</mapperXMLName>
 </root>
