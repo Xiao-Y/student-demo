@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.billow.build.data.SetData;
+import org.billow.build.model.MapperDaoModel;
 import org.billow.build.model.ModelModel;
 import org.billow.build.model.OtherModel;
 
@@ -69,6 +70,7 @@ public class Generate {
 
 		ModelModel mm = null;
 		OtherModel om = null;
+		MapperDaoModel mdm = null;
 		if ("modelBase.ftl".equals(ftlName)) {
 			mm = sd.getModelBase();
 		} else if ("modelDto.ftl".equals(ftlName)) {
@@ -81,37 +83,44 @@ public class Generate {
 			om = sd.getServiceImpl();
 		} else if ("dao.ftl".equals(ftlName)) {
 			om = sd.getDao();
+		} else if ("mapperDao.ftl".equals(ftlName)) {
+			mdm = sd.getMapperDao();
 		}
-		// } else if ("daoImpl.ftl".equals(ftlName)) {
-		// om = sd.getDaoImpl();
-		// }
 
 		String fileOutPath = "";
 		String clazzName = "";
 		if (mm != null) {
-			fileOutPath = mm.getPackageName();
-			clazzName = mm.getClazzName();
+			fileOutPath = BASEPATH + "/src/main/java/" + mm.getPackageName().replace(".", "/");
+			clazzName = mm.getClazzName() + ".java";
+		} else if (om != null) {
+			fileOutPath = BASEPATH + "/src/main/java/" + om.getPackageName().replace(".", "/");
+			clazzName = om.getClazzName() + ".java";
 		} else {
-			fileOutPath = om.getPackageName();
-			clazzName = om.getClazzName();
+			fileOutPath = BASEPATH + "/src/main/resources/" + mdm.getPackageName().replace(".", "/");
+			clazzName = mdm.getClazzName() + ".xml";
 		}
 		// java文件夹输出路径
-		fileOutPath = BASEPATH + "/src/main/java/" + fileOutPath.replace(".", "/");
 		File fileOutPathFile = new File(fileOutPath);
 		if (!fileOutPathFile.exists()) {
 			fileOutPathFile.mkdirs();
 		}
 		System.out.println("文件路径：" + fileOutPath);
 		// java文件输出路径
-		fileOutPath += "/" + clazzName + ".java";
+		fileOutPath += "/" + clazzName;
 		fileOutPathFile = new File(fileOutPath);
 		if (!fileOutPathFile.exists()) {
 			fileOutPathFile.createNewFile();
 		}
-		System.out.println("文件名：" + clazzName + ".java");
+		System.out.println("文件名：" + clazzName);
 		// 显示生成的数据
 		writer = new FileWriter(fileOutPathFile);
-		template.process(mm != null ? mm : om, writer);
+		if (mm != null) {
+			template.process(mm, writer);
+		} else if (om != null) {
+			template.process(om, writer);
+		} else if (mdm != null) {
+			template.process(mdm, writer);
+		}
 		writer.flush();
 		writer.close();
 	}

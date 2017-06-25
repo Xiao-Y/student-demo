@@ -21,6 +21,8 @@ public class ColumnModel {
 	private String remarks;
 	// 是否是主键
 	private boolean isPk;
+	// 对应实体类的名称
+	private String fieldName;
 
 	/**
 	 * 列名
@@ -176,9 +178,18 @@ public class ColumnModel {
 		this.isPk = isPk;
 	}
 
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
+	}
+
 	@Override
 	public String toString() {
-		return "ColumnDto [columnName=" + columnName + ", columnType=" + columnType + ", datasize=" + datasize
-				+ ", digits=" + digits + ", nullable=" + nullable + ", remarks=" + remarks + ", isPk=" + isPk + "]";
+		return "ColumnModel [columnName=" + columnName + ", columnType=" + columnType + ", datasize=" + datasize
+				+ ", digits=" + digits + ", nullable=" + nullable + ", remarks=" + remarks + ", isPk=" + isPk
+				+ ", fieldName=" + fieldName + "]";
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 import org.billow.build.model.BaseModel;
 import org.billow.build.model.ColumnModel;
 import org.billow.build.model.FieldModel;
+import org.billow.build.model.MapperDaoModel;
 import org.billow.build.model.ModelModel;
 import org.billow.build.model.OtherModel;
 import org.billow.build.readxml.ReadConfog;
@@ -32,8 +33,10 @@ public class SetData {
 	private OtherModel service;
 	private OtherModel serviceImpl;
 	private OtherModel dao;
+	private MapperDaoModel mapperDao;
 	// private OtherModel daoImpl;
 	Map<String, Object> map;
+	Map<String, ColumnModel> columns;
 
 	// ----------单例模式：懒汉式，线程安全----start---------
 	private static SetData SD;
@@ -55,9 +58,33 @@ public class SetData {
 		serviceImpl = this.setServiceImplData();
 		dao = this.setDaoData();
 		// daoImpl = this.setDaoImplData();
+		mapperDao = this.setMapperDaoData();
 	}
 
 	// ----------单例模式：懒汉式，线程安全----end---------
+
+	/**
+	 * 添加mapperDao的数据
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月25日 下午8:28:08
+	 */
+	private MapperDaoModel setMapperDaoData() {
+		MapperDaoModel mapperDaoModel = new MapperDaoModel();
+		String namespace = map.get("daoPackageName") + "." + map.get("daoClazzName");
+		mapperDaoModel.setNamespace(namespace);
+		String type = map.get("modelPackageName") + "." + map.get("modelClazzName");
+		mapperDaoModel.setType(type);
+		mapperDaoModel.setColumns(columns);
+		Set<String> keySet = columns.keySet();
+		String columnStr = org.apache.commons.lang3.StringUtils.join(keySet, ",");
+		mapperDaoModel.setColumnStr(columnStr);
+		mapperDaoModel.setTableName((String) map.get("tableName"));
+		mapperDaoModel.setPackageName((String) map.get("mapperPackageName"));
+		mapperDaoModel.setClazzName((String) map.get("mapperXMLName"));
+		return mapperDaoModel;
+	}
 
 	/**
 	 * 添加modelBase的数据
@@ -190,7 +217,7 @@ public class SetData {
 		List<FieldModel> fields = new ArrayList<>();
 		String tableName = model.getTableName();
 		try {
-			Map<String, ColumnModel> columns = ReadDB.getColumns(null, tableName);
+			columns = ReadDB.getColumns(null, tableName);
 			this.columnModel2FieldModel(columns, fields);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -207,6 +234,8 @@ public class SetData {
 	 * @date: 2017年6月25日 下午5:36:04
 	 */
 	private void columnModel2FieldModel(Map<String, ColumnModel> columns, List<FieldModel> fields) {
+		// 必须至少有一个主键
+		boolean pk = false;
 		Set<String> keySet = columns.keySet();
 		for (String key : keySet) {
 			ColumnModel columnModel = columns.get(key);
@@ -228,11 +257,18 @@ public class SetData {
 			} else {
 				fieldName = columnName;
 			}
+			if (columnModel.getIsPk()) {
+				pk = true;
+			}
+			columnModel.setFieldName(fieldName);
 			field.setFieldName(fieldName);
 			String javaType = this.sqlType2javaType(columnModel.getColumnType());
 			field.setFieldType(javaType);
 			field.setRemarks(columnModel.getRemarks());
 			fields.add(field);
+		}
+		if (!pk) {
+			throw new RuntimeException("必须至少有一个主键！");
 		}
 	}
 
@@ -343,6 +379,14 @@ public class SetData {
 
 	public void setModelBase(ModelModel modelBase) {
 		this.modelBase = modelBase;
+	}
+
+	public MapperDaoModel getMapperDao() {
+		return mapperDao;
+	}
+
+	public void setMapperDao(MapperDaoModel mapperDao) {
+		this.mapperDao = mapperDao;
 	}
 
 	// public OtherModel getDaoImpl() {

@@ -19,7 +19,7 @@
 	<serviceImplClazzName>TestServiceImpl</serviceImplClazzName>
 	<explainServiceImpl>service实现类</explainServiceImpl>
 
-	<daoPackageName>org.billow.dao.test</daoPackageName>
+	<daoPackageName>org.billow.dao</daoPackageName>
 	<daoClazzName>TestDao</daoClazzName>
 
 	<modelBasePackageName>org.billow.model.domain</modelBasePackageName>
@@ -27,4 +27,7 @@
 
 	<modelPackageName>org.billow.model.expand</modelPackageName>
 	<modelClazzName>TestDto</modelClazzName>
+	
+	<mapperPackageName>mybatis</mapperPackageName>
+	<mapperXMLName>TestDao</mapperXMLName>
 </root>
