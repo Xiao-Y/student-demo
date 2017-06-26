@@ -6,6 +6,7 @@ import org.billow.model.domain.UserRoleBase;
 import org.billow.model.expand.UserRoleDto;
 
 public interface UserRoleDao {
+	
 	int insert(UserRoleBase record);
 
 	int insertSelective(UserRoleBase record);

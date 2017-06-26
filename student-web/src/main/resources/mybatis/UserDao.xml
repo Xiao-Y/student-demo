@@ -143,14 +143,14 @@
 		#{userId,jdbcType=INTEGER}
 	</update>
 
-	<select id="findUserList" resultMap="BaseResultMap" parameterType="org.billow.model.expand.UserDto">
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="org.billow.model.expand.UserDto">
 		select
 		<include refid="Base_Column_List" />
 		from t_user u
 		<include refid="selectCondition" />
 	</select>
 
-	<select id="findUserCount" resultType="int" parameterType="org.billow.model.expand.UserDto">
+	<select id="selectAllCount" resultType="int" parameterType="org.billow.model.expand.UserDto">
 		select count(*) from t_user u
 		<include refid="selectCondition" />
 	</select>
