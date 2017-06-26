@@ -71,15 +71,8 @@ public class Utils {
 	 */
 	public static String getOutPath() {
 		Properties properties = Utils.readPropertiesFile();
-		String outPath = (String) properties.get("outPath");
+		String outPath = (String) properties.get("outPath") + "\\";
 		System.out.println("outPath的路径：" + outPath);
 		return outPath;
-	}
-
-	public static void main(String[] args) {
-		Properties properties = Utils.readPropertiesFile();
-		Object configPath = properties.get("configPath");
-		System.out.println(configPath);
-		System.out.println(System.getProperty("user.dir"));
 	}
 }
