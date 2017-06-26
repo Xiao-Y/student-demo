@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 
- <#if explain??>
- * ${explain!}<br>
+ <#if explain?exists>
+ * ${explain}<br>
  </#if>
  *
  * @version ${version}

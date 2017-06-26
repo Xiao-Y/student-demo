@@ -5,8 +5,8 @@ import ${genericPackage}.${genericName};
 
 /**
  * 
- <#if explain??>
- * ${explain!}<br>
+ <#if explain?exists>
+ * ${explain}<br>
  </#if>
  *
  * @version ${version}

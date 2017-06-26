@@ -4,8 +4,8 @@ import ${modelBasePackageName}.${modelBaseClazzName};
   
 /**
  * 
- <#if explain??>
- * ${explain!}<br>
+ <#if explain?exists>
+ * ${explain}<br>
  </#if>
  *
  * @version ${version}

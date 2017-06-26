@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.billow.build.Utils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -19,11 +20,10 @@ public class ReadConfog {
 
 	public Map<String, Object> readXml() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String basePath = System.getProperty("user.dir");
-		basePath += "/src/main/java/org/billow/build/config.xml";
+		String configPath = Utils.getConfigPath();
 		try {
 			SAXReader reader = new SAXReader();
-			Document document = reader.read(new File(basePath));
+			Document document = reader.read(new File(configPath));
 			Element root = document.getRootElement();
 
 			map.put("authorName", root.elementTextTrim("authorName"));
@@ -48,9 +48,12 @@ public class ReadConfog {
 			map.put("daoClazzName", root.elementTextTrim("daoClazzName"));
 			map.put("explainDao", root.elementTextTrim("explainDao"));
 
-			// map.put("daoImplPackageName", root.elementTextTrim("daoImplPackageName"));
-			// map.put("daoImplClazzName", root.elementTextTrim("daoImplClazzName"));
-			// map.put("explainDaoImpl", root.elementTextTrim("explainDaoImpl"));
+			// map.put("daoImplPackageName",
+			// root.elementTextTrim("daoImplPackageName"));
+			// map.put("daoImplClazzName",
+			// root.elementTextTrim("daoImplClazzName"));
+			// map.put("explainDaoImpl",
+			// root.elementTextTrim("explainDaoImpl"));
 
 			map.put("modelBasePackageName", root.elementTextTrim("modelBasePackageName"));
 			map.put("modelBaseClazzName", root.elementTextTrim("modelBaseClazzName"));

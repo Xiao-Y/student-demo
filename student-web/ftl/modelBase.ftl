@@ -5,8 +5,8 @@ import org.billow.model.base.BaseModel;
   
 /**
  * 
- <#if explain??>
- * ${explain!}<br>
+ <#if explain?exists>
+ * ${explain}<br>
  </#if>
  *
  * 对应的表名：${tableName}
@@ -18,36 +18,36 @@ import org.billow.model.base.BaseModel;
 public class ${clazzName} extends BaseModel implements Serializable { 
  
 <#list fields as pro>
-	<#if remarks??>
-	// ${remarks!}
+	<#if pro.remarks?exists>
+	// ${pro.remarks}
 	</#if>
     private ${pro.fieldType} ${pro.fieldName};  
 </#list>  
       
 <#list fields as pro> 
 	/**
-	<#if pro.remarks??>
-	 * ${pro.remarks!}
+	<#if pro.remarks?exists>
+	 * ${pro.remarks}
 	</#if>
 	 * 
 	 * @return
 	 * @author ${authorName}<br>
 	 * @date: ${date}
 	 */
-    public ${pro.fieldType} get<@upperFC>${pro.fieldName}</@upperFC>(){  
+    public ${pro.fieldType} get${pro.fieldName ? cap_first}(){  
         return this.${pro.fieldName};  
     } 
     
     /**
-	 <#if pro.remarks??>
-	 * ${pro.remarks!}
+	 <#if pro.remarks?exists>
+	 * ${pro.remarks}
 	 </#if>
 	 * 
 	 * @param ${pro.fieldName}
 	 * @author ${authorName}<br>
 	 * @date: ${date}
 	 */
-    public void set<@upperFC>${pro.fieldName}</@upperFC>(${pro.fieldType} ${pro.fieldName}){  
+    public void set${pro.fieldName ? cap_first}(${pro.fieldType} ${pro.fieldName}){  
         this.${pro.fieldName}=${pro.fieldName};  
     }  
      

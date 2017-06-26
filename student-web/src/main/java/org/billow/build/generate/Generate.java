@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.billow.build.Utils;
 import org.billow.build.data.SetData;
 import org.billow.build.model.MapperDaoModel;
 import org.billow.build.model.ModelModel;
@@ -17,11 +18,11 @@ import freemarker.template.TemplateException;
 public class Generate {
 
 	// 项目绝对路径
-	private static String BASEPATH = System.getProperty("user.dir");
+	// private static String BASEPATH = System.getProperty("user.dir");
 	// 模板文件的存放路径，这里是存放在项目根目录下的ftl文件夹中（相对路径）
-	public static final String FTLS_PATH = "ftl";
+	// public static final String FTLS_PATH = "ftl";
 	// 模板文件所在的文件夹(绝对路径)
-	public static String ABSOLUTE_FTLS_PATH = BASEPATH + "/" + FTLS_PATH;
+	// public static String ABSOLUTE_FTLS_PATH = BASEPATH + "/" + FTLS_PATH;
 
 	private static Configuration cfg;
 	private static Template template;
@@ -34,13 +35,14 @@ public class Generate {
 		System.out.println("java文件开始生成....");
 		SetData sd = SetData.getInstance();
 		try {
+			String fltPath = Utils.getFltPath();
 			// 创建Freemarker配置实例
 			cfg = new Configuration();
 			// 工程目录下的目录（ftl在工程下）--推荐
-			cfg.setDirectoryForTemplateLoading(new File(FTLS_PATH));
+			cfg.setDirectoryForTemplateLoading(new File(fltPath));
 			// 添加一个"宏"共享变量用来将属性名首字母大写
-			cfg.setSharedVariable("upperFC", new UpperFirstCharacter());
-			File absoluteFtls = new File(ABSOLUTE_FTLS_PATH);
+			//cfg.setSharedVariable("upperFC", new UpperFirstCharacter());
+			File absoluteFtls = new File(fltPath);
 			String[] ftlNames = absoluteFtls.list();// 获取ftl文件夹下的文件名称
 			for (String ftlName : ftlNames) {
 				Generate.writerFile(ftlName, sd);
@@ -89,14 +91,15 @@ public class Generate {
 
 		String fileOutPath = "";
 		String clazzName = "";
+		String outPath = Utils.getOutPath();
 		if (mm != null) {
-			fileOutPath = BASEPATH + "/src/main/java/" + mm.getPackageName().replace(".", "/");
+			fileOutPath = outPath + mm.getPackageName().replace(".", "/");
 			clazzName = mm.getClazzName() + ".java";
 		} else if (om != null) {
-			fileOutPath = BASEPATH + "/src/main/java/" + om.getPackageName().replace(".", "/");
+			fileOutPath = outPath + om.getPackageName().replace(".", "/");
 			clazzName = om.getClazzName() + ".java";
 		} else {
-			fileOutPath = BASEPATH + "/src/main/resources/" + mdm.getPackageName().replace(".", "/");
+			fileOutPath = outPath + mdm.getPackageName().replace(".", "/");
 			clazzName = mdm.getClazzName() + ".xml";
 		}
 		// java文件夹输出路径
