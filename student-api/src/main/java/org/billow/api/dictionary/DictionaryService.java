@@ -1,6 +1,6 @@
-package org.billow.dao;   
-
-import org.billow.dao.base.BaseDao;
+package org.billow.api.dictionary;   
+  
+import org.billow.api.base.BaseService;
 import org.billow.model.expand.DictionaryDto;
 
 /**
@@ -12,7 +12,7 @@ import org.billow.model.expand.DictionaryDto;
  * @Mail lyongtao123@126.com<br>
  * @date 2017-06-26 10:36:30
  */
-public interface DictionaryDao extends BaseDao<DictionaryDto> { 
+public interface DictionaryService extends BaseService<DictionaryDto>{ 
  
 
 }
