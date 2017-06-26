@@ -7,9 +7,9 @@
 		<result column="FIELD_CODE" property="fieldCode" jdbcType="VARCHAR" />
 		<result column="DISPLAY_FIELD" property="displayField" jdbcType="VARCHAR" />
 		<result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
-		<result column="CREATE_TIME" property="createTime" jdbcType="DATETIME" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="MODEL_CODE" property="modelCode" jdbcType="VARCHAR" />
-		<result column="UPDATE_TIME" property="updateTime" jdbcType="DATETIME" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
 		<result column="VALUE_FIELD" property="valueField" jdbcType="VARCHAR" />
 		<result column="MODEL_NAME" property="modelName" jdbcType="VARCHAR" />
 	</resultMap>
@@ -73,10 +73,10 @@
 		#{FIELD_CODE,jdbcType=VARCHAR},
 		#{DISPLAY_FIELD,jdbcType=VARCHAR},
 		#{FIELD_NAME,jdbcType=VARCHAR},
-		#{CREATE_TIME,jdbcType=DATETIME},
+		#{CREATE_TIME,jdbcType=TIMESTAMP},
 		#{ID,jdbcType=VARCHAR},
 		#{MODEL_CODE,jdbcType=VARCHAR},
-		#{UPDATE_TIME,jdbcType=DATETIME},
+		#{UPDATE_TIME,jdbcType=TIMESTAMP},
 		#{VALUE_FIELD,jdbcType=VARCHAR},
 		#{MODEL_NAME,jdbcType=VARCHAR}
 		)
@@ -129,7 +129,7 @@
 				#{FIELD_NAME,jdbcType=VARCHAR},
 			</if>
 			<if test="null != createTime">
-				#{CREATE_TIME,jdbcType=DATETIME},
+				#{CREATE_TIME,jdbcType=TIMESTAMP},
 			</if>
 			<if test="null != id">
 				#{ID,jdbcType=VARCHAR},
@@ -138,7 +138,7 @@
 				#{MODEL_CODE,jdbcType=VARCHAR},
 			</if>
 			<if test="null != updateTime">
-				#{UPDATE_TIME,jdbcType=DATETIME},
+				#{UPDATE_TIME,jdbcType=TIMESTAMP},
 			</if>
 			<if test="null != valueField">
 				#{VALUE_FIELD,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
 				FIELD_NAME = #{FIELD_NAME,jdbcType=VARCHAR},
 			</if>
 			<if test="null != createTime">
-				CREATE_TIME = #{CREATE_TIME,jdbcType=DATETIME},
+				CREATE_TIME = #{CREATE_TIME,jdbcType=TIMESTAMP},
 			</if>
 			<if test="null != id">
 				ID = #{ID,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
 				MODEL_CODE = #{MODEL_CODE,jdbcType=VARCHAR},
 			</if>
 			<if test="null != updateTime">
-				UPDATE_TIME = #{UPDATE_TIME,jdbcType=DATETIME},
+				UPDATE_TIME = #{UPDATE_TIME,jdbcType=TIMESTAMP},
 			</if>
 			<if test="null != valueField">
 				VALUE_FIELD = #{VALUE_FIELD,jdbcType=VARCHAR},
@@ -193,10 +193,10 @@
 		DISPLAY_FIELD = #{DISPLAY_FIELD,jdbcType=VARCHAR},
 		FIELD_NAME =
 		#{FIELD_NAME,jdbcType=VARCHAR},
-		CREATE_TIME = #{CREATE_TIME,jdbcType=DATETIME},
+		CREATE_TIME = #{CREATE_TIME,jdbcType=TIMESTAMP},
 		MODEL_CODE =
 		#{MODEL_CODE,jdbcType=VARCHAR},
-		UPDATE_TIME = #{UPDATE_TIME,jdbcType=DATETIME},
+		UPDATE_TIME = #{UPDATE_TIME,jdbcType=TIMESTAMP},
 		VALUE_FIELD =
 		#{VALUE_FIELD,jdbcType=VARCHAR},
 		MODEL_NAME = #{MODEL_NAME,jdbcType=VARCHAR}
