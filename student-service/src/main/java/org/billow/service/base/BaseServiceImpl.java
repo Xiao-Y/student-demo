@@ -11,8 +11,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 		this.baseDao = baseDao;
 	}
 
-	public int deleteByPrimaryKey(Integer TId) {
-		return baseDao.deleteByPrimaryKey(TId);
+	public int deleteByPrimaryKey(T record) {
+		return baseDao.deleteByPrimaryKey(record);
 	}
 
 	public int insert(T record) {
@@ -23,8 +23,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 		return baseDao.insertSelective(record);
 	}
 
-	public T selectByPrimaryKey(Integer TId) {
-		return (T) baseDao.selectByPrimaryKey(TId);
+	public T selectByPrimaryKey(T record) {
+		return (T) baseDao.selectByPrimaryKey(record);
 	}
 
 	public int updateByPrimaryKeySelective(T record) {

@@ -15,7 +15,7 @@ public interface BaseDao<T> {
 	 * 
 	 * @date 2017年4月14日 下午4:09:45
 	 */
-	int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(T record);
 
 	/**
 	 * 保存对象所有属性值
@@ -49,13 +49,13 @@ public interface BaseDao<T> {
 	 * <br>
 	 * added by liuyongtao<br>
 	 * 
-	 * @param id
+	 * @param record
 	 *            主键
 	 * @return
 	 * 
 	 * @date 2017年4月14日 下午4:12:18
 	 */
-	T selectByPrimaryKey(Integer id);
+	T selectByPrimaryKey(T record);
 
 	/**
 	 * 查询所有

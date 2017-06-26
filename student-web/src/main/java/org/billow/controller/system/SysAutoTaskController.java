@@ -79,7 +79,9 @@ public class SysAutoTaskController {
 	public ModelAndView editAutoTask(@PathVariable("jobId") Integer jobId) {
 		ModelAndView av = new ModelAndView();
 		if (jobId.compareTo(-1) != 0) {// 表示编辑
-			ScheduleJobDto dto = scheduleJobService.selectByPrimaryKey(jobId);
+			ScheduleJobDto dto = new ScheduleJobDto();
+			dto.setJobId(jobId);
+			dto = scheduleJobService.selectByPrimaryKey(dto);
 			av.addObject("task", dto);
 		}
 		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "autoTaskEdit");

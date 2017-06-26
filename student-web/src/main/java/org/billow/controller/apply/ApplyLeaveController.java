@@ -48,7 +48,7 @@ public class ApplyLeaveController {
 		ModelAndView av = new ModelAndView();
 		String viewName = PagePathCst.BASEPATH_APPLY + "leaveApply";
 		if (leave.getId() != null) {
-			LeaveDto leaveDto = applyLeaveService.selectByPrimaryKey(leave.getId());
+			LeaveDto leaveDto = applyLeaveService.selectByPrimaryKey(leave);
 			if (leaveDto != null && "7".equals(leaveDto.getStatus())) {// 被驳回的
 				viewName = PagePathCst.BASEPATH_APPLY + "leaveApplyRe";
 				av.addObject("leaveDto", leaveDto);

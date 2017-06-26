@@ -55,4 +55,18 @@ public interface ApplyLeaveService extends BaseService<LeaveDto> {
 	 * @date: 2017年6月14日 下午9:18:57
 	 */
 	void updateLeave(LeaveDto leave) throws Exception;
+
+	/**
+	 * 根据主键查询
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param id
+	 *            主键
+	 * @return
+	 * 
+	 * @date 2017年4月14日 下午4:12:18
+	 */
+	LeaveDto selectByPrimaryKey(Integer id);
 }

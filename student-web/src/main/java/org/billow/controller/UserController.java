@@ -90,7 +90,9 @@ public class UserController {
 
 	@RequestMapping(value = "/prepareForUserUpdate/{userId}", method = RequestMethod.GET)
 	public String prepareForUserUpdate(@PathVariable Integer userId, Model model) {
-		UserBase user = userService.selectByPrimaryKey(userId);
+		UserDto dto = new UserDto();
+		dto.setUserId(userId);
+		UserBase user = userService.selectByPrimaryKey(dto);
 		model.addAttribute("user", user);
 		return "user/prepareForUserAdd";
 	}
@@ -106,7 +108,9 @@ public class UserController {
 
 	@RequestMapping("/deleteUserByUserId/{userId}")
 	public String deleteUserByUserId(@PathVariable Integer userId) {
-		userService.deleteByPrimaryKey(userId);
+		UserDto dto = new UserDto();
+		dto.setUserId(userId);
+		userService.deleteByPrimaryKey(dto);
 		return "redirect:findUserList";
 	}
 

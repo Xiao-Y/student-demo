@@ -25,7 +25,9 @@ public class LeaveReportBackServiceImpl implements LeaveReportBackService {
 	public void notify(DelegateTask delegateTask) {
 		Integer id = (Integer) delegateTask.getVariable("id");
 		try {
-			LeaveDto leaveDto = leaveDao.selectByPrimaryKey(id);
+			LeaveDto dto = new LeaveDto();
+			dto.setId(id);
+			LeaveDto leaveDto = leaveDao.selectByPrimaryKey(dto);
 			String status = (String) delegateTask.getVariable("status");
 			Date startTime = (Date) delegateTask.getVariable("startTime");
 			Date endTime = (Date) delegateTask.getVariable("endTime");

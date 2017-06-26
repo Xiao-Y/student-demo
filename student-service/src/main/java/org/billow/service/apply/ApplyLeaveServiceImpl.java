@@ -69,10 +69,9 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 
 	@Override
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
-		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave.getId());
+		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave);
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
-					leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
@@ -101,6 +100,11 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 		UserDto userDto = leave.getUserDto();
 		String assignee = userDto.getUserName();
 		workFlowService.complete(leave, processDefinitionKey, assignee);
+	}
+
+	@Override
+	public LeaveDto selectByPrimaryKey(Integer id) {
+		return leaveDao.selectByPrimaryKey(id);
 	}
 
 }

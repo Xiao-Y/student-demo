@@ -60,7 +60,7 @@
 		where 1=1
 		and ID = #{id}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteByPrimaryKey" parameterType="org.billow.model.expand.DictionaryDto">
 		delete from t_dictionary
 		where 1=1
 		and ID = #{id}

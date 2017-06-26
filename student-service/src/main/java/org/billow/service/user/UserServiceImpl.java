@@ -28,7 +28,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 
 	@Override
 	public void deleteTest() {
-		this.deleteByPrimaryKey(15);
+		// this.deleteByPrimaryKey(15);
 		UserDto record = new UserDto();
 		record.setUserId(52);
 		record.setUserName("XXXX");
@@ -50,7 +50,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 
 	@Override
 	public UserDto findUserById(Integer id) {
-		return super.selectByPrimaryKey(id);
+		UserDto dto = new UserDto();
+		dto.setUserId(id);
+		return super.selectByPrimaryKey(dto);
 	}
 
 	@Override

@@ -36,7 +36,9 @@ public class TestRedisController {
 	@ResponseBody
 	@RequestMapping(value = "/findUserById")
 	public UserBase findUserById() {
-		UserBase i = userService.selectByPrimaryKey(3);
+		UserDto dto = new UserDto();
+		dto.setUserId(3);
+		UserBase i = userService.selectByPrimaryKey(dto);
 		return i;
 	}
 }

@@ -33,7 +33,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	/**
 	 * 任务是否有状态,0-无，1-有
 	 */
-	private static final String IS_CONCURRENT_YSE_ = "1";
+	// private static final String IS_CONCURRENT_YSE_ = "1";
 
 	@Autowired
 	private QuartzManager quartzManager;
@@ -43,7 +43,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 
 	@Override
 	public void updateJobStatus(ScheduleJobDto dto) throws Exception {
-		ScheduleJobDto scheduleJobDto = scheduleJobService.selectByPrimaryKey(dto.getJobId());
+		ScheduleJobDto scheduleJobDto = scheduleJobService.selectByPrimaryKey(dto);
 		if (JOB_STATUS_RESUME.equals(dto.getJobStatus())) {
 			quartzManager.resumeJob(scheduleJobDto);
 		} else if (JOB_STATUS_PAUSE.equals(dto.getJobStatus())) {
@@ -54,9 +54,11 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 
 	@Override
 	public void deleteAutoTask(int jobId) throws Exception {
-		ScheduleJobDto scheduleJobDto = scheduleJobService.selectByPrimaryKey(jobId);
+		ScheduleJobDto dto = new ScheduleJobDto();
+		dto.setJobId(jobId);
+		ScheduleJobDto scheduleJobDto = scheduleJobService.selectByPrimaryKey(dto);
 		quartzManager.deleteJob(scheduleJobDto);
-		scheduleJobService.deleteByPrimaryKey(jobId);
+		scheduleJobService.deleteByPrimaryKey(dto);
 	}
 
 	@Override
@@ -84,7 +86,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 			scheduleJobDto.setCreateTime(new Date());
 			scheduleJobService.insert(scheduleJobDto);
 		} else {// 表示更新
-			ScheduleJobDto jobDto = scheduleJobService.selectByPrimaryKey(scheduleJobDto.getJobId());
+			ScheduleJobDto jobDto = scheduleJobService.selectByPrimaryKey(scheduleJobDto);
 			scheduleJobDto.setCreateTime(jobDto.getCreateTime());
 			scheduleJobService.updateByPrimaryKey(scheduleJobDto);
 		}

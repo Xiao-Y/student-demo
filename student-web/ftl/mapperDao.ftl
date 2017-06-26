@@ -49,7 +49,7 @@
 			</#if>
 		</#list>
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteByPrimaryKey" parameterType="${type}">
 		delete from ${tableName}
 		where 1=1
 		<#list keys as key>

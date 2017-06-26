@@ -21,7 +21,9 @@ public class CustomUserEntityManager extends UserEntityManager {
 	public UserEntity findUserById(String userId) {
 		UserEntity userEntity = new UserEntity();
 		// 这是我们的dao方法查询回来的方法，是自己定义的user
-		UserDto cue = userService.selectByPrimaryKey(Integer.valueOf(userId));
+		UserDto dto = new UserDto();
+		dto.setUserId(Integer.valueOf(userId));
+		UserDto cue = userService.selectByPrimaryKey(dto);
 		// 将自定义的user转化为activiti的类
 		userEntity = ActivitiUserUtils.toActivitiUser(cue);
 		return userEntity;// 返回的是activiti的实体类
