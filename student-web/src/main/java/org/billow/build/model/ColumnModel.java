@@ -23,6 +23,8 @@ public class ColumnModel {
 	private boolean isPk;
 	// 对应实体类的名称
 	private String fieldName;
+	// 对应mybatis类型
+	private String mybatisType;
 
 	/**
 	 * 列名
@@ -186,10 +188,18 @@ public class ColumnModel {
 		this.fieldName = fieldName;
 	}
 
+	public String getMybatisType() {
+		return mybatisType;
+	}
+
+	public void setMybatisType(String mybatisType) {
+		this.mybatisType = mybatisType;
+	}
+
 	@Override
 	public String toString() {
-		return "ColumnModel [columnName=" + columnName + ", columnType=" + columnType + ", datasize=" + datasize
-				+ ", digits=" + digits + ", nullable=" + nullable + ", remarks=" + remarks + ", isPk=" + isPk
-				+ ", fieldName=" + fieldName + "]";
+		return "ColumnModel [columnName=" + columnName + ", columnType=" + columnType + ", datasize=" + datasize + ", digits=" + digits
+				+ ", nullable=" + nullable + ", remarks=" + remarks + ", isPk=" + isPk + ", fieldName=" + fieldName + ", mybatisType=" + mybatisType
+				+ "]";
 	}
 }

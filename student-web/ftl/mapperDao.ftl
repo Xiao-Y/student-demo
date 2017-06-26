@@ -6,9 +6,9 @@
 		<#list keys as key>
 			<#assign columnModel=columns[key]/>
 			<#if columnModel.isPk>
-				<id column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.columnType}" />
+				<id column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.mybatisType}" />
 				<#else>
-					<result column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.columnType}" />
+					<result column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.mybatisType}" />
 			</#if>
 		</#list>
 	</resultMap>
@@ -55,7 +55,7 @@
 		values (
 		<#list keys as key>
 			<#assign columnModel=columns[key]/>
-			${r'#{'}${columnModel.columnName},jdbcType=${columnModel.columnType}}<#if key_has_next>,</#if>
+			${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}}<#if key_has_next>,</#if>
 		</#list>
 		)
 	</insert>
@@ -73,7 +73,7 @@
 			<#list keys as key>
 				<#assign columnModel=columns[key]/>
 				<if test="null != ${columnModel.fieldName}">
-					${r'#{'}${columnModel.columnName},jdbcType=${columnModel.columnType}},
+					${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}},
 				</if>
 			</#list>
 		</trim>
@@ -84,7 +84,7 @@
 			<#list keys as key>
 				<#assign columnModel=columns[key]/>
 				<if test="null != ${columnModel.fieldName}">
-					${columnModel.columnName} = ${r'#{'}${columnModel.columnName},jdbcType=${columnModel.columnType}},
+					${columnModel.columnName} = ${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}},
 				</if>
 			</#list>
 		</set>
@@ -102,7 +102,7 @@
 		<#list keys as key>
 			<#assign columnModel=columns[key]/>
 			<#if !columnModel.isPk>
-				${columnModel.columnName} = ${r'#{'}${columnModel.columnName},jdbcType=${columnModel.columnType}}<#if key_has_next>,</#if>
+				${columnModel.columnName} = ${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}}<#if key_has_next>,</#if>
 			</#if>
 		</#list>
 		where 1=1

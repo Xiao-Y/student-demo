@@ -258,11 +258,16 @@ public class SetData {
 			} else {
 				fieldName = columnName;
 			}
+			// 判断是否含有主键
 			if (columnModel.getIsPk()) {
 				pk = true;
 			}
+			// sql类型转换为mybatis类型
+			String mybatisType = this.sqlType2MybatisType(columnModel.getColumnType());
+			columnModel.setMybatisType(mybatisType);
 			columnModel.setFieldName(fieldName);
 			field.setFieldName(fieldName);
+			// 类型转换器，sql类型的转换成java类型
 			String javaType = this.sqlType2javaType(columnModel.getColumnType());
 			field.setFieldType(javaType);
 			field.setRemarks(columnModel.getRemarks());
@@ -271,6 +276,31 @@ public class SetData {
 		if (!pk) {
 			throw new RuntimeException("必须至少有一个主键！");
 		}
+	}
+
+	/**
+	 * sql类型转换为mybatis类型
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param columnType
+	 * @return
+	 * 
+	 * @date 2017年6月26日 下午12:51:55
+	 */
+	private String sqlType2MybatisType(String sqlType) {
+		String mybatisType = "";
+		switch (sqlType) {
+		case "DATETIME":
+			mybatisType = "TIMESTAMP";
+			break;
+		case "TEXT":
+			mybatisType = "CLOB";
+		default:
+			break;
+		}
+		return mybatisType;
 	}
 
 	/**
@@ -284,27 +314,28 @@ public class SetData {
 	private String sqlType2javaType(String sqlType) {
 		String javaType = "";
 		switch (sqlType) {
-			case "INTEGER":
-			case "INT":
-				javaType = "Integer";
-				break;
-			case "CHAR":
-			case "VARCHAR":
-				javaType = "String";
-				break;
-			case "DATETIME":
-				javaType = "Date";
-				break;
-			case "FLOAT":
-				javaType = "Float";
-			case "DOUBLE":
-				javaType = "Double";
-				break;
-			case "decimal":
-				javaType = "BigDecimal";
-				break;
-			default:
-				break;
+		case "INTEGER":
+		case "INT":
+			javaType = "Integer";
+			break;
+		case "CHAR":
+		case "VARCHAR":
+			javaType = "String";
+			break;
+		case "TIMESTAMP":
+		case "DATETIME":
+			javaType = "Date";
+			break;
+		case "FLOAT":
+			javaType = "Float";
+		case "DOUBLE":
+			javaType = "Double";
+			break;
+		case "decimal":
+			javaType = "BigDecimal";
+			break;
+		default:
+			break;
 		}
 		return javaType;
 	}
