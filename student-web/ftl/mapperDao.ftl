@@ -15,18 +15,27 @@
 	<sql id="Base_Column_List">
 		${columnStr}
 	</sql>
-	<select id="selectAll" resultMap="BaseResultMap" parameterType="${type}">
-		select
-		<include refid="Base_Column_List" />
-		from ${tableName}
+	<!-- 公用查询条件 -->
+	<sql id="selectCondition">
 		<where>
 			<#list keys as key>
 				<#assign columnModel=columns[key]/>
-				<if test="null != ${columnModel.fieldName}">
+				<if test="null != ${columnModel.fieldName} and '' != ${columnModel.fieldName}">
 					and ${columnModel.columnName} = ${r'#{'}${columnModel.fieldName}${r'}'}
 				</if>
 			</#list>
 		</where>
+	</sql>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="${type}">
+		select
+		<include refid="Base_Column_List" />
+		from ${tableName}
+		<include refid="selectCondition" />
+	</select>
+	<select id="selectAllCount" resultMap="int" parameterType="${type}">
+		select count(*)
+		from ${tableName}
+		<include refid="selectCondition" />
 	</select>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="${type}">
 		select
