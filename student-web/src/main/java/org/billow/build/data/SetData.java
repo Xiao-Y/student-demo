@@ -242,6 +242,7 @@ public class SetData {
 			FieldModel field = new FieldModel();
 			String fieldName = "";
 			String columnName = columnModel.getColumnName();
+			columnName = columnName.toLowerCase();
 			int indexOf = StringUtils.indexOf(columnName, "_", 1);
 			if (indexOf > -1) {
 				String[] split = columnName.split("_");
