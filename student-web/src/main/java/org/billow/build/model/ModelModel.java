@@ -17,6 +17,10 @@ public class ModelModel extends BaseModel {
 
 	private String modelBasePackageName;
 	private String modelBaseClazzName;
+	// 主键构造器参数
+	private String constructor;
+	// 主键构造器参数(不带类型的)
+	private String constructorNo;
 
 	/**
 	 * 字段集合
@@ -53,5 +57,61 @@ public class ModelModel extends BaseModel {
 
 	public void setModelBaseClazzName(String modelBaseClazzName) {
 		this.modelBaseClazzName = modelBaseClazzName;
+	}
+
+	/**
+	 * 主键构造器参数
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年6月27日 上午10:31:12
+	 */
+	public String getConstructor() {
+		return constructor;
+	}
+
+	/**
+	 * 主键构造器参数
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param constructor
+	 * 
+	 * @date 2017年6月27日 上午10:31:15
+	 */
+	public void setConstructor(String constructor) {
+		this.constructor = constructor;
+	}
+
+	/**
+	 * 主键构造器参数(不带类型的)
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年6月27日 上午11:14:02
+	 */
+	public String getConstructorNo() {
+		return constructorNo;
+	}
+
+	/**
+	 * 主键构造器参数(不带类型的)
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param constructorNo
+	 * 
+	 * @date 2017年6月27日 上午11:14:05
+	 */
+	public void setConstructorNo(String constructorNo) {
+		this.constructorNo = constructorNo;
 	}
 }

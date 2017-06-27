@@ -37,6 +37,7 @@ public class FieldModel {
 	 */
 	private String nullable = "true";
 	private String remarks;
+	private boolean isPK;
 
 	/**
 	 * 数据库中字段名
@@ -89,5 +90,13 @@ public class FieldModel {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public boolean getIsPK() {
+		return isPK;
+	}
+
+	public void setIsPK(boolean isPK) {
+		this.isPK = isPK;
 	}
 }

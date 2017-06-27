@@ -16,7 +16,28 @@ import org.billow.model.base.BaseModel;
  * @date ${date}
  */
 public class ${clazzName} extends BaseModel implements Serializable { 
- 
+	
+	public ${clazzName}() {
+		super();
+	}
+	
+	/**
+	 * 主键构造器
+<#list fields as pro>
+	<#if pro.isPK>
+	 * @param ${pro.fieldName} <#if pro.remarks?exists>${pro.remarks}</#if>
+	</#if>
+</#list> 
+	 */
+	public ${clazzName}(${constructor}) {
+		super();
+<#list fields as pro>
+	<#if pro.isPK>
+		this.${pro.fieldName} = ${pro.fieldName};
+	</#if>
+</#list> 
+	}
+	
 <#list fields as pro>
 	<#if pro.remarks?exists>
 	// ${pro.remarks}

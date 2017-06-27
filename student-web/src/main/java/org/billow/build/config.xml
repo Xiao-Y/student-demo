@@ -7,32 +7,32 @@
 	<!-- 版本 -->
 	<version>1.0</version>
 	<!-- 表名 -->
-	<tableName>t_dictionary</tableName>
+	<tableName>t_leave</tableName>
 
-	<controllerPackageName>org.billow.controller.dictionary</controllerPackageName>
-	<controllerClazzName>DictionaryController</controllerClazzName>
+	<controllerPackageName>org.billow.controller.test</controllerPackageName>
+	<controllerClazzName>TestController</controllerClazzName>
 	<explainController>数据字典控制器</explainController>
 
-	<servicePackageName>org.billow.api.dictionary</servicePackageName>
-	<serviceClazzName>DictionaryService</serviceClazzName>
+	<servicePackageName>org.billow.api.test</servicePackageName>
+	<serviceClazzName>TestService</serviceClazzName>
 	<explainService>数据字典接口</explainService>
 
-	<serviceImplPackageName>org.billow.service.dictionary</serviceImplPackageName>
-	<serviceImplClazzName>DictionaryServiceImpl</serviceImplClazzName>
+	<serviceImplPackageName>org.billow.service.test</serviceImplPackageName>
+	<serviceImplClazzName>TestServiceImpl</serviceImplClazzName>
 	<explainServiceImpl>数据字典实现类</explainServiceImpl>
 
 	<daoPackageName>org.billow.dao</daoPackageName>
-	<daoClazzName>DictionaryDao</daoClazzName>
+	<daoClazzName>TestDao</daoClazzName>
 	<explainDao>数据字典接口</explainDao>
 
 	<modelBasePackageName>org.billow.model.domain</modelBasePackageName>
-	<modelBaseClazzName>DictionaryBase</modelBaseClazzName>
+	<modelBaseClazzName>TestBase</modelBaseClazzName>
 	<explainModelBase>数据字典数据库模型</explainModelBase>
 
 	<modelPackageName>org.billow.model.expand</modelPackageName>
-	<modelClazzName>DictionaryDto</modelClazzName>
+	<modelClazzName>TestDto</modelClazzName>
 	<explainModel>数据字典model模型</explainModel>
 
 	<mapperPackageName>mybatis</mapperPackageName>
-	<mapperXMLName>DictionaryDao</mapperXMLName>
+	<mapperXMLName>TestDao</mapperXMLName>
 </root>

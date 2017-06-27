@@ -101,6 +101,20 @@ public class SetData {
 		model.setExplain((String) map.get("explainModelBase"));
 		// 添加字段数据
 		this.setFieldData(model);
+		List<FieldModel> fields = model.getFields();
+		StringBuffer buffer = new StringBuffer();
+		for (FieldModel field : fields) {
+			if (field.getIsPK()) {
+				buffer.append(field.getFieldType());
+				buffer.append(" ");
+				buffer.append(field.getFieldName());
+				buffer.append(", ");
+			}
+		}
+		if (buffer.lastIndexOf(",") > -1) {
+			buffer = buffer.deleteCharAt(buffer.lastIndexOf(","));
+		}
+		model.setConstructor(buffer.toString());
 		return model;
 	}
 
@@ -119,6 +133,20 @@ public class SetData {
 		model.setExplain((String) map.get("explainModel"));
 		model.setModelBasePackageName((String) map.get("modelBasePackageName"));
 		model.setModelBaseClazzName((String) map.get("modelBaseClazzName"));
+		model.setConstructor(modelBase.getConstructor());
+		List<FieldModel> fields = modelBase.getFields();
+		model.setFields(fields);
+		StringBuffer buffer = new StringBuffer();
+		for (FieldModel field : fields) {
+			if (field.getIsPK()) {
+				buffer.append(field.getFieldName());
+				buffer.append(", ");
+			}
+		}
+		if (buffer.lastIndexOf(",") > -1) {
+			buffer = buffer.deleteCharAt(buffer.lastIndexOf(","));
+		}
+		model.setConstructorNo(buffer.toString());
 		return model;
 	}
 
@@ -271,6 +299,7 @@ public class SetData {
 			String javaType = this.sqlType2javaType(columnModel.getColumnType());
 			field.setFieldType(javaType);
 			field.setRemarks(columnModel.getRemarks());
+			field.setIsPK(columnModel.getIsPk());
 			fields.add(field);
 		}
 		if (!pk) {
