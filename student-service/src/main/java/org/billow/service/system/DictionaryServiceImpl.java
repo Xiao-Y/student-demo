@@ -33,7 +33,7 @@ public class DictionaryServiceImpl extends BaseServiceImpl<DictionaryDto> implem
 
 	@Override
 	public List<DictionaryDto> getDictionary(DictionaryDto dictionary) {
-		List<DictionaryDto> list = dictionaryDao.getDictionary(dictionary);
+		List<DictionaryDto> list = dictionaryDao.selectAll(dictionary);
 		return list;
 	}
 

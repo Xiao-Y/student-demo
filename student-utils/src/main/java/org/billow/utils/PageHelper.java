@@ -50,7 +50,7 @@ public class PageHelper extends com.github.pagehelper.PageHelper {
 	public static void startPage(HttpServletRequest request) {
 		Integer pageSize = RequestUtils.getPageSize(request);
 		Integer targetPage = RequestUtils.getTargetPage(request);
-		startPage(pageSize, targetPage);
+		startPage(targetPage, pageSize);
 	}
 
 	/**

@@ -52,6 +52,7 @@
 				and MODEL_NAME = #{modelName}
 			</if>
 		</where>
+		ORDER BY MODEL_CODE,FIELD_CODE,VALUE_FIELD
 	</select>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.billow.model.expand.DictionaryDto">
 		select

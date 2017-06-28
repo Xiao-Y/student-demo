@@ -17,14 +17,14 @@ import org.billow.model.expand.DictionaryDto;
  */
 public interface DictionaryDao extends BaseDao<DictionaryDto> {
 
-	/**
-	 * 根据条件查询出现所能符合条件的数据字典
-	 * 
-	 * @param dictionary
-	 *            查询条件
-	 * @return
-	 */
-	List<DictionaryDto> getDictionary(DictionaryDto dictionary);
+//	/**
+//	 * 根据条件查询出现所能符合条件的数据字典
+//	 * 
+//	 * @param dictionary
+//	 *            查询条件
+//	 * @return
+//	 */
+//	List<DictionaryDto> selectAll(DictionaryDto dictionary);
 
 	/**
 	 * 获取下拉列表
