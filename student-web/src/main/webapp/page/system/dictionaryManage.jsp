@@ -15,12 +15,6 @@
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
 				<i class="layui-icon">&#xe608;</i> 添加信息
 			</a>
-			<a href="#" class="layui-btn layui-btn-small" id="import">
-				<i class="layui-icon">&#xe608;</i> 导入信息
-			</a>
-			<a href="#" class="layui-btn layui-btn-small">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
-			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
 				<i class="layui-icon">&#xe615;</i> 搜索
 			</a>
@@ -32,11 +26,11 @@
 					<thead>
 						<tr>
 							<th>模块名称</th>
-							<th>模块CODE</th>
+							<th>模块Key</th>
 							<th>字段名称</th>
-							<th>字段CODE</th>
+							<th>字段Key</th>
 							<th>下拉显示</th>
-							<th>下拉VALUE</th>
+							<th>下拉值</th>
 							<th>创建时间</th>
 							<th>更新时间</th>
 							<th>操作</th>
