@@ -17,7 +17,6 @@ import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.billow.utils.PageHelper;
 import org.billow.utils.ToolsUtils;
-import org.billow.utils.constant.ActivitiCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +50,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 			identityService.setAuthenticatedUserId(userDto.getUserName());
 			// 业务主键
 			String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
-			String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+			String processDefinitionKey = leave.getProcessDefinitionKey();
 			// 启动流程实例
 			processInstance = workFlowService.startProcessInstanceByKey(processDefinitionKey, businessKey);
 			String processInstanceId = processInstance.getProcessInstanceId();
@@ -96,7 +95,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 	public void updateLeave(LeaveDto leave) throws Exception {
 		leave.setApplyTime(new Date());
 		leaveDao.updateByPrimaryKeySelective(leave);
-		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+		String processDefinitionKey = leave.getProcessDefinitionKey();
 		UserDto userDto = leave.getUserDto();
 		String assignee = userDto.getUserName();
 		workFlowService.complete(leave, processDefinitionKey, assignee);

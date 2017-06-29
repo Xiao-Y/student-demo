@@ -17,6 +17,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">请假类型：</label>
 				<div class="layui-input-block">
+					<input type="hidden" id="processDefinitionKey" value="${leaveDto.processDefinitionKey }">
 					<input type="hidden" id="leaveTypeTemp" value="${leaveDto.leaveType}">
 					<select id="leaveType" name="leaveType" lay-verify="required" lay-search>
 						<option value=""></option>

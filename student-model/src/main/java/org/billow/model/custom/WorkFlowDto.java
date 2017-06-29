@@ -47,6 +47,8 @@ public class WorkFlowDto implements Serializable {
 	private String outcome;
 	// true-同意,false-驳回
 	private boolean applyPass;
+	// 流程部署key
+	private String processDefinitionKey;
 
 	/**
 	 * 流程实例id
@@ -164,6 +166,14 @@ public class WorkFlowDto implements Serializable {
 
 	public void setApplyPass(boolean applyPass) {
 		this.applyPass = applyPass;
+	}
+
+	public String getProcessDefinitionKey() {
+		return processDefinitionKey;
+	}
+
+	public void setProcessDefinitionKey(String processDefinitionKey) {
+		this.processDefinitionKey = processDefinitionKey;
 	}
 
 }

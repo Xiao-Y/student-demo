@@ -10,6 +10,7 @@ import org.billow.common.login.LoginHelper;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
+import org.billow.utils.constant.ActivitiCst;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +48,15 @@ public class ApplyLeaveController {
 	public ModelAndView editLeave(LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
 		String viewName = PagePathCst.BASEPATH_APPLY + "leaveApply";
+		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+		leave.setProcessDefinitionKey(processDefinitionKey);
+		av.addObject("leaveDto", leave);
 		if (leave.getId() != null) {
-			LeaveDto leaveDto = applyLeaveService.selectByPrimaryKey(leave);
-			if (leaveDto != null && "7".equals(leaveDto.getStatus())) {// 被驳回的
+			leave = applyLeaveService.selectByPrimaryKey(leave);
+			leave.setProcessDefinitionKey(processDefinitionKey);
+			if (leave != null && "7".equals(leave.getStatus())) {// 被驳回的
 				viewName = PagePathCst.BASEPATH_APPLY + "leaveApplyRe";
-				av.addObject("leaveDto", leaveDto);
+				av.addObject("leaveDto", leave);
 			}
 		}
 		av.setViewName(viewName);

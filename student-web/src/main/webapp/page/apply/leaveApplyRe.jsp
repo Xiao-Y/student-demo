@@ -16,6 +16,7 @@
 		<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/applyLeave/updateLeave">
 			<input type="hidden" id="id" name="id" value="${leaveDto.id}">
 			<input type="hidden" id="status" name="status" value="${leaveDto.status}">
+			<input type="hidden" id="processDefinitionKey" value="${leaveDto.processDefinitionKey }">
 			<div class="layui-form-item">
 				<label class="layui-form-label">请假类型：</label>
 				<div class="layui-input-block">
