@@ -30,6 +30,8 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	private String status;
 	// 用户名称
 	private String userName;
+	// 流程类型
+	private String type;
 
 	public Integer getId() {
 		return id;
@@ -219,5 +221,33 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	/**
+	 * 流程类型
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年6月29日 下午3:31:01
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * 流程类型
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param type
+	 * 
+	 * @date 2017年6月29日 下午3:31:04
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 }

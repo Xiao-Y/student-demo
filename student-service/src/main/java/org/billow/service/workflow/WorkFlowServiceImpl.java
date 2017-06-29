@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -64,6 +65,8 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	private TaskService taskService;
 	@Autowired
 	private RuntimeService runtimeService;
+	@Autowired
+	private FormService formService;
 
 	@Override
 	public int compare(Comment o1, Comment o2) {
@@ -493,5 +496,12 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	@Override
 	public void claim(String taskId, String userName) {
 		taskService.claim(taskId, userName);
+	}
+
+	@Override
+	public Object getRenderedStartForm(String processDefinitionKey) {
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey)
+				.singleResult();
+		return formService.getRenderedStartForm(processDefinition.getId());
 	}
 }

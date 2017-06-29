@@ -10,6 +10,15 @@ import org.billow.model.domain.LeaveBase;
  */
 public class LeaveDto extends LeaveBase {
 
+	/**
+	 * 表单类型-普通
+	 */
+	public static final String TYPE_ORDINARY = "ordinary";
+	/**
+	 * 表单类型-外置
+	 */
+	public static final String TYPE_FORMKEY = "formkey";
+
 	private static final long serialVersionUID = 3221605134094266678L;
 	private UserDto userDto;
 	private String type;

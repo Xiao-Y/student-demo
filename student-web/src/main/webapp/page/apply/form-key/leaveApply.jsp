@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/pub/taglib.jsp"%>
+<%@ include file="/pub/pubTips.jsp"%>
+<html>
+<head>
+<title>请假申请</title>
+<jsp:include page="/pub/pubFormCss.jsp" />
+<jsp:include page="/pub/pubFormJs.jsp" />
+<script type="text/javascript" src="${ctx }/page/apply/form-key/leaveApply.js"></script>
+</head>
+
+<body>
+	<fieldset class="layui-elem-field">
+		<legend>请假申请信息-外置表单</legend>
+		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
+			action="${ctx }/formkey/applyLeave/saveLeave">
+			<input type="hidden" id="processDefinitionKey" name="processDefinitionKey" value="${leaveDto.processDefinitionKey }">
+			<div id="startForm"></div>
+		</form>
+	</fieldset>
+</body>
+</html>

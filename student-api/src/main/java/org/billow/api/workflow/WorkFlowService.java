@@ -241,4 +241,17 @@ public interface WorkFlowService {
 	 * @date 2017年6月13日 下午2:56:21
 	 */
 	public void claim(String taskId, String userName);
+
+	/**
+	 * 根据流程定义KEY读取外置表单
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param processDefinitionKey
+	 * @return
+	 * 
+	 * @date 2017年6月29日 下午4:48:34
+	 */
+	public Object getRenderedStartForm(String processDefinitionKey);
 }

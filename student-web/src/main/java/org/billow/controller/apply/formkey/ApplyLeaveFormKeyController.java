@@ -1,4 +1,4 @@
-package org.billow.controller.apply;
+package org.billow.controller.apply.formkey;
 
 import javax.servlet.http.HttpSession;
 
@@ -6,6 +6,7 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.log4j.Logger;
 import org.billow.api.apply.ApplyLeaveService;
+import org.billow.api.workflow.WorkFlowService;
 import org.billow.common.login.LoginHelper;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.LeaveDto;
@@ -15,6 +16,7 @@ import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,15 +30,16 @@ import com.github.pagehelper.PageInfo;
  * @date: 2017年5月28日 下午3:46:50
  */
 @Controller
-@RequestMapping("/applyLeave")
-public class ApplyLeaveController {
+@RequestMapping("/formkey/applyLeave")
+public class ApplyLeaveFormKeyController {
 
-	private static final Logger logger = Logger.getLogger(ApplyLeaveController.class);
-
-	private String tyep = LeaveDto.TYPE_ORDINARY;
+	private static final Logger logger = Logger.getLogger(ApplyLeaveFormKeyController.class);
 
 	@Autowired
 	private ApplyLeaveService applyLeaveService;
+
+	@Autowired
+	private WorkFlowService workFlowService;
 
 	/**
 	 * 请假申请
@@ -49,20 +52,27 @@ public class ApplyLeaveController {
 	@RequestMapping("/editLeave")
 	public ModelAndView editLeave(LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
-		String viewName = PagePathCst.BASEPATH_APPLY + "leaveApply";
-		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+		String viewName = PagePathCst.BASEPATH_APPLY + "form-key/leaveApply";
+		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE_FORMKEY;
 		leave.setProcessDefinitionKey(processDefinitionKey);
 		av.addObject("leaveDto", leave);
 		if (leave.getId() != null) {
 			leave = applyLeaveService.selectByPrimaryKey(leave);
 			leave.setProcessDefinitionKey(processDefinitionKey);
 			if (leave != null && "7".equals(leave.getStatus())) {// 被驳回的
-				viewName = PagePathCst.BASEPATH_APPLY + "leaveApplyRe";
+				viewName = PagePathCst.BASEPATH_APPLY + "form-key/leaveApplyRe";
 				av.addObject("leaveDto", leave);
 			}
 		}
 		av.setViewName(viewName);
 		return av;
+	}
+
+	@RequestMapping("/getStart/{processDefinitionKey}")
+	public Object getStart(@PathVariable String processDefinitionKey) {
+		// 根据流程定义KEY读取外置表单
+		Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
+		return startForm;
 	}
 
 	/**
@@ -79,7 +89,7 @@ public class ApplyLeaveController {
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		leave.setUserDto(userDto);
 		leave.setUserName(userDto.getUserName());
-		leave.setType(tyep);
+		leave.setType(LeaveDto.TYPE_FORMKEY);
 		String message = "";
 		String type = "";
 		try {
@@ -105,7 +115,7 @@ public class ApplyLeaveController {
 		JsonResult json = new JsonResult();
 		json.setMessage(message);
 		json.setType(type);
-		json.setRoot("/applyLeave/findLeaveList");
+		json.setRoot("/formkey/applyLeave/findLeaveList");
 		return json;
 	}
 
@@ -126,11 +136,11 @@ public class ApplyLeaveController {
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		leave.setUserDto(userDto);
 		leave.setUserName(userDto.getUserName());
-		leave.setType(tyep);
+		leave.setType(LeaveDto.TYPE_FORMKEY);
 		PageInfo<LeaveDto> pages = applyLeaveService.findLeaveList(leave);
 		ModelAndView av = new ModelAndView();
 		av.addObject("page", pages);
-		av.setViewName(PagePathCst.BASEPATH_APPLY + "leaveApplyList");
+		av.setViewName(PagePathCst.BASEPATH_APPLY + "form-key/leaveApplyList");
 		return av;
 	}
 
