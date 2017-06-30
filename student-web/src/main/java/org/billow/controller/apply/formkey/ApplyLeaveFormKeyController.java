@@ -1,5 +1,7 @@
 package org.billow.controller.apply.formkey;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.ActivitiException;
@@ -68,8 +70,9 @@ public class ApplyLeaveFormKeyController {
 		return av;
 	}
 
+	@ResponseBody
 	@RequestMapping("/getStart/{processDefinitionKey}")
-	public Object getStart(@PathVariable String processDefinitionKey) {
+	public Object getStart(@PathVariable String processDefinitionKey, HttpServletRequest request, HttpServletResponse response) {
 		// 根据流程定义KEY读取外置表单
 		Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
 		return startForm;

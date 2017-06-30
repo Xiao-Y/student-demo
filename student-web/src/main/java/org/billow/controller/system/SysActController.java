@@ -1,6 +1,8 @@
 package org.billow.controller.system;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -215,13 +217,17 @@ public class SysActController {
 
 	@ResponseBody
 	@RequestMapping("/saveFileDeploy")
-	public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile,
-			@RequestParam("deployName") String deployName) {
+	public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile, @RequestParam("deployName") String deployName) {
 		JsonResult json = new JsonResult();
 		try {
 			// 创建发布配置对象
 			/*
-			 * DeploymentBuilder builder = repositoryService.createDeployment(); // 设置发布信息 builder.name("请假流程")// 添加部署规则的显示别名 .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")// 添加规则文件 .addClasspathResource("diagrams/QingJiaModel.QingJia.png");// 添加规则图片 不添加会自动产生一个图片不推荐 // 完成发布 builder.deploy();
+			 * DeploymentBuilder builder = repositoryService.createDeployment();
+			 * // 设置发布信息 builder.name("请假流程")// 添加部署规则的显示别名
+			 * .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")//
+			 * 添加规则文件
+			 * .addClasspathResource("diagrams/QingJiaModel.QingJia.png");//
+			 * 添加规则图片 不添加会自动产生一个图片不推荐 // 完成发布 builder.deploy();
 			 */
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
@@ -239,16 +245,22 @@ public class SysActController {
 	public JsonResult deployTest() {
 		JsonResult json = new JsonResult();
 		try {
-			// 创建发布配置对象
+			// 从classpath路径下读取资源文件
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("diagrams/leave-formkey.zip");
+			ZipInputStream zipInputStream = new ZipInputStream(in);
+			// // 创建发布配置对象
 			DeploymentBuilder builder = repositoryService.createDeployment();
 			// 设置发布信息
-			builder.name("请假流程")// 添加部署规则的显示别名
-					// .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")// 添加规则文件
-					// .addClasspathResource("diagrams/QingJiaModel.png");// 添加规则图片 不添加会自动产生一个图片不推荐
-					//.addClasspathResource("diagrams/leave/leave.bpmn")// 添加规则文件
-					//.addClasspathResource("diagrams/leave/leave.png");// 添加规则图片 不添加会自动产生一个图片不推荐
-			.addClasspathResource("diagrams/leave-formkey/leave-formkey.bpmn")// 添加规则文件
-			.addClasspathResource("diagrams/leave-formkey/leave-formkey.png");// 添加规则图片 不添加会自动产生一个图片不推荐
+			builder.name("请假流程-外置")// 添加部署规则的显示别名
+					// // 添加规则文件
+					// .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")
+					// // 添加规则图片 不添加会自动产生一个图片不推荐
+					// .addClasspathResource("diagrams/QingJiaModel.png");
+					// // 添加规则文件
+					// .addClasspathResource("diagrams/leave/leave.bpmn")
+					// // 添加规则图片
+					// .addClasspathResource("diagrams/leave/leave.png");
+					.addZipInputStream(zipInputStream);
 			// 完成发布
 			builder.deploy();
 			json.setSuccess(true);

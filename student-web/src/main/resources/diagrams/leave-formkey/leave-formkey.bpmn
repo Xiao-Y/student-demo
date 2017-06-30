@@ -2,13 +2,13 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.kafeitu.me/demo/activiti/leave">
   <process id="leave-formkey" name="请假流程-外置表单" isExecutable="true">
     <documentation>请假流程演示</documentation>
-    <startEvent id="startevent1" name="Start" activiti:initiator="applyUserId" activiti:formKey="start.form"></startEvent>
-    <userTask id="deptLeaderAudit" name="部门领导审批" activiti:candidateGroups="deptLeader" activiti:formKey="dept-leader-audit.form"></userTask>
+    <startEvent id="startevent1" name="Start" activiti:initiator="applyUserId" activiti:formKey="leave-formkey/start.form"></startEvent>
+    <userTask id="deptLeaderAudit" name="部门领导审批" activiti:candidateGroups="deptLeader" activiti:formKey="leave-formkey/dept-leader-audit.form"></userTask>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="modifyApply" name="调整申请" activiti:assignee="${applyUserId}" activiti:formKey="modify-apply.form"></userTask>
-    <userTask id="hrAudit" name="人事审批" activiti:candidateGroups="hr" activiti:formKey="hr-audit.form"></userTask>
+    <userTask id="modifyApply" name="调整申请" activiti:assignee="${applyUserId}" activiti:formKey="leave-formkey/modify-apply.form"></userTask>
+    <userTask id="hrAudit" name="人事审批" activiti:candidateGroups="hr" activiti:formKey="leave-formkey/hr-audit.form"></userTask>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="reportBack" name="销假" activiti:assignee="${applyUserId}" activiti:formKey="report-back.form"></userTask>
+    <userTask id="reportBack" name="销假" activiti:assignee="${applyUserId}" activiti:formKey="leave-formkey/report-back.form"></userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="deptLeaderAudit"></sequenceFlow>
@@ -114,7 +114,7 @@
         <omgdi:waypoint x="142.0" y="299.0"></omgdi:waypoint>
         <omgdi:waypoint x="142.0" y="135.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="181.0" y="284.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="48.0" x="181.0" y="284.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">

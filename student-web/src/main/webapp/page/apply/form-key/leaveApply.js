@@ -12,10 +12,10 @@ layui.use(['form', 'laydate'], function() {
 		return submitFormNewTip(data);
 	});
 	
-	
 	var processDefinitionKey = $("#processDefinitionKey").val();
-	var url = path + "/formkey/applyLeave/getStart/" + processDefinitionKey
-	$.get(url,function(form){
+	var url = path + "/formkey/applyLeave/getStart/" + processDefinitionKey;
+	$.post(url,function(form){
 		$("#startForm").html(form);
+		//form.render(); //更新全部
 	});
 });

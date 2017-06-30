@@ -501,7 +501,7 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	@Override
 	public Object getRenderedStartForm(String processDefinitionKey) {
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey)
-				.singleResult();
+				.latestVersion().singleResult();
 		return formService.getRenderedStartForm(processDefinition.getId());
 	}
 }
