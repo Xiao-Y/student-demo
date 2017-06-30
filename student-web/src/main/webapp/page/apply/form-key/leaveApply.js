@@ -14,8 +14,8 @@ layui.use(['form', 'laydate'], function() {
 	
 	var processDefinitionKey = $("#processDefinitionKey").val();
 	var url = path + "/formkey/applyLeave/getStart/" + processDefinitionKey;
-	$.post(url,function(form){
-		$("#startForm").html(form);
-		//form.render(); //更新全部
+	$.post(url,function(formHtml){
+		$("#startForm").html(formHtml);
+		form.render(); //更新全部
 	});
 });

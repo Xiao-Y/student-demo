@@ -70,9 +70,20 @@ public class ApplyLeaveFormKeyController {
 		return av;
 	}
 
+	/**
+	 * 获取请假申请的表单
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param processDefinitionKey
+	 * @return
+	 * 
+	 * @date 2017年6月30日 下午12:42:20
+	 */
 	@ResponseBody
 	@RequestMapping("/getStart/{processDefinitionKey}")
-	public Object getStart(@PathVariable String processDefinitionKey, HttpServletRequest request, HttpServletResponse response) {
+	public Object getStart(@PathVariable String processDefinitionKey) {
 		// 根据流程定义KEY读取外置表单
 		Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
 		return startForm;
