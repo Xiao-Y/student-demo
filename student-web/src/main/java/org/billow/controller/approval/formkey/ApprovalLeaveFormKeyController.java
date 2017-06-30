@@ -1,4 +1,4 @@
-package org.billow.controller.approval;
+package org.billow.controller.approval.formkey;
 
 import java.util.List;
 
@@ -32,10 +32,10 @@ import com.github.pagehelper.PageInfo;
  * @date: 2017年5月28日 下午10:08:07
  */
 @Controller
-@RequestMapping("/approvalLeave")
-public class ApprovalLeaveController {
+@RequestMapping("/formkey/approvalLeave")
+public class ApprovalLeaveFormKeyController {
 
-	private static final Logger logger = Logger.getLogger(ApprovalLeaveController.class);
+	private static final Logger logger = Logger.getLogger(ApprovalLeaveFormKeyController.class);
 
 	@Autowired
 	private ApprovalLeaveService approvalLeaveService;
@@ -64,7 +64,7 @@ public class ApprovalLeaveController {
 		}
 		ModelAndView av = new ModelAndView();
 		av.addObject("pages", list);
-		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveTaskList");
+		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveTaskList");
 		return av;
 	}
 
@@ -93,9 +93,9 @@ public class ApprovalLeaveController {
 		}
 		// 进入销假页面
 		if (ToolsUtils.isNotEmpty(reportBack) && "reportBack".equals(reportBack)) {
-			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyReportBack");
+			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyReportBack");
 		} else {
-			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "leaveApplyApp");
+			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyApp");
 		}
 		return av;
 	}
@@ -128,7 +128,7 @@ public class ApprovalLeaveController {
 		JsonResult json = new JsonResult();
 		json.setMessage(message);
 		json.setType(type);
-		json.setRoot("/approvalLeave/findApprovalLeave");
+		json.setRoot("/approvalLeave/form-key/findApprovalLeave");
 		return json;
 	}
 
@@ -148,8 +148,7 @@ public class ApprovalLeaveController {
 	 */
 	@ResponseBody
 	@RequestMapping("/leaveClaim/{leaveId}/{taskId}")
-	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId,
-			HttpSession session) {
+	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId, HttpSession session) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);
@@ -170,7 +169,7 @@ public class ApprovalLeaveController {
 		JsonResult json = new JsonResult();
 		json.setMessage(message);
 		json.setType(type);
-		json.setRoot("/approvalLeave/findApprovalLeave");
+		json.setRoot("/approvalLeave/form-key/findApprovalLeave");
 		return json;
 	}
 }

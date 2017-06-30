@@ -243,7 +243,7 @@ public interface WorkFlowService {
 	public void claim(String taskId, String userName);
 
 	/**
-	 * 根据流程定义KEY读取外置表单
+	 * 根据流程定义KEY读取外置表单(初始化启动流程，读取启动流程的表单内容来渲染start)
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>
