@@ -13,10 +13,9 @@
 <body>
 	<fieldset class="layui-elem-field">
 		<legend>请假申请信息-外置表单</legend>
-		<form class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
-			action="${ctx }/formkey/applyLeave/saveLeave">
-			<input type="hidden" id="processDefinitionKey" name="processDefinitionKey" value="${leaveDto.processDefinitionKey }">
-			<div id="startForm"></div>
+		<form id="dataForm" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/formkey/applyLeave/saveLeave">
+			<input type="hidden" name="processDefinitionKey" value="${leaveDto.processDefinitionKey }">
+			${dataForm }
 		</form>
 	</fieldset>
 </body>

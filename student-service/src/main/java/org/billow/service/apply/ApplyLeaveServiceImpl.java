@@ -2,6 +2,7 @@ package org.billow.service.apply;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -70,7 +71,8 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
 		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave);
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
+					leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
@@ -104,6 +106,35 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 	@Override
 	public LeaveDto selectByPrimaryKey(Integer id) {
 		return leaveDao.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public ProcessInstance saveLeaveFormKey(LeaveDto leave) {
+		UserDto userDto = leave.getUserDto();
+		leave.setApplyTime(new Date());
+		leave.setUserId(userDto.getUserId());
+		ProcessInstance processInstance = null;
+		try {
+			leaveDao.insert(leave);
+			// 用来设置启动流程的人员ID，引擎会自动把用户ID保存到activiti:initiator中
+			identityService.setAuthenticatedUserId(userDto.getUserName());
+			// 业务主键
+			String businessKey = LeaveDto.class.getSimpleName() + "." + leave.getId();
+			String processDefinitionKey = leave.getProcessDefinitionKey();
+			Map<String, String> properties = leave.getProperties();
+			// 启动流程实例
+			processInstance = workFlowService.submitStartFormData(processDefinitionKey, businessKey, properties);
+			String processInstanceId = processInstance.getProcessInstanceId();
+			// 查询任务
+			Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);
+			// 保存批注信息
+			workFlowService.addComment(task.getId(), processInstanceId, "businessKey", businessKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			identityService.setAuthenticatedUserId(null);
+		}
+		return processInstance;
 	}
 
 }

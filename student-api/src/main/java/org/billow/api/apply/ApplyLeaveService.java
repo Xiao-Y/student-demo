@@ -69,4 +69,14 @@ public interface ApplyLeaveService extends BaseService<LeaveDto> {
 	 * @date 2017年4月14日 下午4:12:18
 	 */
 	LeaveDto selectByPrimaryKey(Integer id);
+
+	/**
+	 * 保存请假申请，启动流程实例(外置表单)
+	 * 
+	 * @param leave
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年7月1日 下午9:03:08
+	 */
+	ProcessInstance saveLeaveFormKey(LeaveDto leave);
 }

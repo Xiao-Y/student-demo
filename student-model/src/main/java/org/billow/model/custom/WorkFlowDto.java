@@ -49,6 +49,8 @@ public class WorkFlowDto implements Serializable {
 	private boolean applyPass;
 	// 流程部署key
 	private String processDefinitionKey;
+	// 表单参数
+	private Map<String, String> properties;
 
 	/**
 	 * 流程实例id
@@ -174,6 +176,28 @@ public class WorkFlowDto implements Serializable {
 
 	public void setProcessDefinitionKey(String processDefinitionKey) {
 		this.processDefinitionKey = processDefinitionKey;
+	}
+
+	/**
+	 * 表单参数
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年7月1日 下午9:16:44
+	 */
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+
+	/**
+	 * 表单参数
+	 * 
+	 * @param properties
+	 * @author XiaoY
+	 * @date: 2017年7月1日 下午9:16:47
+	 */
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
 	}
 
 }

@@ -1,5 +1,9 @@
 package org.billow.controller.apply.formkey;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.ActivitiException;
@@ -16,7 +20,6 @@ import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +57,10 @@ public class ApplyLeaveFormKeyController {
 		ModelAndView av = new ModelAndView();
 		String viewName = PagePathCst.BASEPATH_APPLY + "form-key/leaveApply";
 		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE_FORMKEY;
+		// 获取请假申请的表单（开始）
+		Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
 		leave.setProcessDefinitionKey(processDefinitionKey);
+		av.addObject("dataForm", startForm);
 		av.addObject("leaveDto", leave);
 		if (leave.getId() != null) {
 			leave = applyLeaveService.selectByPrimaryKey(leave);
@@ -68,24 +74,24 @@ public class ApplyLeaveFormKeyController {
 		return av;
 	}
 
-	/**
-	 * 获取请假申请的表单
-	 * 
-	 * <br>
-	 * added by liuyongtao<br>
-	 * 
-	 * @param processDefinitionKey
-	 * @return
-	 * 
-	 * @date 2017年6月30日 下午12:42:20
-	 */
-	@ResponseBody
-	@RequestMapping("/getStart/{processDefinitionKey}")
-	public Object getStart(@PathVariable String processDefinitionKey) {
-		// 根据流程定义KEY读取外置表单
-		Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
-		return startForm;
-	}
+	// /**
+	// * 获取请假申请的表单
+	// *
+	// * <br>
+	// * added by liuyongtao<br>
+	// *
+	// * @param processDefinitionKey
+	// * @return
+	// *
+	// * @date 2017年6月30日 下午12:42:20
+	// */
+	// @ResponseBody
+	// @RequestMapping("/getStart/{processDefinitionKey}")
+	// public Object getStart(@PathVariable String processDefinitionKey) {
+	// // 根据流程定义KEY读取外置表单
+	// Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
+	// return startForm;
+	// }
 
 	/**
 	 * 提交请假申请,启动流程实例
@@ -97,7 +103,16 @@ public class ApplyLeaveFormKeyController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveLeave")
-	public JsonResult saveLeave(HttpSession session, LeaveDto leave) {
+	public JsonResult saveLeave(HttpSession session, HttpServletRequest request, LeaveDto leave) {
+		// 获取页面参数保存到variables中
+		Map<String, String> properties = new HashMap<String, String>();
+		Map<String, String[]> parameterMap = request.getParameterMap();
+		for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue()[0];
+			properties.put(key, value);
+		}
+		leave.setProperties(properties);
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		leave.setUserDto(userDto);
 		leave.setUserName(userDto.getUserName());
@@ -106,7 +121,7 @@ public class ApplyLeaveFormKeyController {
 		String type = "";
 		try {
 			leave.setStatus("1");
-			ProcessInstance processInstance = applyLeaveService.saveLeave(leave);
+			ProcessInstance processInstance = applyLeaveService.saveLeaveFormKey(leave);
 			message = "流程已启动，流程ID：" + processInstance.getId();
 			type = MessageTipsCst.TYPE_SUCCES;
 		} catch (ActivitiException e) {
