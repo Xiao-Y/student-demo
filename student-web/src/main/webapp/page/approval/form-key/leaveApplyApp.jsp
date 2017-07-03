@@ -27,7 +27,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="comment" items="${leaveDto.comments }">
+						<c:forEach var="comment" items="${comments }">
 							<tr>
 								<td>${comment.userId }</td>
 								<td>
@@ -42,13 +42,17 @@
 		</div>
 	</fieldset>
 	<input type="hidden" id="id" name="id" value="${leaveDto.id }">
+	<input type="hidden" id="taskId" name="taskId" value="${leaveDto.taskId }">
+	<input type="hidden" id="processInstanceId" name="processInstanceId" value="${leaveDto.processInstanceId }">
 </body>
 <script type="text/javascript">
 	$(function() {
 		//请假类型赋值
 		$("#leaveType").val($("#leaveTypeTemp").val());
 		var id = $("#id").val();
-		$("#submitForm").attr("action", path + "/approvalLeave/saveLeaveApplyApp/" + id);
+		var taskId = $("#taskId").val();
+		var processInstanceId = $("#processInstanceId").val();
+		$("#submitForm").attr("action", path + "/formkey/approvalLeave/saveLeaveApplyApp/" + id + "/" + taskId + "/" + processInstanceId);
 	});
 </script>
 </html>

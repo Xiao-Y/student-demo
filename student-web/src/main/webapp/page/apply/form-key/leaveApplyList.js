@@ -16,7 +16,7 @@ layui.use([ 'laypage', 'layer', 'laydate'], function() {
 		jump : function(obj, first) {
 			//得到了当前页，用于向服务端请求对应数据
 			if (!first) {
-				location.href = path + '/applyLeave/findLeaveList?pageNo=' + obj.curr;
+				location.href = path + '/formkey/applyLeave/findLeaveList?pageNo=' + obj.curr;
 			}
 		}
 	});

@@ -133,6 +133,27 @@ public interface WorkFlowService {
 	public void addComment(String taskId, String processInstanceId, String type, String message);
 
 	/**
+	 * 保存批注信息
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param taskId
+	 *            任务Id
+	 * @param processInstanceId
+	 *            流程实例id
+	 * @param type
+	 *            关键字
+	 * @param message
+	 *            信息
+	 * @param userName
+	 *            操作人
+	 * 
+	 * @date 2017年7月3日 下午5:42:08
+	 */
+	public void addComment(String taskId, String processInstanceId, String type, String message, String userName);
+
+	/**
 	 * 根据流程实例id和type查询批注信息
 	 * 
 	 * @param processInstanceId
@@ -275,11 +296,13 @@ public interface WorkFlowService {
 	 *            业务key
 	 * @param properties
 	 *            表单参数
+	 * @param userName
+	 *            操作人
 	 * @return
 	 * @author XiaoY
 	 * @date: 2017年7月1日 下午9:12:46
 	 */
-	public ProcessInstance submitStartFormData(String processDefinitionKey, String businessKey, Map<String, String> properties);
+	public ProcessInstance submitStartFormData(String processDefinitionKey, String businessKey, Map<String, String> properties, String userName);
 
 	/**
 	 * 根据流程实例id查询任务表单
@@ -294,4 +317,21 @@ public interface WorkFlowService {
 	 * @date 2017年7月3日 上午10:01:06
 	 */
 	public Object getRenderedTaskForm(String processInstanceId);
+
+	/**
+	 * 保存任务表单
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param taskId
+	 *            任务id
+	 * @param properties
+	 *            页面参数
+	 * @param userName
+	 *            操作人
+	 * 
+	 * @date 2017年7月3日 下午3:25:53
+	 */
+	public void submitTaskFormData(String taskId, Map<String, String> properties, String userName);
 }

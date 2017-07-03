@@ -71,8 +71,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
 		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave);
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
-					leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
@@ -123,7 +122,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 			String processDefinitionKey = leave.getProcessDefinitionKey();
 			Map<String, String> properties = leave.getProperties();
 			// 启动流程实例
-			processInstance = workFlowService.submitStartFormData(processDefinitionKey, businessKey, properties);
+			processInstance = workFlowService.submitStartFormData(processDefinitionKey, businessKey, properties, userDto.getUserName());
 			String processInstanceId = processInstance.getProcessInstanceId();
 			// 查询任务
 			Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);

@@ -1,7 +1,10 @@
 package org.billow.controller.approval.formkey;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.task.Comment;
@@ -116,15 +119,24 @@ public class ApprovalLeaveFormKeyController {
 	 * @date: 2017年5月28日 下午3:58:24
 	 */
 	@ResponseBody
-	@RequestMapping("/saveLeaveApplyApp/{id}")
-	public JsonResult saveLeaveApplyApp(@PathVariable("id") Integer id, HttpSession session, LeaveDto leave) {
+	@RequestMapping("/saveLeaveApplyApp/{id}/{taskId}/{processInstanceId}")
+	public JsonResult saveLeaveApplyApp(@PathVariable("id") Integer id, @PathVariable("taskId") String taskId,
+			@PathVariable("processInstanceId") String processInstanceId, LeaveDto leave, HttpServletRequest request, HttpSession session) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		try {
+			Map<String, String> properties = new HashMap<>();
+			Map<String, String[]> parameterMap = request.getParameterMap();
+			for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+				properties.put(entry.getKey(), entry.getValue()[0]);
+			}
 			leave.setId(id);
+			leave.setTaskId(taskId);
+			leave.setProcessInstanceId(processInstanceId);
 			leave.setUserDto(userDto);
-			approvalLeaveService.saveLeaveApplyApp(leave);
+			leave.setProperties(properties);
+			approvalLeaveService.saveLeaveApplyAppFormKey(leave);
 			type = MessageTipsCst.TYPE_SUCCES;
 			message = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
@@ -136,7 +148,7 @@ public class ApprovalLeaveFormKeyController {
 		JsonResult json = new JsonResult();
 		json.setMessage(message);
 		json.setType(type);
-		json.setRoot("/approvalLeave/form-key/findApprovalLeave");
+		json.setRoot("/formkey/approvalLeave/findApprovalLeave");
 		return json;
 	}
 

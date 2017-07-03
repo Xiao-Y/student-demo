@@ -50,4 +50,16 @@ public interface ApprovalLeaveService {
 	 */
 	void leaveClaim(LeaveDto leaveDto, String taskId) throws Exception;
 
+	/**
+	 * 保存请假审批(外置)
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param leave
+	 * 
+	 * @date 2017年6月8日 下午12:20:44
+	 */
+	void saveLeaveApplyAppFormKey(LeaveDto leave) throws Exception;
+
 }

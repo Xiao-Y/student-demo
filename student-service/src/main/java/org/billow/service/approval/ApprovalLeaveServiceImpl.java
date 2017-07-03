@@ -3,6 +3,7 @@ package org.billow.service.approval;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.billow.api.approval.ApprovalLeaveService;
 import org.billow.api.workflow.WorkFlowService;
@@ -22,6 +23,8 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	private LeaveDao leaveDao;
 	@Autowired
 	private WorkFlowService workFlowService;
+	@Autowired
+	private TaskService taskService;
 
 	@Override
 	public PageInfo<LeaveDto> findApprovalLeave(LeaveDto leaveDto) throws Exception {
@@ -73,5 +76,25 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 		String userName = leaveDto.getUserDto().getUserName();
 		workFlowService.claim(taskId, userName);
 		leaveDao.updateByPrimaryKeySelective(leaveDto);
+	}
+
+	@Override
+	public void saveLeaveApplyAppFormKey(LeaveDto leave) throws Exception {
+		if (leave.getApplyPass()) {
+			leave.setStatus("3");
+		} else {
+			leave.setStatus("7");
+		}
+		leaveDao.updateByPrimaryKeySelective(leave);
+		UserDto userDto = leave.getUserDto();
+		String assignee = userDto.getUserName();
+		String taskId = leave.getTaskId();
+		// 保存批注信息
+		workFlowService.addComment(taskId, leave.getProcessInstanceId(), ActivitiCst.TYPE_LEAVE_COMMENT, leave.getCommentInfo(), assignee);
+		// 保存表单信息
+		workFlowService.submitTaskFormData(taskId, leave.getProperties(), assignee);
+		// 销假
+		if ("reportBack".equals(leave.getFlag())) {
+		}
 	}
 }

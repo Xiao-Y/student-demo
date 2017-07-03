@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -67,6 +68,8 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	private RuntimeService runtimeService;
 	@Autowired
 	private FormService formService;
+	@Autowired
+	private IdentityService identityService;
 
 	@Override
 	public int compare(Comment o1, Comment o2) {
@@ -243,6 +246,19 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	@Override
 	public void addComment(String taskId, String processInstanceId, String type, String message) {
 		taskService.addComment(taskId, processInstanceId, type, message);
+	}
+
+	@Override
+	public void addComment(String taskId, String processInstanceId, String type, String message, String userName) {
+		try {
+			identityService.setAuthenticatedUserId(userName);
+			taskService.addComment(taskId, processInstanceId, type, message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			identityService.setAuthenticatedUserId(null);
+		}
 	}
 
 	@Override
@@ -512,9 +528,19 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	}
 
 	@Override
-	public ProcessInstance submitStartFormData(String processDefinitionKey, String businessKey, Map<String, String> properties) {
-		ProcessDefinition processDefinition = this.getProcessDefinitionLatestVersion(processDefinitionKey);
-		ProcessInstance processInstance = formService.submitStartFormData(processDefinition.getId(), businessKey, properties);
+	public ProcessInstance submitStartFormData(String processDefinitionKey, String businessKey, Map<String, String> properties, String userName) {
+		ProcessInstance processInstance = null;
+		try {
+			identityService.setAuthenticatedUserId(userName);
+			ProcessDefinition processDefinition = this.getProcessDefinitionLatestVersion(processDefinitionKey);
+			processInstance = formService.submitStartFormData(processDefinition.getId(), businessKey, properties);
+		} catch (Exception e) {
+			logger.error(e);
+			e.printStackTrace();
+			throw e;
+		} finally {
+			identityService.setAuthenticatedUserId(null);
+		}
 		return processInstance;
 	}
 
@@ -522,5 +548,19 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	public Object getRenderedTaskForm(String processInstanceId) {
 		Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
 		return formService.getRenderedTaskForm(task.getId());
+	}
+
+	@Override
+	public void submitTaskFormData(String taskId, Map<String, String> properties, String userName) {
+		try {
+			identityService.setAuthenticatedUserId(userName);
+			formService.submitTaskFormData(taskId, properties);
+		} catch (Exception e) {
+			logger.error(e);
+			e.printStackTrace();
+			throw e;
+		} finally {
+			identityService.setAuthenticatedUserId(null);
+		}
 	}
 }
