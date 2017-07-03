@@ -19,7 +19,7 @@ layui.use([ 'laypage', 'layer' ], function() {
 			//var curr = obj.curr;
 			if (!first) {
 				//layer.msg('第 '+ obj.curr +' 页');
-				location.href = path + '/sysMenu/menuManage?pageNo=' + obj.curr;
+				location.href = path + '/formkey/approvalLeave/findApprovalLeave?pageNo=' + obj.curr;
 			}
 		}
 	});
@@ -60,7 +60,8 @@ layui.use([ 'laypage', 'layer' ], function() {
 		var $this = $(this);
 		var id = $this.attr("id");
 		var taskId = $this.attr("taskId");
-		var url = path + "/approvalLeave/leaveClaim/" + id + "/" + taskId;
+		var pageNum = $("#pageNum").val();
+		var url = path + "/formkey/approvalLeave/leaveClaim/" + id + "/" + taskId + "/" + pageNum;
 		$.ajax({
 	        type: "POST",
 	        dataType: "json",

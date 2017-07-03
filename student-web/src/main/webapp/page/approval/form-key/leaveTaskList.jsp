@@ -40,7 +40,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="leave" items="${pages.list}">
+						<c:forEach var="leave" items="${page.list}">
 							<c:set var="task" value="${leave.task }" />
 							<c:set var="pi" value="${leave.historicProcessInstance }" />
 							<tr id="${leave.id }" tid="${task.id }">

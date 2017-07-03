@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.activiti.engine.task.Comment;
 import org.apache.log4j.Logger;
 import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.approval.ApprovalLeaveService;
@@ -40,7 +41,7 @@ public class ApprovalLeaveFormKeyController {
 	@Autowired
 	private ApprovalLeaveService approvalLeaveService;
 	@Autowired
-	private WorkFlowService workflowService;
+	private WorkFlowService workFlowService;
 	@Autowired
 	private ApplyLeaveService applyLeaveService;
 
@@ -63,7 +64,7 @@ public class ApprovalLeaveFormKeyController {
 			logger.error("查询个人任务列表出错！");
 		}
 		ModelAndView av = new ModelAndView();
-		av.addObject("pages", list);
+		av.addObject("page", list);
 		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveTaskList");
 		return av;
 	}
@@ -83,11 +84,17 @@ public class ApprovalLeaveFormKeyController {
 		String reportBack = leave.getFlag();
 		try {
 			leave.setUserDto(userDto);
-			leave.setType(ActivitiCst.TYPE_LEAVE_COMMENT);
-			LeaveDto leaveDto = applyLeaveService.findLeaveDto(leave);
-			List<String> transNames = workflowService.getOutGoingTransNames(leave.getTaskId());
-			av.addObject("leaveDto", leaveDto);
+			String processInstanceId = leave.getProcessInstanceId();
+			// 根据流程实例id查询任务表单
+			Object taskForm = workFlowService.getRenderedTaskForm(processInstanceId);
+			av.addObject("dataForm", taskForm);
+			// 查询批注信息
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(processInstanceId, ActivitiCst.TYPE_LEAVE_COMMENT);
+			av.addObject("comments", comments);
+			// 查询出口连钱，显示按钮
+			List<String> transNames = workFlowService.getOutGoingTransNames(leave.getTaskId());
 			av.addObject("transNames", transNames);
+			av.addObject("leaveDto", leave);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,8 +102,8 @@ public class ApprovalLeaveFormKeyController {
 		if (ToolsUtils.isNotEmpty(reportBack) && "reportBack".equals(reportBack)) {
 			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyReportBack");
 		} else {
-			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyApp");
 		}
+		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyApp");
 		return av;
 	}
 
@@ -109,12 +116,13 @@ public class ApprovalLeaveFormKeyController {
 	 * @date: 2017年5月28日 下午3:58:24
 	 */
 	@ResponseBody
-	@RequestMapping("/saveLeaveApplyApp")
-	public JsonResult saveLeaveApplyApp(HttpSession session, LeaveDto leave) {
+	@RequestMapping("/saveLeaveApplyApp/{id}")
+	public JsonResult saveLeaveApplyApp(@PathVariable("id") Integer id, HttpSession session, LeaveDto leave) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);
 		try {
+			leave.setId(id);
 			leave.setUserDto(userDto);
 			approvalLeaveService.saveLeaveApplyApp(leave);
 			type = MessageTipsCst.TYPE_SUCCES;
@@ -147,8 +155,9 @@ public class ApprovalLeaveFormKeyController {
 	 * @date 2017年6月13日 下午2:40:28
 	 */
 	@ResponseBody
-	@RequestMapping("/leaveClaim/{leaveId}/{taskId}")
-	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId, HttpSession session) {
+	@RequestMapping("/leaveClaim/{leaveId}/{taskId}/{pageNum}")
+	public JsonResult leaveClaim(@PathVariable("leaveId") Integer leaveId, @PathVariable("taskId") String taskId,
+			@PathVariable("pageNum") String pageNum, HttpSession session) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);
@@ -169,7 +178,7 @@ public class ApprovalLeaveFormKeyController {
 		JsonResult json = new JsonResult();
 		json.setMessage(message);
 		json.setType(type);
-		json.setRoot("/approvalLeave/form-key/findApprovalLeave");
+		json.setRoot("/formkey/approvalLeave/findApprovalLeave?pageNo=" + pageNum);
 		return json;
 	}
 }

@@ -178,8 +178,7 @@ public interface WorkFlowService {
 	 * 
 	 * @date 2017年6月22日 上午9:58:11
 	 */
-	public <T> void complete(T t, String processDefinitionKey, String assignee, Map<String, Object> variables)
-			throws Exception;
+	public <T> void complete(T t, String processDefinitionKey, String assignee, Map<String, Object> variables) throws Exception;
 
 	/**
 	 * 根据任务Id，获取所有出口的名称，用于生成按钮
@@ -280,6 +279,19 @@ public interface WorkFlowService {
 	 * @author XiaoY
 	 * @date: 2017年7月1日 下午9:12:46
 	 */
-	public ProcessInstance submitStartFormData(String processDefinitionKey, String businessKey,
-			Map<String, String> properties);
+	public ProcessInstance submitStartFormData(String processDefinitionKey, String businessKey, Map<String, String> properties);
+
+	/**
+	 * 根据流程实例id查询任务表单
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param processInstanceId
+	 *            流程实例id
+	 * @return
+	 * 
+	 * @date 2017年7月3日 上午10:01:06
+	 */
+	public Object getRenderedTaskForm(String processInstanceId);
 }
