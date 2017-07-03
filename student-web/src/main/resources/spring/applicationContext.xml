@@ -24,8 +24,8 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:applicationContext.properties</value>
-				<value>classpath:druid.properties</value>
+				<value>classpath:spring/applicationContext.properties</value>
+				<value>classpath:spring/druid.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -33,23 +33,23 @@
 	<!-- 以静态变量保存Spring ApplicationContext -->
 	<bean class="org.billow.utils.bean.BeanUtils" />
 	<!-- 数据源 -->
-	<import resource="classpath:spring-druid.xml" />
+	<import resource="classpath:spring/spring-druid.xml" />
 	<!-- 整合mybatis -->
-	<import resource="classpath:spring-mybatis.xml" />
+	<import resource="classpath:spring/spring-mybatis.xml" />
 	<!-- spring事务 -->
-	<import resource="classpath:spring-tx.xml" />
+	<import resource="classpath:spring/spring-tx.xml" />
 	<!-- spring整合redis缓存 -->
-	<!-- <import resource="classpath:spring-redis.xml" /> -->
+	<!-- <import resource="classpath:spring/spring-redis.xml" /> -->
 	<!-- 整合activeMQ -->
-	<!-- <import resource="classpath:spring-activemq.xml" /> -->
+	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->
-	<!-- <import resource="classpath:dubbo-common.xml" /> -->
+	<!-- <import resource="classpath:dubbo/dubbo-common.xml" /> -->
 	<!-- dubbo生产者 -->
-	<!-- <import resource="classpath:dubbo-provider.xml" /> -->
+	<!-- <import resource="classpath:dubbo/dubbo-provider.xml" /> -->
 	<!-- dubbo消费者 -->
-	<!-- <import resource="classpath:dubbo-consumer.xml" /> -->
+	<!-- <import resource="classpath:dubbo/dubbo-consumer.xml" /> -->
 	<!-- activiti工作流 -->
-	<import resource="classpath:spring-activiti.xml" />
+	<import resource="classpath:spring/spring-activiti.xml" />
 
 	<!-- 定时任务 -->
 	<!-- 调度工厂:动态配置自动任务 -->
