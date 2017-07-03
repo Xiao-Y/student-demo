@@ -84,7 +84,6 @@ public class ApprovalLeaveFormKeyController {
 	public ModelAndView leaveApplyApp(HttpSession session, LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
 		UserDto userDto = LoginHelper.getLoginUser(session);
-		String reportBack = leave.getFlag();
 		try {
 			leave.setUserDto(userDto);
 			String processInstanceId = leave.getProcessInstanceId();
@@ -100,11 +99,6 @@ public class ApprovalLeaveFormKeyController {
 			av.addObject("leaveDto", leave);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		// 进入销假页面
-		if (ToolsUtils.isNotEmpty(reportBack) && "reportBack".equals(reportBack)) {
-			av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyReportBack");
-		} else {
 		}
 		av.setViewName(PagePathCst.BASEPATH_APPROVAL + "form-key/leaveApplyApp");
 		return av;

@@ -93,8 +93,5 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 		workFlowService.addComment(taskId, leave.getProcessInstanceId(), ActivitiCst.TYPE_LEAVE_COMMENT, leave.getCommentInfo(), assignee);
 		// 保存表单信息
 		workFlowService.submitTaskFormData(taskId, leave.getProperties(), assignee);
-		// 销假
-		if ("reportBack".equals(leave.getFlag())) {
-		}
 	}
 }
