@@ -32,6 +32,8 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	private String userName;
 	// 流程类型
 	private String type;
+	// 流程实例id
+	private String processInstanceId;
 
 	public Integer getId() {
 		return id;
@@ -249,5 +251,19 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	 */
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	/**
+	 * 流程实例id
+	 */
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
+
+	/**
+	 * 流程实例id
+	 */
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
 	}
 }

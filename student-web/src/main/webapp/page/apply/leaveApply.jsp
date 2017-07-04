@@ -17,7 +17,8 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">请假类型：</label>
 				<div class="layui-input-block">
-					<input type="hidden" id="processDefinitionKey" value="${leaveDto.processDefinitionKey }">
+					<input type="hidden" id="processDefinitionKey" name="processDefinitionKey"
+						value="${leaveDto.processDefinitionKey }">
 					<input type="hidden" id="leaveTypeTemp" value="${leaveDto.leaveType}">
 					<select id="leaveType" name="leaveType" lay-verify="required" lay-search>
 						<option value=""></option>
@@ -32,15 +33,17 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">开始时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
-						value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />" onclick="layui.laydate({elem: this})">
+					<input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
+						class="layui-input" value="<fmt:formatDate value="${leaveDto.startTime }" pattern="yyyy-MM-dd" />"
+						onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间：</label>
 				<div class="layui-input-block">
-					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input"
-						value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />" onclick="layui.laydate({elem: this})">
+					<input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off"
+						class="layui-input" value="<fmt:formatDate value="${leaveDto.endTime }" pattern="yyyy-MM-dd" />"
+						onclick="layui.laydate({elem: this})">
 				</div>
 			</div>
 			<div class="layui-form-item layui-form-text">

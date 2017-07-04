@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50045
+Source Server Version : 50614
 Source Host           : localhost:3306
 Source Database       : mytestdb
 
 Target Server Type    : MYSQL
-Target Server Version : 50045
+Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2017-05-29 14:21:24
+Date: 2017-07-04 10:08:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,16 +20,16 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_menu`;
 CREATE TABLE `t_menu` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(255) default NULL,
-  `icon` varchar(255) default NULL,
-  `spread` tinyint(1) default NULL,
-  `href` varchar(255) default NULL,
-  `pid` int(11) default NULL,
-  `validind` tinyint(1) default NULL,
-  `displayno` double(11,3) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `spread` tinyint(1) DEFAULT NULL,
+  `href` varchar(255) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `validind` tinyint(1) DEFAULT NULL,
+  `displayno` double(11,3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
@@ -62,6 +62,9 @@ INSERT INTO `t_menu` VALUES ('25', '模块依赖', 'fa-stop-circle', null, '/ass
 INSERT INTO `t_menu` VALUES ('26', '流程管理', 'fa-cogs', '0', '', '0', '1', '80.000');
 INSERT INTO `t_menu` VALUES ('27', '流程部署', 'fa-anchor', null, '/sysAct/findActModel', '26', '1', '1.000');
 INSERT INTO `t_menu` VALUES ('28', '申请管理', 'fa-cogs', '0', '', '0', '1', '70.000');
-INSERT INTO `t_menu` VALUES ('29', '请假申请', 'fa-cogs', '0', '/applyLeave/editLeave', '28', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('29', '请假申请', 'fa-cogs', '0', '/applyLeave/findLeaveList', '28', '1', '1.000');
 INSERT INTO `t_menu` VALUES ('30', '审批管理', 'fa-cogs', '0', '', '0', '1', '60.000');
 INSERT INTO `t_menu` VALUES ('31', '请假审批', 'fa-cogs', '0', '/approvalLeave/findApprovalLeave', '30', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('32', '数据字典', 'fa-tasks', null, '/sysDictionary/findDictionary', '19', '1', '4.000');
+INSERT INTO `t_menu` VALUES ('33', '请假申请-外置', 'fa-cogs', '0', '/formkey/applyLeave/findLeaveList', '28', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('34', '请假审批-外置', 'fa-cogs', '0', '/formkey/approvalLeave/findApprovalLeave', '30', '1', '2.000');
