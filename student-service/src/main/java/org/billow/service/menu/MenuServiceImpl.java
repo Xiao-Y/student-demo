@@ -8,6 +8,7 @@ import org.billow.api.menu.MenuService;
 import org.billow.dao.MenuDao;
 import org.billow.model.expand.MenuDto;
 import org.billow.service.base.BaseServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,11 +23,13 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDto> implements MenuSer
 	}
 
 	@Override
+	@Cacheable(keyGenerator = "keyGenerator", value = "getMenuChildList")
 	public List<MenuDto> getMenuChildList(Integer id) {
 		return menuDao.getMenuChildList(id);
 	}
 
 	@Override
+	@Cacheable(keyGenerator = "keyGenerator", value = "selectAll")
 	public List<MenuDto> selectAll(MenuDto menu) {
 		return menuDao.selectAll(menu);
 	}

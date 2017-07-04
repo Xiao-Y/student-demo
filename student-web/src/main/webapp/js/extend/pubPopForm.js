@@ -159,3 +159,49 @@ function submitFormNewTip(data){
     });
 	return false;
 }
+
+pubPopForm = {
+	/**
+	 * 用于显示radio,select的选种
+	 * @param {} arry 形式：spread_radio,spread_select
+	 * @param {} form 表单对象，用于更新渲染
+	 */
+	checkedDisplay : function (arry,form){
+		$.each(arry,function(index,item){
+			var temp = item.split("_");
+			//元素id
+			var $id = "#" + item;
+			//选种值
+			var $value = $($id).val();
+			//默认值
+			var def = $($id).attr("def");
+			if(temp[1] == 'radio'){
+				var $input = "input[name='" + temp[0] + "']";
+				if($value == ''){
+					$($input).each(function(){
+						var $this = $(this);
+						if($this.val() == def){
+							$this.attr("checked","chedked");
+						}
+					});
+				}else{
+					$($input).each(function(){
+						var $this = $(this);
+						if($this.val() == $value){
+							$this.attr("checked","chedked");
+						}
+					});
+				}
+			}else if(temp[1] == 'select'){
+				var $select = "#" + temp[0];
+				if($value == ''){
+					$($select).val(def);
+				}else{
+					$($select).val($value);
+				}
+			}
+		});
+		form.render("radio");
+		form.render("select");
+	}
+}

@@ -41,4 +41,15 @@ public class SysMenuController {
 		return av;
 	}
 
+	@RequestMapping("/menuEdit")
+	public ModelAndView menuEdit(MenuDto menu) {
+		ModelAndView av = new ModelAndView();
+		MenuDto menuDto = new MenuDto();
+		menuDto.setPid(0);
+		List<MenuDto> pids = menuService.selectAll(menuDto);
+		av.addObject("pids", pids);
+		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "menuEdit");
+		return av;
+	}
+
 }
