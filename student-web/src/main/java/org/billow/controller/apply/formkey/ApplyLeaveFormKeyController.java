@@ -54,44 +54,28 @@ public class ApplyLeaveFormKeyController {
 	 */
 	@RequestMapping("/editLeave")
 	public ModelAndView editLeave(LeaveDto leave) {
-		ModelAndView av = new ModelAndView();
-		String viewName = PagePathCst.BASEPATH_APPLY + "form-key/leaveApply";
 		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE_FORMKEY;
-		// 获取请假申请的表单（开始）
-		Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
-		leave.setProcessDefinitionKey(processDefinitionKey);
-		av.addObject("dataForm", startForm);
-		av.addObject("leaveDto", leave);
-		if (leave.getId() != null) {
-			leave = applyLeaveService.selectByPrimaryKey(leave);
-			leave.setProcessDefinitionKey(processDefinitionKey);
-			if (leave != null && "7".equals(leave.getStatus())) {// 被驳回的
-				viewName = PagePathCst.BASEPATH_APPLY + "form-key/leaveApplyRe";
-				av.addObject("leaveDto", leave);
+		ModelAndView av = new ModelAndView();
+		Object startForm = null;
+		if (leave.getId() != null) {// 请假申请（修改页面）
+			LeaveDto leaveDto = applyLeaveService.selectByPrimaryKey(leave);
+			if (leaveDto != null && "7".equals(leaveDto.getStatus())) {// 被驳回的
+				startForm = workFlowService.getRenderedTaskForm(leave.getProcessInstanceId());
 			}
+			leaveDto.setProcessDefinitionKey(processDefinitionKey);
+			av.addObject("leaveDto", leaveDto);
+		} else {// 请假申请(进入页面)
+			// 获取请假申请的表单（开始）
+			startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
+			leave.setProcessDefinitionKey(processDefinitionKey);
+			av.addObject("leaveDto", leave);
+
 		}
+		String viewName = PagePathCst.BASEPATH_APPLY + "form-key/leaveApply";
+		av.addObject("dataForm", startForm);
 		av.setViewName(viewName);
 		return av;
 	}
-
-	// /**
-	// * 获取请假申请的表单
-	// *
-	// * <br>
-	// * added by liuyongtao<br>
-	// *
-	// * @param processDefinitionKey
-	// * @return
-	// *
-	// * @date 2017年6月30日 下午12:42:20
-	// */
-	// @ResponseBody
-	// @RequestMapping("/getStart/{processDefinitionKey}")
-	// public Object getStart(@PathVariable String processDefinitionKey) {
-	// // 根据流程定义KEY读取外置表单
-	// Object startForm = workFlowService.getRenderedStartForm(processDefinitionKey);
-	// return startForm;
-	// }
 
 	/**
 	 * 提交请假申请,启动流程实例

@@ -4,7 +4,7 @@
 <%@ include file="/pub/pubTips.jsp"%>
 <html>
 <head>
-<title>请假申请</title>
+<title>请假申请修改</title>
 <jsp:include page="/pub/pubFormCss.jsp" />
 <jsp:include page="/pub/pubFormJs.jsp" />
 <script type="text/javascript" src="${ctx }/page/apply/form-key/leaveApplyRe.js"></script>
@@ -12,7 +12,7 @@
 
 <body>
 	<fieldset class="layui-elem-field">
-		<legend>请假申请信息</legend>
+		<legend>请假申请信息修改-外置表单</legend>
 		<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/formkey/applyLeave/updateLeave">
 			<input type="hidden" id="id" name="id" value="${leaveDto.id}">
 			<input type="hidden" id="status" name="status" value="${leaveDto.status}">

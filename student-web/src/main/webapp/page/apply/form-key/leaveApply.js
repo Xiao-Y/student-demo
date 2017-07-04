@@ -11,11 +11,4 @@ layui.use(['form', 'laydate'], function() {
 	form.on('submit(*)', function(data) {
 		return submitFormNewTip(data);
 	});
-	
-	/*var processDefinitionKey = $("#processDefinitionKey").val();
-	var url = path + "/formkey/applyLeave/getStart/" + processDefinitionKey;
-	$.post(url,function(formHtml){
-		$("#dataForm").html(formHtml);
-		form.render(); //更新全部
-	});*/
 });

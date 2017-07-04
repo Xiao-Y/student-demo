@@ -70,7 +70,7 @@
 								</td>
 								<td>
 									<c:if test="${leave.status == '7' }">
-										<a href="${ctx }/formkey/applyLeave/editLeave?id=${leave.id }">修改</a>
+										<a href="${ctx }/formkey/applyLeave/editLeave?id=${leave.id }&processInstanceId=${leave.processInstanceId }">修改</a>
 									</c:if>
 									<c:if test="${leave.status != '7' }">
 										<c:if test="${empty task.assignee }">
