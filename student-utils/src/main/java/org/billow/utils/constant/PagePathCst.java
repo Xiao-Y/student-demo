@@ -16,13 +16,21 @@ public class PagePathCst {
 	/**
 	 * 申请管理
 	 */
-	public static final String BASEPATH_APPLY = "page/apply/";
+	public static final String BASEPATH_ACTIVITI_APPLY = "page/activiti/apply/";
 	/**
 	 * 审批管理
 	 */
-	public static final String BASEPATH_APPROVAL = "page/approval/";
+	public static final String BASEPATH_ACTIVITI_APPROVAL = "page/activiti/approval/";
 	/**
-	 * 流程相关
+	 * 流程模板
 	 */
-	public static final String BASEPATH_WORKFLOW = "page/workFlow/";
+	public static final String BASEPATH_ACTIVITI_MODEL = "page/activiti/model/";
+	/**
+	 * 流程
+	 */
+	public static final String BASEPATH_ACTIVITI = "page/activiti/";
+	/**
+	 * 自动任务
+	 */
+	public static final String BASEPATH_AUTOTASK = "page/autoTask/";
 }
