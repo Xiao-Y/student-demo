@@ -19,6 +19,7 @@
 <input type="button" id="error" value="错误" />  
 <input type="button" id="load" value="正在加载" />  
 <input type="button" id="tip" value="提示" />     
+<input type="button" id="error2" value="错误2" />  
 </center>
 <script type="text/javascript" src="zepto.min.js"></script>
 <script type="text/javascript" src="mdialog.js"></script>
@@ -30,6 +31,9 @@
     //错误  
     $("#error").click(function(){  
         new TipBox({type:'error',str:'对不起,出错了!',hasBtn:true});  
+    });  
+    $("#error2").click(function(){  
+        new TipBox({type:'error',str:'对不起,出错了!',hasBtn:false});  
     });  
     //提示  
     $("#tip").click(function(){  

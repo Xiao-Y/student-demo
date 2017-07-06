@@ -8,6 +8,8 @@
 <jsp:include page="/pub/pubTableCss.jsp" />
 <jsp:include page="/pub/pubJs.jsp" />
 <script type="text/javascript" src="${ctx }/page/system/menuManage.js"></script>
+<script type="text/javascript" src="${ctx}/js/extend/pubTable.js"></script>
+
 </head>
 <body>
 	<div class="admin-main">
@@ -48,8 +50,9 @@
 								<td>${menu.validind }</td>
 								<td>${menu.displayno }</td>
 								<td>
-									<a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>
-									<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+									<a href="${ctx }/sysMenu/menuEdit?id=${menu.id }" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="javascript:;" data-opt="del" url="${ctx }/sysMenu/menuDel?id=${menu.id }"
+										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>
 							</tr>
 						</c:forEach>

@@ -17,6 +17,6 @@ layui.use('form', function() {
 	});
 	
 	//用于显示radio的选种
-	var arry = ['spread_radio','vaildind_radio','pid_select'];
+	var arry = ['spread_radio','validind_radio','pid_select'];
 	pubPopForm.checkedDisplay(arry,form);
 });

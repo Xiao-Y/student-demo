@@ -1,6 +1,7 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/pub/taglib.jsp"%>
+<%@ include file="/pub/pubTips.jsp"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,7 +12,7 @@
 </head>
 <body style="padding: 10px;">
 	<form class="layui-form layui-form-pane1" data-type="ajax" action="${ctx }/sysMenu/menuSave">
-		<input type="hidden" name="jobId" value="${menu.id }">
+		<input type="hidden" name="id" value="${menu.id }">
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单名称</label>
 			<div class="layui-input-block">
@@ -28,15 +29,15 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否展开</label>
 			<div class="layui-input-inline">
-				<input type="hidden" id="spread_radio" def="0" value="${menu.spread}">
-				<input type="radio" name="spread" value="1" title="是">
-				<input type="radio" name="spread" value="0" title="否">
+				<input type="hidden" id="spread_radio" def="false" value="${menu.spread}">
+				<input type="radio" name="spread" value="true" title="是">
+				<input type="radio" name="spread" value="false" title="否">
 			</div>
 			<label class="layui-form-label">是否有效</label>
 			<div class="layui-input-inline">
-				<input type="hidden" id="vaildind_radio" def="0" value="${menu.vaildind }">
-				<input type="radio" name="vaildind" value="1" title="是">
-				<input type="radio" name="vaildind" value="0" title="否">
+				<input type="hidden" id="validind_radio" def="true" value="${menu.validind }">
+				<input type="radio" name="validind" value="true" title="是">
+				<input type="radio" name="validind" value="false" title="否">
 			</div>
 		</div>
 		<div class="layui-form-item layui-form-text">
@@ -49,7 +50,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级菜单</label>
 			<div class="layui-input-block">
-				<input type="hidden" id="pid_select" def="0" value="${pid.id }">
+				<input type="hidden" id="pid_select" def="0" value="${menu.pid }">
 				<select id="pid" name="pid" lay-filter="pid">
 					<option value="0" selected="selected">0-父级菜单</option>
 					<c:forEach items="${pids }" var="pid">
