@@ -50,7 +50,7 @@
 								<td>${menu.validind }</td>
 								<td>${menu.displayno }</td>
 								<td>
-									<a href="${ctx }/sysMenu/menuEdit?id=${menu.id }" class="layui-btn layui-btn-mini">编辑</a>
+									<a href="${ctx }/sysMenu/menuEdit?id=${menu.id }&pageNo=${page.pageNum }" class="layui-btn layui-btn-mini">编辑</a>
 									<a href="javascript:;" data-opt="del" url="${ctx }/sysMenu/menuDel?id=${menu.id }"
 										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 								</td>

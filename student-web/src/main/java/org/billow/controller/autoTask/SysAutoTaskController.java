@@ -59,7 +59,7 @@ public class SysAutoTaskController {
 		List<ScheduleJobDto> jods = scheduleJobService.selectAll(scheduleJobDto);
 		PageInfo<ScheduleJobDto> page = new PageInfo<>(jods);
 		av.addObject("page", page);
-		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "autoTaskManage");
+		av.setViewName(PagePathCst.BASEPATH_AUTOTASK + "autoTaskManage");
 		return av;
 	}
 
@@ -84,7 +84,7 @@ public class SysAutoTaskController {
 			dto = scheduleJobService.selectByPrimaryKey(dto);
 			av.addObject("task", dto);
 		}
-		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "autoTaskEdit");
+		av.setViewName(PagePathCst.BASEPATH_AUTOTASK + "autoTaskEdit");
 		return av;
 	}
 

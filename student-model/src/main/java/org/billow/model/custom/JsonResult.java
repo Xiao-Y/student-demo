@@ -34,7 +34,7 @@ public class JsonResult {
 		this.root = root;
 	}
 
-	public boolean isSuccess() {
+	public boolean getSuccess() {
 		return success;
 	}
 

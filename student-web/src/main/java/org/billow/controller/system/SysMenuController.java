@@ -11,7 +11,6 @@ import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,15 +49,18 @@ public class SysMenuController {
 
 	@RequestMapping("/menuEdit")
 	public ModelAndView menuEdit(MenuDto menu) {
-		ModelAndView av = new ModelAndView();
+		MenuDto menuDto = new MenuDto();
 		// 编辑时，显示数据
 		if (menu.getId() != null) {
-			MenuDto menuDto = menuService.selectByPrimaryKey(menu);
-			av.addObject("menu", menuDto);
+			menuDto = menuService.selectByPrimaryKey(menu);
 		}
-		MenuDto menuDto = new MenuDto();
-		menuDto.setPid(0);
-		List<MenuDto> pids = menuService.selectAll(menuDto);
+		MenuDto menuDtoSelect = new MenuDto();
+		menuDtoSelect.setPid(0);
+		List<MenuDto> pids = menuService.selectAll(menuDtoSelect);
+		ModelAndView av = new ModelAndView();
+		// 用于修改后保持停留在页面
+		menuDto.setPageNo(menu.getPageNo());
+		av.addObject("menu", menuDto);
 		av.addObject("pids", pids);
 		av.setViewName(PagePathCst.BASEPATH_SYSTEM + "menuEdit");
 		return av;
@@ -86,7 +88,7 @@ public class SysMenuController {
 		}
 		json.setMessage(message);
 		json.setType(type);
-		json.setRoot("/sysMenu/menuManage");
+		json.setRoot("/sysMenu/menuManage?pageNo=" + menu.getPageNo());
 		return json;
 	}
 
@@ -94,21 +96,19 @@ public class SysMenuController {
 	@RequestMapping("/menuDel")
 	public JsonResult menuDel(MenuDto menu) {
 		JsonResult json = new JsonResult();
+		boolean success = false;
 		String message = "";
-		String type = "";
 		try {
 			menuService.deleteByPrimaryKey(menu);
 			message = MessageTipsCst.DELETE_SUCCESS;
-			type = MessageTipsCst.TYPE_SUCCES;
+			success = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 			message = MessageTipsCst.DELETE_FAILURE;
-			type = MessageTipsCst.TYPE_ERROR;
 		}
 		json.setMessage(message);
-		json.setType(type);
-		json.setRoot("/sysMenu/menuManage");
+		json.setSuccess(success);
 		return json;
 	}
 }

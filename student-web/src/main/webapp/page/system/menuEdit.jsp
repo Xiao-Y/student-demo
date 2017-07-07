@@ -13,6 +13,7 @@
 <body style="padding: 10px;">
 	<form class="layui-form layui-form-pane1" data-type="ajax" action="${ctx }/sysMenu/menuSave">
 		<input type="hidden" name="id" value="${menu.id }">
+		<input type="hidden" name="pageNo" value="${menu.pageNo }">
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单名称</label>
 			<div class="layui-input-block">
