@@ -38,43 +38,43 @@ public interface WorkFlowService {
 	 */
 	public void getActivitiProccessImage(String pProcessInstanceId, HttpServletResponse response) throws Exception;
 
-	/**
-	 * 查询个人任务列表
-	 * 
-	 * <br>
-	 * added by liuyongtao<br>
-	 * 
-	 * @param list
-	 *            业务对象
-	 * @param processDefinitionKey
-	 *            流程定义Key
-	 * @param assignee
-	 *            办理人
-	 * @return
-	 * @throws Exception
-	 * 
-	 * @date 2017年6月7日 上午9:42:56
-	 */
-	public <T> List<T> findMyTaskList(List<T> list, String processDefinitionKey, String assignee) throws Exception;
-
-	/**
-	 * 查询个人任务
-	 * 
-	 * <br>
-	 * added by liuyongtao<br>
-	 * 
-	 * @param list
-	 *            业务对象
-	 * @param processDefinitionKey
-	 *            流程定义Key
-	 * @param assignee
-	 *            办理人
-	 * @return
-	 * @throws Exception
-	 * 
-	 * @date 2017年6月7日 上午9:42:56
-	 */
-	public <T> T findMyTask(T t, String processDefinitionKey, String assignee) throws Exception;
+//	/**
+//	 * 查询个人任务列表
+//	 * 
+//	 * <br>
+//	 * added by liuyongtao<br>
+//	 * 
+//	 * @param list
+//	 *            业务对象
+//	 * @param processDefinitionKey
+//	 *            流程定义Key
+//	 * @param assignee
+//	 *            办理人
+//	 * @return
+//	 * @throws Exception
+//	 * 
+//	 * @date 2017年6月7日 上午9:42:56
+//	 */
+//	public <T> List<T> findMyTaskList(List<T> list, String processDefinitionKey, String assignee) throws Exception;
+//
+//	/**
+//	 * 查询个人任务
+//	 * 
+//	 * <br>
+//	 * added by liuyongtao<br>
+//	 * 
+//	 * @param list
+//	 *            业务对象
+//	 * @param processDefinitionKey
+//	 *            流程定义Key
+//	 * @param assignee
+//	 *            办理人
+//	 * @return
+//	 * @throws Exception
+//	 * 
+//	 * @date 2017年6月7日 上午9:42:56
+//	 */
+//	public <T> T findMyTask(T t, String processDefinitionKey, String assignee) throws Exception;
 
 	/**
 	 * 查询流程定义对象

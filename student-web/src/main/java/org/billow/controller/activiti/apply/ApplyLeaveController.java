@@ -38,6 +38,8 @@ public class ApplyLeaveController {
 	@Autowired
 	private ApplyLeaveService applyLeaveService;
 
+	public final static String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
+
 	/**
 	 * 请假申请
 	 * 
@@ -50,7 +52,6 @@ public class ApplyLeaveController {
 	public ModelAndView editLeave(LeaveDto leave) {
 		ModelAndView av = new ModelAndView();
 		String viewName = PagePathCst.BASEPATH_ACTIVITI_APPLY + "leaveApply";
-		String processDefinitionKey = ActivitiCst.PROCESSDEFINITION_KEY_LEAVE;
 		leave.setProcessDefinitionKey(processDefinitionKey);
 		av.addObject("leaveDto", leave);
 		if (leave.getId() != null) {
