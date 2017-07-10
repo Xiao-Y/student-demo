@@ -147,7 +147,11 @@ function submitFormNewTip(data){
 			var root = obj.root;
 		 	if(type == 'success'){
 	            new TipBox({type:type,str:message,hasBtn:true,setTime:1500,callBack:function(){
-	            	$(window.location).attr('href', path + root);
+	            	if(root != '' && root != null && root != 'null'){
+		            	$(window.location).attr('href', path + root);
+	            	}else{
+	            		form.reset();
+	            	}
 	            }});  
 		 	}else{
 	            new TipBox({type:type,str:message,hasBtn:true})  

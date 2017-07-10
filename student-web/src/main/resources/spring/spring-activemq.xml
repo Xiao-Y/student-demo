@@ -8,38 +8,7 @@
 				        http://activemq.apache.org/schema/core
 				        http://activemq.apache.org/schema/core/activemq-core-5.1.0.xsd">
 
-	<!-- 定义消息队列（Queue） -->
-	<bean id="demoQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.queue</value>
-		</constructor-arg>
-	</bean>
-	<!-- 定义消息主题（Topic） -->
-	<bean id="demoTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.topic</value>
-		</constructor-arg>
-	</bean>
-
-	<!-- 带监听的 start -->
-	<!-- 定义消息队列（Queue） -->
-	<bean id="demoQueueDestinationListener" class="org.apache.activemq.command.ActiveMQQueue">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.queueListener</value>
-		</constructor-arg>
-	</bean>
-	<!-- 定义消息主题（Topic） -->
-	<bean id="demoTopicDestinationListener" class="org.apache.activemq.command.ActiveMQTopic">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.topicListener</value>
-		</constructor-arg>
-	</bean>
-	<!-- 带监听的 end -->
-
+	<!-- mq公用信息 -->
 	<amq:connectionFactory id="amqConnectionFactory" brokerURL="${brokerURL}" userName="${userName}"
 		password="${password}" />
 
@@ -48,34 +17,28 @@
 		<property name="sessionCacheSize" value="${sessionCacheSize}" />
 	</bean>
 
-	<!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
-	<bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
-		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="defaultDestination" ref="demoQueueDestination" />
-		<!-- 配置JMS连接时长 -->
-		<property name="receiveTimeout" value="${receiveTimeout}" />
-		<!-- true是topic，false是queue，默认是false，此处显示写出false -->
-		<property name="pubSubDomain" value="false" />
+	<!-- 定义默认的消息队列（Queue） -->
+	<bean id="defaultQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<!-- 设置消息队列的名字 -->
+		<constructor-arg>
+			<value>com.bilow.defaultQueue</value>
+		</constructor-arg>
 	</bean>
-	<!-- 配置JMS模板（Topic），Spring提供的JMS工具类，它发送、接收消息。 -->
-	<bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
-		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="defaultDestination" ref="demoTopicDestination" />
-		<property name="receiveTimeout" value="${receiveTimeout}" />
-		<!-- true是topic，false是queue，默认是false，此处显示写出false -->
-		<property name="pubSubDomain" value="true" />
+	<!-- 定义默认的消息主题（Topic） -->
+	<bean id="defaultTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<!-- 设置消息队列的名字 -->
+		<constructor-arg>
+			<value>com.bilow.defaultTopic</value>
+		</constructor-arg>
 	</bean>
+	<!-- 发送消息队列 -->
+	<import resource="classpath:activemq/sender/activemq-sender-queue.xml" />
+	<import resource="classpath:activemq/sender/activemq-sender-topic.xml" />
+	<!-- 消费消息队列 -->
+	<import resource="classpath:activemq/consumer/activemq-consumer-topic.xml" />
+	<import resource="classpath:activemq/consumer/activemq-consumer-queue.xml" />
+	<!-- 监听器消费消息队列 -->
+	<import resource="classpath:activemq/listener/activemq-listener-queue.xml" />
+	<import resource="classpath:activemq/listener/activemq-listener-topic.xml" />
 
-	<!-- 配置消息队列监听者（Queue） -->
-	<bean id="queueListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destination" ref="demoQueueDestinationListener" />
-		<property name="messageListener" ref="queueMessageListener" />
-	</bean>
-	<!-- 配置消息主题监听者（Topic） -->
-	<bean id="topicListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destination" ref="demoTopicDestinationListener" />
-		<property name="messageListener" ref="topicMessageListener" />
-	</bean>
 </beans>  

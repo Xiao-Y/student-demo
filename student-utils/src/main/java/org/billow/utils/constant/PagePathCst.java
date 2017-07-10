@@ -33,4 +33,8 @@ public class PagePathCst {
 	 * 自动任务
 	 */
 	public static final String BASEPATH_AUTOTASK = "page/autoTask/";
+	/**
+	 * activeMQ
+	 */
+	public static final String BASEPATH_ACTIVEMQ = "page/activeMQ/";
 }

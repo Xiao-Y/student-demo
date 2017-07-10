@@ -41,7 +41,7 @@
 	<!-- spring整合redis缓存 -->
 	<!-- <import resource="classpath:spring/spring-redis.xml" /> -->
 	<!-- 整合activeMQ -->
-	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
+	<import resource="classpath:spring/spring-activemq.xml" />
 	<!-- 整合dubbo -->
 	<!-- <import resource="classpath:dubbo/dubbo-common.xml" /> -->
 	<!-- dubbo生产者 -->
