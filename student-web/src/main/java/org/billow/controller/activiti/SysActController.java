@@ -1,5 +1,6 @@
 package org.billow.controller.activiti;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.task.Comment;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.model.custom.DiagramDto;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.PageInfo;
@@ -298,5 +301,31 @@ public class SysActController {
 	@RequestMapping("/getActivitiProccessImage/{processInstanceId}")
 	public void getActivitiProccessImage(@PathVariable String processInstanceId, HttpServletResponse response) throws Exception {
 		workFlowService.getActivitiProccessImage(processInstanceId, response);
+	}
+
+	/**
+	 * 导出model的xml文件
+	 */
+	@RequestMapping(value = "/export/{modelId}")
+	public void export(@PathVariable("modelId") String modelId, HttpServletResponse response) throws Exception {
+		try {
+			Model modelData = repositoryService.getModel(modelId);
+			BpmnJsonConverter jsonConverter = new BpmnJsonConverter();
+			JsonNode editorNode = new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
+			BpmnModel bpmnModel = jsonConverter.convertToBpmnModel(editorNode);
+			BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
+			byte[] bpmnBytes = xmlConverter.convertToXML(bpmnModel);
+
+			ByteArrayInputStream in = new ByteArrayInputStream(bpmnBytes);
+			IOUtils.copy(in, response.getOutputStream());
+			String filename = bpmnModel.getMainProcess().getId() + ".bpmn20.xml";
+			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+			response.flushBuffer();
+		} catch (Exception e) {
+			response.setContentType("text/html;charset=UTF-8");
+			response.getOutputStream().write("暂时没有XML".getBytes("UTF-8"));
+			e.printStackTrace();
+			logger.error("导出model的xml文件失败：modelId=" + modelId, e);
+		}
 	}
 }

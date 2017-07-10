@@ -14,16 +14,16 @@
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-				<i class="layui-icon">&#xe608;</i> 添加模板
-			</a>
-			<a href="#" class="layui-btn layui-btn-small" id="import">
-				<i class="layui-icon">&#xe608;</i> 导入信息
-			</a>
-			<a href="#" class="layui-btn layui-btn-small">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
+				<i class="layui-icon">&#xe608;</i>
+				添加模板
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-				<i class="layui-icon">&#xe615;</i> 搜索
+				<i class="layui-icon">&#xe615;</i>
+				搜索
+			</a>
+			<a href="${ctx}/sysAct/findActModel?pageNo=${page.pageNum }" class="layui-btn layui-btn-small">
+				<i class="fa fa-refresh" aria-hidden="true"></i>
+				刷新
 			</a>
 		</blockquote>
 		<fieldset class="layui-elem-field">
@@ -63,11 +63,29 @@
 								</td>
 								<td>${model.version }</td>
 								<td>
-									<a href="${ctx }/sysAct/viewPic/${model.id}" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-									<a href="${ctx }/process-editor/modeler.html?modelId=${model.id}" target="_blank" class="layui-btn layui-btn-mini">编辑</a>
-									<a href="javascript:;" name="deploy" data-id="${model.id }" data-name="${model.name }" class="layui-btn layui-btn-warm layui-btn-mini">部署</a>
-									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList" url="${ctx }/sysAct/deleteModel/${model.id}"
-										class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+									<a href="${ctx }/sysAct/viewPic/${model.id}" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">
+										<i class="fa fa-eye" aria-hidden="true"></i>
+										预览
+									</a>
+									<a href="${ctx }/process-editor/modeler.html?modelId=${model.id}" target="_blank"
+										class="layui-btn layui-btn-mini">
+										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										编辑
+									</a>
+									<a href="${ctx }/sysAct/export/${model.id}" class="layui-btn layui-btn-mini" target="_blank">
+										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+										导出XML
+									</a>
+									<a href="javascript:;" name="deploy" data-id="${model.id }" data-name="${model.name }"
+										class="layui-btn layui-btn-warm layui-btn-mini">
+										<i class="fa fa-anchor" aria-hidden="true"></i>
+										部署
+									</a>
+									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList"
+										url="${ctx }/sysAct/deleteModel/${model.id}" class="layui-btn layui-btn-danger layui-btn-mini">
+										<i class="fa fa-times" aria-hidden="true"></i>
+										删除
+									</a>
 								</td>
 							</tr>
 						</c:forEach>
