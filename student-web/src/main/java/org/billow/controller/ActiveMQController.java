@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-@RequestMapping("/activeMQ")
+@Controller("ActiveMQController1")
+@RequestMapping("/activeMQ1")
 public class ActiveMQController {
-	
+
 	private static final Logger logger = Logger.getLogger(ActiveMQController.class);
 
 	@Resource
 	private QueueProducer queueProducer;
 
-//	@Resource
+	// @Resource
 	private Destination demoQueueDestination;
 
 	@Resource
 	private TopicProducer topicProducer;
 
-//	@Resource
+	// @Resource
 	private Destination demoTopicDestination;
 
 	@Resource
