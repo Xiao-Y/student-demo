@@ -1,4 +1,4 @@
-package org.billow.common.mq.provider.queue;
+package org.billow.common.mq.sender.queue;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -13,9 +13,9 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QueueProducer {
+public class QueueSender {
 
-	private static final Logger logger = Logger.getLogger(QueueProducer.class);
+	private static final Logger logger = Logger.getLogger(QueueSender.class);
 
 	// @Resource(name = "jmsQueueTemplate")
 	private JmsTemplate jmsQueueTemplate;
@@ -40,7 +40,7 @@ public class QueueProducer {
 			logger.error(e);
 			throw new ActiveMQException();
 		}
-		logger.info("向队列：" + destination.toString() + "\\r\\n发送了消息：" + msg);
+		logger.info("\r\n向队列：" + destination.toString() + "\r\n发送了消息：" + msg);
 		jmsQueueTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
@@ -67,7 +67,7 @@ public class QueueProducer {
 			logger.error(e);
 			throw new ActiveMQException();
 		}
-		logger.info("向默认队列：" + defaultQueueDestination.toString() + "\\r\\n发送了消息：" + msg);
+		logger.info("\r\n向默认队列：" + defaultQueueDestination.toString() + "\r\n发送了消息：" + msg);
 		jmsQueueTemplate.send(defaultQueueDestination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {

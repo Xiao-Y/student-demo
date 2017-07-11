@@ -37,7 +37,7 @@ public class QueueConsumer {
 		TextMessage message = (TextMessage) jmsQueueTemplate.receive(destination);
 		try {
 			if (message != null) {
-				System.out.println("接收到：" + destination.toString() + " 发来的：" + message.getText());
+				logger.info("\r\n读取：" + destination.toString() + "\r\n发送的消息：" + message.getText());
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();

@@ -5,8 +5,8 @@ import javax.jms.Destination;
 
 import org.apache.log4j.Logger;
 import org.billow.common.mq.consume.QueueConsumer;
-import org.billow.common.mq.provider.queue.QueueProducer;
-import org.billow.common.mq.provider.topic.TopicProducer;
+import org.billow.common.mq.sender.queue.QueueSender;
+import org.billow.common.mq.sender.topic.TopicSender;
 import org.billow.utils.bean.BeanUtils;
 import org.billow.utils.exception.ActiveMQException;
 import org.springframework.stereotype.Controller;
@@ -21,13 +21,13 @@ public class ActiveMQController {
 	private static final Logger logger = Logger.getLogger(ActiveMQController.class);
 
 	@Resource
-	private QueueProducer queueProducer;
+	private QueueSender queueSender;
 
 	// @Resource
 	private Destination demoQueueDestination;
 
 	@Resource
-	private TopicProducer topicProducer;
+	private TopicSender topicSender;
 
 	// @Resource
 	private Destination demoTopicDestination;
@@ -51,7 +51,7 @@ public class ActiveMQController {
 		}
 		String op = "";
 		try {
-			queueProducer.sendMessage(demoQueueDestination, message);
+			queueSender.sendMessage(demoQueueDestination, message);
 			op = "suc";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +64,7 @@ public class ActiveMQController {
 	public String topicSender(@RequestParam("message") String message) {
 		String op = "";
 		try {
-			topicProducer.sendMessage(demoTopicDestination, message);
+			topicSender.sendMessage(demoTopicDestination, message);
 			op = "suc";
 		} catch (Exception e) {
 			e.printStackTrace();

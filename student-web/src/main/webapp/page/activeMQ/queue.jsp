@@ -21,20 +21,24 @@
 				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
 					action="${ctx }/activeMQ/queueSender">
 					<div class="layui-form-item layui-form-text">
-						<label class="layui-form-label">发送内容：</label>
-						<div class="layui-input-block">
-							<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
-						</div>
+						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>
 					<div class="layui-form-item">
-						<div class="layui-input-block">
-							<button class="layui-btn" lay-submit lay-filter="*">发送</button>
-							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-						</div>
+						<button class="layui-btn" lay-submit lay-filter="*">发送</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</form>
 			</div>
-			<div class="layui-tab-item">内容2</div>
+			<div class="layui-tab-item">
+				<div style="margin: 15px;">
+					<div class="layui-form-item">
+						<textarea readonly="readonly" class="layui-textarea" id="readMsgTx"></textarea>
+					</div>
+					<div class="layui-form-item">
+						<button class="layui-btn" id="readMsgBt" type="button">读取</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
