@@ -18,4 +18,9 @@ public class ActiveMQException extends RuntimeException {
 	public ActiveMQException(String st) {
 		super(st);
 	}
+
+	public ActiveMQException addCase(Exception e) {
+		ActiveMQException ex = new ActiveMQException(e.getMessage());
+		return ex;
+	}
 }

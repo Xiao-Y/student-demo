@@ -8,10 +8,12 @@ import org.apache.log4j.Logger;
 import org.billow.common.mq.consume.QueueConsumer;
 import org.billow.common.mq.sender.queue.QueueSender;
 import org.billow.model.custom.JsonResult;
-import org.billow.utils.bean.BeanUtils;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,6 +34,9 @@ public class ActiveMQController {
 	private QueueSender queueSender;
 	@Resource
 	private QueueConsumer queueConsumer;
+
+	@Autowired(required = false)
+	@Qualifier("demoQueueDestination")
 	private Destination demoQueueDestination;
 
 	@RequestMapping("/index")
@@ -51,13 +56,16 @@ public class ActiveMQController {
 	 * @date 2017年7月10日 上午9:17:33
 	 */
 	@ResponseBody
-	@RequestMapping("/queueSender")
-	public JsonResult queueSender(String message) {
+	@RequestMapping("/queueSender/{default}")
+	public JsonResult queueSender(@PathVariable boolean defalut, String message) {
 		String type = "";
 		String messageJ = "";
 		try {
-			demoQueueDestination = BeanUtils.getBean("demoQueueDestination");
-			queueSender.sendMessage(demoQueueDestination, message);
+			if (defalut) {
+				queueSender.sendMessage(message);
+			} else {
+				queueSender.sendMessage(demoQueueDestination, message);
+			}
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
@@ -81,10 +89,14 @@ public class ActiveMQController {
 	 * @date 2017年7月11日 上午11:05:52
 	 */
 	@ResponseBody
-	@RequestMapping("/readQueueMessage")
-	public String readQueueMessage() throws Exception {
-		demoQueueDestination = BeanUtils.getBean("demoQueueDestination");
-		TextMessage receive = queueConsumer.receive(demoQueueDestination);
+	@RequestMapping("/readQueueMessage/{default}")
+	public String readQueueMessage(@PathVariable boolean defalut) throws Exception {
+		TextMessage receive = null;
+		if(defalut){
+			receive = queueConsumer.receive();
+		}else{
+			receive = queueConsumer.receive(demoQueueDestination);
+		}
 		if (receive == null) {
 			return null;
 		}

@@ -39,7 +39,7 @@ public class TopicSender {
 			logger.error(e);
 			throw new ActiveMQException();
 		}
-		logger.info("\r\n向队列：" + destination.toString() + "\r\n发送了消息：" + msg);
+		logger.info("向队列：" + destination.toString() + "\r\n发送了消息：" + msg);
 		jmsTopicTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
@@ -66,7 +66,7 @@ public class TopicSender {
 			logger.error(e);
 			throw new ActiveMQException();
 		}
-		logger.info("\r\n向默认队列：" + defaultTopicDestination.toString() + "\r\n发送了消息：" + msg);
+		logger.info("向默认队列：" + defaultTopicDestination.toString() + "\r\n发送了消息：" + msg);
 		jmsTopicTemplate.send(defaultTopicDestination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {

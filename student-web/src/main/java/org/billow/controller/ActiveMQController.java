@@ -73,7 +73,7 @@ public class ActiveMQController {
 	}
 
 	@RequestMapping("/queueConsumer")
-	public String queueConsumer() {
+	public String queueConsumer() throws Exception {
 		try {
 			demoQueueDestination = BeanUtils.getBean("demoQueueDestination");
 		} catch (Exception e) {
