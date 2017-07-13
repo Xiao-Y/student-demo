@@ -12,16 +12,17 @@ layui.use(['form','element'], function() {
 		return submitFormNewTip(data);
 	});
 	
-	$("input[name='readMsgBt']").on("click",function(){
-		var $this = this;
-		alert($(".pathUrl").index(this));
-		/*var url = path + "/activeMQ/readQueueMessage";
+	$("button[name='readMsgBt']").on("click",function(){
+		var index = $("button[name='readMsgBt']").index(this);
+		var url = $(".pathUrl").eq(index).val();
+		var layerIndex = layer.load();
 		$.post(url,function(data){
+			layer.close(layerIndex);
 			if(data == ''){
 				new TipBox({type:'error',str:'没有更多消息...',hasBtn:true})
 			}else{
-				$("#readMsgTx").text(data);
+				$("[name='readMsgTx']").eq(index).text(data);
 			}
-		});*/
+		});
 	})
 });

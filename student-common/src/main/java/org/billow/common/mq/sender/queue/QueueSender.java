@@ -21,6 +21,8 @@ public class QueueSender {
 	@Autowired(required = false)
 	@Qualifier("jmsQueueTemplate")
 	private JmsTemplate jmsQueueTemplate;
+	@Autowired(required = false)
+	@Qualifier("defaultQueueDestination")
 	private Destination defaultQueueDestination;
 
 	/**
@@ -64,6 +66,9 @@ public class QueueSender {
 	public void sendMessage(final String msg) throws Exception {
 		if (jmsQueueTemplate == null || defaultQueueDestination == null) {
 			throw new ActiveMQException();
+		}
+		if (defaultQueueDestination == null) {
+			throw new ActiveMQException("defaultQueueDestination为空！");
 		}
 		logger.info("向默认队列：" + defaultQueueDestination.toString() + "\r\n发送了消息：" + msg);
 		jmsQueueTemplate.send(defaultQueueDestination, new MessageCreator() {

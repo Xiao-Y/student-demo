@@ -56,12 +56,12 @@ public class ActiveMQController {
 	 * @date 2017年7月10日 上午9:17:33
 	 */
 	@ResponseBody
-	@RequestMapping("/queueSender/{default}")
-	public JsonResult queueSender(@PathVariable boolean defalut, String message) {
+	@RequestMapping("/queueSender/{def}")
+	public JsonResult queueSender(@PathVariable boolean def, String message) {
 		String type = "";
 		String messageJ = "";
 		try {
-			if (defalut) {
+			if (def) {// 默认消息队列
 				queueSender.sendMessage(message);
 			} else {
 				queueSender.sendMessage(demoQueueDestination, message);
@@ -89,12 +89,12 @@ public class ActiveMQController {
 	 * @date 2017年7月11日 上午11:05:52
 	 */
 	@ResponseBody
-	@RequestMapping("/readQueueMessage/{default}")
-	public String readQueueMessage(@PathVariable boolean defalut) throws Exception {
+	@RequestMapping("/readQueueMessage/{def}")
+	public String readQueueMessage(@PathVariable boolean def) throws Exception {
 		TextMessage receive = null;
-		if(defalut){
+		if (def) {// 默认消息队列
 			receive = queueConsumer.receive();
-		}else{
+		} else {
 			receive = queueConsumer.receive(demoQueueDestination);
 		}
 		if (receive == null) {

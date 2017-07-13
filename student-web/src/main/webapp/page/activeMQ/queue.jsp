@@ -15,7 +15,7 @@
 		<ul class="layui-tab-title">
 			<li class="layui-this">发送默认Queue</li>
 			<li>读取默认Queue</li>
-			<li class="layui-this">发送Queue</li>
+			<li>发送Queue</li>
 			<li>读取Queue</li>
 		</ul>
 		<div class="layui-tab-content">
@@ -34,7 +34,7 @@
 			<div class="layui-tab-item">
 				<div style="margin: 15px;">
 					<div class="layui-form-item">
-						<textarea readonly="readonly" class="layui-textarea" id="readMsgTx"></textarea>
+						<textarea readonly="readonly" class="layui-textarea" name="readMsgTx"></textarea>
 					</div>
 					<div class="layui-form-item">
 						<input type="hidden" class="pathUrl" value="${ctx }/activeMQ/readQueueMessage/true">
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="layui-tab-item layui-show">
+			<div class="layui-tab-item">
 				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
 					action="${ctx }/activeMQ/queueSender/false">
 					<div class="layui-form-item layui-form-text">
@@ -57,7 +57,7 @@
 			<div class="layui-tab-item">
 				<div style="margin: 15px;">
 					<div class="layui-form-item">
-						<textarea readonly="readonly" class="layui-textarea" id="readMsgTx"></textarea>
+						<textarea readonly="readonly" class="layui-textarea" name="readMsgTx"></textarea>
 					</div>
 					<div class="layui-form-item">
 						<input type="hidden" class="pathUrl" value="${ctx }/activeMQ/readQueueMessage/false">
