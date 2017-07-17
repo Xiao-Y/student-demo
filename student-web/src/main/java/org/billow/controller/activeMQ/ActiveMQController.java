@@ -39,6 +39,10 @@ public class ActiveMQController {
 	@Qualifier("demoQueueDestination")
 	private Destination demoQueueDestination;
 
+	@Autowired(required = false)
+	@Qualifier("demoQueueDestinationListener")
+	private Destination demoQueueDestinationListener;
+
 	@RequestMapping("/index")
 	private String index() {
 		return PagePathCst.BASEPATH_ACTIVEMQ + "queue";
@@ -101,5 +105,26 @@ public class ActiveMQController {
 			return null;
 		}
 		return receive.getText();
+	}
+
+	@ResponseBody
+	@RequestMapping("/queueListenerSender")
+	public JsonResult queueListenerSender(String message) {
+		String type = "";
+		String messageJ = "";
+		try {
+			queueSender.sendMessage(demoQueueDestinationListener, message);
+			type = MessageTipsCst.TYPE_SUCCES;
+			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			type = MessageTipsCst.TYPE_ERROR;
+			messageJ = MessageTipsCst.SUBMIT_FAILURE;
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setType(type);
+		json.setMessage(messageJ);
+		return json;
 	}
 }

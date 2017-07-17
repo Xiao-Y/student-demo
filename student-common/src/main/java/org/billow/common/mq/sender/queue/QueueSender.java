@@ -44,7 +44,7 @@ public class QueueSender {
 		if (destination == null) {
 			throw new ActiveMQException("Destination为空！");
 		}
-		logger.info("向队列：" + destination.toString() + "\r\n发送了消息：" + msg);
+		logger.info("\r\n向队列：" + destination.toString() + "\r\n发送了消息：" + msg);
 		jmsQueueTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
@@ -70,7 +70,7 @@ public class QueueSender {
 		if (defaultQueueDestination == null) {
 			throw new ActiveMQException("defaultQueueDestination为空！");
 		}
-		logger.info("向默认队列：" + defaultQueueDestination.toString() + "\r\n发送了消息：" + msg);
+		logger.info("\r\n向默认队列：" + defaultQueueDestination.toString() + "\r\n发送了消息：" + msg);
 		jmsQueueTemplate.send(defaultQueueDestination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
