@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
  * @date 2017年3月14日 下午12:35:36
  */
 @Component
-public class QueueConsumer {
+public class QueueReceiver {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(QueueConsumer.class);
+	private static final Logger logger = Logger.getLogger(QueueReceiver.class);
 
 	@Autowired(required = false)
 	@Qualifier("jmsQueueTemplate")

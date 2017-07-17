@@ -1,12 +1,12 @@
 package org.billow.controller.activeMQ;
 
-import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.TextMessage;
 
 import org.apache.log4j.Logger;
-import org.billow.common.mq.consume.QueueConsumer;
-import org.billow.common.mq.sender.queue.QueueSender;
+import org.billow.common.mq.consume.QueueReceiver;
+import org.billow.common.mq.sender.queue.QueueProducer;
+import org.billow.common.mq.sender.topic.TopicPublisher;
 import org.billow.model.custom.JsonResult;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
@@ -30,10 +30,13 @@ public class ActiveMQController {
 
 	private static final Logger logger = Logger.getLogger(ActiveMQController.class);
 
-	@Resource
-	private QueueSender queueSender;
-	@Resource
-	private QueueConsumer queueConsumer;
+	@Autowired
+	private QueueProducer queueProducer;
+	@Autowired
+	private QueueReceiver queueReceiver;
+
+	@Autowired
+	private TopicPublisher topicPublisher;
 
 	@Autowired(required = false)
 	@Qualifier("demoQueueDestination")
@@ -66,9 +69,9 @@ public class ActiveMQController {
 		String messageJ = "";
 		try {
 			if (def) {// 默认消息队列
-				queueSender.sendMessage(message);
+				queueProducer.sendMessage(message);
 			} else {
-				queueSender.sendMessage(demoQueueDestination, message);
+				queueProducer.sendMessage(demoQueueDestination, message);
 			}
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
@@ -97,9 +100,9 @@ public class ActiveMQController {
 	public String readQueueMessage(@PathVariable boolean def) throws Exception {
 		TextMessage receive = null;
 		if (def) {// 默认消息队列
-			receive = queueConsumer.receive();
+			receive = queueReceiver.receive();
 		} else {
-			receive = queueConsumer.receive(demoQueueDestination);
+			receive = queueReceiver.receive(demoQueueDestination);
 		}
 		if (receive == null) {
 			return null;
@@ -107,13 +110,60 @@ public class ActiveMQController {
 		return receive.getText();
 	}
 
+	/**
+	 * 消息队列监听器形式的
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param message
+	 * @return
+	 * 
+	 * @date 2017年7月17日 上午10:52:42
+	 */
 	@ResponseBody
 	@RequestMapping("/queueListenerSender")
 	public JsonResult queueListenerSender(String message) {
 		String type = "";
 		String messageJ = "";
 		try {
-			queueSender.sendMessage(demoQueueDestinationListener, message);
+			queueProducer.sendMessage(demoQueueDestinationListener, message);
+			type = MessageTipsCst.TYPE_SUCCES;
+			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			type = MessageTipsCst.TYPE_ERROR;
+			messageJ = MessageTipsCst.SUBMIT_FAILURE;
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setType(type);
+		json.setMessage(messageJ);
+		return json;
+	}
+
+	/**
+	 * 主题：发送主题
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param message
+	 * @return
+	 * 
+	 * @date 2017年7月10日 上午9:17:33
+	 */
+	@ResponseBody
+	@RequestMapping("/topicSender/{def}")
+	public JsonResult topicSender(@PathVariable boolean def, String message) {
+		String type = "";
+		String messageJ = "";
+		try {
+			if (def) {// 默认消息队列
+				topicPublisher.sendMessage(message);
+			} else {
+				topicPublisher.sendMessage(demoQueueDestination, message);
+			}
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {

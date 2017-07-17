@@ -1,4 +1,4 @@
-package org.billow.common.mq.sender.queue;
+package org.billow.common.mq.sender.topic;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -14,38 +14,37 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QueueSender {
-
-	private static final Logger logger = Logger.getLogger(QueueSender.class);
+public class TopicPublisher {
+	private static final Logger logger = Logger.getLogger(TopicPublisher.class);
 
 	@Autowired(required = false)
-	@Qualifier("jmsQueueTemplate")
-	private JmsTemplate jmsQueueTemplate;
+	@Qualifier("jmsTopicTemplate")
+	private JmsTemplate jmsTopicTemplate;
+
 	@Autowired(required = false)
-	@Qualifier("defaultQueueDestination")
-	private Destination defaultQueueDestination;
+	@Qualifier("defaultTopicDestination")
+	private Destination defaultTopicDestination;
 
 	/**
-	 * 向指定队列中发送消息
+	 * 向指定主题中发送消息
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>
 	 * 
 	 * @param destination
-	 *            指定队列
 	 * @param msg
 	 * 
-	 * @date 2017年7月10日 下午5:46:46
+	 * @date 2017年7月11日 上午11:17:56
 	 */
-	public void sendMessage(Destination destination, final String msg) throws Exception {
-		if (jmsQueueTemplate == null) {
+	public void sendMessage(Destination destination, final String msg) {
+		if (jmsTopicTemplate == null) {
 			throw new ActiveMQException();
 		}
 		if (destination == null) {
 			throw new ActiveMQException("Destination为空！");
 		}
-		logger.info("\r\n向队列：" + destination.toString() + "\r\n发送了消息：" + msg);
-		jmsQueueTemplate.send(destination, new MessageCreator() {
+		logger.info("向主题：" + destination.toString() + "\r\n发送了消息：" + msg);
+		jmsTopicTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
 				return session.createTextMessage(msg);
@@ -54,24 +53,21 @@ public class QueueSender {
 	}
 
 	/**
-	 * 向默认队列中发送消息
+	 * 向默认的主题中发送消息
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>
 	 * 
 	 * @param msg
 	 * 
-	 * @date 2017年7月10日 下午5:47:03
+	 * @date 2017年7月11日 上午11:17:30
 	 */
-	public void sendMessage(final String msg) throws Exception {
-		if (jmsQueueTemplate == null || defaultQueueDestination == null) {
+	public void sendMessage(final String msg) {
+		if (defaultTopicDestination == null || jmsTopicTemplate == null) {
 			throw new ActiveMQException();
 		}
-		if (defaultQueueDestination == null) {
-			throw new ActiveMQException("defaultQueueDestination为空！");
-		}
-		logger.info("\r\n向默认队列：" + defaultQueueDestination.toString() + "\r\n发送了消息：" + msg);
-		jmsQueueTemplate.send(defaultQueueDestination, new MessageCreator() {
+		logger.info("向默认主题：" + defaultTopicDestination.toString() + "\r\n发送了消息：" + msg);
+		jmsTopicTemplate.send(defaultTopicDestination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
 				return session.createTextMessage(msg);

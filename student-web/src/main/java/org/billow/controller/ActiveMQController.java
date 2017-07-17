@@ -4,9 +4,9 @@ import javax.annotation.Resource;
 import javax.jms.Destination;
 
 import org.apache.log4j.Logger;
-import org.billow.common.mq.consume.QueueConsumer;
-import org.billow.common.mq.sender.queue.QueueSender;
-import org.billow.common.mq.sender.topic.TopicSender;
+import org.billow.common.mq.consume.QueueReceiver;
+import org.billow.common.mq.sender.queue.QueueProducer;
+import org.billow.common.mq.sender.topic.TopicPublisher;
 import org.billow.utils.bean.BeanUtils;
 import org.billow.utils.exception.ActiveMQException;
 import org.springframework.stereotype.Controller;
@@ -21,19 +21,19 @@ public class ActiveMQController {
 	private static final Logger logger = Logger.getLogger(ActiveMQController.class);
 
 	@Resource
-	private QueueSender queueSender;
+	private QueueProducer queueSender;
 
 	// @Resource
 	private Destination demoQueueDestination;
 
 	@Resource
-	private TopicSender topicSender;
+	private TopicPublisher topicSender;
 
 	// @Resource
 	private Destination demoTopicDestination;
 
 	@Resource
-	private QueueConsumer queueConsumer;
+	private QueueReceiver queueConsumer;
 
 	@RequestMapping("/mqIndex")
 	public String mqIndex() {

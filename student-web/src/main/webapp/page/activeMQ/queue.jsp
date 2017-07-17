@@ -66,7 +66,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="layui-tab-item layui-show">
+			<div class="layui-tab-item">
 				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
 					action="${ctx }/activeMQ/queueListenerSender">
 					<div class="layui-form-item layui-form-text">
