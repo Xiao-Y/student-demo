@@ -5,6 +5,7 @@ import javax.jms.TextMessage;
 
 import org.apache.log4j.Logger;
 import org.billow.common.mq.consume.QueueReceiver;
+import org.billow.common.mq.consume.TopicSubscriber;
 import org.billow.common.mq.sender.queue.QueueProducer;
 import org.billow.common.mq.sender.topic.TopicPublisher;
 import org.billow.model.custom.JsonResult;
@@ -35,9 +36,6 @@ public class ActiveMQController {
 	@Autowired
 	private QueueReceiver queueReceiver;
 
-	@Autowired
-	private TopicPublisher topicPublisher;
-
 	@Autowired(required = false)
 	@Qualifier("demoQueueDestination")
 	private Destination demoQueueDestination;
@@ -46,9 +44,18 @@ public class ActiveMQController {
 	@Qualifier("demoQueueDestinationListener")
 	private Destination demoQueueDestinationListener;
 
-	@RequestMapping("/index")
-	private String index() {
-		return PagePathCst.BASEPATH_ACTIVEMQ + "queue";
+	@Autowired
+	private TopicPublisher topicPublisher;
+	@Autowired
+	private TopicSubscriber topicSubscriber;
+
+	@Autowired(required = false)
+	@Qualifier("demoTopicDestination")
+	private Destination demoTopicDestination;
+
+	@RequestMapping("/index/{mq}")
+	private String index(@PathVariable("mq") String mq) {
+		return PagePathCst.BASEPATH_ACTIVEMQ + mq;
 	}
 
 	/**
@@ -162,7 +169,7 @@ public class ActiveMQController {
 			if (def) {// 默认消息队列
 				topicPublisher.sendMessage(message);
 			} else {
-				topicPublisher.sendMessage(demoQueueDestination, message);
+				topicPublisher.sendMessage(demoTopicDestination, message);
 			}
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;

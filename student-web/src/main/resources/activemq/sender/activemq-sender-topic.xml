@@ -15,12 +15,4 @@
 			<value>com.bilow.topic</value>
 		</constructor-arg>
 	</bean>
-
-	<!-- 定义消息主题（Topic） -->
-	<bean id="demoTopicDestinationListener" class="org.apache.activemq.command.ActiveMQTopic">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.topicListener</value>
-		</constructor-arg>
-	</bean>
 </beans>  

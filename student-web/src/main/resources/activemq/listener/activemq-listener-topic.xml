@@ -9,9 +9,40 @@
 				        http://activemq.apache.org/schema/core/activemq-core-5.1.0.xsd">
 
 	<!-- 配置消息主题监听者（Topic） -->
+
+	<!-- 获取默认主题的消息 start -->
 	<bean id="topicListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destination" ref="demoTopicDestinationListener" />
+		<property name="destination" ref="defaultTopicDestination" />
 		<property name="messageListener" ref="topicMessageListener" />
 	</bean>
+	<bean id="topicListenerContainer2" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="defaultTopicDestination" />
+		<property name="messageListener" ref="topicMessageListener2" />
+	</bean>
+	<bean id="topicListenerContainer3" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="defaultTopicDestination" />
+		<property name="messageListener" ref="topicMessageListener3" />
+	</bean>
+	<!-- 获取默认主题的消息 end -->
+
+	<!-- 获取指定的主题的消息 start -->
+	<bean id="topicListenerContainer4" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="demoTopicDestination" />
+		<property name="messageListener" ref="topicMessageListener" />
+	</bean>
+	<bean id="topicListenerContainer5" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="demoTopicDestination" />
+		<property name="messageListener" ref="topicMessageListener2" />
+	</bean>
+	<bean id="topicListenerContainer6" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="demoTopicDestination" />
+		<property name="messageListener" ref="topicMessageListener3" />
+	</bean>
+	<!-- 获取指定的主题的消息 end -->
 </beans>  

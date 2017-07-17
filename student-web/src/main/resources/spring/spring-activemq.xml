@@ -31,12 +31,11 @@
 			<value>com.bilow.defaultTopic</value>
 		</constructor-arg>
 	</bean>
+	<!-- JmsTemplate.xml -->
+	<import resource="classpath:activemq/activemq-JmsTemplate.xml" />
 	<!-- 发送消息队列 -->
 	<import resource="classpath:activemq/sender/activemq-sender-queue.xml" />
 	<import resource="classpath:activemq/sender/activemq-sender-topic.xml" />
-	<!-- 消费消息队列 -->
-	<import resource="classpath:activemq/consumer/activemq-consumer-topic.xml" />
-	<import resource="classpath:activemq/consumer/activemq-consumer-queue.xml" />
 	<!-- 监听器消费消息队列 -->
 	<import resource="classpath:activemq/listener/activemq-listener-queue.xml" />
 	<import resource="classpath:activemq/listener/activemq-listener-topic.xml" />

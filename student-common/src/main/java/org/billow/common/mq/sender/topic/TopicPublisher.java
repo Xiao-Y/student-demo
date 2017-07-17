@@ -43,7 +43,7 @@ public class TopicPublisher {
 		if (destination == null) {
 			throw new ActiveMQException("Destination为空！");
 		}
-		logger.info("向主题：" + destination.toString() + "\r\n发送了消息：" + msg);
+		logger.info("\r\n向主题：" + destination.toString() + "\r\n发送了消息：" + msg);
 		jmsTopicTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
@@ -66,7 +66,7 @@ public class TopicPublisher {
 		if (defaultTopicDestination == null || jmsTopicTemplate == null) {
 			throw new ActiveMQException();
 		}
-		logger.info("向默认主题：" + defaultTopicDestination.toString() + "\r\n发送了消息：" + msg);
+		logger.info("\r\n向默认主题：" + defaultTopicDestination.toString() + "\r\n发送了消息：" + msg);
 		jmsTopicTemplate.send(defaultTopicDestination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
