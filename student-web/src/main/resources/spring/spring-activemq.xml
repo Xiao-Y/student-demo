@@ -17,27 +17,13 @@
 		<property name="sessionCacheSize" value="${sessionCacheSize}" />
 	</bean>
 
-	<!-- 定义默认的消息队列（Queue） -->
-	<bean id="defaultQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.defaultQueue</value>
-		</constructor-arg>
-	</bean>
-	<!-- 定义默认的消息主题（Topic） -->
-	<bean id="defaultTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-		<!-- 设置消息队列的名字 -->
-		<constructor-arg>
-			<value>com.bilow.defaultTopic</value>
-		</constructor-arg>
-	</bean>
-	<!-- JmsTemplate.xml -->
-	<import resource="classpath:activemq/activemq-JmsTemplate.xml" />
-	<!-- 发送消息队列 -->
-	<import resource="classpath:activemq/sender/activemq-sender-queue.xml" />
-	<import resource="classpath:activemq/sender/activemq-sender-topic.xml" />
-	<!-- 监听器消费消息队列 -->
-	<import resource="classpath:activemq/listener/activemq-listener-queue.xml" />
-	<import resource="classpath:activemq/listener/activemq-listener-topic.xml" />
+	<!-- JmsTemplate -->
+	<import resource="classpath:activemq/jmsTemplate.xml" />
+	<!-- 发送消息目的地 -->
+	<import resource="classpath:activemq/queue-destination.xml" />
+	<import resource="classpath:activemq/topic-destination.xml" />
+	<!-- 监听器 -->
+	<import resource="classpath:activemq/queue-container.xml" />
+	<import resource="classpath:activemq/topic-container.xml" />
 
 </beans>  

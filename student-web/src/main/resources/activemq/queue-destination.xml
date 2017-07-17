@@ -8,6 +8,14 @@
 				        http://activemq.apache.org/schema/core
 				        http://activemq.apache.org/schema/core/activemq-core-5.1.0.xsd">
 
+	<!-- 定义默认的消息队列（Queue） -->
+	<bean id="defaultQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<!-- 设置消息队列的名字 -->
+		<constructor-arg>
+			<value>com.bilow.defaultQueue</value>
+		</constructor-arg>
+	</bean>
+
 	<!-- 定义消息队列（Queue） -->
 	<bean id="demoQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<!-- 设置消息队列的名字 -->
