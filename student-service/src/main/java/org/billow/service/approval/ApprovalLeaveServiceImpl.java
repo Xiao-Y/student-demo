@@ -23,7 +23,7 @@ public class ApprovalLeaveServiceImpl implements ApprovalLeaveService {
 	private LeaveDao leaveDao;
 	@Autowired
 	private WorkFlowService workFlowService;
-	@Autowired
+	@Autowired(required = false)
 	private TaskService taskService;
 
 	@Override

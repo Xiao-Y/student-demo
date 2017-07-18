@@ -40,13 +40,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class BaseProcessDefinitionDiagramLayoutResource {
 
-	@Autowired
+	@Autowired(required = false)
 	private RuntimeService runtimeService;
 
-	@Autowired
+	@Autowired(required = false)
 	private RepositoryService repositoryService;
 
-	@Autowired
+	@Autowired(required = false)
 	private HistoryService historyService;
 
 	public ObjectNode getDiagramNode(String processInstanceId, String processDefinitionId) {

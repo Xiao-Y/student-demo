@@ -50,7 +50,7 @@ public class SysActController {
 
 	private static final Logger logger = Logger.getLogger(SysActController.class);
 
-	@Autowired
+	@Autowired(required = false)
 	private RepositoryService repositoryService;
 
 	@Autowired

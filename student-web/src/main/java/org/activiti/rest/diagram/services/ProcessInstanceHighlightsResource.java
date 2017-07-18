@@ -27,13 +27,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @RestController
 public class ProcessInstanceHighlightsResource {
 
-	@Autowired
+	@Autowired(required = false)
 	private RuntimeService runtimeService;
 
-	@Autowired
+	@Autowired(required = false)
 	private RepositoryService repositoryService;
 
-	@Autowired
+	@Autowired(required = false)
 	private HistoryService historyService;
 
 	protected ObjectMapper objectMapper = new ObjectMapper();

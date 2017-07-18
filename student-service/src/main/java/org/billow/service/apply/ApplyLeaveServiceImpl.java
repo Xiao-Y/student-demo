@@ -36,7 +36,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 
 	@Autowired
 	private WorkFlowService workFlowService;
-	@Autowired
+	@Autowired(required = false)
 	private IdentityService identityService;
 
 	@Override

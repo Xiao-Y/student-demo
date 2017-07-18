@@ -49,7 +49,7 @@
 	<!-- dubbo消费者 -->
 	<!-- <import resource="classpath:dubbo/dubbo-consumer.xml" /> -->
 	<!-- activiti工作流 -->
-	<import resource="classpath:spring/spring-activiti.xml" />
+	<!-- <import resource="classpath:spring/spring-activiti.xml" /> -->
 
 	<!-- 定时任务 -->
 	<!-- 调度工厂:动态配置自动任务 -->

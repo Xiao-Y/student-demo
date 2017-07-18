@@ -24,10 +24,10 @@ public class ModelEditorJsonRestResource implements ModelDataJsonConstants {
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(ModelEditorJsonRestResource.class);
 
-	@Autowired
+	@Autowired(required = false)
 	private RepositoryService repositoryService;
 
-	@Autowired
+	@Autowired(required = false)
 	private ObjectMapper objectMapper;
 
 	@RequestMapping(value = "/service/model/{modelId}/json", method = RequestMethod.GET, produces = "application/json")

@@ -76,7 +76,10 @@ public class ActiveMQController {
 		String messageJ = "";
 		try {
 			if (def) {// 默认消息队列
-				queueProducer.sendMessage(message);
+				for(int i = 0; i < 20; i++){
+					queueProducer.sendMessage(i+"");
+					Thread.sleep(1000);
+				}
 			} else {
 				queueProducer.sendMessage(demoQueueDestination, message);
 			}
