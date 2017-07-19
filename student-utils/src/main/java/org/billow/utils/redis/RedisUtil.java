@@ -5,12 +5,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.billow.utils.redis.RedisUtil;
+import org.billow.utils.bean.BeanUtils;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -21,31 +20,11 @@ import com.alibaba.fastjson.JSONObject;
  * @date: 2017年4月4日 下午8:51:20
  */
 public class RedisUtil {
-	private static final Logger logger = Logger.getLogger(RedisUtil.class);
-	private static final String IP = "192.168.1.110"; // ip
-	private static final int PORT = 6379; // 端口
-	// private static final String AUTH = ""; // 密码(原始默认是没有密码)
-	private static int MAX_ACTIVE = 1024; // 最大连接数
-	private static int MAX_IDLE = 200; // 设置最大空闲数
-	private static int MAX_WAIT = 10000; // 最大等待时间
-	private static int TIMEOUT = 10000; // 超时时间
-	private static boolean BORROW = true; // 在borrow一个事例时是否提前进行validate操作
-	private static JedisPool pool = null;
 
-	static {
-		// String ip = InitListener.getValue("redis.ip", "192.168.116.207");
-		// int port = Integer.parseInt(InitListener.getValue("redis.port", "5379"));
-		JedisPoolConfig config = new JedisPoolConfig();
-		// 控制一个pool可分配多少个jedis实例，通过pool.getResource()来获取；
-		// 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
-		config.setMaxTotal(MAX_ACTIVE);
-		// 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例。
-		config.setMaxIdle(MAX_IDLE);
-		// 表示当borrow(引入)一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException；
-		config.setMaxWaitMillis(MAX_WAIT);
-		config.setTestOnBorrow(BORROW);
-		pool = new JedisPool(config, IP, PORT, TIMEOUT);
-	}
+	private static final Logger logger = Logger.getLogger(RedisUtil.class);
+
+	// 操作redis客户端
+	private static Jedis jedis;
 
 	/**
 	 * <p>
@@ -1802,19 +1781,39 @@ public class RedisUtil {
 	}
 
 	/**
+	 * 清除redis所有缓存
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @date 2017年7月19日 下午5:31:01
+	 */
+	public static void flushDB() {
+		Jedis jedis = null;
+		try {
+			getJedis().flushDB();
+		} catch (Exception e) {
+			logger.error("清除数据有异常！" + e);
+			throw e;
+		} finally {
+			getColse(jedis);
+		}
+	}
+
+	/**
 	 * 获取连接
 	 */
 	public static synchronized Jedis getJedis() {
-		try {
-			if (pool != null) {
-				return pool.getResource();
-			} else {
-				return null;
+		if (jedis == null) {
+			try {
+				JedisConnectionFactory jedisConnectionFactory = BeanUtils.getBean("jedisConnectionFactory");
+				return jedisConnectionFactory.getShardInfo().createResource();
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("获取连接有异常！" + e);
 			}
-		} catch (Exception e) {
-			logger.error("连接池连接异常：" + e.getMessage());
-			return null;
 		}
+		return jedis;
 	}
 
 	/**

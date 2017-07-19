@@ -39,15 +39,15 @@
 	<!-- spring事务 -->
 	<import resource="classpath:spring/spring-tx.xml" />
 	<!-- spring整合redis缓存 -->
-	<!-- <import resource="classpath:spring/spring-redis.xml" /> -->
+	<import resource="classpath:spring/spring-redis.xml" />
 	<!-- 整合activeMQ -->
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->
-	<import resource="classpath:dubbo/dubbo-common.xml" />
+	<!-- <import resource="classpath:dubbo/dubbo-common.xml" /> -->
 	<!-- dubbo生产者 -->
-	<import resource="classpath:dubbo/dubbo-provider.xml" />
+	<!-- <import resource="classpath:dubbo/dubbo-provider.xml" /> -->
 	<!-- dubbo消费者 -->
-	<import resource="classpath:dubbo/dubbo-consumer.xml" />
+	<!-- <import resource="classpath:dubbo/dubbo-consumer.xml" /> -->
 	<!-- activiti工作流 -->
 	<!-- <import resource="classpath:spring/spring-activiti.xml" /> -->
 

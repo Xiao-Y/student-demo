@@ -1,6 +1,7 @@
 <!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/pub/taglib.jsp"%>
+<%@ include file="/pub/pubTips.jsp"%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -27,40 +28,55 @@
 					</div>
 				</div>
 				<ul class="layui-nav admin-header-item">
-					<li class="layui-nav-item"><a href="javascript:;">清除缓存</a></li>
-					<li class="layui-nav-item"><a href="javascript:;">浏览网站</a></li>
-					<li class="layui-nav-item" id="video1"><a href="javascript:;">视频</a></li>
-					<li class="layui-nav-item"><a href="javascript:;" class="admin-header-user">
+					<li class="layui-nav-item">
+						<a id="cleanCache" href="javascript:;">清除缓存</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">浏览网站</a>
+					</li>
+					<li class="layui-nav-item" id="video1">
+						<a href="javascript:;">视频</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;" class="admin-header-user">
 							<img src="${ctx }/images/0.jpg" />
 							<span>${currentUser.userName }</span>
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="javascript:;">
-									<i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息
+									<i class="fa fa-user-circle" aria-hidden="true"></i>
+									个人信息
 								</a>
 							</dd>
 							<dd>
 								<a href="javascript:;">
-									<i class="fa fa-gear" aria-hidden="true"></i> 设置
+									<i class="fa fa-gear" aria-hidden="true"></i>
+									设置
 								</a>
 							</dd>
 							<dd id="lock">
 								<a href="javascript:;">
-									<i class="fa fa-lock" aria-hidden="true" style="padding-right: 3px; padding-left: 1px;"></i> 锁屏 (Alt+L)
+									<i class="fa fa-lock" aria-hidden="true" style="padding-right: 3px; padding-left: 1px;"></i>
+									锁屏 (Alt+L)
 								</a>
 							</dd>
 							<dd>
 								<a href="${ctx }/home/login">
-									<i class="fa fa-sign-out" aria-hidden="true"></i> 注销
+									<i class="fa fa-sign-out" aria-hidden="true"></i>
+									注销
 								</a>
 							</dd>
-						</dl></li>
+						</dl>
+					</li>
 				</ul>
 				<ul class="layui-nav admin-header-item-mobile">
-					<li class="layui-nav-item"><a href="${ctx }/home/login">
-							<i class="fa fa-sign-out" aria-hidden="true"></i> 注销
-						</a></li>
+					<li class="layui-nav-item">
+						<a href="${ctx }/home/login">
+							<i class="fa fa-sign-out" aria-hidden="true"></i>
+							注销
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -70,7 +86,10 @@
 		<div class="layui-body" style="bottom: 0; border-left: solid 2px #1AA094;" id="admin-body">
 			<div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab">
 				<ul class="layui-tab-title">
-					<li class="layui-this"><i class="fa fa-dashboard" aria-hidden="true"></i> <cite>我的工作台</cite></li>
+					<li class="layui-this">
+						<i class="fa fa-dashboard" aria-hidden="true"></i>
+						<cite>我的工作台</cite>
+					</li>
 				</ul>
 				<div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;">
 					<div class="layui-tab-item layui-show">
@@ -117,6 +136,19 @@
 						type : 2,
 						content : 'video.html',
 						area : [ '800px', '500px' ]
+					});
+				});
+
+				$("#cleanCache").on("click", function() {
+					var url = path + "/home/cleanCache";
+					var layerIndex = layer.load();
+					$.post(url, function(data) {
+						layer.close(layerIndex);
+						new TipBox({
+							type : data.type,
+							str : data.message,
+							hasBtn : true
+						});
 					});
 				});
 			});

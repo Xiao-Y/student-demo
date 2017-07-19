@@ -1,5 +1,7 @@
 package org.billow.controller.home;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,6 +23,7 @@ import org.activiti.engine.impl.identity.Authentication;
 import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.menu.MenuService;
 import org.billow.api.user.UserService;
+import org.billow.model.custom.JsonResult;
 import org.billow.model.domain.MenuBase;
 import org.billow.model.expand.MenuDto;
 import org.billow.model.expand.RoleDto;
@@ -29,7 +32,9 @@ import org.billow.model.expand.UserRoleDto;
 import org.billow.utils.HttpRequest;
 import org.billow.utils.RequestUtils;
 import org.billow.utils.ToolsUtils;
+import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.generator.QrGenUtil;
+import org.billow.utils.redis.RedisUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +48,10 @@ import com.google.gson.reflect.TypeToken;
 @Controller
 @RequestMapping("/home")
 public class HomeController implements Comparator<MenuBase> {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(HomeController.class);
 
 	@Value("${weichat.appid}")
 	public String appid;
@@ -59,8 +68,8 @@ public class HomeController implements Comparator<MenuBase> {
 
 	private static final String UUID_MAP = "UUID_MAP";
 
-//	@Autowired
-//	private DictionaryDao dictionaryDao;
+	// @Autowired
+	// private DictionaryDao dictionaryDao;
 
 	/**
 	 * 登陆
@@ -77,14 +86,15 @@ public class HomeController implements Comparator<MenuBase> {
 			RoleDto roleDto = userRoleDto.getRoleDto();
 			System.out.println(roleDto);
 		}
-//		DictionaryDto record = new DictionaryDto();
-//		record.setId("004e12a6-8b33-4d63-8e0d-1d315d8422b0");
-//		DictionaryDto dictionaryDto = dictionaryDao.selectByPrimaryKey(record);
-//		System.out.println(dictionaryDto);
-//		List<DictionaryDto> list = dictionaryDao.selectAll(null);
-//		for (DictionaryDto d : list) {
-//			System.out.println(d);
-//		}
+		// DictionaryDto record = new DictionaryDto();
+		// record.setId("004e12a6-8b33-4d63-8e0d-1d315d8422b0");
+		// DictionaryDto dictionaryDto =
+		// dictionaryDao.selectByPrimaryKey(record);
+		// System.out.println(dictionaryDto);
+		// List<DictionaryDto> list = dictionaryDao.selectAll(null);
+		// for (DictionaryDto d : list) {
+		// System.out.println(d);
+		// }
 		return "page/home/login";
 	}
 
@@ -170,6 +180,37 @@ public class HomeController implements Comparator<MenuBase> {
 			}
 		}
 		return selectAll;
+	}
+
+	/**
+	 * 清除缓存
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年7月19日 下午5:34:57
+	 */
+	@ResponseBody
+	@RequestMapping("/cleanCache")
+	public JsonResult cleanCache() {
+		String type = "";
+		String messageJ = "";
+		try {
+			RedisUtil.flushDB();
+			type = MessageTipsCst.TYPE_SUCCES;
+			messageJ = MessageTipsCst.UPDATE_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			type = MessageTipsCst.TYPE_ERROR;
+			messageJ = MessageTipsCst.UPDATE_FAILURE;
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setType(type);
+		json.setMessage(messageJ);
+		return json;
 	}
 
 	/**
