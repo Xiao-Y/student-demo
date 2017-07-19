@@ -37,7 +37,7 @@ public class QuartzManager {
 
 	public final static Logger log = Logger.getLogger(QuartzManager.class);
 
-	@Autowired
+	@Autowired(required = false)
 	private SchedulerFactoryBean schedulerFactoryBean;
 
 	/**

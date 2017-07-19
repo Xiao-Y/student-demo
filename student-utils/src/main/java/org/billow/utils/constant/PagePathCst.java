@@ -37,4 +37,8 @@ public class PagePathCst {
 	 * activeMQ
 	 */
 	public static final String BASEPATH_ACTIVEMQ = "page/activeMQ/";
+	/**
+	 * Dubbo
+	 */
+	public static final String BASEPATH_DUBBO = "page/dubbo/";
 }

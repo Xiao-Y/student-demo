@@ -41,17 +41,17 @@
 	<!-- spring整合redis缓存 -->
 	<!-- <import resource="classpath:spring/spring-redis.xml" /> -->
 	<!-- 整合activeMQ -->
-	<import resource="classpath:spring/spring-activemq.xml" />
+	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->
-	<!-- <import resource="classpath:dubbo/dubbo-common.xml" /> -->
+	<import resource="classpath:dubbo/dubbo-common.xml" />
 	<!-- dubbo生产者 -->
-	<!-- <import resource="classpath:dubbo/dubbo-provider.xml" /> -->
+	<import resource="classpath:dubbo/dubbo-provider.xml" />
 	<!-- dubbo消费者 -->
-	<!-- <import resource="classpath:dubbo/dubbo-consumer.xml" /> -->
+	<import resource="classpath:dubbo/dubbo-consumer.xml" />
 	<!-- activiti工作流 -->
 	<!-- <import resource="classpath:spring/spring-activiti.xml" /> -->
 
 	<!-- 定时任务 -->
 	<!-- 调度工厂:动态配置自动任务 -->
-	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+	<!-- <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" /> -->
 </beans>  
