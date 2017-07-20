@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.billow.model.base.BaseModel;
 
-public class UserBase extends BaseModel implements Serializable{
+public class UserBase extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 7380568085775453924L;
 
@@ -78,9 +78,13 @@ public class UserBase extends BaseModel implements Serializable{
 	public void setOpenID(String openID) {
 		this.openID = openID;
 	}
+
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", age=" + age + ", password=" + password + ", phoneNumber=" + phoneNumber + "]";
+		return "PK[userId = " + userId + "]";
 	}
 
 }

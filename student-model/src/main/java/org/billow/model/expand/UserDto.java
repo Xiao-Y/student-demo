@@ -38,4 +38,8 @@ public class UserDto extends UserBase {
 		this.roleDtos = roleDtos;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

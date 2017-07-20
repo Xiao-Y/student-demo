@@ -6,4 +6,8 @@ public class MenuDto extends MenuBase {
 
 	private static final long serialVersionUID = -5259281341286131357L;
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

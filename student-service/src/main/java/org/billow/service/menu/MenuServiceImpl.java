@@ -23,13 +23,13 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDto> implements MenuSer
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "keyGenerator", value = "getMenuChildList")
+	@Cacheable(keyGenerator = "key", value = "getMenuChildList")
 	public List<MenuDto> getMenuChildList(Integer id) {
 		return menuDao.getMenuChildList(id);
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "keyGenerator", value = "selectAll")
+	@Cacheable(keyGenerator = "key", value = "selectAll")
 	public List<MenuDto> selectAll(MenuDto menu) {
 		return menuDao.selectAll(menu);
 	}

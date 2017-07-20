@@ -6,10 +6,10 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.billow.utils.bean.BeanUtils;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -23,8 +23,7 @@ public class RedisUtil {
 
 	private static final Logger logger = Logger.getLogger(RedisUtil.class);
 
-	// 操作redis客户端
-	private static Jedis jedis;
+	private static JedisPool jedisPool;
 
 	/**
 	 * <p>
@@ -1791,7 +1790,8 @@ public class RedisUtil {
 	public static void flushDB() {
 		Jedis jedis = null;
 		try {
-			getJedis().flushDB();
+			jedis = getJedis();
+			jedis.flushDB();
 		} catch (Exception e) {
 			logger.error("清除数据有异常！" + e);
 			throw e;
@@ -1804,16 +1804,14 @@ public class RedisUtil {
 	 * 获取连接
 	 */
 	public static synchronized Jedis getJedis() {
-		if (jedis == null) {
+		if (jedisPool == null) {
 			try {
-				JedisConnectionFactory jedisConnectionFactory = BeanUtils.getBean("jedisConnectionFactory");
-				return jedisConnectionFactory.getShardInfo().createResource();
+				jedisPool = BeanUtils.getBean("jedisPool");
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.error("获取连接有异常！" + e);
 			}
 		}
-		return jedis;
+		return jedisPool.getResource();
 	}
 
 	/**

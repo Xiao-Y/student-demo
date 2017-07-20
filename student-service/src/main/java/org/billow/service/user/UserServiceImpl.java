@@ -37,13 +37,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "keyGenerator", value = "findUserList")
+	@Cacheable(keyGenerator = "key", value = "findUserList")
 	public List<UserDto> findUserList(UserDto user) {
 		return userDao.selectAll(user);
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "keyGenerator", value = "findUserList")
+	@Cacheable(keyGenerator = "key", value = "findUserList")
 	public int findUserCount(UserDto user) {
 		return userDao.selectAllCount(user);
 	}

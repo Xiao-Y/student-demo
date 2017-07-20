@@ -18,6 +18,14 @@
 		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
 	</bean>
 
+	<!-- redis的连接池pool， -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poolConfig" />
+		<constructor-arg index="1" value="${redis.host}" />
+		<constructor-arg index="2" value="${redis.port}" type="int" />
+		<constructor-arg index="3" value="${redis.timeout}" type="int" />
+	</bean>
+
 	<!-- 配置JedisConnectionFactory -->
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 		<property name="hostName" value="${redis.host}" />
@@ -39,13 +47,13 @@
 	</bean>
 
 	<!-- 缓存生成策略 -->
-	<bean id="keyGenerator" class="org.billow.utils.redis.RedisKeyGenerator" />
+	<bean id="key" class="org.billow.utils.redis.RedisKeyGenerator" />
 
 	<!-- 设置缓存通知 -->
 	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
 		<cache:caching cache="baseService">
-			<cache:cacheable method="selectByPrimaryKey" key-generator="keyGenerator" />
-			<cache:cache-evict method="deleteByPrimaryKey" key-generator="keyGenerator" />
+			<cache:cacheable method="selectByPrimaryKey" key-generator="key" />
+			<cache:cache-evict method="deleteByPrimaryKey" key-generator="key" />
 		</cache:caching>
 	</cache:advice>
 	<!-- 设置缓存切点 -->

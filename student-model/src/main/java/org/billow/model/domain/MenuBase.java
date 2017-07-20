@@ -100,9 +100,11 @@ public class MenuBase extends BaseModel implements Serializable {
 		this.children = childList;
 	}
 
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
 	@Override
 	public String toString() {
-		return "Menu [id=" + id + ", title=" + title + ", icon=" + icon + ", spread=" + spread + ", href=" + href
-				+ ", pid=" + pid + ", validind=" + validind + ", displayno=" + displayno + "]";
+		return "PK[id = " + id + "]";
 	}
 }
