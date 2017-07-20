@@ -1,0 +1,12 @@
+
+sping-redis.xml
+集成redis，将redis当做缓存使用。
+org.billow.utils.redis.RedisKeyGenerator key的主键生成规则
+org.billow.utils.redis.RedisUtil redis的工具类
+
+自定义方法查询：
+如方法：getMenuChildList
+@Cacheable(keyGenerator = "key", value = "getMenuChildList")
+
+基类方法查询：使用的是aop
+selectByPrimaryKey
