@@ -1,6 +1,6 @@
 package org.billow.build.table;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.billow.build.Utils;
 import org.billow.build.model.ColumnModel;
 import org.billow.build.model.TableModel;
 
@@ -98,8 +99,7 @@ public class ReadDB {
 			metaData = ReadDB.getInstance().run();
 		}
 		Map<String, TableModel> tables = new HashMap<>();
-		ResultSet rs = metaData.getTables(null, convertDatabaseCharsetType("root", "mysql"), null, new String[] {
-				"TABLE", "VIEW" });
+		ResultSet rs = metaData.getTables(null, convertDatabaseCharsetType("root", "mysql"), null, new String[] { "TABLE", "VIEW" });
 		while (rs.next()) {
 			TableModel tableDto = new TableModel();
 			String tableType = rs.getString("TABLE_TYPE");
@@ -162,7 +162,9 @@ public class ReadDB {
 	}
 
 	public DatabaseMetaData run() throws Exception {
-		InputStream in = getClass().getClassLoader().getResourceAsStream("druid.properties");
+		Properties config = Utils.readPropertiesFile();
+		String druid = (String) config.get("druid");
+		FileInputStream in = new FileInputStream(druid);
 		Properties properties = new Properties();
 		properties.load(in);
 		String url = properties.getProperty("spring.datasource.url");

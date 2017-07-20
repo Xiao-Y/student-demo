@@ -21,6 +21,8 @@ public class ModelModel extends BaseModel {
 	private String constructor;
 	// 主键构造器参数(不带类型的)
 	private String constructorNo;
+	// 主键toString
+	private String pkToString;
 
 	/**
 	 * 字段集合
@@ -113,5 +115,33 @@ public class ModelModel extends BaseModel {
 	 */
 	public void setConstructorNo(String constructorNo) {
 		this.constructorNo = constructorNo;
+	}
+
+	/**
+	 * 主键toString
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年7月20日 上午10:32:49
+	 */
+	public String getPkToString() {
+		return pkToString;
+	}
+
+	/**
+	 * 主键toString
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param pkToString
+	 * 
+	 * @date 2017年7月20日 上午10:32:52
+	 */
+	public void setPkToString(String pkToString) {
+		this.pkToString = pkToString;
 	}
 }

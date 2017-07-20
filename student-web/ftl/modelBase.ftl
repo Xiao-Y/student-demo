@@ -73,4 +73,12 @@ public class ${clazzName} extends BaseModel implements Serializable {
     }  
      
 </#list>  
+
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
+	@Override
+	public String toString() {
+		return "${pkToString}";
+	}
 }  

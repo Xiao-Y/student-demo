@@ -31,4 +31,11 @@ public class ${clazzName} extends ${modelBaseClazzName} {
 		super(${constructorNo});
 	}
 	
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }  

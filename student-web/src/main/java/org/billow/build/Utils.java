@@ -1,6 +1,5 @@
 package org.billow.build;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -16,10 +15,10 @@ public class Utils {
 	public static Properties readPropertiesFile() {
 		Properties properties = new Properties();
 		try {
-			InputStream in = Utils.class.getClassLoader().getResourceAsStream("org/billow/build/config.properties");
+			InputStream in = Utils.class.getResourceAsStream("/build/config.properties");
 			properties.load(in);
 			in.close(); // 关闭流
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return properties;

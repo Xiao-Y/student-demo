@@ -102,19 +102,33 @@ public class SetData {
 		// 添加字段数据
 		this.setFieldData(model);
 		List<FieldModel> fields = model.getFields();
+		// 主键构造函数的参数
 		StringBuffer buffer = new StringBuffer();
+		// 主键toString
+		StringBuffer pkToString = new StringBuffer("PK[");
 		for (FieldModel field : fields) {
 			if (field.getIsPK()) {
 				buffer.append(field.getFieldType());
 				buffer.append(" ");
 				buffer.append(field.getFieldName());
 				buffer.append(", ");
+
+				pkToString.append(field.getFieldName());
+				pkToString.append(" = \"");
+				pkToString.append(" + ");
+				pkToString.append(field.getFieldName());
+				pkToString.append(", ");
 			}
 		}
+		pkToString.append("+ \"]");
 		if (buffer.lastIndexOf(",") > -1) {
 			buffer = buffer.deleteCharAt(buffer.lastIndexOf(","));
 		}
+		if (pkToString.lastIndexOf(", ") > -1) {
+			pkToString = pkToString.deleteCharAt(pkToString.lastIndexOf(", "));
+		}
 		model.setConstructor(buffer.toString());
+		model.setPkToString(pkToString.toString());
 		return model;
 	}
 
@@ -341,10 +355,12 @@ public class SetData {
 	 * @date: 2017年6月25日 下午6:12:54
 	 */
 	private String sqlType2javaType(String sqlType) {
+		sqlType = org.apache.commons.lang3.StringUtils.upperCase(sqlType);
 		String javaType = "";
 		switch (sqlType) {
 		case "INTEGER":
 		case "INT":
+		case "BIT":
 			javaType = "Integer";
 			break;
 		case "CHAR":
@@ -360,7 +376,7 @@ public class SetData {
 		case "DOUBLE":
 			javaType = "Double";
 			break;
-		case "decimal":
+		case "DECIMAL":
 			javaType = "BigDecimal";
 			break;
 		default:

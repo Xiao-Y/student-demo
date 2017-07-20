@@ -7,7 +7,7 @@
 	<!-- 版本 -->
 	<version>1.0</version>
 	<!-- 表名 -->
-	<tableName>t_leave</tableName>
+	<tableName>t_menu</tableName>
 
 	<controllerPackageName>org.billow.controller.test</controllerPackageName>
 	<controllerClazzName>TestController</controllerClazzName>
