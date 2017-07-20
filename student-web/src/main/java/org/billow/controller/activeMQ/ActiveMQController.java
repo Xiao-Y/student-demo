@@ -5,7 +5,6 @@ import javax.jms.TextMessage;
 
 import org.apache.log4j.Logger;
 import org.billow.common.mq.consume.QueueReceiver;
-import org.billow.common.mq.consume.TopicSubscriber;
 import org.billow.common.mq.sender.queue.QueueProducer;
 import org.billow.common.mq.sender.topic.TopicPublisher;
 import org.billow.model.custom.JsonResult;
@@ -46,8 +45,6 @@ public class ActiveMQController {
 
 	@Autowired
 	private TopicPublisher topicPublisher;
-	@Autowired
-	private TopicSubscriber topicSubscriber;
 
 	@Autowired(required = false)
 	@Qualifier("demoTopicDestination")
@@ -76,8 +73,8 @@ public class ActiveMQController {
 		String messageJ = "";
 		try {
 			if (def) {// 默认消息队列
-				for(int i = 0; i < 20; i++){
-					queueProducer.sendMessage(i+"");
+				for (int i = 0; i < 20; i++) {
+					queueProducer.sendMessage(i + "");
 					Thread.sleep(1000);
 				}
 			} else {
