@@ -17,7 +17,7 @@ import org.billow.model.base.BaseModel;
  * @date 2017-06-26 10:47:42
  */
 public class DictionaryBase extends BaseModel implements Serializable {
-	
+
 	public DictionaryBase(String id) {
 		super();
 		this.id = id;
@@ -269,11 +269,12 @@ public class DictionaryBase extends BaseModel implements Serializable {
 		this.modelName = modelName;
 	}
 
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
 	@Override
 	public String toString() {
-		return "DictionaryBase [notice=" + notice + ", fieldCode=" + fieldCode + ", displayField=" + displayField + ", fieldName=" + fieldName
-				+ ", createTime=" + createTime + ", id=" + id + ", modelCode=" + modelCode + ", valueField=" + valueField + ", updateTime="
-				+ updateTime + ", modelName=" + modelName + "]";
+		return "PK[id = " + id + "]";
 	}
 
 }

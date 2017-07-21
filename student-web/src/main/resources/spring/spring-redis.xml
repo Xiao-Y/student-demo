@@ -52,8 +52,12 @@
 	<!-- 设置缓存通知 -->
 	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
 		<cache:caching cache="baseService">
+			<cache:cacheable method="insert" key-generator="key" />
+			<cache:cacheable method="insertSelective" key-generator="key" />
 			<cache:cacheable method="selectByPrimaryKey" key-generator="key" />
 			<cache:cache-evict method="deleteByPrimaryKey" key-generator="key" />
+			<cache:cache-put method="updateByPrimaryKey" key-generator="key" />
+			<cache:cache-put method="updateByPrimaryKeySelective" key-generator="key" />
 		</cache:caching>
 	</cache:advice>
 	<!-- 设置缓存切点 -->

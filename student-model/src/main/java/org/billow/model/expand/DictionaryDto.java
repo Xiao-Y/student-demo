@@ -12,7 +12,7 @@ import org.billow.model.domain.DictionaryBase;
  * @date 2017-06-26 10:36:30
  */
 public class DictionaryDto extends DictionaryBase {
-	
+
 	private static final long serialVersionUID = 1541949593504760590L;
 
 	public DictionaryDto(String id) {

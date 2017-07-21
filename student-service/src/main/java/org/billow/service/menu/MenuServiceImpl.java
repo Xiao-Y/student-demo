@@ -29,7 +29,6 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDto> implements MenuSer
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "key", value = "selectAll")
 	public List<MenuDto> selectAll(MenuDto menu) {
 		return menuDao.selectAll(menu);
 	}

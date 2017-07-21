@@ -28,8 +28,11 @@ public class RoleBase extends BaseModel implements Serializable {
 		this.rolename = rolename == null ? null : rolename.trim();
 	}
 
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
 	@Override
 	public String toString() {
-		return "RoleBase [id=" + id + ", rolename=" + rolename + "]";
+		return "PK[id = " + id + "]";
 	}
 }

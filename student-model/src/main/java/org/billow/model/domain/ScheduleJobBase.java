@@ -335,4 +335,12 @@ public class ScheduleJobBase implements Serializable {
 	public Integer getJobId() {
 		return jobId;
 	}
+
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
+	@Override
+	public String toString() {
+		return "PK[jobId = " + jobId + "]";
+	}
 }

@@ -96,4 +96,12 @@ public class SystemLogBase implements Serializable {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
+	@Override
+	public String toString() {
+		return "PK[id = " + id + "]";
+	}
 }

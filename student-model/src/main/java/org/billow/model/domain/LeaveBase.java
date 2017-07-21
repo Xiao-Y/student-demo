@@ -266,4 +266,12 @@ public class LeaveBase extends WorkFlowDto implements Serializable {
 	public void setProcessInstanceId(String processInstanceId) {
 		this.processInstanceId = processInstanceId;
 	}
+
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
+	@Override
+	public String toString() {
+		return "PK[id = " + id + "]";
+	}
 }

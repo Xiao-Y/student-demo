@@ -25,4 +25,12 @@ public class UserRoleBase implements Serializable {
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
+
+	/**
+	 * 主键toString 非主键不允许添加
+	 */
+	@Override
+	public String toString() {
+		return "PK[userId = " + userId + ", roleId = " + roleId + "]";
+	}
 }
