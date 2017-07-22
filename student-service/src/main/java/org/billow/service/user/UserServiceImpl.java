@@ -12,7 +12,6 @@ import org.billow.model.expand.UserDto;
 import org.billow.model.expand.UserRoleDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.billow.utils.ToolsUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,13 +36,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserSer
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "key", value = "findUserList")
 	public List<UserDto> findUserList(UserDto user) {
 		return userDao.selectAll(user);
 	}
 
 	@Override
-	@Cacheable(keyGenerator = "key", value = "findUserList")
 	public int findUserCount(UserDto user) {
 		return userDao.selectAllCount(user);
 	}
