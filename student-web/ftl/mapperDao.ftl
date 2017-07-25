@@ -12,7 +12,7 @@
 	</#if>
 </#list>
 	</resultMap>
-	<sql id="Base_Column_List">
+	<sql id="base_column_list">
 		${columnStr}
 	</sql>
 	<!-- 公用查询条件 -->
@@ -28,7 +28,7 @@
 	</sql>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="${type}">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="base_column_list" />
 		from ${tableName}
 		<include refid="selectCondition" />
 	</select>
@@ -39,7 +39,7 @@
 	</select>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="${type}">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="base_column_list" />
 		from ${tableName}
 		where 1=1
 <#list keys as key>

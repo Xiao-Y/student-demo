@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.billow.dao.MenuDao">
+
 	<resultMap id="BaseResultMap" type="org.billow.model.expand.MenuDto">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
@@ -11,26 +12,11 @@
 		<result column="validind" property="validind" jdbcType="BIT" />
 		<result column="displayno" property="displayno" jdbcType="DOUBLE" />
 	</resultMap>
+
 	<sql id="Base_Column_List">
 		id, title, icon, spread, href, pid, validind, displayno
 	</sql>
-	<select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from t_menu
-		<where>
-			<if test="null != pid">
-				and pid = #{pid}
-			</if>
-		</where>
-	</select>
-	<select id="getMenuChildList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from t_menu
-		where
-		FIND_IN_SET(id,getMenuChildList(#{id,jdbcType=INTEGER}))
-	</select>
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />

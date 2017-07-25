@@ -33,6 +33,6 @@
 	<modelClazzName>TestDto</modelClazzName>
 	<explainModel>数据字典model模型</explainModel>
 
-	<mapperPackageName>mybatis</mapperPackageName>
-	<mapperXMLName>TestDao</mapperXMLName>
+	<mapperPackageName>mybatis.mapper.base</mapperPackageName>
+	<mapperXMLName>TestBaseDao</mapperXMLName>
 </root>
