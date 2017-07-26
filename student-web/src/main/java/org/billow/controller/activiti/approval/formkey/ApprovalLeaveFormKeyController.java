@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.task.Comment;
 import org.apache.log4j.Logger;
-import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.approval.ApprovalLeaveService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.common.login.LoginHelper;
@@ -44,8 +43,6 @@ public class ApprovalLeaveFormKeyController {
 	private ApprovalLeaveService approvalLeaveService;
 	@Autowired
 	private WorkFlowService workFlowService;
-	@Autowired
-	private ApplyLeaveService applyLeaveService;
 
 	/**
 	 * 查询个人任务列表（要审批的请假）
@@ -90,7 +87,8 @@ public class ApprovalLeaveFormKeyController {
 			Object taskForm = workFlowService.getRenderedTaskForm(processInstanceId);
 			av.addObject("dataForm", taskForm);
 			// 查询批注信息
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(processInstanceId, ActivitiCst.TYPE_LEAVE_COMMENT);
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(processInstanceId,
+					ActivitiCst.TYPE_LEAVE_COMMENT);
 			av.addObject("comments", comments);
 			// 查询出口连钱，显示按钮
 			List<String> transNames = workFlowService.getOutGoingTransNames(leave.getTaskId());
@@ -114,7 +112,8 @@ public class ApprovalLeaveFormKeyController {
 	@ResponseBody
 	@RequestMapping("/saveLeaveApplyApp/{id}/{taskId}/{processInstanceId}")
 	public JsonResult saveLeaveApplyApp(@PathVariable("id") Integer id, @PathVariable("taskId") String taskId,
-			@PathVariable("processInstanceId") String processInstanceId, LeaveDto leave, HttpServletRequest request, HttpSession session) {
+			@PathVariable("processInstanceId") String processInstanceId, LeaveDto leave, HttpServletRequest request,
+			HttpSession session) {
 		String message;
 		String type;
 		UserDto userDto = LoginHelper.getLoginUser(session);

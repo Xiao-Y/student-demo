@@ -4,9 +4,9 @@ import javax.jms.Destination;
 import javax.jms.TextMessage;
 
 import org.apache.log4j.Logger;
-import org.billow.common.mq.consume.QueueReceiver;
-import org.billow.common.mq.sender.queue.QueueProducer;
-import org.billow.common.mq.sender.topic.TopicPublisher;
+import org.billow.common.activemq.consume.QueueReceiver;
+import org.billow.common.activemq.sender.queue.QueueProducer;
+import org.billow.common.activemq.sender.topic.TopicPublisher;
 import org.billow.model.custom.JsonResult;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;

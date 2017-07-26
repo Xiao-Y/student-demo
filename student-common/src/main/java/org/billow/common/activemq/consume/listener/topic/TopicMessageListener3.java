@@ -1,4 +1,4 @@
-package org.billow.common.mq.consume.listener.topic;
+package org.billow.common.activemq.consume.listener.topic;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;

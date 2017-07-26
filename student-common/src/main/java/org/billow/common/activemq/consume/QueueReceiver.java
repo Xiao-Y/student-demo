@@ -1,4 +1,4 @@
-package org.billow.common.mq.consume;
+package org.billow.common.activemq.consume;
 
 import javax.jms.Destination;
 import javax.jms.TextMessage;
@@ -47,7 +47,9 @@ public class QueueReceiver {
 	/**
 	 * 
 	 *
-	 * <br>added by liuyongtao<br>
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
 	 * @return
 	 * @throws Exception
 	 * 

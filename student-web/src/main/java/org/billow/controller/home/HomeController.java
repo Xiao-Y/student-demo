@@ -1,7 +1,5 @@
 package org.billow.controller.home;
 
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.impl.identity.Authentication;
-import org.billow.api.apply.ApplyLeaveService;
+import org.apache.log4j.Logger;
 import org.billow.api.menu.MenuService;
 import org.billow.api.user.UserService;
 import org.billow.model.custom.JsonResult;
@@ -61,8 +59,6 @@ public class HomeController implements Comparator<MenuBase> {
 	public String redirectUri;
 	@Autowired
 	private MenuService menuService;
-	@Autowired
-	private ApplyLeaveService applyLeaveService;
 	@Autowired
 	private UserService userService;
 

@@ -1,6 +1,4 @@
-package org.billow.common.mq.consume.listener.queue;
-
-import org.apache.log4j.Logger;
+package org.billow.common.activemq.consume.listener.queue;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -8,6 +6,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
