@@ -7,6 +7,11 @@
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
 	<!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
+	<!-- direct：转发消息到 routigKey 指定的队列 -->
 	<rabbit:template id="defaultDirectExchange" connection-factory="connectionFactory" exchange="defaultDirectExchange" />
 	<rabbit:template id="directExchangeTest" connection-factory="connectionFactory" exchange="directExchangeTest" />
+
+	<!-- topic：按规则转发消息（最灵活）。 -->
+	<rabbit:template id="defaultTopicExchange" connection-factory="connectionFactory" exchange="defaultTopicExchange" />
+	<rabbit:template id="topicExchange" connection-factory="connectionFactory" exchange="topicExchange" />
 </beans>  
