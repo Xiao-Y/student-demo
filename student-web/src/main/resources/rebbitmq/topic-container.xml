@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+				        http://www.springframework.org/schema/rabbit 
+				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<!-- 配置监听 -->
+	<rabbit:listener-container connection-factory="connectionFactory">
+		<!-- queues 监听队列，多个用逗号分隔 ref 监听器 -->
+		<rabbit:listener queues="defaultTopicQueue" ref="defaultTopicMessageReceiver" />
+	</rabbit:listener-container>
+
+	<rabbit:listener-container connection-factory="connectionFactory">
+		<rabbit:listener queues="topicQueueTest" ref="topicMessageReceiver" />
+	</rabbit:listener-container>
+</beans>  

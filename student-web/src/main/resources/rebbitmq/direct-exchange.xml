@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+				        http://www.springframework.org/schema/rabbit 
+				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+	<!-- 定义默认 -->
+	<rabbit:direct-exchange name="defaultDirectExchange" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="defaultDirectQueue" key="defaultDirectQueueKey" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<!-- 定义direct exchange，绑定queueTest -->
+	<rabbit:direct-exchange name="directExchangeTest" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="directQueueTest" key="directQueueTestKey" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+</beans>

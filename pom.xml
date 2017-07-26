@@ -57,6 +57,8 @@
 		<activiti.version>5.22.0</activiti.version>
 		<!-- <batik.version>1.7</batik.version> -->
 		<jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
+		<rabbitmq.version>4.1.0</rabbitmq.version>
+		<spring.rabbit.version>1.7.3.RELEASE</spring.rabbit.version>
 
 		<jdk.version>1.7</jdk.version>
 		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
@@ -247,6 +249,17 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
 			<version>${activemq-all.version}</version>
+		</dependency>
+		<!-- rabbitmq 消息服务 -->
+		<dependency>
+		    <groupId>org.springframework.amqp</groupId>
+		    <artifactId>spring-rabbit</artifactId>
+		    <version>${spring.rabbit.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.rabbitmq</groupId>
+		    <artifactId>amqp-client</artifactId>
+		    <version>${rabbitmq.version}</version>
 		</dependency>
 		<!-- redis -->
 		<dependency>

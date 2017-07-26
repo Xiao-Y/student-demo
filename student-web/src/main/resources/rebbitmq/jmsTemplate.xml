@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+				        http://www.springframework.org/schema/rabbit 
+				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
+	<rabbit:template id="defaultDirectExchange" connection-factory="connectionFactory" exchange="defaultDirectExchange" />
+	<rabbit:template id="directExchangeTest" connection-factory="connectionFactory" exchange="directExchangeTest" />
+</beans>  
