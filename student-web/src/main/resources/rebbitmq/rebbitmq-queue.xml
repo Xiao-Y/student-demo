@@ -7,12 +7,12 @@
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
 	<!--定义默认queue -->
-	<rabbit:queue name=defaultDirectQueue durable="true" auto-delete="false" exclusive="false" />
+	<!-- <rabbit:queue name=defaultDirectQueue durable="true" auto-delete="false" exclusive="false" /> -->
 	<!--定义queue -->
 	<rabbit:queue name="directQueueTest" durable="true" auto-delete="false" exclusive="false" />
 
 	<!--定义默认queue -->
-	<rabbit:queue name=defaultTopicQueue durable="true" auto-delete="false" exclusive="false" />
+	<!-- <rabbit:queue name=defaultTopicQueue durable="true" auto-delete="false" exclusive="false" /> -->
 	<!--定义queue -->
-	<rabbit:queue name="topicQueueTest" durable="true" auto-delete="false" exclusive="false" />
+	<!-- <rabbit:queue name="topicQueueTest" durable="true" auto-delete="false" exclusive="false" /> -->
 </beans>

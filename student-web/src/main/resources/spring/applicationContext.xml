@@ -39,7 +39,7 @@
 	<!-- spring事务 -->
 	<import resource="classpath:spring/spring-tx.xml" />
 	<!-- spring整合redis缓存 -->
-	<import resource="classpath:spring/spring-redis.xml" />
+	<!-- <import resource="classpath:spring/spring-redis.xml" /> -->
 	<!-- 整合activeMQ -->
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->
@@ -50,6 +50,8 @@
 	<!-- <import resource="classpath:dubbo/dubbo-consumer.xml" /> -->
 	<!-- activiti工作流 -->
 	<!-- <import resource="classpath:spring/spring-activiti.xml" /> -->
+	<!-- 整合RebbitMQ -->
+	<import resource="classpath:spring/spring-rebbitmq.xml" />
 
 	<!-- 定时任务 -->
 	<!-- 调度工厂:动态配置自动任务 -->

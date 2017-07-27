@@ -6,11 +6,11 @@
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 	<!-- 定义默认 -->
-	<rabbit:direct-exchange name="defaultDirectExchange" durable="true" auto-delete="false">
-		<rabbit:bindings>
-			<rabbit:binding queue="defaultDirectQueue" key="defaultDirectQueueKey" />
-		</rabbit:bindings>
-	</rabbit:direct-exchange>
+	<!-- <rabbit:direct-exchange name="defaultDirectExchange" durable="true" auto-delete="false"> -->
+	<!-- <rabbit:bindings> -->
+	<!-- <rabbit:binding queue="defaultDirectQueue" key="defaultDirectQueueKey" /> -->
+	<!-- </rabbit:bindings> -->
+	<!-- </rabbit:direct-exchange> -->
 
 	<!-- 定义direct exchange，绑定queueTest -->
 	<rabbit:direct-exchange name="directExchangeTest" durable="true" auto-delete="false">

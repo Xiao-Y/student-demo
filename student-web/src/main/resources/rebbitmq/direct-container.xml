@@ -8,9 +8,9 @@
 
 	<!-- 配置监听 -->
 	<!-- 默认 -->
-	<rabbit:listener-container connection-factory="connectionFactory">
-		<rabbit:listener queues="defaultDirectQueue" ref="defaultDirectMessageReceiver" />
-	</rabbit:listener-container>
+<!-- 	<rabbit:listener-container connection-factory="connectionFactory"> -->
+<!-- 		<rabbit:listener queues="defaultDirectQueue" ref="defaultDirectMessageReceiver" /> -->
+<!-- 	</rabbit:listener-container> -->
 
 	<rabbit:listener-container connection-factory="connectionFactory">
 		<rabbit:listener queues="directQueueTest" ref="directMessageReceiver" />
