@@ -42,7 +42,7 @@ public class PagePathCst {
 	 */
 	public static final String BASEPATH_DUBBO = "page/dubbo/";
 	/**
-	 * rebbitMQ
+	 * rabbitMQ
 	 */
-	public static final String BASEPATH_REBBITMQ = "page/rebbitMQ/";
+	public static final String BASEPATH_RABBITMQ = "page/rabbitMQ/";
 }

@@ -1,7 +1,7 @@
-package org.billow.controller.rebbitMQ;
+package org.billow.controller.rabbitMQ;
 
 import org.apache.log4j.Logger;
-import org.billow.common.rebbitmq.sender.DirectProducer;
+import org.billow.common.rabbitmq.sender.RabbitMQProducer;
 import org.billow.model.custom.JsonResult;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rebbitMQ")
-public class RebbitMQController {
+@RequestMapping("/rabbitMQ")
+public class RabbitMQController {
 
-	private static final Logger logger = Logger.getLogger(RebbitMQController.class);
+	private static final Logger logger = Logger.getLogger(RabbitMQController.class);
 
 	@Autowired
-	private DirectProducer directProducer;
+	private RabbitMQProducer rabbitMQProducer;
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class RebbitMQController {
 	 */
 	@RequestMapping("/index/{mq}")
 	private String index(@PathVariable("mq") String mq) {
-		return PagePathCst.BASEPATH_REBBITMQ + mq;
+		return PagePathCst.BASEPATH_RABBITMQ + mq;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class RebbitMQController {
 		String type = "";
 		String messageJ = "";
 		try {
-			directProducer.sendMessage(null, message);
+			rabbitMQProducer.send(message, "billow", "也没啥");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {

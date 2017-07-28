@@ -1,4 +1,4 @@
-package org.billow.common.rebbitmq.consume.listener;
+package org.billow.common.rabbitmq.consume.listener;
 
 import org.apache.log4j.Logger;
 import org.springframework.amqp.core.Message;

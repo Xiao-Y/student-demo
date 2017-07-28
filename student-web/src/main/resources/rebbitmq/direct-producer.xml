@@ -5,11 +5,14 @@
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
-	<!-- 定义默认 -->
-	<!-- 定义direct exchange，绑定queueTest -->
-	<rabbit:direct-exchange name="directExchangeTest" durable="true" auto-delete="false">
-		<rabbit:bindings>
-			<rabbit:binding queue="directQueueTest" key="directQueueTestKey" />
-		</rabbit:bindings>
-	</rabbit:direct-exchange>
+
+	<bean id="rebbitProducerImpl" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+		<!-- 消息模板 -->
+		<property name="rabbitTemplate" ref="directTemplateTest" />
+		<!-- 交换器 -->
+		<property name="exchangeName" value="directExchangeTest" />
+		<!-- 路由key -->
+		<property name="routingKey" value="directQueueTestKey" />
+		<!-- <property name="virHostBeanKey" value="" /> -->
+	</bean>
 </beans>
