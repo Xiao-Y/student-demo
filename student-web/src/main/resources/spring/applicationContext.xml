@@ -51,7 +51,7 @@
 	<!-- activiti工作流 -->
 	<!-- <import resource="classpath:spring/spring-activiti.xml" /> -->
 	<!-- 整合RebbitMQ -->
-	<import resource="classpath:spring/spring-rebbitmq.xml" />
+	<import resource="classpath:spring/spring-rabbitmq.xml" />
 
 	<!-- 定时任务 -->
 	<!-- 调度工厂:动态配置自动任务 -->

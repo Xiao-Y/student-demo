@@ -8,15 +8,16 @@
 
 	<description>rabbitmq 连接服务配置</description>
 	<!-- 连接配置 -->
-	<rabbit:connection-factory id="connectionFactory" host="${rabbitmq.host}" username="${rabbitmq.username}"
+	<rabbit:connection-factory id="rmqconnectionFactory" host="${rabbitmq.host}" username="${rabbitmq.username}"
 		password="${rabbitmq.password}" port="${rabbitmq.port}" />
 
-	<rabbit:admin connection-factory="connectionFactory" />
+	<rabbit:admin connection-factory="rmqconnectionFactory" />
 
-	<import resource="classpath:rebbitmq/jmsTemplate.xml" />
-	<import resource="classpath:rebbitmq/rebbitmq-queue.xml" />
-	<import resource="classpath:rebbitmq/direct-container.xml" />
-	<import resource="classpath:rebbitmq/direct-exchange.xml" />
-	<!-- <import resource="classpath:rebbitmq/topic-container.xml" /> -->
-	<!-- <import resource="classpath:rebbitmq/topic-exchange.xml" /> -->
+	<import resource="classpath:rabbitmq/jmsTemplate.xml" />
+	<import resource="classpath:rabbitmq/rebbitmq-queue.xml" />
+	<import resource="classpath:rabbitmq/direct-consumer.xml" />
+	<import resource="classpath:rabbitmq/direct-producer.xml" />
+	<import resource="classpath:rabbitmq/direct-exchange.xml" />
+	<!-- <import resource="classpath:rabbitmq/topic-container.xml" /> -->
+	<!-- <import resource="classpath:rabbitmq/topic-exchange.xml" /> -->
 </beans>

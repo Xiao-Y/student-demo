@@ -8,7 +8,7 @@
 
 	<!-- 配置JMS模板，发送、接收消息。 -->
 	<!-- direct：转发消息到 routigKey 指定的队列 -->
-	<rabbit:template id="directTemplateTest" connection-factory="connectionFactory" exchange="directExchangeTest" />
+	<rabbit:template id="directTemplateTest" connection-factory="rmqconnectionFactory" exchange="directExchangeTest" />
 
 	<!-- topic：按规则转发消息（最灵活）。 -->
 	<!-- <rabbit:template id="defaultTopicExchange" connection-factory="connectionFactory" exchange="defaultTopicExchange" /> -->
