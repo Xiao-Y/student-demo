@@ -5,14 +5,12 @@
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
-
-	<!--定义默认queue -->
-	<!-- <rabbit:queue name=defaultDirectQueue durable="true" auto-delete="false" exclusive="false" /> -->
 	<!--定义queue -->
+	<!-- durable：是否持久化 -->
+	<!-- exclusive：仅创建者可以使用的私有队列，断开后自动删除 -->
+	<!-- auto-delete：当所有消费端连接断开后，是否自动删除队列 -->
 	<rabbit:queue name="directQueueTest" durable="true" auto-delete="false" exclusive="false" />
 
-	<!--定义默认queue -->
-	<!-- <rabbit:queue name=defaultTopicQueue durable="true" auto-delete="false" exclusive="false" /> -->
 	<!--定义queue -->
 	<!-- <rabbit:queue name="topicQueueTest" durable="true" auto-delete="false" exclusive="false" /> -->
 </beans>

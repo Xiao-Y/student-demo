@@ -9,11 +9,9 @@ import org.billow.model.custom.MessageObject;
 import org.springframework.amqp.rabbit.connection.SimpleResourceHolder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
-import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 
-@Component
 public class RabbitMQProducerImpl implements RabbitMQProducer {
 
 	private static final Logger logger = Logger.getLogger(RabbitMQProducerImpl.class);
@@ -73,19 +71,35 @@ public class RabbitMQProducerImpl implements RabbitMQProducer {
 		return message;
 	}
 
+	public RabbitTemplate getRabbitTemplate() {
+		return rabbitTemplate;
+	}
+
+	public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
+		this.rabbitTemplate = rabbitTemplate;
+	}
+
+	public String getExchangeName() {
+		return exchangeName;
+	}
+
 	public void setExchangeName(String exchangeName) {
 		this.exchangeName = exchangeName;
+	}
+
+	public String getRoutingKey() {
+		return routingKey;
 	}
 
 	public void setRoutingKey(String routingKey) {
 		this.routingKey = routingKey;
 	}
 
-	public void setVirHostBeanKey(String virHostBeanKey) {
-		this.virHostBeanKey = virHostBeanKey;
+	public String getVirHostBeanKey() {
+		return virHostBeanKey;
 	}
 
-	public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
-		this.rabbitTemplate = rabbitTemplate;
+	public void setVirHostBeanKey(String virHostBeanKey) {
+		this.virHostBeanKey = virHostBeanKey;
 	}
 }

@@ -7,17 +7,23 @@
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
 	<description>rabbitmq 连接服务配置</description>
+
 	<!-- 连接配置 -->
 	<rabbit:connection-factory id="rmqconnectionFactory" host="${rabbitmq.host}" username="${rabbitmq.username}"
 		password="${rabbitmq.password}" port="${rabbitmq.port}" />
-
+	<!--通过指定下面的admin信息，当前producer中的exchange和queue会在rabbitmq服务器上自动生成 -->
 	<rabbit:admin connection-factory="rmqconnectionFactory" />
+	<!-- 配置JMS模板，发送、接收消息。 -->
+	<rabbit:template id="rabbitTemplate" connection-factory="rmqconnectionFactory" />
 
-	<import resource="classpath:rabbitmq/jmsTemplate.xml" />
-	<import resource="classpath:rabbitmq/rebbitmq-queue.xml" />
-	<import resource="classpath:rabbitmq/direct-consumer.xml" />
-	<import resource="classpath:rabbitmq/direct-producer.xml" />
+	<!-- 定义消息队列 -->
+	<import resource="classpath:rabbitmq/rabbitmq-queue.xml" />
+	<!-- 绑定交换机 -->
 	<import resource="classpath:rabbitmq/direct-exchange.xml" />
+	<!-- 生产者配置 -->
+	<import resource="classpath:rabbitmq/direct-producer.xml" />
+	<!-- 消费者配置 -->
+	<import resource="classpath:rabbitmq/direct-consumer.xml" />
 	<!-- <import resource="classpath:rabbitmq/topic-container.xml" /> -->
 	<!-- <import resource="classpath:rabbitmq/topic-exchange.xml" /> -->
 </beans>

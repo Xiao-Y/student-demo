@@ -5,10 +5,9 @@
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
-
-	<bean id="rabbitMQProducerImpl" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+	<bean id="rabbitMQProducer" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
 		<!-- 消息模板 -->
-		<property name="rabbitTemplate" ref="directTemplateTest" />
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
 		<!-- 交换器 -->
 		<property name="exchangeName" value="directExchangeTest" />
 		<!-- 路由key -->
