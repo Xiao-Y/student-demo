@@ -6,6 +6,7 @@ import org.billow.model.custom.JsonResult;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,8 @@ public class RabbitMQController {
 
 	private static final Logger logger = Logger.getLogger(RabbitMQController.class);
 
-	@Autowired
+	@Autowired(required = false)
+	@Qualifier("rabbitMQProducer")
 	private RabbitMQProducer rabbitMQProducer;
 
 	/**

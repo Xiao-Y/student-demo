@@ -48,6 +48,7 @@
 					<warName>${project.artifactId}</warName>
 					<attachClasses>true</attachClasses>
 					<classesClassifier>api</classesClassifier>
+					<!-- 设置编译路径，更新maven后修改build path中的output folder为targetPath -->
 					<webResources>
 						<resource>
 							<directory>src\main\resources</directory>
@@ -87,7 +88,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>${tomcat7-maven-plugin.version}</version>
 				<configuration>
-					<port>9090</port>
+					<port>8090</port>
 					<path>/${project.artifactId}</path>
 					<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
 					<server>tomcat7</server>

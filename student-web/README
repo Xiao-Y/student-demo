@@ -10,3 +10,44 @@ org.billow.utils.redis.RedisUtil redis的工具类
 
 基类方法查询：使用的是aop
 selectByPrimaryKey
+
+
+已集成RabbitMQ的使用：
+	生产者：
+	1、在/student-web/src/main/resources/rabbitmq/rabbitmq-queue.xml中添加消息队列
+	
+		<rabbit:queue name="directQueueTest" durable="true" auto-delete="false" exclusive="false" />
+		
+	2、在/student-web/src/main/resources/rabbitmq/direct-exchange.xml中添加交换机并绑定消息队列
+	
+		<rabbit:direct-exchange name="directExchangeTest" durable="true" auto-delete="false">
+			<rabbit:bindings>
+				<rabbit:binding queue="directQueueTest" key="directQueueTestKey" />
+			</rabbit:bindings>
+		</rabbit:direct-exchange>
+	
+	3、添加消息生产者，/student-web/src/main/resources/rabbitmq/direct-producer.xml
+	
+		<bean id="rabbitMQProducer" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+			<!-- 消息模板 -->
+			<property name="rabbitTemplate" ref="rabbitTemplate" />
+			<!-- 交换器 -->
+			<property name="exchangeName" value="directExchangeTest" />
+			<!-- 路由key -->
+			<property name="routingKey" value="directQueueTestKey" />
+			<!-- <property name="virHostBeanKey" value="" /> -->
+		</bean>
+		注意：bean中的class不变，添加新的生产者修改id的名称，不可重复
+
+	4、使用参考：org.billow.controller.rabbitMQ.RabbitMQController
+		4.1、注入
+		@Autowired(required = false)
+		@Qualifier("rabbitMQProducer")
+		private RabbitMQProducer rabbitMQProducer;
+		4.2、发送
+		rabbitMQProducer.send(message, "billow", "也没啥");
+		
+	
+	消费者：
+		
+
