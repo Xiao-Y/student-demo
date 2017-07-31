@@ -10,6 +10,7 @@
 	<!-- exclusive：仅创建者可以使用的私有队列，断开后自动删除 -->
 	<!-- auto-delete：当所有消费端连接断开后，是否自动删除队列 -->
 	<rabbit:queue name="directQueueTest" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="directQueueTest2" durable="true" auto-delete="false" exclusive="false" />
 
 	<!--定义queue -->
 	<!-- <rabbit:queue name="topicQueueTest" durable="true" auto-delete="false" exclusive="false" /> -->

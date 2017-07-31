@@ -21,6 +21,9 @@ public class RabbitMQController {
 	@Autowired(required = false)
 	@Qualifier("rabbitMQProducer")
 	private RabbitMQProducer rabbitMQProducer;
+	@Autowired(required = false)
+	@Qualifier("rabbitMQProducer2")
+	private RabbitMQProducer rabbitMQProducer2;
 
 	/**
 	 * 
@@ -51,6 +54,7 @@ public class RabbitMQController {
 		String messageJ = "";
 		try {
 			rabbitMQProducer.send(message, "billow", "也没啥");
+			rabbitMQProducer2.send(message, "billow2", "也没啥2");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {

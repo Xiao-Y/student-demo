@@ -13,6 +13,14 @@
 	<rabbit:direct-exchange name="directExchangeTest" durable="true" auto-delete="false">
 		<rabbit:bindings>
 			<rabbit:binding queue="directQueueTest" key="directQueueTestKey" />
+			<rabbit:binding queue="directQueueTest2" key="directQueueTestKey" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<rabbit:direct-exchange name="directExchangeTest2" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="directQueueTest" key="directQueueTestKey2" />
+			<rabbit:binding queue="directQueueTest2" key="directQueueTestKey2" />
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
 </beans>
