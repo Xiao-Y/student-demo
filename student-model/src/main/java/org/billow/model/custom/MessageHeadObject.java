@@ -72,4 +72,10 @@ public class MessageHeadObject implements Serializable {
 	public void setVirtualHost(String virtualHost) {
 		this.virtualHost = virtualHost;
 	}
+
+	@Override
+	public String toString() {
+		return "MessageHeadObject [sysCode=" + sysCode + ", businessKey=" + businessKey + ", routtingKey=" + routtingKey + ", queueName=" + queueName
+				+ ", exchangeName=" + exchangeName + ", virtualHost=" + virtualHost + ", businessKeyDesc=" + businessKeyDesc + "]";
+	}
 }

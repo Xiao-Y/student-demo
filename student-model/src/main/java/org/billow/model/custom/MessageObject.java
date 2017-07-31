@@ -69,4 +69,10 @@ public class MessageObject implements Serializable {
 	public void setExpiration(String expiration) {
 		this.expiration = expiration;
 	}
+
+	@Override
+	public String toString() {
+		return "MessageObject [requestId=" + requestId + ", messageId=" + messageId + ", durable=" + durable + ", priority=" + priority
+				+ ", expiration=" + expiration + ", body=" + body + ", head=" + head + "]";
+	}
 }

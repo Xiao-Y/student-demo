@@ -27,7 +27,7 @@ public class RabbitMQProducerImpl implements RabbitMQProducer {
 		CorrelationData correlationId = new CorrelationData(obj.getMessageId());
 		MessageProcessor processor = new MessageProcessor(correlationId, obj);
 		String objStr = JSON.toJSONString(obj);
-		logger.info("RabbitMQ消息：" + objStr);
+		logger.info("RabbitMQ发送的消息：" + objStr);
 		try {
 			if (StringUtils.isNotBlank(virHostBeanKey)) {
 				SimpleResourceHolder.bind(rabbitTemplate.getConnectionFactory(), virHostBeanKey);

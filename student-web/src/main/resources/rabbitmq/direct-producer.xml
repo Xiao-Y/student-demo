@@ -5,6 +5,7 @@
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
 	<bean id="rabbitMQProducer" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
 		<!-- 消息模板 -->
 		<property name="rabbitTemplate" ref="rabbitTemplate" />
@@ -14,13 +15,14 @@
 		<property name="routingKey" value="directQueueTestKey" />
 		<!-- <property name="virHostBeanKey" value="" /> -->
 	</bean>
-	<bean id="rabbitMQProducer2" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+
+	<bean id="rabbitMQProducerListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
 		<!-- 消息模板 -->
 		<property name="rabbitTemplate" ref="rabbitTemplate" />
 		<!-- 交换器 -->
-		<property name="exchangeName" value="directExchangeTest2" />
+		<property name="exchangeName" value="directExchangeTestListenter" />
 		<!-- 路由key -->
-		<property name="routingKey" value="directQueueTestKey2" />
+		<property name="routingKey" value="directQueueTestKeyListenter" />
 		<!-- <property name="virHostBeanKey" value="" /> -->
 	</bean>
 </beans>

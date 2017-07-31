@@ -8,6 +8,15 @@
 
 	<!-- 配置监听 -->
 	<rabbit:listener-container connection-factory="rmqconnectionFactory">
-		<rabbit:listener queues="directQueueTest" ref="directMessageReceiver" />
+		<rabbit:listener queues="directQueueTestListenter" ref="directMessageReceiver" />
 	</rabbit:listener-container>
+
+	<bean id="rabbitMQConsume" class="org.billow.common.rabbitmq.consume.RabbitMQConsumeImpl">
+		<!-- 消息模板 -->
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
+		<!-- 消息队列 -->
+		<property name="queueName" value="directQueueTest" />
+		<!-- 设置超时时间 -->
+		<property name="timeoutMillis" value="3000" />
+	</bean>
 </beans>  

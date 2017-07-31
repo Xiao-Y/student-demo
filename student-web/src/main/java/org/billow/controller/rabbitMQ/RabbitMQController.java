@@ -1,8 +1,10 @@
 package org.billow.controller.rabbitMQ;
 
 import org.apache.log4j.Logger;
+import org.billow.common.rabbitmq.consume.RabbitMQConsume;
 import org.billow.common.rabbitmq.sender.RabbitMQProducer;
 import org.billow.model.custom.JsonResult;
+import org.billow.model.custom.MessageObject;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,14 @@ public class RabbitMQController {
 	@Autowired(required = false)
 	@Qualifier("rabbitMQProducer")
 	private RabbitMQProducer rabbitMQProducer;
+
 	@Autowired(required = false)
-	@Qualifier("rabbitMQProducer2")
-	private RabbitMQProducer rabbitMQProducer2;
+	@Qualifier("rabbitMQProducerListenter")
+	private RabbitMQProducer rabbitMQProducerListenter;
+
+	@Autowired(required = false)
+	@Qualifier("rabbitMQConsume")
+	private RabbitMQConsume rabbitMQConsume;
 
 	/**
 	 * 
@@ -54,7 +61,6 @@ public class RabbitMQController {
 		String messageJ = "";
 		try {
 			rabbitMQProducer.send(message, "billow", "也没啥");
-			rabbitMQProducer2.send(message, "billow2", "也没啥2");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
@@ -82,23 +88,9 @@ public class RabbitMQController {
 	 */
 	@ResponseBody
 	@RequestMapping("/readDirectMessage")
-	public JsonResult readDirectMessage(String message) {
-		String type = "";
-		String messageJ = "";
-		try {
-			rabbitMQProducer.send(message, "billow", "也没啥");
-			type = MessageTipsCst.TYPE_SUCCES;
-			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			type = MessageTipsCst.TYPE_ERROR;
-			messageJ = MessageTipsCst.SUBMIT_FAILURE;
-			logger.error(e);
-		}
-		JsonResult json = new JsonResult();
-		json.setType(type);
-		json.setMessage(messageJ);
-		return json;
+	public Object readQueueMessage() throws Exception {
+		MessageObject msg = rabbitMQConsume.receiveToMessageObject();
+		return msg.getBody();
 	}
 
 	/**
@@ -118,7 +110,7 @@ public class RabbitMQController {
 		String type = "";
 		String messageJ = "";
 		try {
-			rabbitMQProducer.send(message, "billow", "也没啥");
+			rabbitMQProducerListenter.send(message, "billow,Listenter", "也没啥，监听的方式");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
