@@ -49,5 +49,35 @@ selectByPrimaryKey
 		
 	
 	消费者：
-		
+	监听：
+	1、在/student-web/src/main/resources/rabbitmq/direct-consumer.xml中添加监听
+	
+	<rabbit:listener-container connection-factory="rmqconnectionFactory">
+		<rabbit:listener queues="directQueueTestListenter" ref="directMessageReceiver" />
+	</rabbit:listener-container>	
 
+	2、新建类DirectMessageReceiver
+	实现org.springframework.amqp.core.MessageListener
+	
+	非监听：
+	1、在/student-web/src/main/resources/rabbitmq/direct-consumer.xml中添加bean
+	
+	<bean id="rabbitMQConsume" class="org.billow.common.rabbitmq.consume.RabbitMQConsumeImpl">
+		<!-- 消息模板 -->
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
+		<!-- 消息队列 -->
+		<property name="queueName" value="directQueueTest" />
+		<!-- 设置超时时间 -->
+		<property name="timeoutMillis" value="3000" />
+	</bean>
+	注意：bean中的class不变，添加新的生产者修改id的名称，不可重复
+	
+	2、使用：参考org.billow.controller.rabbitMQ.RabbitMQController.readQueueMessage() 
+	注入：
+	@Autowired(required = false)
+	@Qualifier("rabbitMQConsume")
+	private RabbitMQConsume rabbitMQConsume;
+	
+	MessageObject msg = rabbitMQConsume.receiveToMessageObject();
+	
+	
