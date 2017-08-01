@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans    
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
 				        http://www.springframework.org/schema/rabbit 
-				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
 	<!-- 定义direct exchange，绑定queueTest -->
 	<!-- direct模式:消息与一个特定的路由器完全匹配，才会转发 -->
 	<!-- 交换机：一个交换机可以绑定多个队列，一个队列也可以绑定到多个交换机上。 如果没有队列绑定到交换机上，则发送到该交换机上的信息则会丢失 -->
@@ -16,10 +16,17 @@
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
 
-	<!-- 监听 -->
+	<!-- 绑定监听队列 -->
 	<rabbit:direct-exchange name="directExchangeTestListenter" durable="true" auto-delete="false">
 		<rabbit:bindings>
 			<rabbit:binding queue="directQueueTestListenter" key="directQueueTestListenterKey" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<!-- 绑定消息确认队列 -->
+	<rabbit:direct-exchange name="directExchangeTesConfirmtListenter" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="directQueueTestConfirmListenter" key="directQueueTestConfirmKeyListenter" />
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
 </beans>

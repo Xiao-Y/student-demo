@@ -16,10 +16,12 @@
 			<li class="layui-this">发送Direct</li>
 			<li>读取Direct</li>
 			<li>发送ListenerDirect</li>
+			<li>发送确认ListenerDirect</li>
 		</ul>
 		<div class="layui-tab-content">
 			<div class="layui-tab-item layui-show">
-				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/rabbitMQ/directSender">
+				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
+					action="${ctx }/rabbitMQ/directSender">
 					<div class="layui-form-item layui-form-text">
 						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>
@@ -41,12 +43,25 @@
 				</div>
 			</div>
 			<div class="layui-tab-item">
-				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax" action="${ctx }/rabbitMQ/queueListenerSender">
+				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
+					action="${ctx }/rabbitMQ/queueListenerSender">
 					<div class="layui-form-item layui-form-text">
 						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>
 					<div class="layui-form-item">
 						<button class="layui-btn" lay-submit lay-filter="*">发送ListenerQueue</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</form>
+			</div>
+			<div class="layui-tab-item">
+				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
+					action="${ctx }/rabbitMQ/queueConfirmListenerSender">
+					<div class="layui-form-item layui-form-text">
+						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
+					</div>
+					<div class="layui-form-item">
+						<button class="layui-btn" lay-submit lay-filter="*">发送确认ListenerQueue</button>
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</form>

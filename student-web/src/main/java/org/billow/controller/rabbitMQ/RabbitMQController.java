@@ -32,6 +32,10 @@ public class RabbitMQController {
 	@Qualifier("rabbitMQConsume")
 	private RabbitMQConsume rabbitMQConsume;
 
+	@Autowired(required = false)
+	@Qualifier("rabbitMQProducerConfirmListenter")
+	private RabbitMQProducer rabbitMQProducerConfirmListenter;
+
 	/**
 	 * 
 	 * @return
@@ -60,7 +64,7 @@ public class RabbitMQController {
 		String type = "";
 		String messageJ = "";
 		try {
-			rabbitMQProducer.send(message, "billow", "也没啥");
+			rabbitMQProducer.send(message, "billow", "也没啥要确认");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
@@ -111,6 +115,38 @@ public class RabbitMQController {
 		String messageJ = "";
 		try {
 			rabbitMQProducerListenter.send(message, "billow,Listenter", "也没啥，监听的方式");
+			type = MessageTipsCst.TYPE_SUCCES;
+			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			type = MessageTipsCst.TYPE_ERROR;
+			messageJ = MessageTipsCst.SUBMIT_FAILURE;
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setType(type);
+		json.setMessage(messageJ);
+		return json;
+	}
+
+	/**
+	 * 消息队列监听器形式的（需要消息确认）
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param message
+	 * @return
+	 * 
+	 * @date 2017年7月17日 上午10:52:42
+	 */
+	@ResponseBody
+	@RequestMapping("/queueConfirmListenerSender")
+	public JsonResult queueConfirmListenerSender(String message) {
+		String type = "";
+		String messageJ = "";
+		try {
+			rabbitMQProducerConfirmListenter.send(message, "billow", "也没啥要确认");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
