@@ -13,8 +13,7 @@
 <body>
 	<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
 		<ul class="layui-tab-title">
-			<li class="layui-this">发送默认Topic</li>
-			<li>发送Topic</li>
+			<li class="layui-this">发送Topic</li>
 		</ul>
 		<div class="layui-tab-content">
 			<div class="layui-tab-item layui-show">
@@ -24,19 +23,7 @@
 						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>
 					<div class="layui-form-item">
-						<button class="layui-btn" lay-submit lay-filter="*">发送默认</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-					</div>
-				</form>
-			</div>
-			<div class="layui-tab-item">
-				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
-					action="${ctx }/rabbitMQ/topicSender">
-					<div class="layui-form-item layui-form-text">
-						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
-					</div>
-					<div class="layui-form-item">
-						<button class="layui-btn" lay-submit lay-filter="*">发送</button>
+						<button class="layui-btn" lay-submit lay-filter="*">发送Topic</button>
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</form>

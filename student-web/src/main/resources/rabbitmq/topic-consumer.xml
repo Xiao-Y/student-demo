@@ -7,12 +7,11 @@
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
 
 	<!-- 配置监听 -->
-	<rabbit:listener-container connection-factory="connectionFactory">
-		<!-- queues 监听队列，多个用逗号分隔 ref 监听器 -->
-		<rabbit:listener queues="defaultTopicQueue" ref="defaultTopicMessageReceiver" />
-	</rabbit:listener-container>
-
-	<rabbit:listener-container connection-factory="connectionFactory">
+	<rabbit:listener-container connection-factory="rmqconnectionFactory">
 		<rabbit:listener queues="topicQueueTest" ref="topicMessageReceiver" />
+		<rabbit:listener queues="topicQueueTest2" ref="topicMessageReceiver" />
+		<rabbit:listener queues="topicQueueTest3" ref="topicMessageReceiver" />
+		<rabbit:listener queues="topicQueueTest4" ref="topicMessageReceiver" />
+		<rabbit:listener queues="topicQueueTest5" ref="topicMessageReceiver" />
 	</rabbit:listener-container>
 </beans>  

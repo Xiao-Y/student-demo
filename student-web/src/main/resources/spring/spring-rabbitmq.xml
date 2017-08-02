@@ -38,4 +38,6 @@
 	<import resource="classpath:rabbitmq/topic-exchange.xml" />
 	<!-- 生产者配置 -->
 	<import resource="classpath:rabbitmq/topic-producer.xml" />
+	<!-- 消费者配置 -->
+	<!-- <import resource="classpath:rabbitmq/topic-consumer.xml" /> -->
 </beans>

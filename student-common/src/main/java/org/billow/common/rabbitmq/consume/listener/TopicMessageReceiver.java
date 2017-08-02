@@ -7,9 +7,9 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DirectMessageReceiver implements MessageListener {
+public class TopicMessageReceiver implements MessageListener {
 
-	private static final Logger logger = Logger.getLogger(DirectMessageReceiver.class);
+	private static final Logger logger = Logger.getLogger(TopicMessageReceiver.class);
 
 	@Override
 	public void onMessage(Message message) {
