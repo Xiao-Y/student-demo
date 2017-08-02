@@ -34,7 +34,7 @@ public class SetData {
 	private OtherModel serviceImpl;
 	private OtherModel dao;
 	private MapperDaoModel mapperDao;
-	// private OtherModel daoImpl;
+	private MapperDaoModel mapperBaseDao;
 	Map<String, Object> map;
 	Map<String, ColumnModel> columns;
 
@@ -59,9 +59,33 @@ public class SetData {
 		dao = this.setDaoData();
 		// daoImpl = this.setDaoImplData();
 		mapperDao = this.setMapperDaoData();
+		mapperBaseDao = this.setMapperBaseDaoData();
 	}
 
 	// ----------单例模式：懒汉式，线程安全----end---------
+
+	/**
+	 * 添加mapperBaseDao的数据
+	 * 
+	 * @return
+	 * @author XiaoY
+	 * @date: 2017年6月25日 下午8:28:08
+	 */
+	private MapperDaoModel setMapperBaseDaoData() {
+		MapperDaoModel mapperDaoModel = new MapperDaoModel();
+		String namespace = map.get("daoPackageName") + "." + map.get("daoClazzName");
+		mapperDaoModel.setNamespace(namespace);
+		String type = map.get("modelPackageName") + "." + map.get("modelClazzName");
+		mapperDaoModel.setType(type);
+		mapperDaoModel.setColumns(columns);
+		Set<String> keySet = columns.keySet();
+		String columnStr = org.apache.commons.lang3.StringUtils.join(keySet, ",");
+		mapperDaoModel.setColumnStr(columnStr);
+		mapperDaoModel.setTableName((String) map.get("tableName"));
+		mapperDaoModel.setPackageName((String) map.get("mapperBasePackageName"));
+		mapperDaoModel.setClazzName((String) map.get("mapperBaseXMLName"));
+		return mapperDaoModel;
+	}
 
 	/**
 	 * 添加mapperDao的数据
@@ -74,13 +98,6 @@ public class SetData {
 		MapperDaoModel mapperDaoModel = new MapperDaoModel();
 		String namespace = map.get("daoPackageName") + "." + map.get("daoClazzName");
 		mapperDaoModel.setNamespace(namespace);
-		String type = map.get("modelPackageName") + "." + map.get("modelClazzName");
-		mapperDaoModel.setType(type);
-		mapperDaoModel.setColumns(columns);
-		Set<String> keySet = columns.keySet();
-		String columnStr = org.apache.commons.lang3.StringUtils.join(keySet, ",");
-		mapperDaoModel.setColumnStr(columnStr);
-		mapperDaoModel.setTableName((String) map.get("tableName"));
 		mapperDaoModel.setPackageName((String) map.get("mapperPackageName"));
 		mapperDaoModel.setClazzName((String) map.get("mapperXMLName"));
 		return mapperDaoModel;
@@ -335,13 +352,13 @@ public class SetData {
 	private String sqlType2MybatisType(String sqlType) {
 		String mybatisType = "";
 		switch (sqlType) {
-		case "DATETIME":
-			mybatisType = "TIMESTAMP";
-			break;
-		case "TEXT":
-			mybatisType = "CLOB";
-		default:
-			break;
+			case "DATETIME":
+				mybatisType = "TIMESTAMP";
+				break;
+			case "TEXT":
+				mybatisType = "CLOB";
+			default:
+				break;
 		}
 		return mybatisType;
 	}
@@ -358,29 +375,29 @@ public class SetData {
 		sqlType = org.apache.commons.lang3.StringUtils.upperCase(sqlType);
 		String javaType = "";
 		switch (sqlType) {
-		case "INTEGER":
-		case "INT":
-		case "BIT":
-			javaType = "Integer";
-			break;
-		case "CHAR":
-		case "VARCHAR":
-			javaType = "String";
-			break;
-		case "TIMESTAMP":
-		case "DATETIME":
-			javaType = "Date";
-			break;
-		case "FLOAT":
-			javaType = "Float";
-		case "DOUBLE":
-			javaType = "Double";
-			break;
-		case "DECIMAL":
-			javaType = "BigDecimal";
-			break;
-		default:
-			break;
+			case "INTEGER":
+			case "INT":
+			case "BIT":
+				javaType = "Integer";
+				break;
+			case "CHAR":
+			case "VARCHAR":
+				javaType = "String";
+				break;
+			case "TIMESTAMP":
+			case "DATETIME":
+				javaType = "Date";
+				break;
+			case "FLOAT":
+				javaType = "Float";
+			case "DOUBLE":
+				javaType = "Double";
+				break;
+			case "DECIMAL":
+				javaType = "BigDecimal";
+				break;
+			default:
+				break;
 		}
 		return javaType;
 	}
@@ -466,11 +483,11 @@ public class SetData {
 		this.mapperDao = mapperDao;
 	}
 
-	// public OtherModel getDaoImpl() {
-	// return daoImpl;
-	// }
-	//
-	// public void setDaoImpl(OtherModel daoImpl) {
-	// this.daoImpl = daoImpl;
-	// }
+	public MapperDaoModel getMapperBaseDao() {
+		return mapperBaseDao;
+	}
+
+	public void setMapperBaseDao(MapperDaoModel mapperBaseDao) {
+		this.mapperBaseDao = mapperBaseDao;
+	}
 }

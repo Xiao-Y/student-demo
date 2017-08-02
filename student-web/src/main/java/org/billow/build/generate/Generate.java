@@ -92,6 +92,9 @@ public class Generate {
 		} else if ("dao.ftl".equals(ftlName)) {
 			om = sd.getDao();
 			outPath = Utils.getDaoOutPath();
+		} else if ("mapperBaseDao.ftl".equals(ftlName)) {
+			mdm = sd.getMapperBaseDao();
+			outPath = Utils.getMapperOutPath();
 		} else if ("mapperDao.ftl".equals(ftlName)) {
 			mdm = sd.getMapperDao();
 			outPath = Utils.getMapperOutPath();

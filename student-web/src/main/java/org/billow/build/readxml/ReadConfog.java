@@ -65,6 +65,9 @@ public class ReadConfog {
 
 			map.put("mapperPackageName", root.elementTextTrim("mapperPackageName"));
 			map.put("mapperXMLName", root.elementTextTrim("mapperXMLName"));
+			
+			map.put("mapperBasePackageName", root.elementTextTrim("mapperBasePackageName"));
+			map.put("mapperBaseXMLName", root.elementTextTrim("mapperBaseXMLName"));
 			// Element fields = root.element("fields");
 			// Iterator<Element> iterator = fields.elementIterator("field");
 			// List<FieldModel> list = new ArrayList<FieldModel>();
