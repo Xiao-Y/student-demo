@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.billow.api.menu.MenuService;
 import org.billow.dao.MenuDao;
+import org.billow.dao.base.BaseDao;
 import org.billow.model.expand.MenuDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MenuServiceImpl extends BaseServiceImpl<MenuDto> implements MenuService {
 
+	@Resource
 	private MenuDao menuDao;
 
 	@Resource
-	public void setMenuDao(MenuDao menuDao) {
-		this.menuDao = menuDao;
-		super.setBaseDao(menuDao);
+	@Override
+	public void setBaseDao(BaseDao<MenuDto> baseDao) {
+		super.baseDao = this.menuDao;
 	}
 
 	@Override

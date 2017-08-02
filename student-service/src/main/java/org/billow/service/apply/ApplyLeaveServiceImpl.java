@@ -13,6 +13,7 @@ import org.activiti.engine.task.Task;
 import org.billow.api.apply.ApplyLeaveService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.dao.LeaveDao;
+import org.billow.dao.base.BaseDao;
 import org.billow.model.expand.LeaveDto;
 import org.billow.model.expand.UserDto;
 import org.billow.service.base.BaseServiceImpl;
@@ -26,12 +27,13 @@ import com.github.pagehelper.PageInfo;
 @Service
 public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements ApplyLeaveService {
 
+	@Resource
 	private LeaveDao leaveDao;
 
 	@Resource
-	public void setLeaveDao(LeaveDao leaveDao) {
-		this.leaveDao = leaveDao;
-		super.setBaseDao(leaveDao);
+	@Override
+	public void setBaseDao(BaseDao<LeaveDto> baseDao) {
+		super.baseDao = this.leaveDao;
 	}
 
 	@Autowired
@@ -73,8 +75,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 	public LeaveDto findLeaveDto(LeaveDto leave) throws Exception {
 		LeaveDto leaveDto = leaveDao.selectByPrimaryKey(leave);
 		if (leaveDto != null) {
-			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(),
-					leave.getType());
+			List<Comment> comments = workFlowService.findCommentByProcessInstanceId(leave.getProcessInstanceId(), leave.getType());
 			leaveDto.setComments(comments);
 		}
 		return leaveDto;
@@ -125,8 +126,7 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 			String processDefinitionKey = leave.getProcessDefinitionKey();
 			Map<String, String> properties = leave.getProperties();
 			// 启动流程实例
-			processInstance = workFlowService.submitStartFormData(processDefinitionKey, businessKey, properties,
-					userDto.getUserName());
+			processInstance = workFlowService.submitStartFormData(processDefinitionKey, businessKey, properties, userDto.getUserName());
 			String processInstanceId = processInstance.getProcessInstanceId();
 			// 查询任务
 			Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);

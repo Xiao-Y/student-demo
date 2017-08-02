@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.billow.api.system.DictionaryService;
 import org.billow.dao.DictionaryDao;
+import org.billow.dao.base.BaseDao;
 import org.billow.model.expand.DictionaryDto;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictionaryServiceImpl extends BaseServiceImpl<DictionaryDto> implements DictionaryService {
 
+	@Resource
 	private DictionaryDao dictionaryDao;
 
 	@Resource
-	public void setDictionaryDao(DictionaryDao dictionaryDao) {
-		this.dictionaryDao = dictionaryDao;
-		super.setBaseDao(dictionaryDao);
+	@Override
+	public void setBaseDao(BaseDao<DictionaryDto> baseDao) {
+		super.baseDao = this.dictionaryDao;
 	}
 
 	@Override

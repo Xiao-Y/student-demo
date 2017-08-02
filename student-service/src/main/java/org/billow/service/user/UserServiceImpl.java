@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.billow.api.user.UserService;
 import org.billow.dao.UserDao;
+import org.billow.dao.base.BaseDao;
 import org.billow.model.expand.RoleDto;
 import org.billow.model.expand.UserDto;
 import org.billow.model.expand.UserRoleDto;
@@ -17,12 +18,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<UserDto> implements UserService {
 
+	@Resource
 	private UserDao userDao;
 
 	@Resource
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-		super.setBaseDao(userDao);
+	@Override
+	public void setBaseDao(BaseDao<UserDto> baseDao) {
+		super.baseDao = this.userDao;
 	}
 
 	@Override

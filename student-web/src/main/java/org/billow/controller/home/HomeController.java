@@ -82,15 +82,6 @@ public class HomeController implements Comparator<MenuBase> {
 			RoleDto roleDto = userRoleDto.getRoleDto();
 			System.out.println(roleDto);
 		}
-		// DictionaryDto record = new DictionaryDto();
-		// record.setId("004e12a6-8b33-4d63-8e0d-1d315d8422b0");
-		// DictionaryDto dictionaryDto =
-		// dictionaryDao.selectByPrimaryKey(record);
-		// System.out.println(dictionaryDto);
-		// List<DictionaryDto> list = dictionaryDao.selectAll(null);
-		// for (DictionaryDto d : list) {
-		// System.out.println(d);
-		// }
 		return "page/home/login";
 	}
 

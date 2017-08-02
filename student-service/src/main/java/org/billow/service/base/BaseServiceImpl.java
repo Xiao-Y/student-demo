@@ -5,11 +5,9 @@ import org.billow.dao.base.BaseDao;
 
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
-	private BaseDao<T> baseDao;
+	protected BaseDao<T> baseDao;
 
-	public void setBaseDao(BaseDao<T> baseDao) {
-		this.baseDao = baseDao;
-	}
+	public abstract void setBaseDao(BaseDao<T> baseDao);
 
 	public int deleteByPrimaryKey(T record) {
 		return baseDao.deleteByPrimaryKey(record);
