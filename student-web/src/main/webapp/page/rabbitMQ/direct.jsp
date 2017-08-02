@@ -7,7 +7,7 @@
 <title>Queue</title>
 <jsp:include page="/pub/pubFormCss.jsp" />
 <jsp:include page="/pub/pubFormJs.jsp" />
-<script type="text/javascript" src="${ctx }/page/rabbitMQ/direct.js"></script>
+<script type="text/javascript" src="${ctx }/page/rabbitMQ/rabbitmq.js"></script>
 </head>
 
 <body>

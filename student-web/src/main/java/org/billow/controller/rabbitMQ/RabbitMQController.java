@@ -55,6 +55,10 @@ public class RabbitMQController {
 	@Qualifier("rabbitMQTopicProducer5")
 	private RabbitMQProducer rabbitMQTopicProducer5;
 
+	@Autowired(required = false)
+	@Qualifier("rabbitMQFanoutProducer")
+	private RabbitMQProducer rabbitMQFanoutProducer;
+
 	/**
 	 * 
 	 * @return
@@ -215,4 +219,37 @@ public class RabbitMQController {
 		json.setMessage(messageJ);
 		return json;
 	}
+
+	/**
+	 * 发送消息fanout
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param message
+	 * @return
+	 * 
+	 * @date 2017年7月17日 上午10:52:42
+	 */
+	@ResponseBody
+	@RequestMapping("/fanoutSender")
+	public JsonResult fanoutSender(String message) {
+		String type = "";
+		String messageJ = "";
+		try {
+			rabbitMQFanoutProducer.send(message, "billow-fanout", "发布者订阅者模式");
+			type = MessageTipsCst.TYPE_SUCCES;
+			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			type = MessageTipsCst.TYPE_ERROR;
+			messageJ = MessageTipsCst.SUBMIT_FAILURE;
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setType(type);
+		json.setMessage(messageJ);
+		return json;
+	}
+
 }

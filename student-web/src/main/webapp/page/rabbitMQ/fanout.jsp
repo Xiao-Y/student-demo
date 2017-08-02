@@ -18,7 +18,7 @@
 		<div class="layui-tab-content">
 			<div class="layui-tab-item layui-show">
 				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
-					action="${ctx }/rabbitMQ/topicSender">
+					action="${ctx }/rabbitMQ/fanoutSender">
 					<div class="layui-form-item layui-form-text">
 						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>

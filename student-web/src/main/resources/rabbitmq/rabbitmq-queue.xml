@@ -20,4 +20,11 @@
 	<rabbit:queue name="topicQueueTest3" durable="true" auto-delete="false" exclusive="false" />
 	<rabbit:queue name="topicQueueTest4" durable="true" auto-delete="false" exclusive="false" />
 	<rabbit:queue name="topicQueueTest5" durable="true" auto-delete="false" exclusive="false" />
+
+	<!-- fanoutQueue -->
+	<rabbit:queue name="fanoutQueueTest" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="fanoutQueueTest2" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="fanoutQueueTest3" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="fanoutQueueTest4" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="fanoutQueueTest5" durable="true" auto-delete="false" exclusive="false" />
 </beans>
