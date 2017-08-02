@@ -45,4 +45,8 @@ public class PagePathCst {
 	 * rabbitMQ
 	 */
 	public static final String BASEPATH_RABBITMQ = "page/rabbitMQ/";
+	/**
+	 * redis
+	 */
+	public static final String BASEPATH_REDIS = "page/redis/";
 }
