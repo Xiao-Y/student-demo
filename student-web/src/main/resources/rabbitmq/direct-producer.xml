@@ -6,7 +6,7 @@
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
 
-	<bean id="rabbitMQProducer" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+	<bean id="rabbitMQDirectProducer" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
 		<!-- 消息模板 -->
 		<property name="rabbitTemplate" ref="rabbitTemplate" />
 		<!-- 交换器 -->
@@ -16,7 +16,7 @@
 		<!-- <property name="virHostBeanKey" value="" /> -->
 	</bean>
 
-	<bean id="rabbitMQProducerListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+	<bean id="rabbitMQDirectProducerListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
 		<!-- 消息模板 -->
 		<property name="rabbitTemplate" ref="rabbitTemplate" />
 		<!-- 交换器 -->
@@ -31,7 +31,7 @@
 	<!-- exchange 正确,queue 错误,confirm被回调, ack=true; return被回调 replyText:NO_ROUTE -->
 	<!-- exchange 错误,queue 正确,confirm被回调, ack=false -->
 	<!-- exchange 错误,queue 错误,confirm被回调, ack=false -->
-	<bean id="rabbitMQProducerConfirmListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+	<bean id="rabbitMQDirectProducerConfirmListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
 		<!-- 消息模板 -->
 		<property name="rabbitTemplate" ref="rabbitTemplateConfirm" />
 		<!-- 交换器 -->

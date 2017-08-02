@@ -7,7 +7,7 @@
 <title>Topic</title>
 <jsp:include page="/pub/pubFormCss.jsp" />
 <jsp:include page="/pub/pubFormJs.jsp" />
-<script type="text/javascript" src="${ctx }/page/activeMQ/topic.js"></script>
+<script type="text/javascript" src="${ctx }/page/rabbitMQ/topic.js"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 		<div class="layui-tab-content">
 			<div class="layui-tab-item layui-show">
 				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
-					action="${ctx }/activeMQ/topicSender/true">
+					action="${ctx }/rabbitMQ/topicSender">
 					<div class="layui-form-item layui-form-text">
 						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>
@@ -31,7 +31,7 @@
 			</div>
 			<div class="layui-tab-item">
 				<form id="formLeave" class="layui-form layui-form-pane1" style="margin: 15px;" data-type="ajax"
-					action="${ctx }/activeMQ/topicSender/false">
+					action="${ctx }/rabbitMQ/topicSender">
 					<div class="layui-form-item layui-form-text">
 						<textarea placeholder="请输入内容" lay-verify="required" class="layui-textarea" name="message"></textarea>
 					</div>

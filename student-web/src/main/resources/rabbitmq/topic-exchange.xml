@@ -6,20 +6,18 @@
 				        http://www.springframework.org/schema/rabbit 
 				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
 
-	<!-- direct：转发消息到 routigKey 指定的队列 -->
-	<!-- topic：按规则转发消息（最灵活）。 -->
-	<!-- fanout：转发消息到所有绑定队列 -->
-	<!-- 定义默认的 -->
-	<!-- 定义direct exchange，绑定queueTest -->
-	<rabbit:direct-exchange name="defaultTopicExchange" durable="true" auto-delete="false">
-		<rabbit:bindings>
-			<rabbit:binding queue="defaultTopicQueueTest" key="defaultTopicQueueTestKey" />
-		</rabbit:bindings>
-	</rabbit:direct-exchange>
-
+	<!-- 定义topic exchange，绑定topicQueueTest,设置选择键（routing_key），必须是由点隔开的一系列的标识符组成 -->
+	<!-- topic模式：*只能匹配一个单词,#可以匹配多个单词或者零个，匹配不上的将会丢弃 -->
+	<!-- 交换机：一个交换机可以绑定多个队列，一个队列也可以绑定到多个交换机上。 如果没有队列绑定到交换机上，则发送到该交换机上的信息则会丢失 -->
+	<!-- durable：是否持久化 -->
+	<!-- auto-delete：当所有消费端连接断开后，是否自动删除队列 -->
 	<rabbit:topic-exchange name="topicExchange" durable="true" auto-delete="false">
 		<rabbit:bindings>
-			<rabbit:binding queue="topicQueueTest" pattern="topicQueueTestKey" />
+			<rabbit:binding queue="topicQueueTest" pattern="queue.key.#" />
+			<rabbit:binding queue="topicQueueTest2" pattern="#.key.#" />
+			<rabbit:binding queue="topicQueueTest3" pattern="*.key.billow" />
+			<rabbit:binding queue="topicQueueTest4" pattern="*.key.*" />
+			<rabbit:binding queue="topicQueueTest5" pattern="*.key.#" />
 		</rabbit:bindings>
 	</rabbit:topic-exchange>
 </beans>  

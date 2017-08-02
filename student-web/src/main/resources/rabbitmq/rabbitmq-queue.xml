@@ -15,5 +15,9 @@
 	<rabbit:queue name="directQueueTestConfirmListenter" durable="true" auto-delete="false" exclusive="false" />
 
 	<!--定义queue -->
-	<!-- <rabbit:queue name="topicQueueTest" durable="true" auto-delete="false" exclusive="false" /> -->
+	<rabbit:queue name="topicQueueTest" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="topicQueueTest2" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="topicQueueTest3" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="topicQueueTest4" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="topicQueueTest5" durable="true" auto-delete="false" exclusive="false" />
 </beans>

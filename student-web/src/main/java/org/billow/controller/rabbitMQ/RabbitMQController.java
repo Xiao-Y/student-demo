@@ -21,20 +21,39 @@ public class RabbitMQController {
 	private static final Logger logger = Logger.getLogger(RabbitMQController.class);
 
 	@Autowired(required = false)
-	@Qualifier("rabbitMQProducer")
-	private RabbitMQProducer rabbitMQProducer;
+	@Qualifier("rabbitMQDirectProducer")
+	private RabbitMQProducer rabbitMQDirectProducer;
 
 	@Autowired(required = false)
-	@Qualifier("rabbitMQProducerListenter")
-	private RabbitMQProducer rabbitMQProducerListenter;
+	@Qualifier("rabbitMQDirectProducerListenter")
+	private RabbitMQProducer rabbitMQDirectProducerListenter;
 
 	@Autowired(required = false)
 	@Qualifier("rabbitMQConsume")
 	private RabbitMQConsume rabbitMQConsume;
 
 	@Autowired(required = false)
-	@Qualifier("rabbitMQProducerConfirmListenter")
-	private RabbitMQProducer rabbitMQProducerConfirmListenter;
+	@Qualifier("rabbitMQDirectProducerConfirmListenter")
+	private RabbitMQProducer rabbitMQDirectProducerConfirmListenter;
+
+	@Autowired(required = false)
+	@Qualifier("rabbitMQTopicProducer")
+	private RabbitMQProducer rabbitMQTopicProducer;
+	@Autowired(required = false)
+	@Qualifier("rabbitMQTopicProducer1")
+	private RabbitMQProducer rabbitMQTopicProducer1;
+	@Autowired(required = false)
+	@Qualifier("rabbitMQTopicProducer2")
+	private RabbitMQProducer rabbitMQTopicProducer2;
+	@Autowired(required = false)
+	@Qualifier("rabbitMQTopicProducer3")
+	private RabbitMQProducer rabbitMQTopicProducer3;
+	@Autowired(required = false)
+	@Qualifier("rabbitMQTopicProducer4")
+	private RabbitMQProducer rabbitMQTopicProducer4;
+	@Autowired(required = false)
+	@Qualifier("rabbitMQTopicProducer5")
+	private RabbitMQProducer rabbitMQTopicProducer5;
 
 	/**
 	 * 
@@ -64,7 +83,7 @@ public class RabbitMQController {
 		String type = "";
 		String messageJ = "";
 		try {
-			rabbitMQProducer.send(message, "billow", "也没啥要确认");
+			rabbitMQDirectProducer.send(message, "billow", "也没啥要确认");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
@@ -114,7 +133,7 @@ public class RabbitMQController {
 		String type = "";
 		String messageJ = "";
 		try {
-			rabbitMQProducerListenter.send(message, "billow,Listenter", "也没啥，监听的方式");
+			rabbitMQDirectProducerListenter.send(message, "billow,Listenter", "也没啥，监听的方式");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
@@ -146,7 +165,43 @@ public class RabbitMQController {
 		String type = "";
 		String messageJ = "";
 		try {
-			rabbitMQProducerConfirmListenter.send(message, "billow", "也没啥要确认");
+			rabbitMQDirectProducerConfirmListenter.send(message, "billow", "也没啥要确认");
+			type = MessageTipsCst.TYPE_SUCCES;
+			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			type = MessageTipsCst.TYPE_ERROR;
+			messageJ = MessageTipsCst.SUBMIT_FAILURE;
+			logger.error(e);
+		}
+		JsonResult json = new JsonResult();
+		json.setType(type);
+		json.setMessage(messageJ);
+		return json;
+	}
+
+	/**
+	 * 发送消息Topic
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param message
+	 * @return
+	 * 
+	 * @date 2017年7月17日 上午10:52:42
+	 */
+	@ResponseBody
+	@RequestMapping("/topicSender")
+	public JsonResult topicSender(String message) {
+		String type = "";
+		String messageJ = "";
+		try {
+			rabbitMQTopicProducer.send(message, "billow", "也没啥要确认");
+			rabbitMQTopicProducer2.send(message, "billow2", "也没啥要确认2");
+			rabbitMQTopicProducer3.send(message, "billow3", "也没啥要确认3");
+			rabbitMQTopicProducer4.send(message, "billow4", "也没啥要确认4");
+			rabbitMQTopicProducer5.send(message, "billow5", "也没啥要确认5");
 			type = MessageTipsCst.TYPE_SUCCES;
 			messageJ = MessageTipsCst.SUBMIT_SUCCESS;
 		} catch (Exception e) {
