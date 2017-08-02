@@ -41,7 +41,7 @@ public class Generate {
 			// 工程目录下的目录（ftl在工程下）--推荐
 			cfg.setDirectoryForTemplateLoading(new File(fltPath));
 			// 添加一个"宏"共享变量用来将属性名首字母大写
-			//cfg.setSharedVariable("upperFC", new UpperFirstCharacter());
+			// cfg.setSharedVariable("upperFC", new UpperFirstCharacter());
 			File absoluteFtls = new File(fltPath);
 			String[] ftlNames = absoluteFtls.list();// 获取ftl文件夹下的文件名称
 			for (String ftlName : ftlNames) {
@@ -73,33 +73,41 @@ public class Generate {
 		ModelModel mm = null;
 		OtherModel om = null;
 		MapperDaoModel mdm = null;
+		String outPath = null;
 		if ("modelBase.ftl".equals(ftlName)) {
 			mm = sd.getModelBase();
+			outPath = Utils.getModelOutPath();
 		} else if ("modelDto.ftl".equals(ftlName)) {
 			mm = sd.getModel();
+			outPath = Utils.getModelOutPath();
 		} else if ("controller.ftl".equals(ftlName)) {
 			om = sd.getController();
+			outPath = Utils.getControllerOutPath();
 		} else if ("service.ftl".equals(ftlName)) {
 			om = sd.getService();
+			outPath = Utils.getServiceOutPath();
 		} else if ("serviceImpl.ftl".equals(ftlName)) {
 			om = sd.getServiceImpl();
+			outPath = Utils.getServiceOutPath();
 		} else if ("dao.ftl".equals(ftlName)) {
 			om = sd.getDao();
+			outPath = Utils.getDaoOutPath();
 		} else if ("mapperDao.ftl".equals(ftlName)) {
 			mdm = sd.getMapperDao();
+			outPath = Utils.getMapperOutPath();
 		}
 
 		String fileOutPath = "";
 		String clazzName = "";
-		String outPath = Utils.getOutPath();
+		// String outPath = Utils.getOutPath();
 		if (mm != null) {
-			fileOutPath = outPath + mm.getPackageName().replace(".", "/");
+			fileOutPath = outPath + "\\" + mm.getPackageName().replace(".", "/");
 			clazzName = mm.getClazzName() + ".java";
 		} else if (om != null) {
-			fileOutPath = outPath + om.getPackageName().replace(".", "/");
+			fileOutPath = outPath + "\\" + om.getPackageName().replace(".", "/");
 			clazzName = om.getClazzName() + ".java";
 		} else {
-			fileOutPath = outPath + mdm.getPackageName().replace(".", "/");
+			fileOutPath = outPath + "\\" + mdm.getPackageName().replace(".", "/");
 			clazzName = mdm.getClazzName() + ".xml";
 		}
 		// java文件夹输出路径
