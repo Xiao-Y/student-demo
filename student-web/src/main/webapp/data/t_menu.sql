@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2017-07-22 09:37:50
+Date: 2017-08-03 18:13:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,7 @@ CREATE TABLE `t_menu` (
   `validind` tinyint(1) DEFAULT NULL,
   `displayno` double(11,3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
@@ -52,5 +52,11 @@ INSERT INTO `t_menu` VALUES ('45', '流程模板', 'fa-anchor', '0', '/sysAct/fi
 INSERT INTO `t_menu` VALUES ('46', 'ActiveMQ', 'fa-anchor', '0', '', '0', '1', '2.000');
 INSERT INTO `t_menu` VALUES ('47', 'Queue', '', '0', '/activeMQ/index/queue', '46', '1', '1.000');
 INSERT INTO `t_menu` VALUES ('48', 'Topic', '', '0', '/activeMQ/index/topic', '46', '1', '2.000');
-INSERT INTO `t_menu` VALUES ('49', 'Dubbo', 'fa-anchor', '1', '', '0', '1', '4.000');
+INSERT INTO `t_menu` VALUES ('49', 'Dubbo', 'fa-anchor', '0', '', '0', '1', '4.000');
 INSERT INTO `t_menu` VALUES ('50', 'dubbo调用', 'fa-anchor', '0', '/dubboController/index', '49', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('51', 'RabbitMQ', 'fa-anchor', '1', '', '0', '1', '4.000');
+INSERT INTO `t_menu` VALUES ('52', 'Direct', '', '0', '/rabbitMQ/index/direct', '51', '1', '1.000');
+INSERT INTO `t_menu` VALUES ('53', 'Topic', '', '0', '/rabbitMQ/index/topic', '51', '1', '2.000');
+INSERT INTO `t_menu` VALUES ('54', 'Fanout', '', '0', '/rabbitMQ/index/fanout', '51', '1', '3.000');
+INSERT INTO `t_menu` VALUES ('55', '666', '', '0', '', '0', '1', '9999.000');
+INSERT INTO `t_menu` VALUES ('56', '5555', '', '0', '', '0', '1', '99999.000');
