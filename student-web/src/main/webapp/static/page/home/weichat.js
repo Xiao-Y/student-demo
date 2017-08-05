@@ -46,7 +46,7 @@ $(document).ready(function() {
 	    		debugger;
 	    		count = 0;
 	    		clearIntervals(arr);
-                $("#QrGen").attr("src", path + "/images/0617135536.png");
+                $("#QrGen").attr("src", path + "/static/images/0617135536.png");
 	    	}
         },1000));
     }

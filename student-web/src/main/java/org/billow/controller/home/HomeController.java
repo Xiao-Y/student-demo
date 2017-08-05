@@ -245,8 +245,8 @@ public class HomeController implements Comparator<MenuBase> {
 		// 把uuid放入map中
 		map.put(randomUUID.toString(), null);
 		// 二维码图片扫描后的链接
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri=" + redirectUri
-				+ "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri="
+				+ redirectUri + "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
 		// 生成二维码图片
 		// ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
 		String fileName = randomUUID + ".jpg";
@@ -255,7 +255,7 @@ public class HomeController implements Comparator<MenuBase> {
 		if (!file.isDirectory()) {
 			file.mkdirs();
 		}
-		String logo = req.getServletContext().getRealPath("/images/logo.png");
+		String logo = req.getServletContext().getRealPath("/static/images/logo.png");
 		QrGenUtil.zxingCodeCreate(url, tempPath + "/" + fileName, 350, logo);
 		// OutputStream os = new FileOutputStream(new File(tempPath, fileName));
 		// os.write(qrOut.toByteArray());
@@ -279,7 +279,8 @@ public class HomeController implements Comparator<MenuBase> {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/loginByQrGen")
-	protected void loginByQrGen(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected String loginByQrGen(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		// 获取二维码链接中的uuid
 		String uuid = req.getParameter("state");
@@ -288,7 +289,7 @@ public class HomeController implements Comparator<MenuBase> {
 		// 如果集合内没有这个uuid，则响应结果
 		if (uuidMap == null || !uuidMap.containsKey(uuid)) {
 			resp.getOutputStream().write("二维码不存在或已失效！".getBytes());
-			return;
+			return null;
 		}
 		// 根据微信传来的code来获取用户的openID
 		String code = req.getParameter("code");
@@ -296,8 +297,9 @@ public class HomeController implements Comparator<MenuBase> {
 			String url = "https://api.weixin.qq.com/sns/oauth2/access_token";
 			String param = "appid=" + appid + "&secret=" + appsecret + "&grant_type=authorization_code&code=" + code;
 			Gson gson = new Gson();
-			Map<String, String> map = gson.fromJson(HttpRequest.sendGet(url, param), new TypeToken<Map<String, String>>() {
-			}.getType());
+			Map<String, String> map = gson.fromJson(HttpRequest.sendGet(url, param),
+					new TypeToken<Map<String, String>>() {
+					}.getType());
 			Object openID = map.get("openid");
 			if (openID != null && !"".equals(openID)) {
 				// 通过openID获取user对象
@@ -306,8 +308,9 @@ public class HomeController implements Comparator<MenuBase> {
 					// 如果查询到某个user拥有该openID，则设置到map集合内
 					uuidMap.put(uuid, user);
 					// 并返回手机端扫描结果
-					resp.getOutputStream().write("登陆成功！".getBytes());
-					return;
+					// resp.sendRedirect("/static/page/home/login.js");
+					// resp.getOutputStream().write("登陆成功！".getBytes());
+					return "page/home/weichat-success";
 				}
 			}
 			// 如果没有openID参数，或查询不到openID对应的user对象，则移除该uuid，并响应结果
@@ -317,6 +320,7 @@ public class HomeController implements Comparator<MenuBase> {
 			resp.getOutputStream().write("登陆失败！".getBytes());
 			e.printStackTrace();
 		}
+		return "redirect:home/login";
 	}
 
 	/**
