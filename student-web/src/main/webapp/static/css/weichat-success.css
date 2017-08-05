@@ -1,0 +1,41 @@
+.beg-login-bg {
+	background: url(../images/weichat-success.jpg) no-repeat center center fixed;
+	background-color: #393D49;
+}
+
+.beg-login-box {
+	width: 250px;
+	height: 230px;
+	margin: 35% auto;
+	background-color: rgba(255, 255, 255, 0.407843);
+	border-radius: 10px;
+}
+
+.beg-login-box header {
+	height: 39px;
+	padding: 10px;
+	border-bottom: 1px solid aliceblue;
+}
+
+.beg-login-box header h1 {
+	text-align: center;
+	font-size: 25px;
+	line-height: 40px;
+}
+
+.beg-login-box .beg-login-main {
+	text-align: center;
+	height: 185px;
+	font-size: 25px;
+	line-height: 40px;
+}
+
+.beg-login-box footer {
+	height: 35px;
+	padding: 10px 10px 0 10px;
+}
+
+.beg-login-box footer p {
+	line-height: 35px;
+	text-align: center;
+}
