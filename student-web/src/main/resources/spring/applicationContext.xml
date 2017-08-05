@@ -39,7 +39,7 @@
 	<!-- spring事务 -->
 	<import resource="classpath:spring/spring-tx.xml" />
 	<!-- spring整合redis缓存 -->
-	<import resource="classpath:spring/spring-redis.xml" />
+	<!-- <import resource="classpath:spring/spring-redis.xml" /> -->
 	<!-- 整合activeMQ -->
 	<!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
 	<!-- 整合dubbo -->
