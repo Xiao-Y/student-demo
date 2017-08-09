@@ -49,4 +49,8 @@ public class PagePathCst {
 	 * redis
 	 */
 	public static final String BASEPATH_REDIS = "page/redis/";
+	/**
+	 * vue
+	 */
+	public static final String BASEPATH_VUE = "page/vue/";
 }
