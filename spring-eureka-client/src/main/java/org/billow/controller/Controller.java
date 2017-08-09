@@ -7,13 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-	@Value("${words}")
-	String words;
+    @Value("${words}")
+    String words;
 
-	@RequestMapping("/")
-	public String getWord() {
-		String[] wordArray = words.split(",");
-		int i = (int) Math.round(Math.random() * (wordArray.length - 1));
-		return wordArray[i];
-	}
+    @RequestMapping("/getWord")
+    public String getWord() {
+        String[] wordArray = words.split(",");
+        int i = (int) Math.round(Math.random() * (wordArray.length - 1));
+        return wordArray[i];
+    }
+
+    @RequestMapping("/info")
+    public String home() {
+        return "Hello world";
+    }
 }
