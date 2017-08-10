@@ -14,7 +14,7 @@ public class HelloService {
     RestTemplate restTemplate;
 
     public String hiService(String name) {
-        //spring-eureka-client
+        //spring.application.name
         return restTemplate.getForObject("http://spring-eureka-client/hi?name=" + name, String.class);
     }
 
