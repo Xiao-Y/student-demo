@@ -22,7 +22,8 @@
 		<module>spring-eureka-client</module>
 		<module>spring-eureka-ribbon</module>
 		<module>spring-eureka-feign</module>
-	</modules>
+        <module>spring-cloud-hystrix</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
