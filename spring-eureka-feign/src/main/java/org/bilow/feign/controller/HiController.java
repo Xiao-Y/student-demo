@@ -18,6 +18,6 @@ public class HiController {
 
     @RequestMapping(value = "/hi", method = RequestMethod.GET)
     public String sayHi(@RequestParam String name) {
-        return schedualServiceHi.sayHiFromClientOne(name);
+        return schedualServiceHi.sayHiFromClientOne(name + "（eureka-feign）");
     }
 }

@@ -15,7 +15,7 @@ public class HelloService {
 
     public String hiService(String name) {
         //spring.application.name
-        return restTemplate.getForObject("http://spring-eureka-client/hi?name=" + name, String.class);
+        return restTemplate.getForObject("http://spring-eureka-client/hi?name=" + name + "（eureka-ribbon）", String.class);
     }
 
 }

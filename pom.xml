@@ -23,6 +23,7 @@
 		<module>spring-eureka-ribbon</module>
 		<module>spring-eureka-feign</module>
         <module>spring-cloud-hystrix</module>
+        <module>spring-cloud-zuul</module>
     </modules>
 
 	<properties>
