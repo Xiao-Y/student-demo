@@ -1,0 +1,4 @@
+一次启动eureka-servr,config-server,config-client
+访问网址：http://localhost:8761/
+
+访问http://localhost:8881/foo
