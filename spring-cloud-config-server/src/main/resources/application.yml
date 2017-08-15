@@ -1,0 +1,15 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      label: master #配置仓库的分支
+      server:
+        git:
+          uri: https://github.com/Xiao-Y/cloud-config-server-repo.git #配置git仓库地址
+          searchPaths: cloud-config-repo #配置仓库路径
+          #username: username #访问git仓库的用户名
+          #password: password #访问git仓库的用户密码

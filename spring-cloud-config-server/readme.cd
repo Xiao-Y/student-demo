@@ -1,0 +1,10 @@
+启动程序：访问http://localhost:8888/foo/dev
+
+{
+    name: "foo",
+    profiles: [ "dev" ],
+    label: "master",
+    version: "fa605c923410a351cefb5c976a77a3b781208178",
+    propertySources: [ ]
+}
+证明配置服务中心可以从远程程序获取配置信息。

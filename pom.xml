@@ -24,6 +24,8 @@
 		<module>spring-eureka-feign</module>
         <module>spring-cloud-hystrix</module>
         <module>spring-cloud-zuul</module>
+        <module>spring-cloud-config-server</module>
+        <module>spring-cloud-config-client</module>
     </modules>
 
 	<properties>
