@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.billow</groupId>
@@ -17,9 +18,13 @@
 		<module>student-web</module>
 		<module>student-jobs</module>
 		<module>student-dubbo</module>
-    <module>spring-eureka-server</module>
-    <module>spring-eureka-client</module>
-  </modules>
+		<module>spring-eureka-server</module>
+		<module>spring-eureka-client</module>
+		<module>spring-eureka-ribbon</module>
+		<module>spring-eureka-feign</module>
+        <module>spring-cloud-hystrix</module>
+        <module>spring-cloud-zuul</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -253,14 +258,14 @@
 		</dependency>
 		<!-- rabbitmq 消息服务 -->
 		<dependency>
-		    <groupId>org.springframework.amqp</groupId>
-		    <artifactId>spring-rabbit</artifactId>
-		    <version>${spring.rabbit.version}</version>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>${spring.rabbit.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.rabbitmq</groupId>
-		    <artifactId>amqp-client</artifactId>
-		    <version>${rabbitmq.version}</version>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>${rabbitmq.version}</version>
 		</dependency>
 		<!-- redis -->
 		<dependency>
@@ -284,7 +289,7 @@
 			<artifactId>quartz-jobs</artifactId>
 			<version>${quartz.version}</version>
 		</dependency>
-		<!-- activiti工作�? -->
+		<!-- activiti工作 -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
