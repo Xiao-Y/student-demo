@@ -39,6 +39,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -94,7 +95,7 @@ public class HomeController implements Comparator<MenuBase> {
 	 * @date: 2017年5月24日 下午10:32:33
 	 */
 	@RequestMapping("/homeIndex")
-	public String homeIndex(UserDto user, HttpServletRequest request) {
+	public ModelAndView homeIndex(UserDto user, HttpServletRequest request) {
 		HttpSession session = RequestUtils.getSession(request);
 
 		String type = request.getParameter("type");
@@ -110,8 +111,16 @@ public class HomeController implements Comparator<MenuBase> {
 		}
 		user = userService.selectByPrimaryKey(user);
 		session.setAttribute("currentUser", user);
-		Authentication.setAuthenticatedUserId(user.getUserId().toString());
-		return "page/home/index";
+		ModelAndView av = new ModelAndView();
+		av.addObject("ip", ToolsUtils.getServiceIpAddr());
+		av.addObject("sessionId", session.getId());
+		av.setViewName("page/home/index");
+		try {
+			Authentication.setAuthenticatedUserId(user.getUserId().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return av;
 	}
 
 	/**
@@ -245,8 +254,8 @@ public class HomeController implements Comparator<MenuBase> {
 		// 把uuid放入map中
 		map.put(randomUUID.toString(), null);
 		// 二维码图片扫描后的链接
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri="
-				+ redirectUri + "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&redirect_uri=" + redirectUri
+				+ "&response_type=code&scope=snsapi_userinfo&state=" + randomUUID + "#wechat_redirect";
 		// 生成二维码图片
 		// ByteArrayOutputStream qrOut = QrGenUtil.createQrGen(url);
 		String fileName = randomUUID + ".jpg";
@@ -279,8 +288,7 @@ public class HomeController implements Comparator<MenuBase> {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/loginByQrGen")
-	protected String loginByQrGen(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected String loginByQrGen(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		// 获取二维码链接中的uuid
 		String uuid = req.getParameter("state");
@@ -297,9 +305,8 @@ public class HomeController implements Comparator<MenuBase> {
 			String url = "https://api.weixin.qq.com/sns/oauth2/access_token";
 			String param = "appid=" + appid + "&secret=" + appsecret + "&grant_type=authorization_code&code=" + code;
 			Gson gson = new Gson();
-			Map<String, String> map = gson.fromJson(HttpRequest.sendGet(url, param),
-					new TypeToken<Map<String, String>>() {
-					}.getType());
+			Map<String, String> map = gson.fromJson(HttpRequest.sendGet(url, param), new TypeToken<Map<String, String>>() {
+			}.getType());
 			Object openID = map.get("openid");
 			if (openID != null && !"".equals(openID)) {
 				// 通过openID获取user对象

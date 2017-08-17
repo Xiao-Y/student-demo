@@ -34,6 +34,15 @@
 		<filter-name>DruidWebStatFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<!-- 获取服务器的真实IP -->
+	<filter>
+		<filter-name>ProxyInfoFilter</filter-name>
+		<filter-class>org.billow.utils.proxy.ProxyInfoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ProxyInfoFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>DruidStatView</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>

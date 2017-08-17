@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.billow.utils.date.DateTime;
+import org.billow.utils.proxy.ProxyInfo;
+import org.billow.utils.proxy.ProxyInfoContext;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -257,26 +259,16 @@ public class ToolsUtils {
 		Date year = new Date();
 		String thisYear = df.format(year);
 		selectTime.append("<select name=year>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) + 1) + ">")
-				.append(Integer.parseInt(thisYear) + 1).append("</option>");
-		selectTime.append("<option selected value=" + thisYear + ">").append(Integer.parseInt(thisYear))
-				.append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 1) + ">")
-				.append(Integer.parseInt(thisYear) - 1).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 2) + ">")
-				.append(Integer.parseInt(thisYear) - 2).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 3) + ">")
-				.append(Integer.parseInt(thisYear) - 3).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 4) + ">")
-				.append(Integer.parseInt(thisYear) - 4).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 5) + ">")
-				.append(Integer.parseInt(thisYear) - 5).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 6) + ">")
-				.append(Integer.parseInt(thisYear) - 6).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 7) + ">")
-				.append(Integer.parseInt(thisYear) - 7).append("</option>");
-		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 8) + ">")
-				.append(Integer.parseInt(thisYear) - 8).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) + 1) + ">").append(Integer.parseInt(thisYear) + 1).append("</option>");
+		selectTime.append("<option selected value=" + thisYear + ">").append(Integer.parseInt(thisYear)).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 1) + ">").append(Integer.parseInt(thisYear) - 1).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 2) + ">").append(Integer.parseInt(thisYear) - 2).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 3) + ">").append(Integer.parseInt(thisYear) - 3).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 4) + ">").append(Integer.parseInt(thisYear) - 4).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 5) + ">").append(Integer.parseInt(thisYear) - 5).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 6) + ">").append(Integer.parseInt(thisYear) - 6).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 7) + ">").append(Integer.parseInt(thisYear) - 7).append("</option>");
+		selectTime.append("<option value=" + (Integer.parseInt(thisYear) - 8) + ">").append(Integer.parseInt(thisYear) - 8).append("</option>");
 		selectTime.append("</select>");
 		return selectTime.toString();
 	}
@@ -453,7 +445,11 @@ public class ToolsUtils {
 	}
 
 	/**
-	 * 本方法用于将yyyy-MM-dd型的字符串转换成日期类型 取得参数日期的偏移日期，参数date格式为yyyy-MM-dd 当输入addDay为正数时，为基准日期的后N天；负数时，为为基准日期的前N天 列1：参数date为2008-01-01，addDay为-1，返回值为2007-12-31 列2：参数date为2008-01-01，addDay为 1，返回值为2008-01-02 列3：参数date为2008-01-01，addDay为 0，返回值为2008-01-01
+	 * 本方法用于将yyyy-MM-dd型的字符串转换成日期类型 取得参数日期的偏移日期，参数date格式为yyyy-MM-dd
+	 * 当输入addDay为正数时，为基准日期的后N天；负数时，为为基准日期的前N天
+	 * 列1：参数date为2008-01-01，addDay为-1，返回值为2007-12-31
+	 * 列2：参数date为2008-01-01，addDay为 1，返回值为2008-01-02
+	 * 列3：参数date为2008-01-01，addDay为 0，返回值为2008-01-01
 	 * 
 	 * @param strDate
 	 * @param addDay
@@ -829,8 +825,8 @@ public class ToolsUtils {
 					}
 				}
 			}
-		} else if ("01".equals(month) || "03".equals(month) || "05".equals(month) || "07".equals(month)
-				|| "08".equals(month) || "10".equals(month) || "12".equals(month)) {
+		} else if ("01".equals(month) || "03".equals(month) || "05".equals(month) || "07".equals(month) || "08".equals(month) || "10".equals(month)
+				|| "12".equals(month)) {
 			if (dayIn > 31) {
 				return false;
 			}
@@ -886,8 +882,8 @@ public class ToolsUtils {
 		if (propertyName == null || "".equals(propertyName)) {
 			return "";
 		} else {
-			return new StringBuilder(propertyName.length()).append(propertyName.substring(0, 1).toUpperCase())
-					.append(propertyName.substring(1)).toString();
+			return new StringBuilder(propertyName.length()).append(propertyName.substring(0, 1).toUpperCase()).append(propertyName.substring(1))
+					.toString();
 		}
 	}
 
@@ -1139,6 +1135,31 @@ public class ToolsUtils {
 		}
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
+
+	/**
+	 * 穿透代理获取服务器真实ip
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年8月17日 上午9:26:34
+	 */
+	public static String getServiceIpAddr() {
+		String ip = "";
+		ProxyInfo proxyInfo = ProxyInfoContext.getProxyInfo();
+		if (proxyInfo != null) {
+			String proxyAddr = proxyInfo.getProxyAddr();
+			if ("localhost".equals(proxyAddr)) {
+				ip = "127.0.0.1";
+			} else {
+				ip = proxyInfo.getLocalAddr();
+			}
+			ip += ":" + proxyInfo.getPort();
 		}
 		return ip;
 	}
