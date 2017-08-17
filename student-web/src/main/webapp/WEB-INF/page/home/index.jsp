@@ -32,6 +32,12 @@
 						<a id="cleanCache" href="javascript:;">清除缓存</a>
 					</li>
 					<li class="layui-nav-item">
+						<a href="javascript:;">IP：${ip}</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">sessionId：<%= session.getId() %></a>
+					</li>
+					<li class="layui-nav-item">
 						<a href="javascript:;">浏览网站</a>
 					</li>
 					<li class="layui-nav-item" id="video1">
