@@ -28,6 +28,7 @@
         <module>spring-cloud-config-client</module>
         <module>spring-cloud-config-server-eureka</module>
         <module>spring-cloud-config-client-eureka</module>
+        <module>student-vue-element</module>
     </modules>
 
 	<properties>
