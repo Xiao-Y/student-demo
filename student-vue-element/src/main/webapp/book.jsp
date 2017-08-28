@@ -9,12 +9,37 @@
 <body>
 
 <div id="app">
+    <%-- 显示列表 --%>
     <template>
+        <input @click="addBookButton" type="button" value="添加">
         <el-table :data="books" style="width: 100%">
-            <el-table-column prop="author" label="日期" width="180"></el-table-column>
+            <el-table-column prop="author" label="作者" width="180"></el-table-column>
             <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-            <el-table-column prop="price" label="地址"></el-table-column>
+            <el-table-column prop="price" label="价格"></el-table-column>
         </el-table>
+    </template>
+
+    <%-- 添加数据 --%>
+    <template>
+        <div id="addBook" style="display: none">
+            <table>
+                <tr>
+                    <td>作者</td>
+                    <td><input v-model="book.author" type="text"></td>
+                </tr>
+                <tr>
+                    <td>姓名</td>
+                    <td><input v-model="book.name" type="text"></td>
+                </tr>
+                <tr>
+                    <td>价格</td>
+                    <td><input v-model="book.price" type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input @click="submitData" type="button" value="提交"></td>
+                </tr>
+            </table>
+        </div>
     </template>
 </div>
 </body>
@@ -27,7 +52,7 @@
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script>
     Vue.prototype.$ajax = axios;  //修改原型链
-    new Vue({
+    var vm = new Vue({
         el: '#app',
         created: function () {
             var $this = this;
@@ -38,7 +63,23 @@
             });
         },
         data: {
-            books: []
+            books: [],
+            book: {}
+        },
+        methods: {
+            addBookButton: function () {
+                $("#addBook").show();
+            },
+            submitData: function () {
+                var $this = this;
+                console.info($this.book);
+                console.info($this.book.author);
+                console.info($this.book.name);
+                console.info($this.book.price);
+                $this.books.push($this.book);
+                $this.book = {};
+                $("#addBook").hide();
+            }
         }
     });
 </script>
