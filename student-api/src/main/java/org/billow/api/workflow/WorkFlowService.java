@@ -1,10 +1,12 @@
 package org.billow.api.workflow;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -38,43 +40,45 @@ public interface WorkFlowService {
 	 */
 	public void getActivitiProccessImage(String pProcessInstanceId, HttpServletResponse response) throws Exception;
 
-//	/**
-//	 * 查询个人任务列表
-//	 * 
-//	 * <br>
-//	 * added by liuyongtao<br>
-//	 * 
-//	 * @param list
-//	 *            业务对象
-//	 * @param processDefinitionKey
-//	 *            流程定义Key
-//	 * @param assignee
-//	 *            办理人
-//	 * @return
-//	 * @throws Exception
-//	 * 
-//	 * @date 2017年6月7日 上午9:42:56
-//	 */
-//	public <T> List<T> findMyTaskList(List<T> list, String processDefinitionKey, String assignee) throws Exception;
-//
-//	/**
-//	 * 查询个人任务
-//	 * 
-//	 * <br>
-//	 * added by liuyongtao<br>
-//	 * 
-//	 * @param list
-//	 *            业务对象
-//	 * @param processDefinitionKey
-//	 *            流程定义Key
-//	 * @param assignee
-//	 *            办理人
-//	 * @return
-//	 * @throws Exception
-//	 * 
-//	 * @date 2017年6月7日 上午9:42:56
-//	 */
-//	public <T> T findMyTask(T t, String processDefinitionKey, String assignee) throws Exception;
+	// /**
+	// * 查询个人任务列表
+	// *
+	// * <br>
+	// * added by liuyongtao<br>
+	// *
+	// * @param list
+	// * 业务对象
+	// * @param processDefinitionKey
+	// * 流程定义Key
+	// * @param assignee
+	// * 办理人
+	// * @return
+	// * @throws Exception
+	// *
+	// * @date 2017年6月7日 上午9:42:56
+	// */
+	// public <T> List<T> findMyTaskList(List<T> list, String
+	// processDefinitionKey, String assignee) throws Exception;
+	//
+	// /**
+	// * 查询个人任务
+	// *
+	// * <br>
+	// * added by liuyongtao<br>
+	// *
+	// * @param list
+	// * 业务对象
+	// * @param processDefinitionKey
+	// * 流程定义Key
+	// * @param assignee
+	// * 办理人
+	// * @return
+	// * @throws Exception
+	// *
+	// * @date 2017年6月7日 上午9:42:56
+	// */
+	// public <T> T findMyTask(T t, String processDefinitionKey, String
+	// assignee) throws Exception;
 
 	/**
 	 * 查询流程定义对象
@@ -378,6 +382,22 @@ public interface WorkFlowService {
 	public byte[] viewPic(String modelId);
 
 	/**
+	 * 通过部署id查看流程图
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param deploymentId
+	 *            部署id
+	 * @param resourceType
+	 *            资源类型：image/xml
+	 * @return
+	 * 
+	 * @date 2017年9月9日 上午11:30:50
+	 */
+	public byte[] viewPicDepId(String deploymentId, String resourceType) throws IOException;
+
+	/**
 	 * 删除模板
 	 * 
 	 * <br>
@@ -390,4 +410,28 @@ public interface WorkFlowService {
 	 * @date 2017年5月5日 上午10:09:25
 	 */
 	public void deleteModel(String modelId) throws Exception;
+
+	/**
+	 * 查询流程定义列表
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年9月9日 上午10:42:18
+	 */
+	public PageInfo<ProcessDefinition> queryProcDefList();
+
+	/**
+	 * 查询流程部署列表
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @return
+	 * 
+	 * @date 2017年9月9日 下午12:38:53
+	 */
+	public PageInfo<Deployment> queryDeployList();
 }

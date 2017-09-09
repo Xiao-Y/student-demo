@@ -26,6 +26,14 @@ public class PagePathCst {
 	 */
 	public static final String BASEPATH_ACTIVITI_MODEL = "page/activiti/model/";
 	/**
+	 * 流程定义
+	 */
+	public static final String BASEPATH_ACTIVITI_PROC_DEF = "page/activiti/procdef/";
+	/**
+	 * 流程部署
+	 */
+	public static final String BASEPATH_ACTIVITI_DEPLOY = "page/activiti/deploy/";
+	/**
 	 * 流程
 	 */
 	public static final String BASEPATH_ACTIVITI = "page/activiti/";

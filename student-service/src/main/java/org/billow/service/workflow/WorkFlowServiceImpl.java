@@ -1,5 +1,6 @@
 package org.billow.service.workflow;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
@@ -41,6 +42,7 @@ import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.billow.api.workflow.WorkFlowService;
@@ -652,7 +654,46 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
 	}
 
 	@Override
+	public byte[] viewPicDepId(String deploymentId, String resourceType) throws IOException {
+		String resourceName = "";
+		List<String> names = repositoryService.getDeploymentResourceNames(deploymentId);
+		if (ToolsUtils.isNotEmpty(names)) {
+			for (String name : names) {
+				if ("image".equals(resourceType) && name.indexOf(".png") > -1) {
+					resourceName = name;
+				} else if ("xml".equals(resourceType) && name.indexOf(".xml") > -1) {
+					resourceName = name;
+				}
+			}
+		}
+		InputStream inputStream = repositoryService.getResourceAsStream(deploymentId, resourceName);
+		return IOUtils.toByteArray(inputStream);
+	}
+
+	@Override
 	public void deleteModel(String modelId) throws Exception {
 		repositoryService.deleteModel(modelId);
+	}
+
+	@Override
+	public PageInfo<ProcessDefinition> queryProcDefList() {
+		PageHelper.startPage();
+		ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
+		long count = query.count();
+		PageInfo<ProcessDefinition> pageInfo = PageHelper.getPageInfo(count);
+		List<ProcessDefinition> listPage = query.orderByProcessDefinitionKey().desc().listPage(pageInfo.getFirstPage(), pageInfo.getPageSize());
+		pageInfo.setList(listPage);
+		return pageInfo;
+	}
+
+	@Override
+	public PageInfo<Deployment> queryDeployList() {
+		PageHelper.startPage();
+		DeploymentQuery query = repositoryService.createDeploymentQuery();
+		long count = query.count();
+		PageInfo<Deployment> pageInfo = PageHelper.getPageInfo(count);
+		List<Deployment> list = query.orderByDeploymenTime().desc().listPage(pageInfo.getFirstPage(), pageInfo.getPageSize());
+		pageInfo.setList(list);
+		return pageInfo;
 	}
 }

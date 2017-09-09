@@ -71,7 +71,7 @@ public class SysActController {
 	public ModelAndView findActModel(HttpServletRequest request) {
 		ModelAndView av = new ModelAndView();
 		PageInfo<Model> pages = workFlowService.getModel();
-		av.addObject("pages", pages);
+		av.addObject("page", pages);
 		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_MODEL + "/actModel");
 		return av;
 	}
@@ -133,6 +133,41 @@ public class SysActController {
 	@RequestMapping("/viewPic/{modelId}")
 	public void viewPic(@PathVariable String modelId, HttpServletRequest request, HttpServletResponse response) {
 		byte[] data = workFlowService.viewPic(modelId);
+		try {
+			if (data == null) {
+				response.setContentType("text/html;charset=UTF-8");
+				response.getOutputStream().write("暂时没有图片".getBytes("UTF-8"));
+			} else {
+				response.getOutputStream().write(data);
+			}
+			response.getOutputStream().flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+	}
+
+	/**
+	 * 查看模板流程图
+	 * 
+	 * <br>
+	 * added by liuyongtao<br>
+	 * 
+	 * @param deploymentId
+	 *            部署id
+	 * @param resourceType
+	 *            资源类型：image/xml
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * 
+	 * @date 2017年5月5日 上午9:36:53
+	 */
+	@RequestMapping("/viewPicDepId/{resourceType}/{deploymentId}")
+	public void viewPicDepId(@PathVariable("resourceType") String resourceType, @PathVariable("deploymentId") String deploymentId,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// byte[] data = workFlowService.viewPic(modelId);
+		byte[] data = workFlowService.viewPicDepId(deploymentId, resourceType);
 		try {
 			if (data == null) {
 				response.setContentType("text/html;charset=UTF-8");
@@ -225,15 +260,13 @@ public class SysActController {
 	public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile, @RequestParam("deployName") String deployName) {
 		JsonResult json = new JsonResult();
 		try {
+			InputStream in = zipFile.getInputStream();
+			ZipInputStream zipInputStream = new ZipInputStream(in);
 			// 创建发布配置对象
-			/*
-			 * DeploymentBuilder builder = repositoryService.createDeployment();
-			 * // 设置发布信息 builder.name("请假流程")// 添加部署规则的显示别名
-			 * .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")//
-			 * 添加规则文件
-			 * .addClasspathResource("diagrams/QingJiaModel.QingJia.png");//
-			 * 添加规则图片 不添加会自动产生一个图片不推荐 // 完成发布 builder.deploy();
-			 */
+			DeploymentBuilder builder = repositoryService.createDeployment();
+			// 设置发布信息
+			builder.name(deployName)// 添加部署规则的显示别名
+					.addZipInputStream(zipInputStream);
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
 		} catch (Exception e) {
@@ -256,7 +289,7 @@ public class SysActController {
 			// // 创建发布配置对象
 			DeploymentBuilder builder = repositoryService.createDeployment();
 			// 设置发布信息
-			builder.name("请假流程-外置")// 添加部署规则的显示别名
+			builder.name("请假流程-外置22")// 添加部署规则的显示别名
 					// // 添加规则文件
 					// .addClasspathResource("diagrams/QingJiaModel.bpmn20.xml")
 					// // 添加规则图片 不添加会自动产生一个图片不推荐
