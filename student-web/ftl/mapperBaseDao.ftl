@@ -64,7 +64,7 @@
 		values (
 		<#list keys as key>
 			<#assign columnModel=columns[key]/>
-			${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}}<#if key_has_next>,</#if>
+			${r'#{'}${columnModel.fieldName},jdbcType=${columnModel.mybatisType}}<#if key_has_next>,</#if>
 		</#list>
 		)
 	</insert>
@@ -82,7 +82,7 @@
 		<#list keys as key>
 			<#assign columnModel=columns[key]/>
 			<if test="null != ${columnModel.fieldName}">
-				${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}},
+				${r'#{'}${columnModel.fieldName},jdbcType=${columnModel.mybatisType}},
 			</if>
 		</#list>
 		</trim>
@@ -93,7 +93,7 @@
 		<#list keys as key>
 			<#assign columnModel=columns[key]/>
 			<if test="null != ${columnModel.fieldName}">
-				${columnModel.columnName} = ${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}},
+				${columnModel.columnName} = ${r'#{'}${columnModel.fieldName},jdbcType=${columnModel.mybatisType}},
 			</if>
 		</#list>
 		</set>
@@ -111,7 +111,7 @@
 	<#list keys as key>
 		<#assign columnModel=columns[key]/>
 		<#if !columnModel.isPk>
-			${columnModel.columnName} = ${r'#{'}${columnModel.columnName},jdbcType=${columnModel.mybatisType}}<#if key_has_next>,</#if>
+			${columnModel.columnName} = ${r'#{'}${columnModel.fieldName},jdbcType=${columnModel.mybatisType}}<#if key_has_next>,</#if>
 		</#if>
 	</#list>
 		where 1=1

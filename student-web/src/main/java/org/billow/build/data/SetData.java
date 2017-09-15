@@ -344,7 +344,7 @@ public class SetData {
 	 * <br>
 	 * added by liuyongtao<br>
 	 * 
-	 * @param columnType
+	 * @param sqlType
 	 * @return
 	 * 
 	 * @date 2017年6月26日 下午12:51:55
@@ -395,6 +395,9 @@ public class SetData {
 				break;
 			case "DECIMAL":
 				javaType = "BigDecimal";
+				break;
+			case "BIGINT":
+				javaType = "Long";
 				break;
 			default:
 				break;
