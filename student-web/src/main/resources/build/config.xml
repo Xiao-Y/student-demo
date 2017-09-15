@@ -7,35 +7,35 @@
 	<!-- 版本 -->
 	<version>1.0</version>
 	<!-- 表名 -->
-	<tableName>t_menu</tableName>
+	<tableName>t_upload_log</tableName>
 
-	<controllerPackageName>org.billow.controller.test</controllerPackageName>
-	<controllerClazzName>TestController</controllerClazzName>
+	<controllerPackageName>org.billow.controller.system</controllerPackageName>
+	<controllerClazzName>SysUploadController</controllerClazzName>
 	<explainController>数据字典控制器</explainController>
 
-	<servicePackageName>org.billow.api.test</servicePackageName>
-	<serviceClazzName>TestService</serviceClazzName>
+	<servicePackageName>org.billow.api.system</servicePackageName>
+	<serviceClazzName>SysUploadService</serviceClazzName>
 	<explainService>数据字典接口</explainService>
 
-	<serviceImplPackageName>org.billow.service.test</serviceImplPackageName>
-	<serviceImplClazzName>TestServiceImpl</serviceImplClazzName>
+	<serviceImplPackageName>org.billow.service.system</serviceImplPackageName>
+	<serviceImplClazzName>SysUploadServiceImpl</serviceImplClazzName>
 	<explainServiceImpl>数据字典实现类</explainServiceImpl>
 
 	<daoPackageName>org.billow.dao</daoPackageName>
-	<daoClazzName>TestDao</daoClazzName>
+	<daoClazzName>SysUploadDao</daoClazzName>
 	<explainDao>数据字典接口</explainDao>
 
 	<modelBasePackageName>org.billow.model.domain</modelBasePackageName>
-	<modelBaseClazzName>TestBase</modelBaseClazzName>
+	<modelBaseClazzName>SysUploadBase</modelBaseClazzName>
 	<explainModelBase>数据字典数据库模型</explainModelBase>
 
 	<modelPackageName>org.billow.model.expand</modelPackageName>
-	<modelClazzName>TestDto</modelClazzName>
+	<modelClazzName>SysUploadDto</modelClazzName>
 	<explainModel>数据字典model模型</explainModel>
 
 	<mapperBasePackageName>mybatis.mapper.base</mapperBasePackageName>
-	<mapperBaseXMLName>TestBaseDao</mapperBaseXMLName>
+	<mapperBaseXMLName>SysUploadBaseDao</mapperBaseXMLName>
 
 	<mapperPackageName>mybatis.mapper.expand</mapperPackageName>
-	<mapperXMLName>TestDao</mapperXMLName>
+	<mapperXMLName>SysUploadDao</mapperXMLName>
 </root>

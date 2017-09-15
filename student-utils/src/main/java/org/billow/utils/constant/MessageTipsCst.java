@@ -33,6 +33,14 @@ public class MessageTipsCst {
 	 * 导入失败
 	 */
 	public static final String IMPORT_FAILURE = "导入失败";
+	/**
+	 * 上传成功
+	 */
+	public  static final String UPLOAD_SUCCESS = "上传成功";
+	/**
+	 * 上传失败
+	 */
+	public  static final String UPLOAD_FAILURE = "上传失败";
 
 	/**
 	 * 服务器错误，请稍后再试！

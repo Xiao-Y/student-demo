@@ -32,7 +32,7 @@
 		from ${tableName}
 		<include refid="selectCondition" />
 	</select>
-	<select id="selectAllCount" resultMap="int" parameterType="${type}">
+	<select id="selectAllCount" resultType="java.lang.Integer" parameterType="${type}">
 		select count(*)
 		from ${tableName}
 		<include refid="selectCondition" />

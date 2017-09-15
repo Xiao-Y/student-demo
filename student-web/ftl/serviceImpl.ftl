@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import ${serviceInterfacelPackage}.${serviceInterfaceName};
 import ${daoInterfacelPackage}.${daoInterfaceName};
 import ${genericPackage}.${genericName};
+import org.billow.dao.base.BaseDao;
 import org.billow.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
