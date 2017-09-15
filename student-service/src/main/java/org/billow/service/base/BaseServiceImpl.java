@@ -3,34 +3,44 @@ package org.billow.service.base;
 import org.billow.api.base.BaseService;
 import org.billow.dao.base.BaseDao;
 
+import java.util.List;
+
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
-	protected BaseDao<T> baseDao;
+    protected BaseDao<T> baseDao;
 
-	public abstract void setBaseDao(BaseDao<T> baseDao);
+    public abstract void setBaseDao(BaseDao<T> baseDao);
 
-	public int deleteByPrimaryKey(T record) {
-		return baseDao.deleteByPrimaryKey(record);
-	}
+    public int deleteByPrimaryKey(T record) {
+        return baseDao.deleteByPrimaryKey(record);
+    }
 
-	public int insert(T record) {
-		return baseDao.insert(record);
-	}
+    public int insert(T record) {
+        return baseDao.insert(record);
+    }
 
-	public int insertSelective(T record) {
-		return baseDao.insertSelective(record);
-	}
+    public int insertSelective(T record) {
+        return baseDao.insertSelective(record);
+    }
 
-	public T selectByPrimaryKey(T record) {
-		return (T) baseDao.selectByPrimaryKey(record);
-	}
+    public T selectByPrimaryKey(T record) {
+        return (T) baseDao.selectByPrimaryKey(record);
+    }
 
-	public int updateByPrimaryKeySelective(T record) {
-		return baseDao.updateByPrimaryKeySelective(record);
-	}
+    public int updateByPrimaryKeySelective(T record) {
+        return baseDao.updateByPrimaryKeySelective(record);
+    }
 
-	public int updateByPrimaryKey(T record) {
-		return baseDao.updateByPrimaryKey(record);
-	}
+    public int updateByPrimaryKey(T record) {
+        return baseDao.updateByPrimaryKey(record);
+    }
+
+    public List<T> selectAll(T t) {
+        return baseDao.selectAll(t);
+    }
+
+    public int selectAllCount(T t) {
+        return baseDao.selectAllCount(t);
+    }
 
 }

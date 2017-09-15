@@ -1,5 +1,7 @@
 package org.billow.api.base;
 
+import java.util.List;
+
 public interface BaseService<T> {
 
 	/**
@@ -81,4 +83,32 @@ public interface BaseService<T> {
 	 * @date 2017年4月14日 下午4:14:23
 	 */
 	int updateByPrimaryKey(T record);
+
+	/**
+	 * 查询所有
+	 *
+	 * <br>
+	 * added by liuyongtao<br>
+	 *
+	 * @param t
+	 *            查询条件
+	 * @return
+	 *
+	 * @date 2017年6月26日 下午2:43:34
+	 */
+	List<T> selectAll(T t);
+
+	/**
+	 * 查询所有的数量
+	 *
+	 * <br>
+	 * added by liuyongtao<br>
+	 *
+	 * @param t
+	 *            查询条件
+	 * @return
+	 *
+	 * @date 2017年6月26日 下午2:47:06
+	 */
+	int selectAllCount(T t);
 }
