@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.billow.dao.SysUploadDao">
+    <resultMap id="BaseResultMap" type="org.billow.model.expand.SysUploadDto">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_type" property="fileType" jdbcType="VARCHAR"/>
+        <result column="create_code" property="createCode" jdbcType="VARCHAR"/>
+        <result column="file_size" property="fileSize" jdbcType="DOUBLE"/>
+    </resultMap>
+    <sql id="base_column_list">
+		create_time,file_name,file_type,id,create_code,file_size
+	</sql>
+    <!-- 公用查询条件 -->
+    <sql id="selectCondition">
+        <where>
+            <if test="null != createTime and '' != createTime">
+                and create_time = #{createTime}
+            </if>
+            <if test="null != fileName and '' != fileName">
+                and file_name = #{fileName}
+            </if>
+            <if test="null != fileType and '' != fileType">
+                and file_type = #{fileType}
+            </if>
+            <if test="null != id and '' != id">
+                and id = #{id}
+            </if>
+            <if test="null != createCode and '' != createCode">
+                and create_code = #{createCode}
+            </if>
+            <if test="null != fileSize and '' != fileSize">
+                and file_size = #{fileSize}
+            </if>
+        </where>
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="org.billow.model.expand.SysUploadDto">
+        select
+        <include refid="base_column_list"/>
+        from t_upload_log
+        <include refid="selectCondition"/>
+    </select>
+    <select id="selectAllCount" resultType="java.lang.Integer" parameterType="org.billow.model.expand.SysUploadDto">
+        select count(*)
+        from t_upload_log
+        <include refid="selectCondition"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.billow.model.expand.SysUploadDto">
+        select
+        <include refid="base_column_list"/>
+        from t_upload_log
+        where 1=1
+        and id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="org.billow.model.expand.SysUploadDto">
+		delete from t_upload_log
+		where 1=1
+		and id = #{id}
+	</delete>
+    <insert id="insert" parameterType="org.billow.model.expand.SysUploadDto">
+		insert into t_upload_log (create_time,file_name,file_type,id,create_code,file_size)
+		values (
+			#{create_time,jdbcType=TIMESTAMP},
+			#{file_name,jdbcType=VARCHAR},
+			#{file_type,jdbcType=VARCHAR},
+			#{id,jdbcType=VARCHAR},
+			#{create_code,jdbcType=VARCHAR},
+			#{file_size,jdbcType=DOUBLE}
+		)
+	</insert>
+    <insert id="insertSelective" parameterType="org.billow.model.expand.SysUploadDto">
+        insert into t_upload_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != createTime">
+                create_time,
+            </if>
+            <if test="null != fileName">
+                file_name,
+            </if>
+            <if test="null != fileType">
+                file_type,
+            </if>
+            <if test="null != id">
+                id,
+            </if>
+            <if test="null != createCode">
+                create_code,
+            </if>
+            <if test="null != fileSize">
+                file_size,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != createTime">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="null != fileName">
+                #{file_name,jdbcType=VARCHAR},
+            </if>
+            <if test="null != fileType">
+                #{file_type,jdbcType=VARCHAR},
+            </if>
+            <if test="null != id">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="null != createCode">
+                #{create_code,jdbcType=VARCHAR},
+            </if>
+            <if test="null != fileSize">
+                #{file_size,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.SysUploadDto">
+        update t_upload_log
+        <set>
+            <if test="null != createTime">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="null != fileName">
+                file_name = #{file_name,jdbcType=VARCHAR},
+            </if>
+            <if test="null != fileType">
+                file_type = #{file_type,jdbcType=VARCHAR},
+            </if>
+            <if test="null != id">
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="null != createCode">
+                create_code = #{create_code,jdbcType=VARCHAR},
+            </if>
+            <if test="null != fileSize">
+                file_size = #{file_size,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where 1=1
+        and id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.billow.model.expand.SysUploadDto">
+		update t_upload_log
+		set
+			create_time = #{create_time,jdbcType=TIMESTAMP},
+			file_name = #{file_name,jdbcType=VARCHAR},
+			file_type = #{file_type,jdbcType=VARCHAR},
+			create_code = #{create_code,jdbcType=VARCHAR},
+			file_size = #{file_size,jdbcType=DOUBLE}
+		where 1=1
+		and id = #{id}
+	</update>
+</mapper>
