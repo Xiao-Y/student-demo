@@ -85,7 +85,7 @@ public class Generate {
 			outPath = Utils.getControllerOutPath();
 		} else if ("service.ftl".equals(ftlName)) {
 			om = sd.getService();
-			outPath = Utils.getServiceOutPath();
+			outPath = Utils.getApiOutPath();
 		} else if ("serviceImpl.ftl".equals(ftlName)) {
 			om = sd.getServiceImpl();
 			outPath = Utils.getServiceOutPath();

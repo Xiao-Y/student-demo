@@ -350,7 +350,7 @@ public class SetData {
 	 * @date 2017年6月26日 下午12:51:55
 	 */
 	private String sqlType2MybatisType(String sqlType) {
-		String mybatisType = "";
+		String mybatisType = sqlType;
 		switch (sqlType) {
 			case "DATETIME":
 				mybatisType = "TIMESTAMP";
