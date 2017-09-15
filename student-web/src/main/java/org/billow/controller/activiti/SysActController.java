@@ -1,14 +1,9 @@
 package org.billow.controller.activiti;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.zip.ZipInputStream;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.pagehelper.PageInfo;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
@@ -27,15 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.pagehelper.PageInfo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.zip.ZipInputStream;
 
 /**
  * 流程管理
@@ -232,41 +228,6 @@ public class SysActController {
 			createDeployment.name(modelName);
 			createDeployment.addString(processName, new String(bpmnBytes, "UTF-8"));
 			createDeployment.deploy();
-			json.setSuccess(true);
-			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
-		} catch (Exception e) {
-			json.setSuccess(false);
-			json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
-			e.printStackTrace();
-			logger.error(e);
-		}
-		return json;
-	}
-
-	/**
-	 * 打开文件部署流程上传页面
-	 * 
-	 * @return
-	 * @author XiaoY
-	 * @date: 2017年6月6日 下午9:50:37
-	 */
-	@RequestMapping("/fileDeploy")
-	public String fileDeploy() {
-		return PagePathCst.BASEPATH_ACTIVITI_MODEL + "/actFileDeploy";
-	}
-
-	@ResponseBody
-	@RequestMapping("/saveFileDeploy")
-	public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile, @RequestParam("deployName") String deployName) {
-		JsonResult json = new JsonResult();
-		try {
-			InputStream in = zipFile.getInputStream();
-			ZipInputStream zipInputStream = new ZipInputStream(in);
-			// 创建发布配置对象
-			DeploymentBuilder builder = repositoryService.createDeployment();
-			// 设置发布信息
-			builder.name(deployName)// 添加部署规则的显示别名
-					.addZipInputStream(zipInputStream);
 			json.setSuccess(true);
 			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
 		} catch (Exception e) {
