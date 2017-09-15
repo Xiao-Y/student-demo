@@ -13,7 +13,7 @@ import org.billow.model.base.BaseModel;
  * @author billow<br>
  * @version 1.0
  * @Mail lyongtao123@126.com<br>
- * @date 2017-09-15 10:04:26
+ * @date 2017-09-15 14:12:01
  */
 public class SysUploadBase extends BaseModel implements Serializable {
 
@@ -35,6 +35,8 @@ public class SysUploadBase extends BaseModel implements Serializable {
     private Date createTime;
     // 文件名
     private String fileName;
+    //新文件名
+    private String newFileName;
     // 文件类型
     private String fileType;
     // 主键
@@ -42,14 +44,14 @@ public class SysUploadBase extends BaseModel implements Serializable {
     // 创建人
     private String createCode;
     // 文件大小
-    private Double fileSize;
+    private Long fileSize;
 
     /**
      * 创建时间
      *
      * @return
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public Date getCreateTime() {
         return this.createTime;
@@ -60,7 +62,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @param createTime
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
@@ -71,7 +73,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @return
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public String getFileName() {
         return this.fileName;
@@ -82,7 +84,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @param fileName
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -93,7 +95,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @return
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public String getFileType() {
         return this.fileType;
@@ -104,7 +106,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @param fileType
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public void setFileType(String fileType) {
         this.fileType = fileType;
@@ -115,7 +117,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @return
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public String getId() {
         return this.id;
@@ -126,7 +128,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @param id
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public void setId(String id) {
         this.id = id;
@@ -137,7 +139,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @return
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public String getCreateCode() {
         return this.createCode;
@@ -148,7 +150,7 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @param createCode
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
     public void setCreateCode(String createCode) {
         this.createCode = createCode;
@@ -159,9 +161,9 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @return
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
-    public Double getFileSize() {
+    public Long getFileSize() {
         return this.fileSize;
     }
 
@@ -170,12 +172,27 @@ public class SysUploadBase extends BaseModel implements Serializable {
      *
      * @param fileSize
      * @author billow<br>
-     * @date: 2017-09-15 10:04:26
+     * @date: 2017-09-15 14:12:01
      */
-    public void setFileSize(Double fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
 
+    /**
+     * 新文件名
+     * @return
+     */
+    public String getNewFileName() {
+        return newFileName;
+    }
+
+    /**
+     * 新文件名
+     * @param newFileName
+     */
+    public void setNewFileName(String newFileName) {
+        this.newFileName = newFileName;
+    }
 
     /**
      * 主键toString 非主键不允许添加

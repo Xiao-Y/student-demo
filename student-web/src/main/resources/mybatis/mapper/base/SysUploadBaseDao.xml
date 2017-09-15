@@ -5,9 +5,10 @@
         <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="new_file_name" property="newFileName" jdbcType="VARCHAR"/>
         <result column="file_type" property="fileType" jdbcType="VARCHAR"/>
         <result column="create_code" property="createCode" jdbcType="VARCHAR"/>
-        <result column="file_size" property="fileSize" jdbcType="DOUBLE"/>
+        <result column="file_size" property="fileSize" jdbcType="BIGINT"/>
     </resultMap>
     <sql id="base_column_list">
 		create_time,file_name,file_type,id,create_code,file_size
@@ -20,6 +21,9 @@
             </if>
             <if test="null != fileName and '' != fileName">
                 and file_name = #{fileName}
+            </if>
+            <if test="null != newFileName and '' != newFileName">
+                and new_file_name = #{newFileName}
             </if>
             <if test="null != fileType and '' != fileType">
                 and file_type = #{fileType}
@@ -59,14 +63,15 @@
 		and id = #{id}
 	</delete>
     <insert id="insert" parameterType="org.billow.model.expand.SysUploadDto">
-		insert into t_upload_log (create_time,file_name,file_type,id,create_code,file_size)
+		insert into t_upload_log (create_time,file_name,new_file_name,file_type,id,create_code,file_size)
 		values (
-			#{create_time,jdbcType=TIMESTAMP},
-			#{file_name,jdbcType=VARCHAR},
-			#{file_type,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{fileName,jdbcType=VARCHAR},
+			#{newFileName,jdbcType=VARCHAR},
+			#{fileType,jdbcType=VARCHAR},
 			#{id,jdbcType=VARCHAR},
-			#{create_code,jdbcType=VARCHAR},
-			#{file_size,jdbcType=DOUBLE}
+			#{createCode,jdbcType=VARCHAR},
+			#{fileSize,jdbcType=BIGINT}
 		)
 	</insert>
     <insert id="insertSelective" parameterType="org.billow.model.expand.SysUploadDto">
@@ -77,6 +82,9 @@
             </if>
             <if test="null != fileName">
                 file_name,
+            </if>
+            <if test="null != newFileName">
+                new_file_name,
             </if>
             <if test="null != fileType">
                 file_type,
@@ -93,22 +101,25 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="null != createTime">
-                #{create_time,jdbcType=TIMESTAMP},
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="null != fileName">
-                #{file_name,jdbcType=VARCHAR},
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="null != newFileName">
+                #{newFileName,jdbcType=VARCHAR},
             </if>
             <if test="null != fileType">
-                #{file_type,jdbcType=VARCHAR},
+                #{fileType,jdbcType=VARCHAR},
             </if>
             <if test="null != id">
                 #{id,jdbcType=VARCHAR},
             </if>
             <if test="null != createCode">
-                #{create_code,jdbcType=VARCHAR},
+                #{createCode,jdbcType=VARCHAR},
             </if>
             <if test="null != fileSize">
-                #{file_size,jdbcType=DOUBLE},
+                #{fileSize,jdbcType=BIGINT},
             </if>
         </trim>
     </insert>
@@ -116,22 +127,25 @@
         update t_upload_log
         <set>
             <if test="null != createTime">
-                create_time = #{create_time,jdbcType=TIMESTAMP},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="null != fileName">
-                file_name = #{file_name,jdbcType=VARCHAR},
+                file_name = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="null != newFileName">
+                new_file_name = #{newFileName,jdbcType=VARCHAR},
             </if>
             <if test="null != fileType">
-                file_type = #{file_type,jdbcType=VARCHAR},
+                file_type = #{fileType,jdbcType=VARCHAR},
             </if>
             <if test="null != id">
                 id = #{id,jdbcType=VARCHAR},
             </if>
             <if test="null != createCode">
-                create_code = #{create_code,jdbcType=VARCHAR},
+                create_code = #{createCode,jdbcType=VARCHAR},
             </if>
             <if test="null != fileSize">
-                file_size = #{file_size,jdbcType=DOUBLE},
+                file_size = #{fileSize,jdbcType=BIGINT},
             </if>
         </set>
         where 1=1
@@ -140,11 +154,12 @@
     <update id="updateByPrimaryKey" parameterType="org.billow.model.expand.SysUploadDto">
 		update t_upload_log
 		set
-			create_time = #{create_time,jdbcType=TIMESTAMP},
-			file_name = #{file_name,jdbcType=VARCHAR},
-			file_type = #{file_type,jdbcType=VARCHAR},
-			create_code = #{create_code,jdbcType=VARCHAR},
-			file_size = #{file_size,jdbcType=DOUBLE}
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+			file_name = #{fileName,jdbcType=VARCHAR},
+			new_file_name = #{newFileName,jdbcType=VARCHAR},
+			file_type = #{fileType,jdbcType=VARCHAR},
+			create_code = #{createCode,jdbcType=VARCHAR},
+			file_size = #{fileSize,jdbcType=BIGINT}
 		where 1=1
 		and id = #{id}
 	</update>

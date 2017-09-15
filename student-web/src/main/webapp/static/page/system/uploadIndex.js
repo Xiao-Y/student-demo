@@ -5,16 +5,16 @@ $('#fileupload').fileupload({
     add: function(e, data) {
         var filename = data.files[0].name;
         var fileListLenght = $('.filesName').find('tr').length;
-        for (var i = 0; i < fileListLenght; i++) {
+        /*for (var i = 0; i < fileListLenght; i++) {
             if (filename == $('.filesName').find('.name').eq(i).text()) {
                 $('.tips').text("不能重复上传！");
                 return false;
             }
-        }
+        }*/
         filesList = "filesList" + fileListLenght;
        	var filesListHTML = 
     	   '<tr class="' + filesList + '">' +
-		        '<td colspan="3">' +
+		        '<td colspan="6">' +
 			        '<p class="name">' + filename + '&nbsp;&nbsp;<span class="displayProgress" style="color: green;">00%</span>' +'</p>' +
 			        '<div class="progress progress-striped active" style="width: 98%">' +
 				        '<div class="progress-bar progress-bar-success progress-bar-striped"' +  
@@ -45,35 +45,23 @@ $('#fileupload').fileupload({
         $.each(data.files, function (index, file) {
             var res = data.result.split(",");
             if(res[0] == "success:"){
-                var filesList = "filesList" + $('.filesName').find('tr').length;
+                var filesList = res[1];
                 var filesListHTML =
                 	'<tr class="' + filesList + '">' +
-		                '<td>' +
-		                	'<p class="name">' + res[3] + '</p>' +
-		                '</td>' +
-		                '<td>' +
-		                	'<p class="size">' + res[4] + '</p>' +
-		                '</td>' +
+		                '<td><p class="fileName">' + res[2] + '</p></td>' +
+                        '<td><p class="fileType">' + res[3] + '</p></td>' +
+		                '<td><p class="fileSize">' + res[4] + '</p></td>' +
+                        '<td><p class="createCode">' + res[5] + '</p></td>' +
+                        '<td><p class="createTime">' + res[6] + '</p></td>' +
 		                '<td class="btns">' +
-			                '<button class="delete">删除</button>&nbsp;' +
+			                '<button class="delete" name="deleteFile">删除</button>&nbsp;' +
 			                '<button class="download">下载</button>' +
 		                '</td>' +
 	                '</tr>';
                 $(".filesName").append(filesListHTML);
 				//绑定删除
-                $("." + filesList).find('.delete').click(function(){
-					if(confirm('请注意，删除的附件将无法恢复，是否确认删除？')){
-				        $.ajax({
-                            async:false,
-                            type:'post',
-                            url:'',
-                            dataType:'html',
-                            data:'id=' + res[2],
-                            success:function(msg){
-                                $("."+filesList).remove();
-                            }
-						});
-					}
+                $("." + filesList).find('[name="deleteFile"]').click(function(){
+                    deleteFile(res[1],res[2]);
                 });
                 $("."+filesList).find('.download').click(function(){
                     downloadFile(res[1],res[3]);
@@ -82,3 +70,35 @@ $('#fileupload').fileupload({
         });     
     }
 });
+
+/**
+ * 根据id删除文件
+ * @param id
+ */
+function deleteFile(id,fileName){
+    if(confirm('请注意，删除的附件将无法恢复，是否确认删除？')){
+        $.ajax({
+            async:false,
+            type:'post',
+            url: path + '/sysUploadController/deleteFile/' + fileName + "/" + id,
+            dataType:'json',
+            success:function(obj){
+                var message = obj.message;
+                var type = obj.type;
+                var root = obj.root;
+                if(type == 'success'){
+                    $("."+id).remove();
+                    new TipBox({type:type,str:message,hasBtn:true,setTime:1500,callBack:function(){
+                        if(root != '' && root != null && root != 'null'){
+                            $(window.location).attr('href', path + root);
+                        }else{
+                            //form.reset();
+                        }
+                    }});
+                }else{
+                    new TipBox({type:type,str:message,hasBtn:true})
+                }
+            }
+        });
+    }
+}
