@@ -34,38 +34,40 @@ layui.use(['laypage','layer'], function() {
 	$('#addFile').on('click', function() {
 		var editUrl = path + '/sysActDeploy/actFileDeploy';
 		var saveUrl = path + '/sysActDeploy/saveFileDeploy';
-        layer.open({
-            type: 1,
-            title: '添加流程',
-            content: content,
-            btn: ['提交', '取消'],
-            area: ['600px', '400px'],
-            maxmin: true,
-            yes: function(index,layero) {
-                $.ajax({
-                    type : 'POST',
-                    url : saveUrl,
-                    dataType : 'json',
-                    success : function(data) {
-                        tipsFormRB(data);
-                        /*if(success === true){
-                           $this.attr("disabled",true);
-                       }*/
-                    }
-                });
-                layer.close(index);
-            },
-            full: function(elem) {
-                var win = window.top === window.self ? window : parent.window;
-                $(win).on('resize', function() {
-                    var $this = $(this);
-                    elem.width($this.width()).height($this.height()).css({
-                        top: 0,
-                        left: 0
-                    });
-                    elem.children('div.layui-layer-content').height($this.height() - 95);
-                });
-            }
+        $.get(editUrl, null, function(content) {
+			layer.open({
+				type: 1,
+				title: '添加流程',
+				content: content,
+				//btn: ['提交', '取消'],
+				area: ['600px', '200px'],
+				maxmin: true,
+				yes: function(index,layero) {
+					$.ajax({
+						type : 'POST',
+						url : saveUrl,
+						dataType : 'json',
+						success : function(data) {
+							tipsFormRB(data);
+							/*if(success === true){
+							   $this.attr("disabled",true);
+						   }*/
+						}
+					});
+					layer.close(index);
+				},
+				full: function(elem) {
+					var win = window.top === window.self ? window : parent.window;
+					$(win).on('resize', function() {
+						var $this = $(this);
+						elem.width($this.width()).height($this.height()).css({
+							top: 0,
+							left: 0
+						});
+						elem.children('div.layui-layer-content').height($this.height() - 95);
+					});
+				}
+			});
         });
 	});
 

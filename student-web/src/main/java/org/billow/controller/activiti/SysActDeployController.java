@@ -72,7 +72,7 @@ public class SysActDeployController {
 
     @ResponseBody
     @RequestMapping("/saveFileDeploy")
-    public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile, @RequestParam("deployName") String deployName) {
+    public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile) {
         JsonResult json = new JsonResult();
         try {
             InputStream in = zipFile.getInputStream();
@@ -80,8 +80,8 @@ public class SysActDeployController {
             // 创建发布配置对象
             DeploymentBuilder builder = repositoryService.createDeployment();
             // 设置发布信息
-            builder.name(deployName)// 添加部署规则的显示别名
-                    .addZipInputStream(zipInputStream);
+            //builder.name(deployName)// 添加部署规则的显示别名
+              //      .addZipInputStream(zipInputStream);
             json.setSuccess(true);
             json.setMessage(MessageTipsCst.UPLOAD_SUCCESS);
         } catch (Exception e) {
