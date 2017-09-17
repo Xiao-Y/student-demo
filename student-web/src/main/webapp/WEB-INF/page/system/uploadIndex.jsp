@@ -24,11 +24,17 @@
 </head>
 <body>
 <form action="${ctx }/sysUploadController/upload" enctype="multipart/form-data">
+    <input type="hidden" id="type" name="type" value="file">
     <div class="jquery-fileupload">
         <div class="uploadBtn">
             &nbsp;
-            <input id="fileupload" type="file" name="file" multiple/>
-            <span>+选择文件</span>
+            <input name="file" type="file" fileType="file" multiple/>
+            <span>上传共享文件</span>
+        </div>
+        <div class="uploadBtn">
+            &nbsp;
+            <input name="file" type="file" fileType="zip" multiple/>
+            <span>上传流程zip</span>
         </div>
         <span class="tips"></span>
         <div style="clear: both;"></div>

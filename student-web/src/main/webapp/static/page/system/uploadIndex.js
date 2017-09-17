@@ -1,16 +1,10 @@
-$('#fileupload').fileupload({
+$("input[name='file']").fileupload({
     url: path + '/sysUploadController/upload',
     autoUpload:true,
     sequentialUploads: true,
     add: function(e, data) {
         var filename = data.files[0].name;
         var fileListLenght = $('.filesName').find('tr').length;
-        /*for (var i = 0; i < fileListLenght; i++) {
-            if (filename == $('.filesName').find('.name').eq(i).text()) {
-                $('.tips').text("不能重复上传！");
-                return false;
-            }
-        }*/
         filesList = "filesList" + fileListLenght;
        	var filesListHTML = 
     	   '<tr class="' + filesList + '">' +
@@ -25,6 +19,7 @@ $('#fileupload').fileupload({
 		        '</td>' +
 	        '</tr>';
         $('.uploadfiles').append(filesListHTML);
+        alert($(this).attr('fileType'));
         data.context = $("." + filesList);
         data.submit();
     },
@@ -40,7 +35,6 @@ $('#fileupload').fileupload({
     },
     //上传完成
     done : function(e, data) {
-        //$('.filesName').find('.progress').parent().parent().remove();
         data.context.find('.progress').parent().parent().remove();
         $.each(data.files, function (index, file) {
             var res = data.result.split(",");
@@ -77,6 +71,7 @@ $('#fileupload').fileupload({
  */
 function deleteFile(id,fileName){
     if(confirm('请注意，删除的附件将无法恢复，是否确认删除？')){
+        var indexUrl = path + '/sysUploadController/upload';
         $.ajax({
             async:false,
             type:'post',
@@ -90,9 +85,7 @@ function deleteFile(id,fileName){
                     $("."+id).remove();
                     new TipBox({type:type,str:message,hasBtn:true,setTime:1500,callBack:function(){
                         if(root != '' && root != null && root != 'null'){
-                            $(window.location).attr('href', path + root);
-                        }else{
-                            //form.reset();
+                            $(window.location).attr('href', indexUrl);
                         }
                     }});
                 }else{

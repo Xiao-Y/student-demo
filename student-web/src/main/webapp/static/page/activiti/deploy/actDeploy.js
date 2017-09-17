@@ -32,43 +32,8 @@ layui.use(['laypage','layer'], function() {
 	});
 
 	$('#addFile').on('click', function() {
-		var editUrl = path + '/sysActDeploy/actFileDeploy';
-		var saveUrl = path + '/sysActDeploy/saveFileDeploy';
-        $.get(editUrl, null, function(content) {
-			layer.open({
-				type: 1,
-				title: '添加流程',
-				content: content,
-				//btn: ['提交', '取消'],
-				area: ['600px', '200px'],
-				maxmin: true,
-				yes: function(index,layero) {
-					$.ajax({
-						type : 'POST',
-						url : saveUrl,
-						dataType : 'json',
-						success : function(data) {
-							tipsFormRB(data);
-							/*if(success === true){
-							   $this.attr("disabled",true);
-						   }*/
-						}
-					});
-					layer.close(index);
-				},
-				full: function(elem) {
-					var win = window.top === window.self ? window : parent.window;
-					$(win).on('resize', function() {
-						var $this = $(this);
-						elem.width($this.width()).height($this.height()).css({
-							top: 0,
-							left: 0
-						});
-						elem.children('div.layui-layer-content').height($this.height() - 95);
-					});
-				}
-			});
-        });
+		var indexUrl = path + '/sysUploadController/uploadIndex?type=saveFileDeploy'
+        $(window.location).attr('href', indexUrl);
 	});
 
 	$("a[name='deploy']").on("click",function(){
@@ -81,41 +46,8 @@ layui.use(['laypage','layer'], function() {
 	        url : url,
 	        dataType : 'json',
 	        success : function(data) {
-	         	tipsFormRB(data);
-	         	/*if(success === true){
-		            $this.attr("disabled",true);
-				}*/
+                submitFormNewTip(data);
 	        }
 	    });
 	});
-	
-//	$('#import').on('click', function() {
-//		var that = this;
-//		var index = layer.tips('只想提示地精准些', that,{tips: [1, 'white']});
-//		$('#layui-layer'+index).children('div.layui-layer-content').css('color','#000000');
-//	});
-
-//	$('.site-table tbody tr').on('click', function(event) {
-//		var $this = $(this);
-//		var $input = $this.children('td').eq(0).find('input');
-//		$input.on('ifChecked', function(e) {
-//			$this.css('background-color', '#EEEEEE');
-//		});
-//		$input.on('ifUnchecked', function(e) {
-//			$this.removeAttr('style');
-//		});
-//		$input.iCheck('toggle');
-//	}).find('input').each(function() {
-//		var $this = $(this);
-//		$this.on('ifChecked', function(e) {
-//			$this.parents('tr').css('background-color', '#EEEEEE');
-//		});
-//		$this.on('ifUnchecked', function(e) {
-//			$this.parents('tr').removeAttr('style');
-//		});
-//	});
-//	$('#selected-all').on('ifChanged', function(event) {
-//		var $input = $('.site-table tbody tr td').find('input');
-//		$input.iCheck(event.currentTarget.checked ? 'check' : 'uncheck');
-//	});
 });

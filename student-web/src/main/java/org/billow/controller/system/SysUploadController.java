@@ -51,6 +51,8 @@ public class SysUploadController {
     public void upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
         try {
+            String type = (String) request.getAttribute("type");
+            System.out.println(type);
             HttpSession session = request.getSession();
             UserDto loginUser = LoginHelper.getLoginUser(session);
             String path = session.getServletContext().getRealPath("upload");
