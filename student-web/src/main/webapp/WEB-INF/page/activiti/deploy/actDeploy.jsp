@@ -9,14 +9,6 @@
 <jsp:include page="/pub/pubTableJs.jsp" />
 <script type="text/javascript" src="${ctx}/static/page/activiti/deploy/actDeploy.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/extend/pubPopForm.js"></script>
-	<link rel="stylesheet" href="${ctx }/static/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${ctx }/static/css/upload.css">
-	<script type="text/javascript" src="${ctx }/static/js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript"
-			src="${ctx }/static/plugins/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-	<script type="text/javascript"
-			src="${ctx }/static/plugins/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
-	<script type="text/javascript" src="${ctx }/static/plugins/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 </head>
 <body>
 	<div class="admin-main">

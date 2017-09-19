@@ -40,4 +40,15 @@
 		</div>
 	</fieldset>
 </body>
+<script>
+    layui.use(['layer'], function() {
+        var index = layer.load(0, {
+            shade: [0.3,'#fff'] //0.1透明度的白色背景
+        });
+
+    });
+    window.onload = function(){
+        layer.closeAll();
+	}
+</script>
 </html>

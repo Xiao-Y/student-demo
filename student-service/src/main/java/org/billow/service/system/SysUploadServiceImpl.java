@@ -2,6 +2,8 @@ package org.billow.service.system;
 
 import javax.annotation.Resource;
 
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.repository.DeploymentBuilder;
 import org.apache.log4j.Logger;
 import org.billow.api.system.SysUploadService;
 import org.billow.dao.SysUploadDao;
@@ -13,14 +15,17 @@ import org.billow.utils.StringUtils;
 import org.billow.utils.ToolsUtils;
 import org.billow.utils.date.DateTime;
 import org.billow.utils.generator.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipInputStream;
 
 /**
  * 数据字典实现类<br>
@@ -36,6 +41,9 @@ public class SysUploadServiceImpl extends BaseServiceImpl<SysUploadDto> implemen
     @Resource
     private SysUploadDao sysUploadDao;
 
+    @Autowired(required = false)
+    private RepositoryService repositoryService;
+
     @Resource
     @Override
     public void setBaseDao(BaseDao<SysUploadDto> baseDao) {
@@ -43,7 +51,7 @@ public class SysUploadServiceImpl extends BaseServiceImpl<SysUploadDto> implemen
     }
 
     @Override
-    public String saveUpoad(UserDto loginUser, String path, MultipartFile file) throws IOException {
+    public String saveUpoad(UserDto loginUser, String path, MultipartFile file, String fileType) throws IOException {
         String originalFilename = file.getOriginalFilename();
         String suff = getFileSuff(originalFilename);
         String id = UUID.generate();
@@ -62,6 +70,16 @@ public class SysUploadServiceImpl extends BaseServiceImpl<SysUploadDto> implemen
         dto.setCreateTime(new Date());
         dto.setCreateCode(loginUser.getUserName());
         sysUploadDao.insert(dto);
+        if (SysUploadService.FILE_TYPE_WORKFLOW_ZIP.equals(fileType)) {
+            InputStream in = file.getInputStream();
+            ZipInputStream zipInputStream = new ZipInputStream(in);
+            // 创建发布配置对象
+            DeploymentBuilder builder = repositoryService.createDeployment();
+            // 设置发布信息
+            builder.name(originalFilename)// 添加部署规则的显示别名
+                    .addZipInputStream(zipInputStream);
+            builder.deploy();
+        }
         return this.returnResult(dto);
     }
 

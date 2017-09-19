@@ -33,7 +33,7 @@
         </div>
         <div class="uploadBtn">
             &nbsp;
-            <input name="file" type="file" fileType="zip" multiple/>
+            <input name="file" type="file" fileType="workflowZip" multiple/>
             <span>上传流程zip</span>
         </div>
         <span class="tips"></span>

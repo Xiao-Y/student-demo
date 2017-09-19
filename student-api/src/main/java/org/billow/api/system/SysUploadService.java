@@ -18,13 +18,24 @@ import java.io.IOException;
 public interface SysUploadService extends BaseService<SysUploadDto> {
 
     /**
+     * 文件类型：file-共享文件，workflowZip-工作流程文件
+     */
+    public final static String FILE_TYPE_FILE = "file";
+    /**
+     * 文件类型：file-共享文件，workflowZip-工作流程文件
+     */
+    public final static String FILE_TYPE_WORKFLOW_ZIP = "workflowZip";
+
+
+    /**
      * 保存上传文件信息
      *
      * @param loginUser 创建人
      * @param path      文件路径
      * @param file      上传的文件
+     * @param fileType  文件类型：file-共享文件，workflowZip-工作流程文件
      */
-    String saveUpoad(UserDto loginUser, String path, MultipartFile file) throws IOException;
+    String saveUpoad(UserDto loginUser, String path, MultipartFile file, String fileType) throws IOException;
 
     /**
      * 删除文件

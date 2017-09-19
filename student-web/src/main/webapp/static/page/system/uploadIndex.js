@@ -19,7 +19,9 @@ $("input[name='file']").fileupload({
 		        '</td>' +
 	        '</tr>';
         $('.uploadfiles').append(filesListHTML);
-        alert($(this).attr('fileType'));
+        var fileTpye = $(this).attr('fileType');
+        var url = path + '/sysUploadController/upload?fileType=' + fileTpye;
+        $(this).fileupload('option', 'url', url);
         data.context = $("." + filesList);
         data.submit();
     },

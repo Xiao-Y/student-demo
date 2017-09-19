@@ -48,16 +48,16 @@ public class SysUploadController {
     }
 
     @RequestMapping(value = "/upload")
-    public void upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,
+    public void upload(@RequestParam(value = "file", required = false) MultipartFile file,
+                       @RequestParam("fileType") String fileType, HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
         try {
-            String type = (String) request.getAttribute("type");
-            System.out.println(type);
+            System.out.println("fileType" + fileType);
             HttpSession session = request.getSession();
             UserDto loginUser = LoginHelper.getLoginUser(session);
             String path = session.getServletContext().getRealPath("upload");
             System.out.println(path);
-            String json = sysUploadService.saveUpoad(loginUser, path, file);
+            String json = sysUploadService.saveUpoad(loginUser, path, file,fileType);
 
             response.setContentType("text/html");
             response.setCharacterEncoding("UTF-8");
@@ -79,7 +79,7 @@ public class SysUploadController {
         String type = "";
         String message = "";
         try {
-            sysUploadService.deleteFile(path, id,fileName);
+            sysUploadService.deleteFile(path, id, fileName);
             message = MessageTipsCst.DELETE_SUCCESS;
             type = MessageTipsCst.TYPE_SUCCES;
         } catch (Exception e) {
