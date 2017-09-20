@@ -84,8 +84,8 @@ public class SysActDeployController {
      * @param request
      */
     @RequestMapping("/loadDeployZip/{deployId}")
-    public void loadDeployZip(@PathVariable("deployId") String deployId,
-                              HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void loadDeployZip(HttpServletRequest request, HttpServletResponse response,
+                              @PathVariable("deployId") String deployId) throws Exception {
         try {
             HttpSession session = request.getSession();
             String path = session.getServletContext().getRealPath("upload");
@@ -106,5 +106,49 @@ public class SysActDeployController {
             e.printStackTrace();
             LOGGER.error("下载部署文件zip失败：deployId=" + deployId, e);
         }
+    }
+
+    /**
+     * 删除流程部署
+     *
+     * @param deployId 部署Id
+     * @return
+     */
+    @RequestMapping("/deleteDeploy/{deployId}")
+    public JsonResult deleteDeploy(@PathVariable("deployId") String deployId) {
+        JsonResult json = new JsonResult();
+        try {
+            workFlowService.deleteDeploy(deployId, false);
+            json.setType(MessageTipsCst.TYPE_SUCCES);
+            json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
+        } catch (Exception e) {
+            json.setType(MessageTipsCst.TYPE_ERROR);
+            json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
+            e.printStackTrace();
+            LOGGER.error(e);
+        }
+        return json;
+    }
+
+    /**
+     * 删除流程部署
+     *
+     * @param deployId 部署Id
+     * @return
+     */
+    @RequestMapping("/deleteDeployAll/{deployId}")
+    public JsonResult deleteDeployAll(@PathVariable("deployId") String deployId) {
+        JsonResult json = new JsonResult();
+        try {
+            workFlowService.deleteDeploy(deployId, true);
+            json.setType(MessageTipsCst.TYPE_SUCCES);
+            json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
+        } catch (Exception e) {
+            json.setType(MessageTipsCst.TYPE_ERROR);
+            json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
+            e.printStackTrace();
+            LOGGER.error(e);
+        }
+        return json;
     }
 }

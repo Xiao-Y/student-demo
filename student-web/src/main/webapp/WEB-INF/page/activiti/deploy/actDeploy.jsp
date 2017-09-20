@@ -62,10 +62,15 @@
 										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 										导出zip
 									</a>
-									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList"
-										url="${ctx }/sysAct/deleteModel/${deploy.id}" class="layui-btn layui-btn-danger layui-btn-mini">
+									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="只删除流程部署"
+										url="${ctx }/sysActDeploy/deleteDeploy/${deploy.id}" class="layui-btn layui-btn-danger layui-btn-mini">
 										<i class="fa fa-times" aria-hidden="true"></i>
 										删除
+									</a>
+									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="删除流程部署及所有流程实例"
+									   url="${ctx }/sysActDeploy/deleteDeployAll/${deploy.id}" class="layui-btn layui-btn-danger layui-btn-mini">
+										<i class="fa fa-times" aria-hidden="true"></i>
+										级联删除
 									</a>
 								</td>
 							</tr>
