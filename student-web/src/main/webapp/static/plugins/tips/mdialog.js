@@ -1,5 +1,5 @@
 /*  
- * @弹出提示层 ( 加载动画(load), 提示动画(tip), 成功(success), 错误(error), )  
+ * @弹出提示层 ( 加载动画(load), 提示动画(tip), 成功(success), 错误(error), 确认(confirm))  
  * @method  tipBox  
  * @description 默认配置参数   
  * @time    2014-12-19   
@@ -13,7 +13,7 @@
  * @param {Boolean} clickDomCancel -点击空白取消  
  * @param {Function} callBack -回调函数 (只在开启定时消失时才生效)  
  * @param {Function} hasBtn -显示按钮  
- * @param {String} type -动画类型 (加载,成功,失败,提示)  
+ * @param {String} type -动画类型 (加载,成功,失败,提示,确认)  
  * @example   
  * new TipBox();   
  * new TipBox({type:'load',setTime:1000,callBack:function(){ alert(..) }});   
@@ -28,7 +28,8 @@ function TipBox(cfg){
         hasMask        : true,    
         hasMaskWhite   : false,   
         clickDomCancel : false,    
-        callBack       : null, 
+        callBack       : null,
+        callBackCancel : null, 
         hasBtn         : false, 
         type           : 'success'  
     }  
@@ -63,7 +64,8 @@ TipBox.prototype.renderUI = function(tipType){
     tipType == 'load'    && this.loadRenderUI();  
     tipType == 'success' && this.successRenderUI();   
     tipType == 'error'   && this.errorRenderUI();  
-    tipType == 'tip'     && this.tipRenderUI();  
+    tipType == 'tip'     && this.tipRenderUI(); 
+    tipType == 'confirm' && this.confirmRenderUI();
     TipBox.prototype.boundingBox.appendTo(this.config.windowDom.document.body);  
                   
     //是否显示遮罩  
@@ -76,20 +78,33 @@ TipBox.prototype.renderUI = function(tipType){
         this.config.height = 206;
         $('#animationTipBox').css("margin-top","103px");
         switch(this.config.type){
-            case 'success':$(".success").after("<button class='okoButton'>ok</button>");
+            case 'success':$(".success").after("<button class='okoButton'>确定</button>");
                 break;
-            case 'error':$(".lose").after("<button class='okoButton redOkoButton'>ok</button>");
+            case 'error':$(".lose").after("<button class='okoButton redOkoButton'>确定</button>");
                 break;
-            case 'tip':$(".tip").after("<button class='okoButton'>ok</button>");
+            case 'tip':$(".tip").after("<button class='okoButton'>确定</button>");
+                break;
+            case 'confirm':$(".tip").after("<div class='twoButton'><button class='okoButton'>确定</button></div><div class='twoButton'><button class='canceloButton'>取消</button></div>");
                 break;
             default: break;
         }
-        $('button.okoButton').on('click',function(){_this.close();});
+        if(this.config.type == 'confirm'){
+            $('button.okoButton').on('click',function(){_this.confirmClose();});
+            $('button.canceloButton').on('click',function(){_this.cancelClose();});
+        }else{
+            $('button.okoButton').on('click',function(){_this.close();});
+        }
     }
     //定时消失  
     _this = this;  
-    !this.config.setTime && typeof this.config.callBack === "function" && (this.config.setTime = 1);      
-    this.config.setTime && setTimeout( function(){ _this.close(); }, _this.config.setTime );  
+    !this.config.setTime && (typeof this.config.callBack === "function" || typeof this.config.callBackCancel === "function") && (this.config.setTime = 1);      
+    this.config.setTime != 0 && setTimeout( function(){ 
+        if(_this.config.hasBtn && _this.config.type == 'confirm'){
+            _this.cancelClose();
+        }else{
+            _this.close();
+        }
+    }, _this.config.setTime );  
 };  
   
 TipBox.prototype.bindUI = function(){  
@@ -173,3 +188,28 @@ TipBox.prototype.destroy = function(){
     TipBox.prototype.boundingBox && TipBox.prototype.boundingBox.remove();   
     TipBox.prototype.boundingBox = null;  
 };  
+
+//确认的UI
+TipBox.prototype.confirmRenderUI = function(){
+    var confirm = "<div class='tip'>";  
+        confirm +="     <div class='icon'>i</div>";  
+        confirm +="     <div class='dec_txt'>"+this.config.str+"</div>";  
+        confirm += "</div>";  
+    TipBox.prototype.boundingBox.append(confirm);  
+};
+
+//确认的关闭
+TipBox.prototype.confirmClose = function(){      
+    TipBox.prototype.destroy();  
+    this.destroy();  
+    this.config.setTime && typeof this.config.callBack === "function" && this.config.callBack();                
+    this.config.setTime = null;
+}; 
+
+//确认的取消
+TipBox.prototype.cancelClose = function(){      
+    TipBox.prototype.destroy();  
+    this.destroy();  
+    this.config.setTime && typeof this.config.callBackCancel === "function" && this.config.callBackCancel();   
+    this.config.setTime = null;            
+}; 
