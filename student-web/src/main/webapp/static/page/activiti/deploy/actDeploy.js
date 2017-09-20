@@ -31,11 +31,6 @@ layui.use(['laypage','layer'], function() {
 		parent.layer.alert('你点击了搜索按钮');
 	});
 
-	$('#addFile').on('click', function() {
-		var indexUrl = path + '/sysUploadController/uploadIndex?type=saveFileDeploy'
-        $(window.location).attr('href', indexUrl);
-	});
-
 	$("a[name='deploy']").on("click",function(){
 		$this = $(this);
 		var id = $this.attr("data-id");
@@ -45,8 +40,8 @@ layui.use(['laypage','layer'], function() {
 	        type : 'POST',
 	        url : url,
 	        dataType : 'json',
-	        success : function(data) {
-                submitFormNewTip(data);
+	        success : function(obj) {
+				new TipBox({type:obj.type,str:obj.message,hasBtn:true,setTime:1500});
 	        }
 	    });
 	});

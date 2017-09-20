@@ -11,7 +11,7 @@
         <result column="file_size" property="fileSize" jdbcType="BIGINT"/>
     </resultMap>
     <sql id="base_column_list">
-		create_time,file_name,file_type,id,create_code,file_size
+		create_time,file_name,new_file_name,file_type,id,create_code,file_size
 	</sql>
     <!-- 公用查询条件 -->
     <sql id="selectCondition">

@@ -13,9 +13,9 @@
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
-			<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+			<a href="javascript:;" class="layui-btn layui-btn-small" id="addFile">
 				<i class="layui-icon">&#xe608;</i>
-				添加模板
+				添加定义
 			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
 				<i class="layui-icon">&#xe615;</i>

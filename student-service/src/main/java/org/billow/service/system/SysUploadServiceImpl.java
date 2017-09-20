@@ -3,6 +3,7 @@ package org.billow.service.system;
 import javax.annotation.Resource;
 
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.apache.log4j.Logger;
 import org.billow.api.system.SysUploadService;
@@ -52,10 +53,25 @@ public class SysUploadServiceImpl extends BaseServiceImpl<SysUploadDto> implemen
 
     @Override
     public String saveUpoad(UserDto loginUser, String path, MultipartFile file, String fileType) throws IOException {
-        String originalFilename = file.getOriginalFilename();
-        String suff = getFileSuff(originalFilename);
         String id = UUID.generate();
-        File targetFile = new File(path, id + suff);
+        String originalFilename = file.getOriginalFilename();
+        Deployment deploy = null;
+        if (SysUploadService.FILE_TYPE_WORKFLOW_ZIP.equals(fileType)) {
+            InputStream in = file.getInputStream();
+            ZipInputStream zipInputStream = new ZipInputStream(in);
+            // 创建发布配置对象
+            DeploymentBuilder builder = repositoryService.createDeployment();
+            // 设置发布信息
+            builder.name(originalFilename)// 添加部署规则的显示别名
+                    .addZipInputStream(zipInputStream);
+            deploy = builder.deploy();
+        }
+        if(deploy != null){
+            id = deploy.getId();
+        }
+        String suff = getFileSuff(originalFilename);
+        String newFileName = id + suff;
+        File targetFile = new File(path, newFileName);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
@@ -66,20 +82,10 @@ public class SysUploadServiceImpl extends BaseServiceImpl<SysUploadDto> implemen
         dto.setFileName(originalFilename);
         dto.setFileType(file.getContentType());
         dto.setFileSize(file.getSize());
-        dto.setNewFileName(id);
+        dto.setNewFileName(newFileName);
         dto.setCreateTime(new Date());
         dto.setCreateCode(loginUser.getUserName());
         sysUploadDao.insert(dto);
-        if (SysUploadService.FILE_TYPE_WORKFLOW_ZIP.equals(fileType)) {
-            InputStream in = file.getInputStream();
-            ZipInputStream zipInputStream = new ZipInputStream(in);
-            // 创建发布配置对象
-            DeploymentBuilder builder = repositoryService.createDeployment();
-            // 设置发布信息
-            builder.name(originalFilename)// 添加部署规则的显示别名
-                    .addZipInputStream(zipInputStream);
-            builder.deploy();
-        }
         return this.returnResult(dto);
     }
 

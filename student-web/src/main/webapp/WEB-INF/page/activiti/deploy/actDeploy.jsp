@@ -13,10 +13,6 @@
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
-			<a href="javascript:;" class="layui-btn layui-btn-small" id="addFile">
-				<i class="layui-icon">&#xe608;</i>
-				添加流程
-			</a>
 			<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
 				<i class="layui-icon">&#xe615;</i>
 				搜索
@@ -62,14 +58,9 @@
 										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 										编辑
 									</a>
-									<a href="${ctx }/sysAct/export/${deploy.id}" class="layui-btn layui-btn-mini" target="_blank">
+									<a href="${ctx }/sysActDeploy/loadDeployZip/${deploy.id}" class="layui-btn layui-btn-mini">
 										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-										导出XML
-									</a>
-									<a href="javascript:;" name="deploy" data-id="${deploy.id }" data-name="${deploy.name }"
-										class="layui-btn layui-btn-warm layui-btn-mini">
-										<i class="fa fa-anchor" aria-hidden="true"></i>
-										部署
+										导出zip
 									</a>
 									<a href="javascript:;" data-opt="del" data-id="${status.index }" title="actModelList"
 										url="${ctx }/sysAct/deleteModel/${deploy.id}" class="layui-btn layui-btn-danger layui-btn-mini">

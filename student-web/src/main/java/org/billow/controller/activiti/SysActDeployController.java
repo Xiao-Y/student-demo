@@ -1,17 +1,23 @@
 package org.billow.controller.activiti;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.apache.log4j.Logger;
+import org.billow.api.system.SysUploadService;
 import org.billow.api.workflow.WorkFlowService;
 import org.billow.model.custom.JsonResult;
+import org.billow.model.expand.SysUploadDto;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
+import org.billow.utils.downLoad.DownLoad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.zip.ZipInputStream;
 
@@ -37,9 +44,10 @@ public class SysActDeployController {
 
     @Autowired
     private WorkFlowService workFlowService;
-
     @Autowired(required = false)
     private RepositoryService repositoryService;
+    @Autowired
+    private SysUploadService sysUploadService;
 
     /**
      * 查询流程部署列表
@@ -70,26 +78,33 @@ public class SysActDeployController {
         return PagePathCst.BASEPATH_ACTIVITI_DEPLOY + "/actFileDeploy";
     }
 
-    @ResponseBody
-    @RequestMapping("/saveFileDeploy")
-    public JsonResult saveFiledeploy(@RequestParam("zipFile") MultipartFile zipFile) {
-        JsonResult json = new JsonResult();
+    /**
+     * 下载部署文件zip
+     *
+     * @param request
+     */
+    @RequestMapping("/loadDeployZip/{deployId}")
+    public void loadDeployZip(@PathVariable("deployId") String deployId,
+                              HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            InputStream in = zipFile.getInputStream();
-            ZipInputStream zipInputStream = new ZipInputStream(in);
-            // 创建发布配置对象
-            DeploymentBuilder builder = repositoryService.createDeployment();
-            // 设置发布信息
-            //builder.name(deployName)// 添加部署规则的显示别名
-              //      .addZipInputStream(zipInputStream);
-            json.setSuccess(true);
-            json.setMessage(MessageTipsCst.UPLOAD_SUCCESS);
+            HttpSession session = request.getSession();
+            String path = session.getServletContext().getRealPath("upload");
+            SysUploadDto dto = new SysUploadDto();
+            dto.setId(deployId);
+            SysUploadDto sysUploadDto = sysUploadService.selectByPrimaryKey(dto);
+            if (sysUploadDto == null) {
+                throw new RuntimeException("暂时没有zip文件...");
+            }
+            String newFileName = sysUploadDto.getNewFileName();
+            String fileName = sysUploadDto.getFileName();
+            //读取文件
+            InputStream in = new FileInputStream(path + "/" + newFileName);
+            DownLoad.downLoad(fileName, in, response);
         } catch (Exception e) {
-            json.setSuccess(false);
-            json.setMessage(MessageTipsCst.UPLOAD_FAILURE);
+            response.setContentType("text/html;charset=UTF-8");
+            response.getOutputStream().write("暂时没有zip文件...".getBytes("UTF-8"));
             e.printStackTrace();
-            LOGGER.error(e);
+            LOGGER.error("下载部署文件zip失败：deployId=" + deployId, e);
         }
-        return json;
     }
 }

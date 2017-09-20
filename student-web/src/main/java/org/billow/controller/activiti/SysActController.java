@@ -228,10 +228,10 @@ public class SysActController {
 			createDeployment.name(modelName);
 			createDeployment.addString(processName, new String(bpmnBytes, "UTF-8"));
 			createDeployment.deploy();
-			json.setSuccess(true);
+			json.setType(MessageTipsCst.TYPE_SUCCES);
 			json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
 		} catch (Exception e) {
-			json.setSuccess(false);
+			json.setType(MessageTipsCst.TYPE_ERROR);
 			json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
 			e.printStackTrace();
 			logger.error(e);
