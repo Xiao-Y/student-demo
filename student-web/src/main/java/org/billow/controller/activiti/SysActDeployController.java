@@ -114,16 +114,17 @@ public class SysActDeployController {
      * @param deployId 部署Id
      * @return
      */
+    @ResponseBody
     @RequestMapping("/deleteDeploy/{deployId}")
     public JsonResult deleteDeploy(@PathVariable("deployId") String deployId) {
         JsonResult json = new JsonResult();
         try {
             workFlowService.deleteDeploy(deployId, false);
             json.setType(MessageTipsCst.TYPE_SUCCES);
-            json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
+            json.setMessage(MessageTipsCst.DELETE_SUCCESS);
         } catch (Exception e) {
             json.setType(MessageTipsCst.TYPE_ERROR);
-            json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
+            json.setMessage(MessageTipsCst.DELETE_FAILURE);
             e.printStackTrace();
             LOGGER.error(e);
         }
@@ -136,16 +137,17 @@ public class SysActDeployController {
      * @param deployId 部署Id
      * @return
      */
+    @ResponseBody
     @RequestMapping("/deleteDeployAll/{deployId}")
     public JsonResult deleteDeployAll(@PathVariable("deployId") String deployId) {
         JsonResult json = new JsonResult();
         try {
             workFlowService.deleteDeploy(deployId, true);
             json.setType(MessageTipsCst.TYPE_SUCCES);
-            json.setMessage(MessageTipsCst.DEPLOY_SUCCESS);
+            json.setMessage(MessageTipsCst.DELETE_SUCCESS);
         } catch (Exception e) {
             json.setType(MessageTipsCst.TYPE_ERROR);
-            json.setMessage(MessageTipsCst.DEPLOY_FAILURE);
+            json.setMessage(MessageTipsCst.DELETE_FAILURE);
             e.printStackTrace();
             LOGGER.error(e);
         }
