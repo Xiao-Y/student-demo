@@ -24,7 +24,7 @@ function TipBox(cfg){
         height         : 170,                 
         str            : '正在处理',       
         windowDom      : window,   
-        setTime        : 0,     
+        setTime        : -1,
         hasMask        : true,    
         hasMaskWhite   : false,   
         clickDomCancel : false,    
@@ -36,7 +36,7 @@ function TipBox(cfg){
     $.extend(this.config,cfg);    
       
     //存在就retrun  
-    if(TipBox.prototype.boundingBox) return;  
+    if(TipBox.prototype.boundingBox) return;
       
     //初始化  
     this.render(this.config.type);    
@@ -98,7 +98,7 @@ TipBox.prototype.renderUI = function(tipType){
     //定时消失  
     _this = this;  
     !this.config.setTime && (typeof this.config.callBack === "function" || typeof this.config.callBackCancel === "function") && (this.config.setTime = 1);      
-    this.config.setTime != 0 && setTimeout( function(){ 
+    this.config.setTime != -1 && setTimeout( function(){
         if(_this.config.hasBtn && _this.config.type == 'confirm'){
             _this.cancelClose();
         }else{
