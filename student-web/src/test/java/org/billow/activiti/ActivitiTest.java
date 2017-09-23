@@ -3,7 +3,9 @@ package org.billow.activiti;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -108,7 +110,7 @@ public class ActivitiTest {
 	public void startProcessInstance() {
 		logger.info("=================================启动流程实例=================================");
 		// 使用流程定义的key启动流程实例，key对应hellworld.bpmn文件中id的属性值，使用key值启动，默认是按照最新版本的流程定义启动
-		String processKey = "QingJiaProcess";// act_re_procdef表中的key
+		String processKey = "process1438148203130";// act_re_procdef表中的key
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processKey);
 		logger.info("流程实例ID:" + processInstance.getId());// 流程实例ID:30001/5001
 		logger.info("流程定义ID:" + processInstance.getProcessDefinitionId());// 流程定义ID:QingJiaProcess:2:27504/QingJia:1:2504
@@ -203,8 +205,10 @@ public class ActivitiTest {
 	@Test
 	public void completeMyTask() {
 		logger.info("=================================完成任务=================================");
-		String taskId = "10002";
-		taskService.complete(taskId);
+		String taskId = "130003";
+		Map<String, Object> map = new HashMap<>();
+		//map.put("amount", 800);
+		taskService.complete(taskId,map);
 		logger.info("=================================完成任务=================================");
 	}
 
@@ -216,7 +220,7 @@ public class ActivitiTest {
 	 */
 	@Test
 	public void isProcessEnd() {
-		String processInstanceId = "5001";
+		String processInstanceId = "122501";
 		ProcessInstance query = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId)
 				.singleResult();
 		if (query == null) {

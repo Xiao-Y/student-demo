@@ -28,6 +28,10 @@
 		<!-- 生成流程图的字体 -->
 		<property name="activityFontName" value="宋体" />
 		<property name="labelFontName" value="宋体" />
+
+		<!-- 自定义用户、用户组的配置 -->
+		<property name="dbIdentityUsed" value="false" />
+		<!-- 通过视图的形式 -->
 	</bean>
 
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
