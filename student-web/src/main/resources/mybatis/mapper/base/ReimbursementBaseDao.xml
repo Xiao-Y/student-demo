@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.billow.dao.ReimbursementDao">
+	<resultMap id="BaseResultMap" type="org.billow.model.expand.ReimbursementDto">
+		<id column="id" property="id" jdbcType="INTEGER" />
+        <result column="amount" property="amount" jdbcType="DECIMAL" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="process_instance_id" property="processInstanceId" jdbcType="VARCHAR" />
+        <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+        <result column="creat_date" property="creatDate" jdbcType="TIMESTAMP" />
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="base_column_list">
+		amount,user_id,user_name,process_instance_id,apply_time,id,creat_date,update_date,status
+	</sql>
+	<!-- 公用查询条件 -->
+	<sql id="selectCondition">
+		<where>
+			<if test="null != amount and '' != amount">
+				and amount = #{amount}
+			</if>
+			<if test="null != userId and '' != userId">
+				and user_id = #{userId}
+			</if>
+			<if test="null != userName and '' != userName">
+				and user_name = #{userName}
+			</if>
+			<if test="null != processInstanceId and '' != processInstanceId">
+				and process_instance_id = #{processInstanceId}
+			</if>
+			<if test="null != applyTime and '' != applyTime">
+				and apply_time = #{applyTime}
+			</if>
+			<if test="null != id and '' != id">
+				and id = #{id}
+			</if>
+			<if test="null != creatDate and '' != creatDate">
+				and creat_date = #{creatDate}
+			</if>
+			<if test="null != updateDate and '' != updateDate">
+				and update_date = #{updateDate}
+			</if>
+			<if test="null != status and '' != status">
+				and status = #{status}
+			</if>
+		</where>
+	</sql>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="org.billow.model.expand.ReimbursementDto">
+		select
+		<include refid="base_column_list" />
+		from t_reimbursement
+		<include refid="selectCondition" />
+	</select>
+	<select id="selectAllCount" resultType="java.lang.Integer" parameterType="org.billow.model.expand.ReimbursementDto">
+		select count(*)
+		from t_reimbursement
+		<include refid="selectCondition" />
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.billow.model.expand.ReimbursementDto">
+		select
+		<include refid="base_column_list" />
+		from t_reimbursement
+		where 1=1
+		and id = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="org.billow.model.expand.ReimbursementDto">
+		delete from t_reimbursement
+		where 1=1
+		and id = #{id}
+	</delete>
+	<insert id="insert" parameterType="org.billow.model.expand.ReimbursementDto">
+		insert into t_reimbursement (amount,user_id,user_name,process_instance_id,apply_time,id,creat_date,update_date,status)
+		values (
+			#{amount,jdbcType=DECIMAL},
+			#{userId,jdbcType=INTEGER},
+			#{userName,jdbcType=VARCHAR},
+			#{processInstanceId,jdbcType=VARCHAR},
+			#{applyTime,jdbcType=TIMESTAMP},
+			#{id,jdbcType=INTEGER},
+			#{creatDate,jdbcType=TIMESTAMP},
+			#{updateDate,jdbcType=TIMESTAMP},
+			#{status,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.billow.model.expand.ReimbursementDto">
+		insert into t_reimbursement
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="null != amount">
+				amount,
+			</if>
+			<if test="null != userId">
+				user_id,
+			</if>
+			<if test="null != userName">
+				user_name,
+			</if>
+			<if test="null != processInstanceId">
+				process_instance_id,
+			</if>
+			<if test="null != applyTime">
+				apply_time,
+			</if>
+			<if test="null != id">
+				id,
+			</if>
+			<if test="null != creatDate">
+				creat_date,
+			</if>
+			<if test="null != updateDate">
+				update_date,
+			</if>
+			<if test="null != status">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="null != amount">
+				#{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="null != userId">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="null != userName">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="null != processInstanceId">
+				#{processInstanceId,jdbcType=VARCHAR},
+			</if>
+			<if test="null != applyTime">
+				#{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != id">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="null != creatDate">
+				#{creatDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != updateDate">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != status">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.ReimbursementDto">
+		update t_reimbursement
+		<set>
+			<if test="null != amount">
+				amount = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="null != userId">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="null != userName">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="null != processInstanceId">
+				process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+			</if>
+			<if test="null != applyTime">
+				apply_time = #{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != id">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="null != creatDate">
+				creat_date = #{creatDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != updateDate">
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != status">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where 1=1
+		and id = #{id}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.billow.model.expand.ReimbursementDto">
+		update t_reimbursement
+		set
+			amount = #{amount,jdbcType=DECIMAL},
+			user_id = #{userId,jdbcType=INTEGER},
+			user_name = #{userName,jdbcType=VARCHAR},
+			process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+			apply_time = #{applyTime,jdbcType=TIMESTAMP},
+			creat_date = #{creatDate,jdbcType=TIMESTAMP},
+			update_date = #{updateDate,jdbcType=TIMESTAMP},
+			status = #{status,jdbcType=VARCHAR}
+		where 1=1
+		and id = #{id}
+	</update>
+</mapper>
