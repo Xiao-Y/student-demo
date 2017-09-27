@@ -7,8 +7,12 @@
 	<#assign columnModel=columns[key]/>
 	<#if columnModel.isPk>
 		<id column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.mybatisType}" />
-		<#else>
-		<result column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.mybatisType}" />
+	</#if>
+</#list>
+<#list keys as key>
+	<#assign columnModel=columns[key]/>
+	<#if !columnModel.isPk>
+        <result column="${columnModel.columnName}" property="${columnModel.fieldName}" jdbcType="${columnModel.mybatisType}" />
 	</#if>
 </#list>
 	</resultMap>
