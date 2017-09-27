@@ -355,6 +355,9 @@ public class SetData {
 			case "DATETIME":
 				mybatisType = "TIMESTAMP";
 				break;
+			case "INT":
+				mybatisType = "INTEGER";
+				break;
 			case "TEXT":
 				mybatisType = "CLOB";
 			default:
