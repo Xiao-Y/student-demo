@@ -1,5 +1,6 @@
 package org.billow.api.reimbursement;
 
+import com.github.pagehelper.PageInfo;
 import org.billow.api.base.BaseService;
 import org.billow.model.expand.ReimbursementDto;
 
@@ -14,4 +15,13 @@ import org.billow.model.expand.ReimbursementDto;
 public interface ReimbursementService extends BaseService<ReimbursementDto> {
 
 
+    /**
+     * 根据条件查询出报销申请
+     *
+     * @param dto 查询条件
+     * @return 分布数据
+     * @date: 2017/9/28 14:47
+     * @author:liuyongtao
+     */
+    PageInfo<ReimbursementDto> findRebList(ReimbursementDto dto);
 }

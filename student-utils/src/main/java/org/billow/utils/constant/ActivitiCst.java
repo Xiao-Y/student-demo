@@ -23,4 +23,8 @@ public class ActivitiCst {
 	 * 流程定义KEY-请假流程(外置表单)
 	 */
 	public final static String PROCESSDEFINITION_KEY_LEAVE_FORMKEY = "leave-formkey";
+	/**
+	 * 流程定义KEY-报销流程
+	 */
+	public final static String PROCESSDEFINITION_KEY_REB = "process1438148203130";
 }

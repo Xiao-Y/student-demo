@@ -23,7 +23,7 @@ public class PageHelper extends com.github.pagehelper.PageHelper {
 	}
 
 	/**
-	 * 分布方法
+	 * 分页方法
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>
@@ -39,7 +39,7 @@ public class PageHelper extends com.github.pagehelper.PageHelper {
 	}
 
 	/**
-	 * 分布方法
+	 * 分页方法
 	 * 
 	 * <br>
 	 * added by liuyongtao<br>

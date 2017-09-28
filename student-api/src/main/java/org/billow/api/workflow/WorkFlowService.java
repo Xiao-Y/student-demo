@@ -191,19 +191,21 @@ public interface WorkFlowService {
     public List<String> getOutGoingTransNames(String taskId) throws Exception;
 
     /**
-     * 查询任务节点：通过businessKey在act_hi_procinst表中找到流程实例Id，然后找到当前节点
+     * 查询任务节点：通过businessKey在act_hi_procinst表中找到流程实例Id，然后找到当前节点。
+     * 实体类必须继承WorkFlowDto。
      *
-     * @param T
+     * @param tList
      * @return
      * @author XiaoY
      * @date: 2017年6月12日 下午10:07:52
      */
-    public <T> List<T> findTaskNodeList(List<T> leavList) throws Exception;
+    public <T> List<T> findTaskNodeList(List<T> tList) throws Exception;
 
     /**
-     * 查询任务节点：通过businessKey在act_hi_procinst表中找到流程实例Id，然后找到当前节点
+     * 查询任务节点：通过businessKey在act_hi_procinst表中找到流程实例Id，然后找到当前节点。
+     * 实体类必须继承WorkFlowDto。
      *
-     * @param T
+     * @param t
      * @return
      * @author XiaoY
      * @date: 2017年6月12日 下午10:07:52
