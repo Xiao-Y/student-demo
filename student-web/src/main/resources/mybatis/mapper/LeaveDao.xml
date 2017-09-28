@@ -64,8 +64,9 @@
 		#{leaveType,jdbcType=VARCHAR},
 		#{reason,jdbcType=VARCHAR},
 		#{status,jdbcType=VARCHAR},
-		#{processInstanceId,jdbcType=VARCHAR},
-		#{userName,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
+		#{userName,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{processInstanceId,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="org.billow.model.expand.LeaveDto" useGeneratedKeys="true"
 		keyProperty="id">
@@ -187,17 +188,10 @@
 		#{applyTime,jdbcType=TIMESTAMP},
 		leave_type = #{leaveType,jdbcType=VARCHAR},
 		reason = #{reason,jdbcType=VARCHAR},
-		status
-		= #{status,jdbcType=VARCHAR},
-		type
-		= #{type,jdbcType=VARCHAR},
-		process_instance_id
-		=
-		#{processInstanceId,jdbcType=VARCHAR},
-		user_name
-		= #{userName,jdbcType=VARCHAR}
-		where id
-		=
-		#{id,jdbcType=INTEGER}
+		status = #{status,jdbcType=VARCHAR},
+		user_name = #{userName,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		process_instance_id = #{processInstanceId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

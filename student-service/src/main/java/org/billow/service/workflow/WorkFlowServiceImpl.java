@@ -410,7 +410,11 @@ public class WorkFlowServiceImpl implements WorkFlowService, Comparator<Comment>
     @Override
     public <T> List<T> findTaskNodeList(List<T> list) throws Exception {
         for (int i = 0; i < list.size(); i++) {
-            findTaskNode(list.get(i));
+            try {
+                findTaskNode(list.get(i));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return list;
     }

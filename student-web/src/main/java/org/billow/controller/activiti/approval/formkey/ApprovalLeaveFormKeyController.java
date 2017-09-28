@@ -64,7 +64,7 @@ public class ApprovalLeaveFormKeyController {
 		}
 		ModelAndView av = new ModelAndView();
 		av.addObject("page", list);
-		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "form-key/leaveTaskList");
+		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leave/form-key/leaveTaskList");
 		return av;
 	}
 
@@ -97,7 +97,7 @@ public class ApprovalLeaveFormKeyController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "form-key/leaveApplyApp");
+		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leave/form-key/leaveApplyApp");
 		return av;
 	}
 

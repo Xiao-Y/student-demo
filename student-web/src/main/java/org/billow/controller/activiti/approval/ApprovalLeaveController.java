@@ -63,8 +63,8 @@ public class ApprovalLeaveController {
 			logger.error("查询个人任务列表出错！");
 		}
 		ModelAndView av = new ModelAndView();
-		av.addObject("pages", list);
-		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leaveTaskList");
+		av.addObject("page", list);
+		av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leave/leaveTaskList");
 		return av;
 	}
 
@@ -93,9 +93,9 @@ public class ApprovalLeaveController {
 		}
 		// 进入销假页面
 		if (ToolsUtils.isNotEmpty(reportBack) && "reportBack".equals(reportBack)) {
-			av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leaveApplyReportBack");
+			av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leave/leaveApplyReportBack");
 		} else {
-			av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leaveApplyApp");
+			av.setViewName(PagePathCst.BASEPATH_ACTIVITI_APPROVAL + "leave/leaveApplyApp");
 		}
 		return av;
 	}

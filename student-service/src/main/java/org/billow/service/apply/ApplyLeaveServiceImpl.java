@@ -128,6 +128,8 @@ public class ApplyLeaveServiceImpl extends BaseServiceImpl<LeaveDto> implements 
 			// 启动流程实例
 			processInstance = workFlowService.submitStartFormData(processDefinitionKey, businessKey, properties, userDto.getUserName());
 			String processInstanceId = processInstance.getProcessInstanceId();
+			leave.setProcessInstanceId(processInstanceId);
+			leaveDao.updateByPrimaryKey(leave);
 			// 查询任务
 			Task task = workFlowService.findTaskByProcessInstanceId(processInstanceId);
 			// 保存批注信息
