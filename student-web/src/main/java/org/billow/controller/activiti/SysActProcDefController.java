@@ -2,8 +2,10 @@ package org.billow.controller.activiti;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.billow.api.workflow.WorkFlowService;
+import org.billow.model.custom.JsonResult;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class SysActProcDefController {
 	@Autowired
 	private WorkFlowService workFlowService;
 
+	@Autowired
+	private RepositoryService repositoryService;
+
 	/**
 	 * 查询流程定义列表
 	 * 
@@ -43,4 +48,14 @@ public class SysActProcDefController {
 		return av;
 	}
 
+	/**
+	 * 挂起流程定义
+	 * @return
+	 */
+	@RequestMapping("/suspendProcDef")
+	public JsonResult suspendProcDef(){
+		//repositoryService.suspendProcessDefinitionById();
+
+		return null;
+	}
 }
