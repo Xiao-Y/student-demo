@@ -29,7 +29,8 @@
         <module>spring-cloud-config-server-eureka</module>
         <module>spring-cloud-config-client-eureka</module>
         <module>student-vue-element</module>
-    </modules>
+		<module>spring-boot-student</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
