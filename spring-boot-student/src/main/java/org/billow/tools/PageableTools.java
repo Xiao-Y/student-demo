@@ -1,6 +1,6 @@
 package org.billow.tools;
 
-import org.billow.model.extended.SortDto;
+import org.billow.business.model.extended.SortDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

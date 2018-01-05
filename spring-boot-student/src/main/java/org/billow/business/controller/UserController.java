@@ -1,7 +1,7 @@
 package org.billow.business.controller;
 
-import org.billow.model.User;
-import org.billow.service.UserService;
+import org.billow.business.model.User;
+import org.billow.business.service.UserService;
 import org.billow.tools.PageableTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

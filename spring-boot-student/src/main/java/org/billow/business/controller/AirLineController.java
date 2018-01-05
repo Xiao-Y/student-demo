@@ -1,13 +1,15 @@
 package org.billow.business.controller;
 
-import org.billow.model.AirLine;
-import org.billow.model.AirLinePK;
-import org.billow.service.AirLineService;
+import org.billow.business.model.AirLine;
+import org.billow.business.model.AirLinePK;
+import org.billow.business.service.AirLineService;
 import org.billow.tools.PageableTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author liuyongtao
@@ -36,7 +38,38 @@ public class AirLineController {
 
     @RequestMapping("/saveAirLine")
     public void saveAirLine() {
-        AirLine airLine = new AirLine("guangzhou", "nanjing", "广州-南京");
+        AirLine airLine = new AirLine("guangzhou", "beijing", "广州-北京");
         airLineService.saveAirLine(airLine);
+    }
+
+    @RequestMapping("/queryAirLine")
+    public List<AirLine> queryAirLine() {
+        String startCity = "guangzhou";
+        List<AirLine> airLines = airLineService.queryAirLine(startCity);
+        return airLines;
+    }
+
+    /**
+     * 复杂查询
+     *
+     * @return
+     */
+    @RequestMapping("/complexQueryAirLine1")
+    public List<AirLine> complexQueryAirLine1() {
+        String startCity = "guangzhou";
+        List<AirLine> airLines = airLineService.complexQueryAirLine1(startCity);
+        return airLines;
+    }
+
+    /**
+     * 复杂查询,继承JpaSpecificationExecutor
+     *
+     * @return
+     */
+    @RequestMapping("/complexQueryAirLine2")
+    public List<AirLine> complexQueryAirLine2() {
+        String startCity = "guangzhou";
+        List<AirLine> airLines = airLineService.complexQueryAirLine2(startCity);
+        return airLines;
     }
 }
