@@ -34,4 +34,6 @@ public interface AirLineService {
      * @return
      */
     List<AirLine> complexQueryAirLine2(String startCity);
+
+    void updateAirLine(String name);
 }

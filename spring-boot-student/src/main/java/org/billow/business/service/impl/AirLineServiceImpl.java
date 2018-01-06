@@ -79,4 +79,10 @@ public class AirLineServiceImpl implements AirLineService {
         });
         return airLines;
     }
+
+    @Override
+    @Transactional
+    public void updateAirLine(String name) {
+        airLineJpaDao.updateAirLine(name);
+    }
 }

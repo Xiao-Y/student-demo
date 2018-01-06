@@ -73,4 +73,10 @@ public class AirLineController {
         List<AirLine> airLines = airLineService.complexQueryAirLine2(startCity);
         return airLines;
     }
+
+    @RequestMapping("/updateAirLine")
+    public void updateAirLine(){
+        String name = "北京-上海";
+        airLineService.updateAirLine(name);
+    }
 }
