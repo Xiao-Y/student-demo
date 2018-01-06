@@ -6,6 +6,8 @@ import org.billow.business.service.AirLineService;
 import org.billow.tools.PageableTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +27,7 @@ public class AirLineController {
     @RequestMapping("/findByPK")
     public AirLine findByPK() {
         AirLine airLine = airLineService.findByPK(new AirLinePK("shanghai", "beijing"));
-        AirLinePK airLinePK = airLine.getAirLinePK();
-        System.out.println(airLinePK.getStartCity());
-        System.out.println(airLinePK.getEndCity());
+        System.out.println(airLine);
         return airLine;
     }
 
@@ -37,9 +37,10 @@ public class AirLineController {
     }
 
     @RequestMapping("/saveAirLine")
-    public void saveAirLine() {
-        AirLine airLine = new AirLine("guangzhou", "beijing", "广州-北京");
+    public ResponseEntity saveAirLine() {
+        AirLine airLine = new AirLine("guangzhou", "shanghai", "广州-上海");
         airLineService.saveAirLine(airLine);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @RequestMapping("/queryAirLine")

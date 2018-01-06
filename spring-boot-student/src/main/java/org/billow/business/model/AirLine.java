@@ -1,7 +1,5 @@
 package org.billow.business.model;
 
-import org.billow.business.model.AirLinePK;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -19,7 +17,7 @@ public class AirLine {
 
     //用于标识该属性为实体的标识符，专门用于复合主键类
     @EmbeddedId
-    private AirLinePK airLinePK;
+    private AirLinePK id;
     @Column(length = 20)
     private String name;
 
@@ -27,21 +25,21 @@ public class AirLine {
     }
 
     public AirLine(String startCity, String endCity, String name) {
-        this.airLinePK = new AirLinePK(startCity, endCity);
+        this.id = new AirLinePK(startCity, endCity);
         this.name = name;
     }
 
-    public AirLine(AirLinePK airLinePK, String name) {
-        this.airLinePK = airLinePK;
+    public AirLine(AirLinePK id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public AirLinePK getAirLinePK() {
-        return airLinePK;
+    public AirLinePK getId() {
+        return id;
     }
 
-    public void setAirLinePK(AirLinePK airLinePK) {
-        this.airLinePK = airLinePK;
+    public void setId(AirLinePK id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -55,7 +53,7 @@ public class AirLine {
     @Override
     public String toString() {
         return "AirLine{" +
-                "airLinePK=" + airLinePK +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }

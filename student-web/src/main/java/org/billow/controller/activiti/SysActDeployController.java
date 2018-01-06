@@ -1,12 +1,8 @@
 package org.billow.controller.activiti;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.github.pagehelper.PageInfo;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.DeploymentBuilder;
 import org.apache.log4j.Logger;
 import org.billow.api.system.SysUploadService;
 import org.billow.api.workflow.WorkFlowService;
@@ -19,16 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.pagehelper.PageInfo;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.zip.ZipInputStream;
 
 /**
  * 流程部署

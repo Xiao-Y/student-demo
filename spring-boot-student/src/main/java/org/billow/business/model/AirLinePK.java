@@ -3,6 +3,7 @@ package org.billow.business.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
@@ -12,12 +13,10 @@ import java.io.Serializable;
  * 1、必须要提供一个public的无参数的构造方法<br>
  * 2、必须要实现序列化接口<br>
  * 3、必须重写hashCode（）与equals（）方法<br/>
- * -@Embeddable 该类中的属性用在持久化的类中的字段
  *
  * @author liuyongtao
  * @create 2018-01-04 14:14
  */
-@Embeddable
 public class AirLinePK implements Serializable {
 
     @Column(length = 30, nullable = false)

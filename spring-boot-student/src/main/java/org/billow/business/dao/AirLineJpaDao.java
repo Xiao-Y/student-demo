@@ -12,6 +12,6 @@ public interface AirLineJpaDao extends JpaRepository<AirLine, AirLinePK>, JpaSpe
 
     List<AirLine> findByName(String name);
 
-    @Query("select t from AirLine t where t.airLinePK.startCity = ?")
+    @Query("select t from AirLine t where t.id.startCity = ?")
     List<AirLine> queryAirLine(String startCity);
 }
