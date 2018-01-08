@@ -19,4 +19,7 @@ public interface AirLineJpaDao extends JpaRepository<AirLine, AirLinePK>, JpaSpe
     @Modifying
     @Query("update AirLine t set t.name = ? where t.id.startCity = 'beijing' and t.id.endCity = 'shanghai'")
     void updateAirLine(String name);
+
+    @Query("select t from AirLine t where t.id.startCity = ? and t.id.endCity = ?")
+    List<AirLine> findByStartCityAndEndCity(String startCity, String endCity);
 }

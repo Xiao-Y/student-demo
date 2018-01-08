@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AirLineService {
 
-    List<AirLine> findByName(String username);
+    List<AirLine> findByName(String name);
 
     Page<AirLine> findAll(Pageable pageable);
 
@@ -22,18 +22,20 @@ public interface AirLineService {
     /**
      * 复杂查询,注入EntityManager
      *
-     * @param startCity
+     * @param airLine
      * @return
      */
-    List<AirLine> complexQueryAirLine1(String startCity);
+    List<AirLine> complexQueryAirLine1(AirLine airLine);
 
     /**
      * 复杂查询,继承JpaSpecificationExecutor
      *
-     * @param startCity
+     * @param airLine
      * @return
      */
-    List<AirLine> complexQueryAirLine2(String startCity);
+    List<AirLine> complexQueryAirLine2(AirLine airLine);
 
     void updateAirLine(String name);
+
+    List<AirLine> findByStartCityAndEndCity(String startCity, String endCity);
 }

@@ -31,6 +31,19 @@ public class AirLineController {
         return airLine;
     }
 
+    @RequestMapping("/findByName")
+    public List<AirLine> findByName() {
+        String name = "上海-北京";
+        return airLineService.findByName(name);
+    }
+
+    @RequestMapping("/findByStartcityAndEndcity")
+    public List<AirLine> findByStartcityAndEndcity() {
+        String startCity = "";
+        String endCity = "";
+        return airLineService.findByStartCityAndEndCity(startCity, endCity);
+    }
+
     @RequestMapping("/findAll")
     public Page<AirLine> findAll() {
         return airLineService.findAll(PageableTools.basicPage(0, "name"));
@@ -56,9 +69,12 @@ public class AirLineController {
      * @return
      */
     @RequestMapping("/complexQueryAirLine1")
-    public List<AirLine> complexQueryAirLine1() {
+    public List<AirLine> complexQueryAirLine1(AirLine airLine) {
         String startCity = "guangzhou";
-        List<AirLine> airLines = airLineService.complexQueryAirLine1(startCity);
+        AirLinePK airLinePK = new AirLinePK();
+        airLinePK.setStartCity(startCity);
+        airLine.setId(airLinePK);
+        List<AirLine> airLines = airLineService.complexQueryAirLine1(airLine);
         return airLines;
     }
 
@@ -68,14 +84,17 @@ public class AirLineController {
      * @return
      */
     @RequestMapping("/complexQueryAirLine2")
-    public List<AirLine> complexQueryAirLine2() {
-        String startCity = "guangzhou";
-        List<AirLine> airLines = airLineService.complexQueryAirLine2(startCity);
+    public List<AirLine> complexQueryAirLine2(AirLine airLine) {
+        String startCity = null;//"guangzhou";
+        AirLinePK airLinePK = airLine.getId();
+        airLinePK.setStartCity(startCity);
+        airLine.setId(airLinePK);
+        List<AirLine> airLines = airLineService.complexQueryAirLine2(airLine);
         return airLines;
     }
 
     @RequestMapping("/updateAirLine")
-    public void updateAirLine(){
+    public void updateAirLine() {
         String name = "北京-上海";
         airLineService.updateAirLine(name);
     }
