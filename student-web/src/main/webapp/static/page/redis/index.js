@@ -11,17 +11,20 @@ layui.use(['form','element'], function() {
 	form.on('submit(*)', function(data) {
 		return submitFormNewTip(data);
 	});
-	
+
+
 	$("button[name='readMsgBt']").on("click",function(){
 		var index = $("button[name='readMsgBt']").index(this);
-		var url = $(".pathUrl").eq(index).val();
+        var key = $("input[name='key']").eq(index).val();
+		var url = $(".pathUrl").eq(index).val() + "?key=" + key;
+		console.info("url" + url);
 		var layerIndex = layer.load();
 		$.post(url,function(data){
 			layer.close(layerIndex);
 			if(data == ''){
 				new TipBox({type:'error',str:'没有更多消息...',hasBtn:true})
 			}else{
-				$("[name='readMsgTx']").eq(index).text(data);
+				$("[name='value']").eq(index).text(data);
 			}
 		});
 	})

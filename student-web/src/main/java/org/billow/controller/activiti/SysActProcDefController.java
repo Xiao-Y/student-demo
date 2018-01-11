@@ -28,7 +28,7 @@ public class SysActProcDefController {
 	@Autowired
 	private WorkFlowService workFlowService;
 
-	@Autowired
+	@Autowired(required = false)
 	private RepositoryService repositoryService;
 
 	/**
