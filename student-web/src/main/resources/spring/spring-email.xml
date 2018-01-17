@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <!-- 简单消息对象创建 -->
+    <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.server.from}"/>
+        <property name="to" value="${mail.auto.default.to}"/>
+        <property name="subject" value="${mail.auto.default.subject}"/>
+        <property name="text" value="${mail.auto.default.text}"/>
+    </bean>
+
+    <!-- 2.创建发送器 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host">
+            <value>${mail.server.host}</value>
+        </property>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+            </props>
+        </property>
+        <property name="username">
+            <value>${mail.server.username}</value>
+        </property>
+        <property name="password">
+            <value>${mail.server.pwd}</value>
+        </property>
+    </bean>
+</beans>

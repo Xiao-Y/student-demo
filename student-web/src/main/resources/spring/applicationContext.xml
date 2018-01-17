@@ -39,6 +39,8 @@
     <import resource="classpath:spring/spring-mybatis.xml"/>
     <!-- spring事务 -->
     <import resource="classpath:spring/spring-tx.xml"/>
+    <!-- 邮件发送 -->
+    <import resource="classpath:spring/spring-email.xml"/>
     <!-- spring整合redis缓存 -->
     <import resource="classpath:spring/spring-redis.xml"/>
     <!-- 整合activeMQ -->
