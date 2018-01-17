@@ -29,6 +29,11 @@
 			<artifactId>student-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.billow</groupId>
+			<artifactId>student-config</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- 用于代码生成 -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -38,6 +43,14 @@
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<!-- maven打包 -->
@@ -45,18 +58,12 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven-war-plugin.version}</version>
 				<configuration>
-					<warName>${project.artifactId}</warName>
-					<attachClasses>true</attachClasses>
-					<classesClassifier>api</classesClassifier>
-					<!-- 设置编译路径，更新maven后修改build path中的output folder为targetPath -->
+					<warName>${final.name}</warName>
 					<webResources>
-						<resource>
-							<directory>src\main\resources</directory>
-							<targetPath>WEB-INF\classes</targetPath>
-							<includes>
-								<include>**</include>
-							</includes>
-						</resource>
+						<webResource>
+							<directory>${runtime.env}</directory>
+							<!--<targetPath>WEB-INF/classes</targetPath>-->
+						</webResource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -114,4 +121,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<runtime.env>${project.basedir.config}/src/main/env/dev</runtime.env>
+				<final.name>student-web-dev</final.name>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>pro</id>
+			<properties>
+				<runtime.env>${project.basedir.config}/src/main/env/pro</runtime.env>
+				<final.name>student-web-pro</final.name>
+			</properties>
+		</profile>
+	</profiles>
 </project>

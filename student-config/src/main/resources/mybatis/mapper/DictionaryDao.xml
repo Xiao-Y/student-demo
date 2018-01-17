@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.billow.dao.DictionaryDao">
+	<resultMap id="BaseResultMap" type="org.billow.model.expand.DictionaryDto">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="NOTICE" property="notice" jdbcType="VARCHAR" />
+		<result column="FIELD_CODE" property="fieldCode" jdbcType="VARCHAR" />
+		<result column="DISPLAY_FIELD" property="displayField" jdbcType="VARCHAR" />
+		<result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="MODEL_CODE" property="modelCode" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="VALUE_FIELD" property="valueField" jdbcType="VARCHAR" />
+		<result column="MODEL_NAME" property="modelName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		NOTICE,FIELD_CODE,DISPLAY_FIELD,FIELD_NAME,CREATE_TIME,ID,MODEL_CODE,VALUE_FIELD,UPDATE_TIME,MODEL_NAME
+	</sql>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="org.billow.model.expand.DictionaryDto">
+		select
+		<include refid="Base_Column_List" />
+		from t_dictionary
+		<where>
+			<if test="null != notice">
+				and NOTICE = #{notice}
+			</if>
+			<if test="null != fieldCode">
+				and FIELD_CODE = #{fieldCode}
+			</if>
+			<if test="null != displayField">
+				and DISPLAY_FIELD = #{displayField}
+			</if>
+			<if test="null != fieldName">
+				and FIELD_NAME = #{fieldName}
+			</if>
+			<if test="null != createTime">
+				and CREATE_TIME = #{createTime}
+			</if>
+			<if test="null != id">
+				and ID = #{id}
+			</if>
+			<if test="null != modelCode">
+				and MODEL_CODE = #{modelCode}
+			</if>
+			<if test="null != updateTime">
+				and UPDATE_TIME = #{updateTime}
+			</if>
+			<if test="null != valueField">
+				and VALUE_FIELD = #{valueField}
+			</if>
+			<if test="null != modelName">
+				and MODEL_NAME = #{modelName}
+			</if>
+		</where>
+		ORDER BY MODEL_CODE,FIELD_CODE,VALUE_FIELD
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.billow.model.expand.DictionaryDto">
+		select
+		<include refid="Base_Column_List" />
+		from t_dictionary
+		where 1=1
+		and ID = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="org.billow.model.expand.DictionaryDto">
+		delete from t_dictionary
+		where 1=1
+		and ID = #{id}
+	</delete>
+	<insert id="insert" parameterType="org.billow.model.expand.DictionaryDto">
+		insert into t_dictionary
+		(NOTICE,FIELD_CODE,DISPLAY_FIELD,FIELD_NAME,CREATE_TIME,ID,MODEL_CODE,VALUE_FIELD,UPDATE_TIME,MODEL_NAME)
+		values (
+		#{NOTICE,jdbcType=VARCHAR},
+		#{FIELD_CODE,jdbcType=VARCHAR},
+		#{DISPLAY_FIELD,jdbcType=VARCHAR},
+		#{FIELD_NAME,jdbcType=VARCHAR},
+		#{CREATE_TIME,jdbcType=TIMESTAMP},
+		#{ID,jdbcType=VARCHAR},
+		#{MODEL_CODE,jdbcType=VARCHAR},
+		#{UPDATE_TIME,jdbcType=TIMESTAMP},
+		#{VALUE_FIELD,jdbcType=VARCHAR},
+		#{MODEL_NAME,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.billow.model.expand.DictionaryDto">
+		insert into t_dictionary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="null != notice">
+				NOTICE,
+			</if>
+			<if test="null != fieldCode">
+				FIELD_CODE,
+			</if>
+			<if test="null != displayField">
+				DISPLAY_FIELD,
+			</if>
+			<if test="null != fieldName">
+				FIELD_NAME,
+			</if>
+			<if test="null != createTime">
+				CREATE_TIME,
+			</if>
+			<if test="null != id">
+				ID,
+			</if>
+			<if test="null != modelCode">
+				MODEL_CODE,
+			</if>
+			<if test="null != updateTime">
+				UPDATE_TIME,
+			</if>
+			<if test="null != valueField">
+				VALUE_FIELD,
+			</if>
+			<if test="null != modelName">
+				MODEL_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="null != notice">
+				#{NOTICE,jdbcType=VARCHAR},
+			</if>
+			<if test="null != fieldCode">
+				#{FIELD_CODE,jdbcType=VARCHAR},
+			</if>
+			<if test="null != displayField">
+				#{DISPLAY_FIELD,jdbcType=VARCHAR},
+			</if>
+			<if test="null != fieldName">
+				#{FIELD_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="null != createTime">
+				#{CREATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != id">
+				#{ID,jdbcType=VARCHAR},
+			</if>
+			<if test="null != modelCode">
+				#{MODEL_CODE,jdbcType=VARCHAR},
+			</if>
+			<if test="null != updateTime">
+				#{UPDATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != valueField">
+				#{VALUE_FIELD,jdbcType=VARCHAR},
+			</if>
+			<if test="null != modelName">
+				#{MODEL_NAME,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.billow.model.expand.DictionaryDto">
+		update t_dictionary
+		<set>
+			<if test="null != notice">
+				NOTICE = #{NOTICE,jdbcType=VARCHAR},
+			</if>
+			<if test="null != fieldCode">
+				FIELD_CODE = #{FIELD_CODE,jdbcType=VARCHAR},
+			</if>
+			<if test="null != displayField">
+				DISPLAY_FIELD = #{DISPLAY_FIELD,jdbcType=VARCHAR},
+			</if>
+			<if test="null != fieldName">
+				FIELD_NAME = #{FIELD_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="null != createTime">
+				CREATE_TIME = #{CREATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != id">
+				ID = #{ID,jdbcType=VARCHAR},
+			</if>
+			<if test="null != modelCode">
+				MODEL_CODE = #{MODEL_CODE,jdbcType=VARCHAR},
+			</if>
+			<if test="null != updateTime">
+				UPDATE_TIME = #{UPDATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="null != valueField">
+				VALUE_FIELD = #{VALUE_FIELD,jdbcType=VARCHAR},
+			</if>
+			<if test="null != modelName">
+				MODEL_NAME = #{MODEL_NAME,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where 1=1
+		and ID = #{id}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.billow.model.expand.DictionaryDto">
+		update t_dictionary
+		set
+		NOTICE = #{NOTICE,jdbcType=VARCHAR},
+		FIELD_CODE = #{FIELD_CODE,jdbcType=VARCHAR},
+		DISPLAY_FIELD = #{DISPLAY_FIELD,jdbcType=VARCHAR},
+		FIELD_NAME =
+		#{FIELD_NAME,jdbcType=VARCHAR},
+		CREATE_TIME = #{CREATE_TIME,jdbcType=TIMESTAMP},
+		MODEL_CODE =
+		#{MODEL_CODE,jdbcType=VARCHAR},
+		UPDATE_TIME = #{UPDATE_TIME,jdbcType=TIMESTAMP},
+		VALUE_FIELD =
+		#{VALUE_FIELD,jdbcType=VARCHAR},
+		MODEL_NAME = #{MODEL_NAME,jdbcType=VARCHAR}
+		where 1=1
+		and ID = #{id}
+	</update>
+</mapper>

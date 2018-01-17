@@ -30,9 +30,12 @@
         <module>spring-cloud-config-client-eureka</module>
         <module>student-vue-element</module>
 		<module>spring-boot-student</module>
+        <module>student-build</module>
+		<module>student-config</module>
 	</modules>
 
 	<properties>
+		<project.basedir.config>D://IdeaProjects//student-demo//student-config</project.basedir.config>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.11</junit.version>
 		<!-- spring版本 -->

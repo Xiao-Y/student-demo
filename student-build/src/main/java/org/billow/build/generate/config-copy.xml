@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<!-- 作者 -->
+	<authorName>billow</authorName>
+	<!-- 作者邮箱 -->
+	<authorMail>lyongtao123@126.com</authorMail>
+	<!-- 版本 -->
+	<version>1.0</version>
+	<!-- 表名 -->
+	<tableName>t_leave</tableName>
+
+	<controllerPackageName>org.billow.controller.test</controllerPackageName>
+	<controllerClazzName>TestController</controllerClazzName>
+	<explainController>Test控制器</explainController>
+
+	<servicePackageName>org.billow.api.test</servicePackageName>
+	<serviceClazzName>TestService</serviceClazzName>
+	<explainService>service接口</explainService>
+
+	<serviceImplPackageName>org.billow.service.test</serviceImplPackageName>
+	<serviceImplClazzName>TestServiceImpl</serviceImplClazzName>
+	<explainServiceImpl>service实现类</explainServiceImpl>
+
+	<daoPackageName>org.billow.dao</daoPackageName>
+	<daoClazzName>TestDao</daoClazzName>
+	<explainDao>dao接口</explainDao>
+
+	<modelBasePackageName>org.billow.model.domain</modelBasePackageName>
+	<modelBaseClazzName>TestBase</modelBaseClazzName>
+	<explainModelBase>数据库模型</explainModelBase>
+
+	<modelPackageName>org.billow.model.expand</modelPackageName>
+	<modelClazzName>TestDto</modelClazzName>
+	<explainModel>model模型</explainModel>
+
+	<mapperPackageName>mybatis</mapperPackageName>
+	<mapperXMLName>TestDao</mapperXMLName>
+</root>

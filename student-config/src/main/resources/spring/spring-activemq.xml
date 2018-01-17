@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/jms
+				        http://www.springframework.org/schema/jms/spring-jms-4.1.xsd
+				        http://activemq.apache.org/schema/core
+				        http://activemq.apache.org/schema/core/activemq-core-5.1.0.xsd">
+
+	<!-- mq公用信息 -->
+	<amq:connectionFactory id="amqConnectionFactory" brokerURL="${brokerURL}" userName="${userName}"
+		password="${password}" />
+
+	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="amqConnectionFactory" />
+		<property name="sessionCacheSize" value="${sessionCacheSize}" />
+	</bean>
+
+	<!-- JmsTemplate -->
+	<import resource="classpath:activemq/jmsTemplate.xml" />
+	<!-- 发送消息目的地 -->
+	<import resource="classpath:activemq/queue-destination.xml" />
+	<import resource="classpath:activemq/topic-destination.xml" />
+	<!-- 监听器 -->
+	<import resource="classpath:activemq/queue-container.xml" />
+	<import resource="classpath:activemq/topic-container.xml" />
+
+</beans>  

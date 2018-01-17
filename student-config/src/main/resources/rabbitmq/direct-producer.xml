@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+				        http://www.springframework.org/schema/rabbit 
+				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+	<bean id="rabbitMQDirectProducer" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+		<!-- 消息模板 -->
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
+		<!-- 交换器 -->
+		<property name="exchangeName" value="directExchangeTest" />
+		<!-- 路由key -->
+		<property name="routingKey" value="directQueueTestKey" />
+		<!-- <property name="virHostBeanKey" value="" /> -->
+	</bean>
+
+	<bean id="rabbitMQDirectProducerListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+		<!-- 消息模板 -->
+		<property name="rabbitTemplate" ref="rabbitTemplate" />
+		<!-- 交换器 -->
+		<property name="exchangeName" value="directExchangeTestListenter" />
+		<!-- 路由key -->
+		<property name="routingKey" value="directQueueTestKeyListenter" />
+		<!-- <property name="virHostBeanKey" value="" /> -->
+	</bean>
+
+	<!-- 消息确认 -->
+	<!-- exchange 正确,queue 正确,confirm被回调, ack=true -->
+	<!-- exchange 正确,queue 错误,confirm被回调, ack=true; return被回调 replyText:NO_ROUTE -->
+	<!-- exchange 错误,queue 正确,confirm被回调, ack=false -->
+	<!-- exchange 错误,queue 错误,confirm被回调, ack=false -->
+	<bean id="rabbitMQDirectProducerConfirmListenter" class="org.billow.common.rabbitmq.sender.RabbitMQProducerImpl">
+		<!-- 消息模板 -->
+		<property name="rabbitTemplate" ref="rabbitTemplateConfirm" />
+		<!-- 交换器 -->
+		<property name="exchangeName" value="directExchangeTesConfirmtListenter" />
+		<!-- 路由key -->
+		<property name="routingKey" value="directQueueTestConfirmKeyListenter" />
+		<!-- <property name="virHostBeanKey" value="" /> -->
+	</bean>
+</beans>

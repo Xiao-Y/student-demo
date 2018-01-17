@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd   
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/aop 
+	                    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	                    http://www.springframework.org/schema/task 
+	                    http://www.springframework.org/schema/task/spring-task-3.0.xsd
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    <!-- 自动扫描：不扫描controller -->
+    <context:component-scan base-package="org.billow">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:env.properties</value>
+                <value>classpath:druid.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 以静态变量保存Spring ApplicationContext -->
+    <bean class="org.billow.utils.bean.BeanUtils"/>
+    <!-- 数据源 -->
+    <import resource="classpath:spring/spring-druid.xml"/>
+    <!-- 整合mybatis -->
+    <import resource="classpath:spring/spring-mybatis.xml"/>
+    <!-- spring事务 -->
+    <import resource="classpath:spring/spring-tx.xml"/>
+    <!-- 邮件发送 -->
+    <import resource="classpath:spring/spring-email.xml"/>
+    <!-- spring整合redis缓存 -->
+    <import resource="classpath:spring/spring-redis.xml"/>
+    <!-- 整合activeMQ -->
+    <!-- <import resource="classpath:spring/spring-activemq.xml" /> -->
+    <!-- 整合dubbo -->
+    <!-- <import resource="classpath:dubbo/dubbo-common.xml" /> -->
+    <!-- dubbo生产者 -->
+    <!-- <import resource="classpath:dubbo/dubbo-provider.xml" /> -->
+    <!-- dubbo消费者 -->
+    <!-- <import resource="classpath:dubbo/dubbo-consumer.xml" /> -->
+    <!-- activiti工作流 -->
+    <!--<import resource="classpath:spring/spring-activiti.xml"/>-->
+    <!-- 整合RebbitMQ -->
+    <!-- <import resource="classpath:spring/spring-rabbitmq.xml" /> -->
+
+    <!-- 定时任务 -->
+    <!-- 调度工厂:动态配置自动任务 -->
+    <!-- <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" /> -->
+</beans>  

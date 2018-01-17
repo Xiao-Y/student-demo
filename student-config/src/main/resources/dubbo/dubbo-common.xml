@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+	default-autowire="byName">
+	<!-- Dubbo缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止Spring初始化完成，以便上线时，能及早发现问题，默认check=true。 -->
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" check="false" />
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" />
+	<!-- name:消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样。 owner:配置自己的用户名，方便在注册中心查找服务，也可不修改 -->
+	<dubbo:application name="student-web" owner="${dubbo.owner}" organization="${dubbo.organization}" />
+	<!-- 关闭所有服务bean注册时检查可用性:总是会返回引用，当服务恢复时，能自动连上 -->
+	<dubbo:consumer check="false" />
+
+</beans>

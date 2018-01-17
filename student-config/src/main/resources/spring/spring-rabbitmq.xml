@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+				        http://www.springframework.org/schema/rabbit 
+				        http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+	<description>rabbitmq 连接服务配置</description>
+
+	<bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />
+
+	<!-- 连接配置 -->
+	<rabbit:connection-factory id="rmqconnectionFactory" host="${rabbitmq.host}" username="${rabbitmq.username}"
+		password="${rabbitmq.password}" port="${rabbitmq.port}" publisher-confirms="true" publisher-returns="true" />
+
+	<!--通过指定下面的admin信息，当前producer中的exchange和queue会在rabbitmq服务器上自动生成 -->
+	<rabbit:admin connection-factory="rmqconnectionFactory" />
+
+	<!-- 配置JMS模板，发送、接收消息。不需要确认的 -->
+	<rabbit:template id="rabbitTemplate" connection-factory="rmqconnectionFactory" />
+
+	<!-- 配置JMS模板，发送、接收消息。需要确认的 -->
+	<!-- mandatory必须设置true,return callback才生效 -->
+	<rabbit:template id="rabbitTemplateConfirm" connection-factory="rmqconnectionFactory" confirm-callback="msgSendConfirmCallBack"
+		return-callback="msgSendReturnCallback" mandatory="true" />
+
+	<!-- 定义消息队列 -->
+	<import resource="classpath:rabbitmq/rabbitmq-queue.xml" />
+
+	<!-- direct start -->
+	<!-- 绑定交换机 -->
+	<import resource="classpath:rabbitmq/direct-exchange.xml" />
+	<!-- 生产者配置 -->
+	<import resource="classpath:rabbitmq/direct-producer.xml" />
+	<!-- 消费者配置 -->
+	<import resource="classpath:rabbitmq/direct-consumer.xml" />
+	<!-- direct end -->
+
+	<!-- topic start -->
+	<!-- 绑定交换机 -->
+	<import resource="classpath:rabbitmq/topic-exchange.xml" />
+	<!-- 生产者配置 -->
+	<import resource="classpath:rabbitmq/topic-producer.xml" />
+	<!-- 消费者配置 -->
+	<import resource="classpath:rabbitmq/topic-consumer.xml" />
+	<!-- topic end -->
+
+	<!-- fanout start -->
+	<!-- 绑定交换机 -->
+	<import resource="classpath:rabbitmq/fanout-exchange.xml" />
+	<!-- 生产者配置 -->
+	<import resource="classpath:rabbitmq/fanout-producer.xml" />
+	<!-- 消费者配置 -->
+	<import resource="classpath:rabbitmq/fanout-consumer.xml" />
+	<!-- fanout end -->
+</beans>
