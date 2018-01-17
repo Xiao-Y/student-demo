@@ -15,6 +15,7 @@ public class MenuBase extends BaseModel implements Serializable {
 	private String title;
 
 	private String icon;
+	private String vicon;
 
 	private Boolean spread;
 
@@ -25,6 +26,8 @@ public class MenuBase extends BaseModel implements Serializable {
 	private Boolean validind;
 
 	private Double displayno;
+
+	private String menucode;
 
 	List<MenuDto> children;
 
@@ -98,6 +101,22 @@ public class MenuBase extends BaseModel implements Serializable {
 
 	public void setChildren(List<MenuDto> childList) {
 		this.children = childList;
+	}
+
+	public String getVicon() {
+		return vicon;
+	}
+
+	public void setVicon(String vicon) {
+		this.vicon = vicon;
+	}
+
+	public String getMenucode() {
+		return menucode;
+	}
+
+	public void setMenucode(String menucode) {
+		this.menucode = menucode;
 	}
 
 	/**

@@ -11,10 +11,12 @@
 		<result column="pid" property="pid" jdbcType="INTEGER" />
 		<result column="validind" property="validind" jdbcType="BIT" />
 		<result column="displayno" property="displayno" jdbcType="DOUBLE" />
+		<result column="vicon" property="vicon" jdbcType="VARCHAR" />
+		<result column="menucode" property="menucode" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, title, icon, spread, href, pid, validind, displayno
+		id, title, icon, spread, href, pid, validind, displayno,vicon,menucode
 	</sql>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -31,14 +33,16 @@
 		insert into t_menu (id, title,
 		icon,
 		spread, href, pid, validind,
-		displayno)
+		displayno,vicon,menucode)
 		values
 		(#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
 		#{icon,jdbcType=VARCHAR},
 		#{spread,jdbcType=BIT},
 		#{href,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER},
 		#{validind,jdbcType=BIT},
-		#{displayno,jdbcType=DOUBLE})
+		#{displayno,jdbcType=DOUBLE},
+		#{vicon,jdbcType=VARCHAR},
+		#{menucode,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="org.billow.model.expand.MenuDto">
 		insert into t_menu
@@ -67,6 +71,12 @@
 			<if test="displayno != null">
 				displayno,
 			</if>
+			<if test="vicon != null">
+				vicon,
+			</if>
+			<if test="menucode != null">
+				menucode,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -92,6 +102,12 @@
 			</if>
 			<if test="displayno != null">
 				#{displayno,jdbcType=DOUBLE},
+			</if>
+			<if test="vicon != null">
+				#{vicon,jdbcType=VARCHAR},
+			</if>
+			<if test="menucode != null">
+				#{menucode,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -119,6 +135,12 @@
 			<if test="displayno != null">
 				displayno = #{displayno,jdbcType=DOUBLE},
 			</if>
+			<if test="vicon != null">
+				vicon = #{vicon,jdbcType=VARCHAR},
+			</if>
+			<if test="menucode != null">
+				menucode = #{menucode,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -134,7 +156,9 @@
 		#{pid,jdbcType=INTEGER},
 		validind = #{validind,jdbcType=BIT},
 		displayno
-		= #{displayno,jdbcType=DOUBLE}
+		= #{displayno,jdbcType=DOUBLE},
+		vicon = #{vicon,jdbcType=VARCHAR},
+		menucode = #{menucode,jdbcType=VARCHAR}
 		where id =
 		#{id,jdbcType=INTEGER}
 	</update>
