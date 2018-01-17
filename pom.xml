@@ -15,9 +15,12 @@
 		<module>student-utils</module>
 		<module>student-model</module>
 		<module>student-common</module>
-		<module>student-web</module>
 		<module>student-jobs</module>
 		<module>student-dubbo</module>
+		<module>student-build</module>
+		<module>student-config</module>
+		<module>student-web</module>
+
 		<module>spring-eureka-server</module>
 		<module>spring-eureka-client</module>
 		<module>spring-eureka-ribbon</module>
@@ -28,10 +31,8 @@
         <module>spring-cloud-config-client</module>
         <module>spring-cloud-config-server-eureka</module>
         <module>spring-cloud-config-client-eureka</module>
-        <module>student-vue-element</module>
 		<module>spring-boot-student</module>
-        <module>student-build</module>
-		<module>student-config</module>
+
 	</modules>
 
 	<properties>
