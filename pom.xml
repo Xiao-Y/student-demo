@@ -32,8 +32,9 @@
         <module>spring-cloud-config-server-eureka</module>
         <module>spring-cloud-config-client-eureka</module>
 		<module>spring-boot-student</module>
+        <module>student-vue-web</module>
 
-	</modules>
+    </modules>
 
 	<properties>
 		<project.basedir.config>D://IdeaProjects//student-demo//student-config</project.basedir.config>
