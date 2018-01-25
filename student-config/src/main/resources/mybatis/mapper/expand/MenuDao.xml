@@ -10,6 +10,9 @@
 			<if test="null != pid">
 				and pid = #{pid}
 			</if>
+			<if test="null != title">
+				and title like concat('%',#{title},'%')
+			</if>
 		</where>
 	</select>
 
