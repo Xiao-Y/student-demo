@@ -1,6 +1,7 @@
 
 *.class
 *.lst
+*.iml
  
 # Package Files #
 *.jar
@@ -15,6 +16,7 @@
 # ignore eclipse files
 .settings
 .metadata
+.idea
 /target
 /student-web/src/main/webapp/WEB-INF/classes
 /student-web/log/student-web

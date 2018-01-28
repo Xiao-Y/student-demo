@@ -29,7 +29,7 @@
 		delete from t_menu
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="org.billow.model.expand.MenuDto">
+	<insert id="insert" parameterType="org.billow.model.expand.MenuDto" useGeneratedKeys="true" keyProperty="id">
 		insert into t_menu (id, title,
 		icon,
 		spread, href, pid, validind,
@@ -44,7 +44,7 @@
 		#{vicon,jdbcType=VARCHAR},
 		#{menucode,jdbcType=VARCHAR})
 	</insert>
-	<insert id="insertSelective" parameterType="org.billow.model.expand.MenuDto">
+	<insert id="insertSelective" parameterType="org.billow.model.expand.MenuDto" useGeneratedKeys="true" keyProperty="id">
 		insert into t_menu
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

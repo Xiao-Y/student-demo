@@ -1,19 +1,16 @@
-package org.billow.controller.system;
+package org.billow.vue.controller.system;
 
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.billow.api.menu.MenuService;
 import org.billow.model.custom.JsonResult;
 import org.billow.model.expand.MenuDto;
-import org.billow.model.translate.MenuSpreadEunm;
-import org.billow.model.translate.MenuValidindEunm;
 import org.billow.utils.PageHelper;
-import org.billow.utils.ToolsUtils;
 import org.billow.utils.constant.MessageTipsCst;
 import org.billow.utils.constant.PagePathCst;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,10 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sysMenu")
-public class SysMenuController {
+@RequestMapping("vue/sysMenu")
+public class VueSysMenuController {
 
-    private static final Logger logger = Logger.getLogger(SysMenuController.class);
+    private static final Logger logger = Logger.getLogger(VueSysMenuController.class);
 
     @Autowired
     private MenuService menuService;
@@ -40,27 +37,15 @@ public class SysMenuController {
      * @date 2017年4月24日 上午9:52:46
      */
     @RequestMapping("/menuManage")
-    public PageInfo<MenuDto> menuManage(@RequestBody MenuDto menu) {
+    public PageInfo<MenuDto> menuManage(MenuDto menu) {
         PageHelper.startPage();
         List<MenuDto> menus = menuService.selectAll(menu);
-        if (ToolsUtils.isNotEmpty(menus)) {
-            for (MenuDto menuDto : menus) {
-                menuDto.setSpreadName(MenuSpreadEunm.SPREAD_FALSE.getCodeName());
-                if (menuDto.getSpread() != null && menuDto.getSpread()) {
-                    menuDto.setSpreadName(MenuSpreadEunm.SPREAD_TRUE.getCodeName());
-                }
-                menuDto.setValidindName(MenuValidindEunm.VALIDIND_FALSE.getCodeName());
-                if (menuDto.getValidind() != null && menuDto.getValidind()) {
-                    menuDto.setValidindName(MenuValidindEunm.VALIDIND_TRUE.getCodeName());
-                }
-            }
-        }
         PageInfo<MenuDto> page = new PageInfo<>(menus);
         return page;
     }
 
     @RequestMapping("/menuEdit")
-    public JsonResult menuEdit(MenuDto menu) {
+    public ModelAndView menuEdit(MenuDto menu) {
         MenuDto menuDto = new MenuDto();
         // 编辑时，显示数据
         if (menu.getId() != null) {
@@ -69,14 +54,13 @@ public class SysMenuController {
         MenuDto menuDtoSelect = new MenuDto();
         menuDtoSelect.setPid(0);
         List<MenuDto> pids = menuService.selectAll(menuDtoSelect);
-        MenuDto menuTemp = new MenuDto();
-        menuTemp.setId(0);
-        menuTemp.setMenucode("0");
-        menuTemp.setTitle("父级菜单");
-        pids.add(0, menuTemp);
-        JsonResult json = new JsonResult();
-        json.addData("menu", menuDto).addData("pidMenu", pids);
-        return json;
+        ModelAndView av = new ModelAndView();
+        // 用于修改后保持停留在页面
+        menuDto.setPageNo(menu.getPageNo());
+        av.addObject("menu", menuDto);
+        av.addObject("pids", pids);
+        av.setViewName(PagePathCst.BASEPATH_SYSTEM + "menuEdit");
+        return av;
     }
 
     @ResponseBody
@@ -85,7 +69,6 @@ public class SysMenuController {
         JsonResult json = new JsonResult();
         String message = "";
         String type = "";
-        boolean success;
         try {
             if (menu.getId() == null) {
                 menuService.insert(menu);
@@ -94,18 +77,15 @@ public class SysMenuController {
             }
             message = MessageTipsCst.SUBMIT_SUCCESS;
             type = MessageTipsCst.TYPE_SUCCES;
-            success = true;
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e);
             message = MessageTipsCst.SUBMIT_FAILURE;
             type = MessageTipsCst.TYPE_ERROR;
-            success = false;
         }
         json.setMessage(message);
         json.setType(type);
-        json.setSuccess(success);
-        json.setRoot(menu.getId());
+        json.setRoot("/sysMenu/menuManage?pageNo=" + menu.getPageNo());
         return json;
     }
 
